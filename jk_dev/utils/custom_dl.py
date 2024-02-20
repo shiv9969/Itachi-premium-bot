@@ -228,4 +228,3 @@ class TGCustomYield:
                 )
 
             return m_file
-      
