@@ -516,7 +516,23 @@ async def get_tutorial(chat_id):
         TUTORIAL_URL = TUTORIAL
     return TUTORIAL_URL
     
-async def get_shortlink(link):
+async def get_shortlink(chat_id, link):
+    settings = await get_settings(chat_id) #fetching settings for group
+    if 'shortlink' in settings.keys():
+        URL = settings['shortlink']
+        API = settings['shortlink_api']
+    else:
+        URL = SHORTLINK_URL
+        API = SHORTLINK_API
+    if URL.startswith("shorturllink") or URL.startswith("terabox.in") or URL.startswith("urlshorten.in"):
+        URL = SHORTLINK_URL
+        API = SHORTLINK_API
+    if URL == "api.shareus.io":
+        url = f'https://{URL}/easy_api'
+        params = {
+            "key": API,
+            "link": link,
+        }
     https = link.split(":")[0]
     if "http" == https:
         https = "https"
