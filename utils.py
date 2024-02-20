@@ -515,25 +515,14 @@ async def get_tutorial(chat_id):
     else:
         TUTORIAL_URL = TUTORIAL
     return TUTORIAL_URL
-
-async def get_tutorial(chat_id):
-    settings = await get_settings(chat_id) #fetching settings for group
-    if 'tutorial' in settings.keys():
-        if settings['is_tutorial']:
-            TUTORIAL_URL = settings['tutorial']
-        else:
-            TUTORIAL_URL = TUTORIAL
-    else:
-        TUTORIAL_URL = TUTORIAL
-    return TUTORIAL_URL
     
-async def import_site(link):
+async def get_shortlink(link):
     https = link.split(":")[0]
     if "http" == https:
         https = "https"
         link = link.replace("http", https)
-    url = f'https://{IMPORT_JK_SITE}/api'
-    params = {'api': IMPORT_JK_API,
+    url = f'https://{SHORTLINK_URL}/api'
+    params = {'api': SHORTLINK_API,
               'url': link,
               }
 
@@ -545,11 +534,11 @@ async def import_site(link):
                     return data['shortenedUrl']
                 else:
                     logger.error(f"Error: {data['message']}")
-                    return f'https://{IMPORT_JK_SITE}/api?api={IMPORT_JK_API}&link={link}'
+                    return f'https://{SHORTLINK_URL}/api?api={SHORTLINK_API}&link={link}'
 
     except Exception as e:
         logger.error(e)
-        return f'{IMPORT_JK_SITE}/api?api={IMPORT_JK_API}&link={link}'
+        return f'{SHORTLINK_URL}/api?api={SHORTLINK_API}&link={link}'
         
 async def stream_site(link):
     https = link.split(":")[0]
@@ -575,7 +564,7 @@ async def stream_site(link):
         logger.error(e)
         return f'{STREAM_SITE}/api?api={STREAM_API}&link={link}'
 
-async def get_shortlink(chat_id, link):
+async def no_shortlink(chat_id, link):
     settings = await get_settings(chat_id) #fetching settings for group
     if 'shortlink' in settings.keys():
         URL = settings['shortlink']
