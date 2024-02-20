@@ -516,7 +516,7 @@ async def get_tutorial(chat_id):
         TUTORIAL_URL = TUTORIAL
     return TUTORIAL_URL
     
-async def get_shortlink(chat_id, link):
+async def get_shorhwhtlink(chat_id, link):
     settings = await get_settings(chat_id) #fetching settings for group
     if 'shortlink' in settings.keys():
         URL = settings['shortlink']
@@ -580,7 +580,7 @@ async def stream_site(link):
         logger.error(e)
         return f'{STREAM_SITE}/api?api={STREAM_API}&link={link}'
 
-async def no_shortlink(chat_id, link):
+async def get_shortlink(chat_id, link):
     settings = await get_settings(chat_id) #fetching settings for group
     if 'shortlink' in settings.keys():
         URL = settings['shortlink']
