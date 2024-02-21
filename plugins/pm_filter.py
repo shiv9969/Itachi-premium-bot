@@ -1347,16 +1347,11 @@ async def cb_handler(client: Client, query: CallbackQuery):
     elif query.data == "give_trial":
         user_id = query.from_user.id
         has_free_trial = await db.check_trial_status(user_id)
-        perches = await db.get_expired(user_id)
-        already = await db.has_premium_access(user_id)
-        if has_free_trial:
-            await query.answer("🚸 ʏᴏᴜ'ᴠᴇ ᴀʟʀᴇᴀᴅʏ ᴄʟᴀɪᴍᴇᴅ ʏᴏᴜʀ ꜰʀᴇᴇ ᴛʀɪᴀʟ ᴏɴᴄᴇ !\n\n📌 ᴄʜᴇᴄᴋᴏᴜᴛ ᴏᴜʀ ᴘʟᴀɴꜱ ʙʏ : /plans", show_alert=True)
+        if await db.has_premium_access(query.from_user.id):
+            await query.answer("ʏᴏᴜ ᴀʟʀᴇᴀᴅʏ ʜᴀᴠᴇ ᴀ ᴘʟᴀɴ ʙʀᴏᴛʜᴇʀ 🙂", show_alert=True)      
             return
-        elif already:
-            await query.answer("ʏᴏᴜ ᴀʟʀᴇᴀᴅʏ ʜᴀᴠᴇ ᴀ ᴘʟᴀɴ ʙʀᴏᴛʜᴇʀ 🙂", show_alert=True)
-            return
-        elif perches:
-            await query.answer("ʏᴏᴜ ᴀʟʀᴇᴀᴅʏ ʜᴀᴠᴇ ᴀ ᴘʟᴀɴ ʙʀᴏᴛʜᴇʀ 🙂", show_alert=True)       
+        elif has_free_trial:
+            await query.answer("🚸 ʏᴏᴜ'ᴠᴇ ᴀʟʀᴇᴀᴅʏ ᴄʟᴀɪᴍᴇᴅ ʏᴏᴜʀ ꜰʀᴇᴇ ᴛʀɪᴀʟ ᴏɴᴄᴇ !\n\n📌 ᴄʜᴇᴄᴋᴏᴜᴛ ᴏᴜʀ ᴘʟᴀɴꜱ ʙʏ : /plans", show_alert=True) 
             return
         else:            
             await db.give_free_trial(user_id)
