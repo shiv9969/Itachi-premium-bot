@@ -1351,9 +1351,9 @@ async def cb_handler(client: Client, query: CallbackQuery):
         already = await db.has_premium_access(user_id)
         if has_free_trial:
             await query.answer("🚸 ʏᴏᴜ'ᴠᴇ ᴀʟʀᴇᴀᴅʏ ᴄʟᴀɪᴍᴇᴅ ʏᴏᴜʀ ꜰʀᴇᴇ ᴛʀɪᴀʟ ᴏɴᴄᴇ !\n\n📌 ᴄʜᴇᴄᴋᴏᴜᴛ ᴏᴜʀ ᴘʟᴀɴꜱ ʙʏ : /plans", show_alert=True)
-        elif already:
+        if already:
             await query.answer("ʏᴏᴜ ᴀʟʀᴇᴀᴅʏ ʜᴀᴠᴇ ᴀ ᴘʟᴀɴ ʙʀᴏᴛʜᴇʀ 🙂", show_alert=True)
-        elif perches:
+        if perches:
             await query.answer("ʏᴏᴜ ᴀʟʀᴇᴀᴅʏ ʜᴀᴠᴇ ᴀ ᴘʟᴀɴ ʙʀᴏᴛʜᴇʀ 🙂", show_alert=True)       
             return
         else:            
