@@ -120,8 +120,8 @@ Nᴀᴍᴇ - {}"""
 My brother, keep joining the backup channel📥
 I don't know when the copyright will come. 👇
 ========== • ✠ • ==========
-▫️ Backup Channel:  <a href="https://t.me/lusifilms">Click Here</a>
-▫️ Request Group :  <a href="https://t.me/Apnamovie4">Click Here</a>
+▫️ Backup Channel:  <a href="https://t.me/+YlRh7cwHCwc2YjJl">Click Here</a>
+▫️ Request Group :  <a href="https://t.me/+xpgODfC0d3o3MDE1">Click Here</a>
 ========== • ✠ • ==========
 </b>"""
 
