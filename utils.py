@@ -764,6 +764,49 @@ async def send_all(bot, userid, files, ident):
             parse_mode=enums.ParseMode.MARKDOWN
             )
         return 'fsub'
+    if await db.has_premium_access(userid):
+        for file in files:
+            f_caption = file.caption
+            title = ' '.join(filter(lambda x: not x.startswith('[') and not x.startswith('Linkz') and not x.startswith('{') and not x.startswith('Links') and not x.startswith('@') and not x.startswith('www'), file.file_name.split()))
+            size = get_size(file.file_size)
+            if CUSTOM_FILE_CAPTION:
+                try:
+                    f_caption = CUSTOM_FILE_CAPTION.format(file_name='' if title is None else title,
+                                                            file_size='' if size is None else size,
+                                                            file_caption='' if f_caption is None else f_caption)
+                except Exception as e:
+                    print(e)
+                    f_caption = f_caption
+            if f_caption is None:
+                f_caption = f"{title}"
+            try:
+            
+                await bot.send_cached_media(
+                    chat_id=userid,
+                    file_id=file.file_id,
+                    caption=f_caption,
+                    protect_content=True if ident == "filep" else False,
+                    reply_markup=InlineKeyboardMarkup(
+                        [
+                            [
+                            InlineKeyboardButton("🖥️ ᴡᴀᴛᴄʜ & ᴅᴏᴡɴʟᴏᴀᴅ 📥", callback_data=f"streaming#{file.file_id}")
+                        ],[
+                            InlineKeyboardButton('Sᴜᴘᴘᴏʀᴛ Gʀᴏᴜᴘ', url=GRP_LNK),
+                            InlineKeyboardButton('Uᴘᴅᴀᴛᴇs Cʜᴀɴɴᴇʟ', url=CHNL_LNK)
+                            ]
+                        ]
+                    )
+                )
+            except UserIsBlocked:
+                logger.error(f"Usᴇʀ: {userid} ʙʟᴏᴄᴋᴇᴅ ᴛʜᴇ ʙᴏᴛ. Uɴʙʟᴏᴄᴋ ᴛʜᴇ ʙᴏᴛ!")
+                return "Usᴇʀ ɪs ʙʟᴏᴄᴋᴇᴅ ᴛʜᴇ ʙᴏᴛ ! Uɴʙʟᴏᴄᴋ ᴛᴏ sᴇɴᴅ ғɪʟᴇs!"
+            except PeerIdInvalid:
+                logger.error("Eʀʀᴏʀ: Pᴇᴇʀ ID ɪɴᴠᴀʟɪᴅ !")
+                return "Pᴇᴇʀ ID ɪɴᴠᴀʟɪᴅ !"
+            except Exception as e:
+                logger.error(f"Eʀʀᴏʀ: {e}")
+                return f"Eʀʀᴏʀ: {e}"
+        return 'jk_dev'
     if not await db.has_premium_access(userid) and not await check_verification(bot, userid):
         btn = [[
             InlineKeyboardButton("Vᴇʀɪғʏ", url=await get_token(bot, userid, f"https://telegram.me/{temp.U_NAME}?start=", 'send_all')),
