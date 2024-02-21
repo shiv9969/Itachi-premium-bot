@@ -54,48 +54,27 @@ async def stream_download(bot, query):
     non_download = await stream_site(download)
     if await db.has_premium_access(user_id):  
         await msg.reply_text(text=f"tg://openmessage?user_id={user_id}\n•• ᴜꜱᴇʀɴᴀᴍᴇ : {username}\nPREMIUM USER ✅",
-            reply_markup=InlineKeyboardMarkup(
-            [
-                [
+            reply_markup=InlineKeyboardMarkup([[
                     InlineKeyboardButton("📥 ᴅᴏᴡɴʟᴏᴀᴅ 📥", url=download),
-                    InlineKeyboardButton("🖥️ ꜱᴛʀᴇᴇᴍ 🖥️", url=online)
-                ]
-            ]
-        ))   
+                    InlineKeyboardButton("🖥️ ꜱᴛʀᴇᴇᴍ 🖥️", url=online)]]))   
         await query.edit_message_reply_markup(
-            reply_markup=InlineKeyboardMarkup(
-            [
-                [
+            reply_markup=InlineKeyboardMarkup([[
                     InlineKeyboardButton("📥 ᴅᴏᴡɴʟᴏᴀᴅ 📥", url=download),
                     InlineKeyboardButton("🖥️ ꜱᴛʀᴇᴇᴍ 🖥️", url=online)
                 ],[
-                    InlineKeyboardButton('⁉️ ᴄʟᴏsᴇ ⁉️', callback_data='close_data')
-                ]
-            ]
-        ))
+                    InlineKeyboardButton('⁉️ ᴄʟᴏsᴇ ⁉️', callback_data='close_data')]]))
     else:
         await msg.reply_text(text=f"tg://openmessage?user_id={user_id}\n•• ᴜꜱᴇʀɴᴀᴍᴇ : {username}",
-            reply_markup=InlineKeyboardMarkup(
-            [
-                [
+            reply_markup=InlineKeyboardMarkup([[
                     InlineKeyboardButton("📥 ᴅᴏᴡɴʟᴏᴀᴅ 📥", url=non_download),
-                    InlineKeyboardButton("🖥️ ꜱᴛʀᴇᴇᴍ 🖥️", url=non_online)
-                ]
-            ]
-        ))
-        
-        await query.answer("ऐ दोस्त एक काम कर 🙋\nअपने दोस्त को Invite कर 💁\n\nऔर Streaming इंज्वॉय कर 😛", show_alert=True)
+                    InlineKeyboardButton("🖥️ ꜱᴛʀᴇᴇᴍ 🖥️", url=non_online)]]))
+        await query.answer("𝐍𝐨𝐭𝐞:\n𝐓𝐡𝐞 𝐀𝐝𝐬-𝐅𝐫𝐞𝐞 𝐒𝐞𝐫𝐯𝐢𝐜𝐞𝐬 𝐎𝐧𝐥𝐲 𝐅𝐨𝐫 𝐏𝐫𝐞𝐦𝐢𝐮𝐦 𝐔𝐬𝐞𝐫𝐬\n\n‼️Tᴏ ᴋɴᴏᴡ ᴍᴏʀᴇ, ᴄʜᴇᴀᴋ ʙᴇʟᴏᴡ..!!!", show_alert=True)
         await query.edit_message_reply_markup(
-            reply_markup=InlineKeyboardMarkup(
-            [
-                [
+            reply_markup=InlineKeyboardMarkup([[
                     InlineKeyboardButton("📥 ᴅᴏᴡɴʟᴏᴀᴅ 📥", url=non_download),
                     InlineKeyboardButton("🖥️ ꜱᴛʀᴇᴇᴍ 🖥️", url=non_online)
                 ],[
-                    InlineKeyboardButton('⁉️ ᴄʟᴏsᴇ ⁉️', callback_data='close_data')
-                ]
-            ]
-        ))
+                    InlineKeyboardButton('⁉️ ᴄʟᴏsᴇ ⁉️', callback_data='close_data')]]))
 
 
 @Client.on_message(filters.group & filters.text & filters.incoming)
@@ -188,11 +167,11 @@ async def next_page(bot, query):
             ]
             for file in files
         ]
-    elif await db.has_premium_access(query.from_user.id) and settings['button']:
+    elif query.from_user.id in db.has_premium_access and settings['button']:
         btn = []
         for file in files:
             files_link += f"""<b>\n\n❤️ <a href=https://t.me/{temp.U_NAME}?start=files_{file.file_id}>[{get_size(file.file_size)}] {' '.join(filter(lambda x: not x.startswith('[') and not x.startswith('Linkz') and not x.startswith('boxoffice') and not x.startswith('{') and not x.startswith('Original') and not x.startswith('Villa') and not x.startswith('Links') and not x.startswith('@') and not x.startswith('www'), file.file_name.split()))}</a></b>"""
-    elif await db.has_premium_access(query.from_user.id) and not settings["button"]:
+    else:
         btn = [
             [
                 InlineKeyboardButton(
@@ -330,11 +309,11 @@ async def language_check(bot, query):
                 ]
                 for file in files
             ]
-        elif await db.has_premium_access(query.from_user.id) and settings['button']:
+        elif query.from_user.id in db.has_premium_access and settings['button']:
             btn = []
             for file in files:
                 files_link += f"""<b>\n\n❤️ <a href=https://t.me/{temp.U_NAME}?start=files_{file.file_id}>[{get_size(file.file_size)}] {' '.join(filter(lambda x: not x.startswith('[') and not x.startswith('Linkz') and not x.startswith('boxoffice') and not x.startswith('{') and not x.startswith('Original') and not x.startswith('Villa') and not x.startswith('Links') and not x.startswith('@') and not x.startswith('www'), file.file_name.split()))}</a></b>"""
-        elif await db.has_premium_access(query.from_user.id) and not settings["button"]:
+        else:
             btn = [
                 [
                     InlineKeyboardButton(
@@ -469,11 +448,11 @@ async def quality_check(bot, query):
                 ]
                 for file in files
             ]
-        elif await db.has_premium_access(query.from_user.id) and settings['button']:
+        elif query.from_user.id in db.has_premium_access and settings['button']:
             btn = []
             for file in files:
                 files_link += f"""<b>\n\n❤️ <a href=https://t.me/{temp.U_NAME}?start=files_{file.file_id}>[{get_size(file.file_size)}] {' '.join(filter(lambda x: not x.startswith('[') and not x.startswith('Linkz') and not x.startswith('boxoffice') and not x.startswith('{') and not x.startswith('Original') and not x.startswith('Villa') and not x.startswith('Links') and not x.startswith('@') and not x.startswith('www'), file.file_name.split()))}</a></b>"""
-        elif await db.has_premium_access(query.from_user.id) and not settings["button"]:
+        else:
             btn = [
                 [
                     InlineKeyboardButton(
@@ -601,11 +580,11 @@ async def seasons_check(bot, query):
                 ]
                 for file in files
             ]
-        elif await db.has_premium_access(query.from_user.id) and settings['button']:
+        elif query.from_user.id in db.has_premium_access and settings['button']:
             btn = []
             for file in files:
                 files_link += f"""<b>\n\n❤️ <a href=https://t.me/{temp.U_NAME}?start=files_{file.file_id}>[{get_size(file.file_size)}] {' '.join(filter(lambda x: not x.startswith('[') and not x.startswith('Linkz') and not x.startswith('boxoffice') and not x.startswith('{') and not x.startswith('Original') and not x.startswith('Villa') and not x.startswith('Links') and not x.startswith('@') and not x.startswith('www'), file.file_name.split()))}</a></b>"""
-        elif await db.has_premium_access(query.from_user.id) and not settings["button"]:
+        else:
             btn = [
                 [
                     InlineKeyboardButton(
@@ -2012,11 +1991,11 @@ async def auto_filter(client, msg, spoll=False):
             ]
             for file in files
         ]
-    elif await db.has_premium_access(message.from_user.id) and settings['button']:
+    elif message.from_user.id in db.has_premium_access and settings['button']:
         btn = []
         for file in files:
             files_link += f"""<b>\n\n❤️ <a href=https://t.me/{temp.U_NAME}?start=files_{file.file_id}>[{get_size(file.file_size)}] {' '.join(filter(lambda x: not x.startswith('[') and not x.startswith('Linkz') and not x.startswith('boxoffice') and not x.startswith('{') and not x.startswith('Original') and not x.startswith('Villa') and not x.startswith('Links') and not x.startswith('@') and not x.startswith('www'), file.file_name.split()))}</a></b>"""
-    elif await db.has_premium_access(message.from_user.id) and not settings["button"]:
+    else:
         btn = [
             [
                 InlineKeyboardButton(
