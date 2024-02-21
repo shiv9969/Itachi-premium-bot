@@ -4,51 +4,9 @@ import datetime
 import time
 from database.users_chats_db import db
 from info import ADMINS
-from utils import broadcast_messages, get_users
+from utils import broadcast_messages
 import asyncio
-from pyrogram.errors import FloodWait
-
-@Client.on_message(filters.command('jkbc') & filters.user(ADMINS))
-async def user_broadcast(bot, message):
-    if not message.reply_to_message:
-       return await message.reply("Use this command as a reply to any message!")
-    m=await message.reply("Broadcasting...")   
-
-    count, users = await get_users()
-    stats     = "⚡ Broadcast Processing.."
-    br_msg    = message.reply_to_message
-    total     = count       
-    remaining = total
-    success   = 0
-    failed    = 0    
-     
-    for user in users:
-        chat_id = user["_id"]
-        trying = await copy_msgs(br_msg, chat_id)
-        if trying==False:
-           failed+=1
-           remaining-=1
-        else:
-           success+=1
-           remaining-=1
-        try:                                     
-           await m.edit(script.BROADCAST.format(stats, total, remaining, success, failed))                                 
-        except:
-           pass
-    stats = "✅ Broadcast Completed"
-    await m.reply(script.BROADCAST.format(stats, total, remaining, success, failed)) 
-    await m.delete()                                
-
-
-async def copy_msgs(br_msg, chat_id):
-    try:
-       await br_msg.copy(chat_id)       
-    except FloodWait as e:
-       await asyncio.sleep(e.value)
-       await copy_msgs(br_msg, chat_id)
-    except: 
-       return False      
-
+        
 @Client.on_message(filters.command("broadcast") & filters.user(ADMINS) & filters.reply)
 # https://t.me/GetTGLink/4178
 async def verupikkals(bot, message):
