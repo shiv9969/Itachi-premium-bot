@@ -790,7 +790,7 @@ async def send_all(bot, userid, files, ident):
                     reply_markup=InlineKeyboardMarkup(
                         [
                             [
-                            InlineKeyboardButton("🖥️ ᴡᴀᴛᴄʜ & ᴅᴏᴡɴʟᴏᴀᴅ 📥", callback_data=f"streaming#{file.file_id}")
+                            InlineKeyboardButton("🖥️ ᴡᴀᴛᴄʜ / ᴅᴏᴡɴʟᴏᴀᴅ 📥", callback_data=f"streaming#{file.file_id}")
                         ],[
                             InlineKeyboardButton('Sᴜᴘᴘᴏʀᴛ Gʀᴏᴜᴘ', url=GRP_LNK),
                             InlineKeyboardButton('Uᴘᴅᴀᴛᴇs Cʜᴀɴɴᴇʟ', url=CHNL_LNK)
@@ -808,7 +808,7 @@ async def send_all(bot, userid, files, ident):
                 logger.error(f"Eʀʀᴏʀ: {e}")
                 return f"Eʀʀᴏʀ: {e}"
         return 'jk_dev'
-    if not await db.has_premium_access(userid) and not await check_verification(bot, userid):
+    if IS_VERIFY and not await check_verification(bot, userid):
         btn = [[
             InlineKeyboardButton("Vᴇʀɪғʏ", url=await get_token(bot, userid, f"https://telegram.me/{temp.U_NAME}?start=", 'send_all')),
             InlineKeyboardButton("Hᴏᴡ Tᴏ Vᴇʀɪғʏ", url=HOW_TO_VERIFY)
