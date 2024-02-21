@@ -301,6 +301,7 @@ async def start(client, message):
                 protect_content=True if PROTECT_CONTENT else False
             )
         is_valid = await check_token(client, userid, token)
+        
         if is_valid == True:
             if fileid == "send_all":
                 btn = [[
@@ -333,7 +334,25 @@ async def start(client, message):
     if not files_:
         pre, file_id = ((base64.urlsafe_b64decode(data + "=" * (-len(data) % 4))).decode("ascii")).split("_", 1)
         try:
-            if not await db.has_premium_access(message.from_user.id) and not await check_verification(client, message.from_user.id):
+            if await db.has_premium_access(message.from_user.id):
+                await client.send_cached_media(
+                    chat_id=message.from_user.id,
+                    file_id=file_id,
+                    protect_content=True if pre == 'filep' else False,
+                    reply_markup=InlineKeyboardMarkup(
+                        [
+                         [
+                          InlineKeyboardButton("🖥️ ᴡᴀᴛᴄʜ / ᴅᴏᴡɴʟᴏᴀᴅ 📥", callback_data=f"streaming#{file_id}")
+              
+                       ],[
+                          InlineKeyboardButton('Sᴜᴘᴘᴏʀᴛ Gʀᴏᴜᴘ', url=GRP_LNK),
+                          InlineKeyboardButton('Uᴘᴅᴀᴛᴇs Cʜᴀɴɴᴇʟ', url=CHNL_LNK)
+                         ]
+                        ]
+                    )
+                )
+                return
+            elif IS_VERIFY and not await check_verification(client, message.from_user.id):
                 btn = [[
                     InlineKeyboardButton("Vᴇʀɪғʏ", url=await get_token(client, message.from_user.id, f"https://telegram.me/{temp.U_NAME}?start=", file_id)),
                     InlineKeyboardButton("Hᴏᴡ Tᴏ Vᴇʀɪғʏ", url=HOW_TO_VERIFY)
@@ -387,8 +406,26 @@ async def start(client, message):
             f_caption=f_caption
     if f_caption is None:
         f_caption = f"{' '.join(filter(lambda x: not x.startswith('[') and not x.startswith('Linkz') and not x.startswith('{') and not x.startswith('Links')and not x.startswith('boxoffice') and not x.startswith('Original') and not x.startswith('Villa') and not x.startswith('@') and not x.startswith('www'), files.file_name.split()))}"
-
-    if not await db.has_premium_access(message.from_user.id) and not await check_verification(client, message.from_user.id):
+    if await db.has_premium_access(message.from_user.id):
+        await client.send_cached_media(
+            chat_id=message.from_user.id,
+            file_id=file_id,
+            caption=f_caption,
+            protect_content=True if pre == 'filep' else False,
+            reply_markup=InlineKeyboardMarkup(
+                [
+                 [
+                  InlineKeyboardButton("🖥️ ᴡᴀᴛᴄʜ / ᴅᴏᴡɴʟᴏᴀᴅ 📥", callback_data=f"streaming#{file_id}")
+              
+               ],[
+                  InlineKeyboardButton('Sᴜᴘᴘᴏʀᴛ Gʀᴏᴜᴘ', url=GRP_LNK),
+                  InlineKeyboardButton('Uᴘᴅᴀᴛᴇs Cʜᴀɴɴᴇʟ', url=CHNL_LNK)
+                 ]
+                ]
+            )
+        )
+        return
+    elif IS_VERIFY and not await check_verification(client, message.from_user.id):
         btn = [[
             InlineKeyboardButton("Vᴇʀɪғʏ", url=await get_token(client, message.from_user.id, f"https://telegram.me/{temp.U_NAME}?start=", file_id)),
             InlineKeyboardButton("Hᴏᴡ Tᴏ Vᴇʀɪғʏ", url=HOW_TO_VERIFY)
