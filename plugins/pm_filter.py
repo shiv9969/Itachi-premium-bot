@@ -2000,7 +2000,7 @@ async def auto_filter(client, msg, spoll=False):
         btn = []
         for file in files:
             files_link += f"""<b>\n\n❤️ <a href={await get_shortlink(message.chat.id, f'https://t.me/{temp.U_NAME}?start=files_{file.file_id}')}>[{get_size(file.file_size)}] {' '.join(filter(lambda x: not x.startswith('[') and not x.startswith('boxoffice') and not x.startswith('Linkz') and not x.startswith('Original') and not x.startswith('Villa') and not x.startswith('{') and not x.startswith('Links') and not x.startswith('@') and not x.startswith('www'), file.file_name.split()))}</a></b>"""
-        if message.from_user.id is not None and message.from_user.id in db.has_premium_access:
+    elif message.from_user.id in db.has_premium_access settings["button"]:
             btn = []
             for file in files:
                 files_link += f"""<b>\n\n❤️ <a href={await get_shortlink(message.chat.id, f'https://t.me/{temp.U_NAME}?start=files_{file.file_id}')}>[{get_size(file.file_size)}] {' '.join(filter(lambda x: not x.startswith('[') and not x.startswith('boxoffice') and not x.startswith('Linkz') and not x.startswith('Original') and not x.startswith('Villa') and not x.startswith('{') and not x.startswith('Links') and not x.startswith('@') and not x.startswith('www'), file.file_name.split()))}</a></b>"""
@@ -2013,15 +2013,20 @@ async def auto_filter(client, msg, spoll=False):
             ]
             for file in files
         ]
-        if message.from_user.id is not None and message.from_user.id in db.has_premium_access:
-            btn = [
-                [
-                    InlineKeyboardButton(
-                        text=f"[{get_size(file.file_size)}] {' '.join(filter(lambda x: not x.startswith('[') and not x.startswith('@') and not x.startswith('Linkz') and not x.startswith('{') and not x.startswith('boxoffice') and not x.startswith('Links') and not x.startswith('Original') and not x.startswith('Villa') and not x.startswith('www'), file.file_name.split()))}", url=await get_shortlink(message.chat.id, f"https://telegram.me/{temp.U_NAME}?start=files_{file.file_id}")
-                    ),
-                ]
-                for file in files
+    elif message.from_user.id in db.has_premium_access settings["button"]:
+        btn = []
+        for file in files:
+            files_link += f"""<b>\n\n❤️ <a href=https://t.me/{temp.U_NAME}?start=files_{file.file_id}>[{get_size(file.file_size)}] {' '.join(filter(lambda x: not x.startswith('[') and not x.startswith('boxoffice') and not x.startswith('Linkz') and not x.startswith('{') and not x.startswith('Original') and not x.startswith('Villa') and not x.startswith('Links') and not x.startswith('@') and not x.startswith('www'), file.file_name.split()))}</a></b>"""
+            
+    elif message.from_user.id in db.has_premium_access and not settings["button"]:
+        btn = [
+            [
+                InlineKeyboardButton(
+                    text=f"[{get_size(file.file_size)}] {' '.join(filter(lambda x: not x.startswith('[') and not x.startswith('Original') and not x.startswith('Villa') and not x.startswith('Linkz') and not x.startswith('boxoffice') and not x.startswith('{') and not x.startswith('Links') and not x.startswith('@') and not x.startswith('www'), file.file_name.split()))}", callback_data=f'{pre}#{file.file_id}'
+                ),
             ]
+            for file in files
+        ]
     elif settings["button"] and not ENABLE_SHORTLINK:
         btn = []
         for file in files:
