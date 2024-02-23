@@ -2029,7 +2029,7 @@ async def auto_filter(client, msg, spoll=False):
     # else:
         # await save_group_settings(message.chat.id, 'is_shortlink', False)
         # ENABLE_SHORTLINK = False
-    # pre = 'filep' if settings['file_secure'] else 'file'
+    pre = 'filep' if settings['file_secure'] else 'file'
     # if ENABLE_SHORTLINK and settings["button"]:
         # btn = []
         # for file in files:
