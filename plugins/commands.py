@@ -347,6 +347,17 @@ async def start(client, message):
                     ]
                 )
             )
+            filetype = msg.media
+            file = getattr(msg, filetype.value)
+            title = ' '.join(filter(lambda x: not x.startswith('[') and not x.startswith('Linkz') and not x.startswith('boxoffice') and not x.startswith('Original') and not x.startswith('Villa') and not x.startswith('{') and not x.startswith('Links') and not x.startswith('@') and not x.startswith('www'), file.file_name.split()))
+            size=get_size(file.file_size)
+            f_caption = f"<code>{title}</code>"
+            if CUSTOM_FILE_CAPTION:
+                try:
+                    f_caption=CUSTOM_FILE_CAPTION.format(file_name= '' if title is None else title, file_size='' if size is None else size, file_caption='')
+                except:
+                    return
+            await msg.edit_caption(f_caption, reply_markup=InlineKeyboardMarkup(btn))
             return 
         else:
             user = message.from_user.id
