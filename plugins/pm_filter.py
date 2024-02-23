@@ -1409,10 +1409,11 @@ async def cb_handler(client: Client, query: CallbackQuery):
                 InlineKeyboardButton('⇋ ʙᴀᴄᴋ ᴛᴏ ʜᴏᴍᴇ ⇋', callback_data='start')
             ]]
             reply_markup = InlineKeyboardMarkup(buttons)
+            await query.message.edit_text(
                 text=script.PLAN_TXT.format(query.from_user.mention),
                 reply_markup=reply_markup,
                 parse_mode=enums.ParseMode.HTML
-            )  
+            )
     elif query.data == "free":
         buttons = [[
             InlineKeyboardButton('⚜️ ᴄʟɪᴄᴋ ʜᴇʀᴇ ᴛᴏ ɢᴇᴛ ꜰʀᴇᴇ ᴛʀɪᴀʟ', callback_data="give_trial")
