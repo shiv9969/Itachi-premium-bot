@@ -1304,7 +1304,6 @@ async def cb_handler(client: Client, query: CallbackQuery):
             gtxt = "ɢᴏᴏᴅ ᴇᴠᴇɴɪɴɢ 👋"
         else:
             gtxt = "ɢᴏᴏᴅ ɴɪɢʜᴛ 👋"
-        await query.message.edit_text(
         await client.edit_message_media(
             query.message.chat.id, 
             query.message.id, 
