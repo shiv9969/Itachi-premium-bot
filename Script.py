@@ -1,5 +1,6 @@
 class script(object):
     START_TXT = """<b>ʜᴇʏ {}, {}
+Mʏ Nᴀᴍᴇ Is <a href=https://t.me/{}>{}</a>
 ᴛʜɪs ɪs ғɪʟᴍ ғʀᴇɴᴢʏ ʙᴏᴛ ᴍᴏsᴛ ᴘᴏᴡᴇʀғᴜʟ ᴀᴜᴛᴏ ғɪʟʟᴛᴇʀ ʙᴏᴛ ᴡɪᴛʜ ᴘʀᴇᴍɪᴜᴍ ғᴇᴀᴛᴜʀᴇs.
 ᴊᴜsᴛ ᴍᴀᴋᴇ ᴀ ᴍᴇ ᴀᴅᴍɪɴ ᴏғ ʏᴏᴜʀ ɢʀᴏᴜᴘ. 
 
@@ -9,7 +10,7 @@ class script(object):
 ᴡᴇ ʜᴀᴠᴇ ᴅᴇᴠɪᴅᴇᴅ ʙᴏᴛ ᴄᴏᴍᴍᴀɴᴅꜱ ꜰᴏʀ ɢʀᴏᴜᴘ ᴏᴡɴᴇʀꜱ ᴀɴᴅ ʙᴏᴛ ᴜꜱᴇʀꜱ.</b>"""
 
     ABOUT_TXT = """<b>
-‣ ᴍʏ ɴᴀᴍᴇ : {}
+‣ ᴍʏ ɴᴀᴍᴇ : <a href=https://t.me/{}>{}</a>
 ‣ ᴄʀᴇᴀᴛᴏʀ : <a href=https://t.me/ArtisticDeveloper>Aʀᴛɪꜱᴛɪᴄ Dᴇᴠᴇʟᴏᴘᴇʀ</a>
 ‣ ʟɪʙʀᴀʀʏ : ᴘʏʀᴏɢʀᴀᴍ
 ‣ ʟᴀɴɢᴜᴀɢᴇ : ᴘʏᴛʜᴏɴ
@@ -81,21 +82,21 @@ Aᴅᴅᴇᴅ Bʏ - {}"""
 ID - <code>{}</code>
 Nᴀᴍᴇ - {}"""
 
-    ALRT_TXT = """My friend {}, this is someone else's movie, ask for the movie yourself 💁..."""
+    ALRT_TXT = """Mʏ ғʀɪᴇɴᴅ {}, ᴛʜɪꜱ ɪꜱ ꜱᴏᴍᴇᴏɴᴇ ᴇʟꜱᴇ'ꜱ ᴍᴏᴠɪᴇ, ᴀꜱᴋ ғᴏʀ ᴛʜᴇ ᴍᴏᴠɪᴇ ʏᴏᴜʀꜱᴇʟғ 💁..."""
 
-    OLD_ALRT_TXT = """Friend, the message is old, ask for a new one.."""
+    OLD_ALRT_TXT = """Fʀɪᴇɴᴅ, ᴛʜᴇ ᴍᴇꜱꜱᴀɢᴇ ɪꜱ ᴏʟᴅ, ᴀꜱᴋ ғᴏʀ ᴀ ɴᴇᴡ ᴏɴᴇ.."""
 
-    CUDNT_FND = """I think the spelling is wrong. Choose the name of the movie from these."""
+    CUDNT_FND = """I ᴛʜɪɴᴋ ᴛʜᴇ ꜱᴘᴇʟʟɪɴɢ ɪꜱ ᴡʀᴏɴɢ. Cʜᴏᴏꜱᴇ ᴛʜᴇ ɴᴀᴍᴇ ᴏғ ᴛʜᴇ ᴍᴏᴠɪᴇ ғʀᴏᴍ ᴛʜᴇꜱᴇ."""
 
-    I_CUDNT = """<b>Hey Baklol, just write the name of the movie, don't put anything before the name.
-    If you don't know how to write the name of the movie, then tap on the button below to see the name of the movie.</b>"""
+    I_CUDNT = """<b>Hᴇʏ Fʀɪᴇɴᴅ, ᴊᴜꜱᴛ ᴡʀɪᴛᴇ ᴛʜᴇ ɴᴀᴍᴇ ᴏғ ᴛʜᴇ ᴍᴏᴠɪᴇ, ᴅᴏɴ'ᴛ ᴘᴜᴛ ᴀɴʏᴛʜɪɴɢ ʙᴇғᴏʀᴇ ᴛʜᴇ ɴᴀᴍᴇ.
+Iғ ʏᴏᴜ ᴅᴏɴ'ᴛ ᴋɴᴏᴡ ʜᴏᴡ ᴛᴏ ᴡʀɪᴛᴇ ᴛʜᴇ ɴᴀᴍᴇ ᴏғ ᴛʜᴇ ᴍᴏᴠɪᴇ, ᴛʜᴇɴ ᴛᴀᴘ ᴏɴ ᴛʜᴇ ʙᴜᴛᴛᴏɴ ʙᴇʟᴏᴡ ᴛᴏ ꜱᴇᴇ ᴛʜᴇ ɴᴀᴍᴇ ᴏғ ᴛʜᴇ ᴍᴏᴠɪᴇ.</b>"""
 
     I_CUD_NT = """ɪ ᴄᴏᴜʟᴅɴ'ᴛ ꜰɪɴᴅ ᴀɴʏ ᴍᴏᴠɪᴇ ʀᴇʟᴀᴛᴇᴅ ᴛᴏ {}.
 ᴘʟᴇᴀꜱᴇ ᴄʜᴇᴄᴋ ᴛʜᴇ ꜱᴘᴇʟʟɪɴɢ ᴏɴ ɢᴏᴏɢʟᴇ ᴏʀ ɪᴍᴅʙ..."""
 
-    MVE_NT_FND = """This is not a movie yet, it may come after a few days..."""
+    MVE_NT_FND = """Tʜɪꜱ ɪꜱ ɴᴏᴛ ᴀ ᴍᴏᴠɪᴇ ʏᴇᴛ, ɪᴛ ᴍᴀʏ ᴄᴏᴍᴇ ᴀғᴛᴇʀ ᴀ ғᴇᴡ ᴅᴀʏꜱ..."""
 
-    TOP_ALRT_MSG = """searching your request 🔍..."""
+    TOP_ALRT_MSG = """ꜱᴇᴀʀᴄʜɪɴɢ ʏᴏᴜʀ ʀᴇǫᴜᴇꜱᴛ 🔍..."""
 
     MELCOW_ENG = """<b>Hᴇʟʟᴏ {} 😍, Aɴᴅ Wᴇʟᴄᴏᴍᴇ Tᴏ {} Gʀᴏᴜᴘ ❤️</b>"""
 
@@ -117,8 +118,8 @@ Nᴀᴍᴇ - {}"""
     CAPTION = """
 <b>📂 Fɪʟᴇ ɴᴀᴍᴇ : </b><a href="https://t.me/lusifilms">{file_name}</a><b> 
 
-My brother, keep joining the backup channel📥
-I don't know when the copyright will come. 👇
+Mʏ ʙʀᴏᴛʜᴇʀ, ᴋᴇᴇᴘ ᴊᴏɪɴɪɴɢ ᴛʜᴇ ʙᴀᴄᴋᴜᴘ ᴄʜᴀɴɴᴇʟ📥
+I ᴅᴏɴ'ᴛ ᴋɴᴏᴡ ᴡʜᴇɴ ᴛʜᴇ ᴄᴏᴘʏʀɪɢʜᴛ ᴡɪʟʟ ᴄᴏᴍᴇ. 👇
 ========== • ✠ • ==========
 ▫️ Backup Channel:  <a href="https://t.me/+YlRh7cwHCwc2YjJl">Click Here</a>
 ▫️ Request Group :  <a href="https://t.me/+xpgODfC0d3o3MDE1">Click Here</a>
@@ -127,8 +128,8 @@ I don't know when the copyright will come. 👇
 
     IMDB_TEMPLATE_TXT = """
 <b>
-Movie poster may also be wrong❌ 
-Please check the name ✅ 
+Mᴏᴠɪᴇ ᴘᴏꜱᴛᴇʀ ᴍᴀʏ ᴀʟꜱᴏ ʙᴇ ᴡʀᴏɴɢ❌ 
+Pʟᴇᴀꜱᴇ ᴄʜᴇᴄᴋ ᴛʜᴇ ɴᴀᴍᴇ ✅
 ===========================</b> """
     
     ALL_FILTERS = """
@@ -147,7 +148,7 @@ Aᴠᴀɪʟᴀʙʟᴇ ᴄᴏᴍᴍᴀɴᴅs:
 
     VERIFY_TEXT = """<u>ʏᴏᴜ ᴀʀᴇ ɴᴏᴛ ᴠᴇʀɪꜰɪᴇᴅ ᴛᴏᴅᴀʏ 😐 ᴛᴀᴘ ᴏɴ ᴛʜᴇ ᴠᴇʀɪꜰʏ ʟɪɴᴋ & ɢᴇᴛ ᴜɴʟɪᴍɪᴛᴇᴅ ᴀᴄᴄᴇss. 
 
-ɪꜰ ʏᴏᴜ ᴡᴀɴᴛ ᴅɪʀᴇᴄᴛ ꜰɪʟᴇs ᴛʜᴇɴ ʏᴏᴜ ᴄᴀɴ ᴛᴀᴋᴇ ᴘʀᴇᴍɪᴜᴍ sᴇʀᴠɪᴄᴇ (ɴᴏ ɴᴇᴇᴅ ᴛᴏ ᴠᴇʀɪꜰʏ) </u>
+ɪꜰ ʏᴏᴜ ᴡᴀɴᴛ ᴅɪʀᴇᴄᴛ ꜰɪʟᴇs ᴛʜᴇɴ ʏᴏᴜ ᴄᴀɴ ᴛᴀᴋᴇ ᴘʀᴇᴍɪᴜᴍ sᴇʀᴠɪᴄᴇ (ɴᴏ ɴᴇᴇᴅ ᴛᴏ ᴠᴇʀɪꜰʏ)</uv>
 
 ᴄʜᴇᴄᴋ ᴀᴠᴀɪʟᴀʙʟᴇ ᴘʟᴀɴs ɢɪᴠᴇ ᴛʜɪs : /plans"""
 
@@ -396,11 +397,11 @@ Aᴠᴀɪʟᴀʙʟᴇ ᴄᴏᴍᴍᴀɴᴅs:
     SHORTLINK_INFO2 = """<b>
 ❗<u>ʜᴏᴡ ᴛᴏ ᴄᴏɴɴᴇᴄᴛ ʏᴏᴜʀ sʜᴏʀᴛɴᴇʀ</u>❗
 
-›› ꜱᴛᴇᴘ 4 : ɪꜰ ʏᴏᴜ ᴅᴏɴ'ᴛ ᴜꜱɪɴɢ ᴀɴʏ ꜱʜᴏʀᴛɴᴇʀ ᴡᴇʙꜱɪᴛᴇ ᴛʜᴇɴ ᴍᴀᴋᴇ ᴀᴄᴄᴏᴜɴᴛ ꜰɪʀꜱᴛ ᴏɴ instantearn.in (ʏᴏᴜ ᴄᴀɴ ᴀʟꜱᴏ ᴜꜱᴇ ᴏᴛʜᴇʀ ʟɪɴᴋ ꜱʜᴏʀᴛɴᴇʀ ᴡᴇʙꜱɪᴛᴇ).
+›› ꜱᴛᴇᴘ 4 : ɪꜰ ʏᴏᴜ ᴅᴏɴ'ᴛ ᴜꜱɪɴɢ ᴀɴʏ ꜱʜᴏʀᴛɴᴇʀ ᴡᴇʙꜱɪᴛᴇ ᴛʜᴇɴ ᴍᴀᴋᴇ ᴀᴄᴄᴏᴜɴᴛ ꜰɪʀꜱᴛ ᴏɴ urlshortx.com (ʏᴏᴜ ᴄᴀɴ ᴀʟꜱᴏ ᴜꜱᴇ ᴏᴛʜᴇʀ ʟɪɴᴋ ꜱʜᴏʀᴛɴᴇʀ ᴡᴇʙꜱɪᴛᴇ).
 
 ›› ꜱᴛᴇᴘ 5 : ᴄᴏᴘʏ ʏᴏᴜʀ ᴀᴘɪ ꜰʀᴏᴍ ᴡᴇʙꜱɪᴛᴇ ᴀɴᴅ ᴛʜᴇɴ, ꜱɪᴍᴘʟʏ ꜱᴇᴛ ʏᴏᴜʀ ᴡᴇʙꜱɪᴛᴇ ᴀɴᴅ ᴀᴘɪ ᴜꜱɪɴɢ ᴛʜᴇ /shortlink ᴄᴏᴍᴍᴀɴᴅ.
 
-› ʟɪᴋᴇ ᴛʜɪꜱ :</b>  <code>/shortlink instantearn.in 1502a197c85d59929d50f1cba1d5e6f967d1e962</code>
+› ʟɪᴋᴇ ᴛʜɪꜱ :</b>  <code>/shortlink urlshortx.com 8afa8fbc218cc0791c62495f2c510c92524503ce</code>
 
 <b>›› ꜱᴛᴇᴘ 6 : ᴄʟɪᴄᴋ ᴏɴ ɴᴇxᴛ ʙᴜᴛᴛᴏɴ ᴛᴏ ᴋɴᴏᴡ ʜᴏᴡ ᴛᴏ ᴄᴏɴɴᴇᴄᴛ ʏᴏᴜʀ ᴛᴜᴛᴏʀɪᴀʟ ᴡɪᴛʜ ᴛʜɪs ʙᴏᴛ.
 
