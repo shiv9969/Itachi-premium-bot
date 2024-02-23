@@ -331,7 +331,7 @@ async def start(client, message):
             )
     elif data.startswith("files"):
         if await db.has_premium_access(message.from_user.id):
-            await client.send_cached_media(
+            msg = await client.send_cached_media(
                 chat_id=message.from_user.id,
                 file_id=file_id,
                 protect_content=True if pre == 'filep' else False,
