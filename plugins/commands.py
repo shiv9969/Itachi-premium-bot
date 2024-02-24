@@ -331,7 +331,6 @@ async def start(client, message):
             )
     if data.startswith("all"):
         user = message.from_user.id
-        key = f"{message.chat.id}-{message.id}"
         if temp.GETALL.get(user)==None:
             await message.reply_text(text="<b>This Message old please Search Again in Group</b>")
         else:
@@ -340,8 +339,9 @@ async def start(client, message):
         if settings['is_shortlink']:
             files_ = temp.GETALL.get(file_id)
             files = files_[0]
-            g = await get_shortlink(message.chat.id, f"https://telegram.me/{temp.U_NAME}?start=allfiles_{key}")
-            k = await client.send_message(message.chat.id=message.from_user.id,text=f"<b>📕Nᴀᴍᴇ ➠ : <code>{files.file_name}</code> \n\n🔗Sɪᴢᴇ ➠ : {get_size(files.file_size)}\n\n📂Fɪʟᴇ ʟɪɴᴋ ➠ : {g}\n\n<i>Note: ⚠️ ᴛʜɪs ᴍᴇssᴀɢᴇ ᴡɪʟʟ ʙᴇ ᴀᴜᴛᴏ ᴅᴇʟᴇᴛᴇᴅ ᴀғᴛᴇʀ 𝟷𝟶 ᴍɪɴᴜᴛᴇs.</i></b>", reply_markup=InlineKeyboardMarkup(
+            g = await get_shortlink(message.chat.id, f"https://telegram.me/{temp.U_NAME}?start=allfiles_{user}")
+            k = await client.send_message(message.chat.id=message.from_user.id, text=f"<b>📕Nᴀᴍᴇ ➠ : <code>{files.file_name}</code> \n\n🔗Sɪᴢᴇ ➠ : {get_size(files.file_size)}\n\n📂Fɪʟᴇ ʟɪɴᴋ ➠ : {g}\n\n<i>Note: ⚠️ ᴛʜɪs ᴍᴇssᴀɢᴇ ᴡɪʟʟ ʙᴇ ᴀᴜᴛᴏ ᴅᴇʟᴇᴛᴇᴅ ᴀғᴛᴇʀ 𝟷𝟶 ᴍɪɴᴜᴛᴇs.</i></b>", 
+            reply_markup=InlineKeyboardMarkup(
                     [
                         [
                             InlineKeyboardButton('📂 ᴍᴏᴠɪᴇ ᴅᴏᴡɴʟᴏᴀᴅ ʟɪɴᴋ 📂', url=g)
