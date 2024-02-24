@@ -331,25 +331,25 @@ async def start(client, message):
             )
     if data.startswith("sendfiles"):
         user = message.from_user.id
-            if temp.GETALL..get(user)==None:
-                await message.reply_text(text="<b>This Message old please Search Again in Group</b>")
-            else:
-                chat_id = temp.GETALL..get(user)
-            settings = await get_settings(chat_id)
-            if settings['is_shortlink']:
-                files_ = temp.GETALL.get(file_id)
-                files1 = files_[0]
-                g = await get_shortlink(chat_id, f"https://telegram.me/{temp.U_NAME}?start=allfiles_{file_id}")
-                k = await client.send_message(chat_id=message.from_user.id,text=f"<b>📕Nᴀᴍᴇ ➠ : <code>{files.file_name}</code> \n\n🔗Sɪᴢᴇ ➠ : {get_size(files.file_size)}\n\n📂Fɪʟᴇ ʟɪɴᴋ ➠ : {g}\n\n<i>Note: ⚠️ ᴛʜɪs ᴍᴇssᴀɢᴇ ᴡɪʟʟ ʙᴇ ᴀᴜᴛᴏ ᴅᴇʟᴇᴛᴇᴅ ᴀғᴛᴇʀ 𝟷𝟶 ᴍɪɴᴜᴛᴇs.</i></b>", reply_markup=InlineKeyboardMarkup(
+        if temp.SHORT.get(user)==None:
+            await message.reply_text(text="<b>This Message old please Search Again in Group</b>")
+        else:
+            chat_id = temp.SHORT.get(user)
+        settings = await get_settings(chat_id)
+        if settings['is_shortlink']:
+            files_ = temp.GETALL.get(file_id)
+            files1 = files_[0]
+            g = await get_shortlink(chat_id, f"https://telegram.me/{temp.U_NAME}?start=allfiles_{file_id}")
+            k = await client.send_message(chat_id=message.from_user.id,text=f"<b>📕Nᴀᴍᴇ ➠ : <code>{files.file_name}</code> \n\n🔗Sɪᴢᴇ ➠ : {get_size(files.file_size)}\n\n📂Fɪʟᴇ ʟɪɴᴋ ➠ : {g}\n\n<i>Note: ⚠️ ᴛʜɪs ᴍᴇssᴀɢᴇ ᴡɪʟʟ ʙᴇ ᴀᴜᴛᴏ ᴅᴇʟᴇᴛᴇᴅ ᴀғᴛᴇʀ 𝟷𝟶 ᴍɪɴᴜᴛᴇs.</i></b>", reply_markup=InlineKeyboardMarkup(
+                    [
                         [
-                            [
-                                InlineKeyboardButton('📂 ᴍᴏᴠɪᴇ ᴅᴏᴡɴʟᴏᴀᴅ ʟɪɴᴋ 📂', url=g)
-                            ], [
-                                InlineKeyboardButton('🤔 Hᴏᴡ Tᴏ Dᴏᴡɴʟᴏᴀᴅ 🤔', url=await get_tutorial(chat_id))
-                            ]
+                            InlineKeyboardButton('📂 ᴍᴏᴠɪᴇ ᴅᴏᴡɴʟᴏᴀᴅ ʟɪɴᴋ 📂', url=g)
+                        ], [
+                            InlineKeyboardButton('🤔 Hᴏᴡ Tᴏ Dᴏᴡɴʟᴏᴀᴅ 🤔', url=await get_tutorial(chat_id))
                         ]
-                    )
+                    ]
                 )
+            )
         return
     elif data.startswith("all"):
         files = temp.GETALL.get(file_id)
