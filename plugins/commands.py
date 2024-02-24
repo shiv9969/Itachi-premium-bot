@@ -331,11 +331,11 @@ async def start(client, message):
             )
     if data.startswith("all"):
         files = temp.GETALL.get(file_id)
+        chat_id = temp..SHORT.get(user)
+        settings = await get_settings(chat_id)
         if not files:
             return await message.reply('<b><i>Nᴏ Sᴜᴄʜ Fɪʟᴇ Eᴇxɪsᴛ.</b></i>')
         filesarr = []
-        chat_id = temp..GETALL.get(user)
-        settings = await get_settings(chat_id)
         for file in files:
             file_id = file.file_id
             files_ = await get_file_details(file_id)
