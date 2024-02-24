@@ -335,17 +335,12 @@ async def start(client, message):
                 chat_id=message.from_user.id,
                 file_id=file_id,
                 protect_content=True if pre == 'filep' else False,
-                reply_markup=InlineKeyboardMarkup(
-                    [
-                     [
+                buttons=[[
                       InlineKeyboardButton("🖥️ ᴡᴀᴛᴄʜ / ᴅᴏᴡɴʟᴏᴀᴅ 📥", callback_data=f"streaming#{file_id}")
-          
                    ],[
                       InlineKeyboardButton('Sᴜᴘᴘᴏʀᴛ Gʀᴏᴜᴘ', url=GRP_LNK),
                       InlineKeyboardButton('Uᴘᴅᴀᴛᴇs Cʜᴀɴɴᴇʟ', url=CHNL_LNK)
-                     ]
-                    ]
-                )
+                   ]]
             )
             filetype = msg.media
             file = getattr(msg, filetype.value)
@@ -357,7 +352,7 @@ async def start(client, message):
                     f_caption=CUSTOM_FILE_CAPTION.format(file_name= '' if title is None else title, file_size='' if size is None else size, file_caption='')
                 except:
                     return
-            await msg.edit_caption(f_caption, reply_markup=InlineKeyboardMarkup(btn))
+            await msg.edit_caption(f_caption, reply_markup=InlineKeyboardMarkup(buttons))
             return 
         else:
             user = message.from_user.id
