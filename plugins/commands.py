@@ -401,7 +401,7 @@ async def start(client, message):
                     )
                 )
                 return
-            elif IS_VERIFY and not await check_verification(client, message.from_user.id) and not settings['is_shortlink']:
+            elif IS_VERIFY and not await check_verification(client, message.from_user.id) and not ['is_shortlink']:
                 btn = [[
                     InlineKeyboardButton("Vᴇʀɪғʏ", url=await get_token(client, message.from_user.id, f"https://telegram.me/{temp.U_NAME}?start=", file_id)),
                     InlineKeyboardButton("Hᴏᴡ Tᴏ Vᴇʀɪғʏ", url=HOW_TO_VERIFY)
@@ -476,7 +476,7 @@ async def start(client, message):
             )
         )
         return
-    elif IS_VERIFY and not await check_verification(client, message.from_user.id) and not settings['is_shortlink']:
+    elif IS_VERIFY and not await check_verification(client, message.from_user.id) and not ['is_shortlink']:
         btn = [[
             InlineKeyboardButton("Vᴇʀɪғʏ", url=await get_token(client, message.from_user.id, f"https://telegram.me/{temp.U_NAME}?start=", file_id)),
             InlineKeyboardButton("Hᴏᴡ Tᴏ Vᴇʀɪғʏ", url=HOW_TO_VERIFY)
