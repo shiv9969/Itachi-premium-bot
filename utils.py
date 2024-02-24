@@ -54,6 +54,7 @@ class temp(object):
     BOT = None
     JK_DEV = {}
     SHORT = {}
+    GETALL = {}
     
 async def check_expired_premium(client):
     while 1:
