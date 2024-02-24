@@ -160,6 +160,9 @@ async def next_page(bot, query):
         btn = []
         for file in files:
             files_link += f"""<b>\n\n❤️ <a href={await get_shortlink(query.message.chat.id, f'https://t.me/{temp.U_NAME}?start=files_{file.file_id}')}>[{get_size(file.file_size)}] {' '.join(filter(lambda x: not x.startswith('[') and not x.startswith('boxoffice') and not x.startswith('Linkz') and not x.startswith('{') and not x.startswith('Original') and not x.startswith('Villa') and not x.startswith('Links') and not x.startswith('@') and not x.startswith('www'), file.file_name.split()))}</a></b>"""
+        btn.insert(0, [
+                    InlineKeyboardButton("! Sᴇɴᴅ Aʟʟ Tᴏ PM !", url=f"https://telegram.me/{temp.U_NAME}?start=allfiles_{key}"),
+        ])
     elif ENABLE_SHORTLINK and not settings["button"]:
         btn = [
             [
@@ -169,6 +172,9 @@ async def next_page(bot, query):
             ]
             for file in files
         ]
+        btn.insert(0, [
+                    InlineKeyboardButton("! Sᴇɴᴅ Aʟʟ Tᴏ PM !", url=f"https://telegram.me/{temp.U_NAME}?start=allfiles_{key}"),
+        ])
     elif settings['button'] and not ENABLE_SHORTLINK:
         btn = []
         for file in files:
@@ -908,21 +914,21 @@ async def cb_handler(client: Client, query: CallbackQuery):
                     return
                 else:
                     await query.answer(f"Hᴇʏ {query.from_user.first_name}, Tʜɪs Is Nᴏᴛ Yᴏᴜʀ Mᴏᴠɪᴇ Rᴇǫᴜᴇsᴛ. Rᴇǫᴜᴇsᴛ Yᴏᴜʀ's !", show_alert=True)
-            elif settings['botpm'] and settings['is_shortlink'] and clicked not in db.has_premium_access:
+            elif settings['botpm'] and settings['is_shortlink']:
                 if clicked == typed:
                     temp.SHORT[clicked] = query.message.chat.id
                     await query.answer(url=f"https://telegram.me/{temp.U_NAME}?start=short_{file_id}")
                     return
                 else:
                     await query.answer(f"Hᴇʏ {query.from_user.first_name}, Tʜɪs Is Nᴏᴛ Yᴏᴜʀ Mᴏᴠɪᴇ Rᴇǫᴜᴇsᴛ. Rᴇǫᴜᴇsᴛ Yᴏᴜʀ's !", show_alert=True)
-            elif settings['is_shortlink'] and not settings['botpm'] and clicked not in db.has_premium_access:
+            elif settings['is_shortlink'] and not settings['botpm']:
                 if clicked == typed:
                     temp.SHORT[clicked] = query.message.chat.id
                     await query.answer(url=f"https://telegram.me/{temp.U_NAME}?start=short_{file_id}")
                     return
                 else:
                     await query.answer(f"Hᴇʏ {query.from_user.first_name}, Tʜɪs Is Nᴏᴛ Yᴏᴜʀ Mᴏᴠɪᴇ Rᴇǫᴜᴇsᴛ. Rᴇǫᴜᴇsᴛ Yᴏᴜʀ's !", show_alert=True)
-            elif settings['botpm'] or clicked in db.has_premium_access:
+            elif settings['botpm']:
                 if clicked == typed:
                     await query.answer(url=f"https://t.me/{temp.U_NAME}?start={ident}_{file_id}")
                     return
@@ -997,10 +1003,10 @@ async def cb_handler(client: Client, query: CallbackQuery):
         ident, key = query.data.split("#")
         settings = await get_settings(query.message.chat.id)
         try:
-            if settings['botpm'] and settings['is_shortlink'] and clicked not in db.has_premium_access:
+            if settings['botpm'] and settings['is_shortlink']:
                 await query.answer(url=f"https://telegram.me/{temp.U_NAME}?start=sendfiles1_{key}")
                 return
-            elif settings['is_shortlink'] and not settings['botpm'] and clicked not in db.has_premium_access:
+            elif settings['is_shortlink'] and not settings['botpm']:
                 await query.answer(url=f"https://telegram.me/{temp.U_NAME}?start=sendfiles2_{key}")
                 return
             else:
@@ -2024,27 +2030,32 @@ async def auto_filter(client, msg, spoll=False):
     temp.KEYWORD[message.from_user.id] = search
     temp.SHORT[message.from_user.id] = message.chat.id
     files_link = ''
-    # if 'is_shortlink' in settings.keys():
-        # ENABLE_SHORTLINK = settings['is_shortlink']
-    # else:
-        # await save_group_settings(message.chat.id, 'is_shortlink', False)
-        # ENABLE_SHORTLINK = False
+    if 'is_shortlink' in settings.keys():
+        ENABLE_SHORTLINK = settings['is_shortlink']
+    else:
+        await save_group_settings(message.chat.id, 'is_shortlink', False)
+        ENABLE_SHORTLINK = False
     pre = 'filep' if settings['file_secure'] else 'file'
-    # if ENABLE_SHORTLINK and settings["button"]:
-        # btn = []
-        # for file in files:
-            # files_link += f"""<b>\n\n❤️ <a href={await get_shortlink(message.chat.id, f'https://t.me/{temp.U_NAME}?start=files_{file.file_id}')}>[{get_size(file.file_size)}] {' '.join(filter(lambda x: not x.startswith('[') and not x.startswith('boxoffice') and not x.startswith('Linkz') and not x.startswith('Original') and not x.startswith('Villa') and not x.startswith('{') and not x.startswith('Links') and not x.startswith('@') and not x.startswith('www'), file.file_name.split()))}</a></b>"""
-    # elif ENABLE_SHORTLINK and not settings["button"]:
-        # btn = [
-            # [
-                # InlineKeyboardButton(
-                    # text=f"[{get_size(file.file_size)}] {' '.join(filter(lambda x: not x.startswith('[') and not x.startswith('@') and not x.startswith('Linkz') and not x.startswith('{') and not x.startswith('boxoffice') and not x.startswith('Links') and not x.startswith('Original') and not x.startswith('Villa') and not x.startswith('www'), file.file_name.split()))}", url=await get_shortlink(message.chat.id, f"https://telegram.me/{temp.U_NAME}?start=files_{file.file_id}")
-                # ),
-            # ]
-            # for file in files
-        # ]
-    # elif settings["button"] and not ENABLE_SHORTLINK:
-    if settings["button"]:
+    if ENABLE_SHORTLINK and settings["button"]:
+        btn = []
+        for file in files:
+            files_link += f"""<b>\n\n❤️ <a href=https://t.me/{temp.U_NAME}?start=files_{file.file_id}}>[{get_size(file.file_size)}] {' '.join(filter(lambda x: not x.startswith('[') and not x.startswith('boxoffice') and not x.startswith('Linkz') and not x.startswith('Original') and not x.startswith('Villa') and not x.startswith('{') and not x.startswith('Links') and not x.startswith('@') and not x.startswith('www'), file.file_name.split()))}</a></b>"""
+        btn.insert(0, [
+                    InlineKeyboardButton("! Sᴇɴᴅ Aʟʟ Tᴏ PM !", url=f"https://telegram.me/{temp.U_NAME}?start=allfiles_{key}"),
+        ])
+    elif ENABLE_SHORTLINK and not settings["button"]:
+        btn = [
+            [
+                InlineKeyboardButton(
+                    text=f"[{get_size(file.file_size)}] {' '.join(filter(lambda x: not x.startswith('[') and not x.startswith('@') and not x.startswith('Linkz') and not x.startswith('{') and not x.startswith('boxoffice') and not x.startswith('Links') and not x.startswith('Original') and not x.startswith('Villa') and not x.startswith('www'), file.file_name.split()))}", url=f"https://telegram.me/{temp.U_NAME}?start=files_{file.file_id}")
+                ),
+            ]
+            for file in files
+        ]
+        btn.insert(0, [
+                    InlineKeyboardButton("! Sᴇɴᴅ Aʟʟ Tᴏ PM !", url=f"https://telegram.me/{temp.U_NAME}?start=allfiles_{key}"),
+        ])
+    elif settings["button"] and not ENABLE_SHORTLINK:
         btn = []
         for file in files:
             files_link += f"""<b>\n\n❤️ <a href=https://t.me/{temp.U_NAME}?start=files_{file.file_id}>[{get_size(file.file_size)}] {' '.join(filter(lambda x: not x.startswith('[') and not x.startswith('boxoffice') and not x.startswith('Linkz') and not x.startswith('{') and not x.startswith('Original') and not x.startswith('Villa') and not x.startswith('Links') and not x.startswith('@') and not x.startswith('www'), file.file_name.split()))}</a></b>"""
