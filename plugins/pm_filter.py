@@ -1955,11 +1955,10 @@ async def auto_filter(client, msg, spoll=False):
         m=await message.reply_sticker(sticker="CAACAgIAAxkBAAEVugJljpdfkszexOUZu8hPjuPKty8ZmAACdxgAAqPjKEmMVSFmXGLogR4E",
         reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("🅿︎🅻︎🅴︎🅰︎🆂︎🅴︎  🆆︎🅰︎🅸︎🆃︎", url=CHNL_LNK)]]))
         settings = await get_settings(message.chat.id)
-    # temp.SEND_ALL_TEMP[message.from_user.id] = files
+    key = f"{message.chat.id}-{message.id}"
+    temp.GETALL[key] = files
     temp.KEYWORD[message.from_user.id] = search
     temp.SHORT[message.from_user.id] = message.chat.id
-    temp.GETALL[message.from_user.id] = files
-    key = f"{message.chat.id}-{message.id}"
     files_link = ''
     pre = 'filep' if settings['file_secure'] else 'file'
     if settings["button"]:
