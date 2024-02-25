@@ -330,7 +330,7 @@ async def start(client, message):
                 protect_content=True if PROTECT_CONTENT else False
             )
     if data.startswith("all"):
-        if await ['is_shortlink']:
+        if ['is_shortlink']:
             chat_id = int("-" + file_id.split("-")[1])
             userid = message.from_user.id if message.from_user else None
             g = await get_shortlink(chat_id, f"https://telegram.me/{temp.U_NAME}?start=allfiles_{file_id}")
