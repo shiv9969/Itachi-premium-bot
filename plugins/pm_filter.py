@@ -236,7 +236,7 @@ async def next_page(bot, query):
         InlineKeyboardButton("Sᴇᴀꜱᴏɴꜱ", callback_data=f"jk_dev#{req}")
     ])
     btn.insert(0, [
-        InlineKeyboardButton("! Sᴇɴᴅ Aʟʟ Tᴏ PM !", url=f"https://telegram.me/{temp.U_NAME}?start=allfiles_{key}"),  
+        InlineKeyboardButton("! Sᴇɴᴅ Aʟʟ Tᴏ PM !", callback_data=f"sendfiles#{key}"),  
     ])
     try:
         await query.message.edit_text(text=cap + files_link, reply_markup=InlineKeyboardMarkup(btn), disable_web_page_preview=True)
@@ -259,11 +259,11 @@ async def language_check(bot, query):
         movie = f"{movie} {language}"
     files, offset, total_results = await get_search_results(query.message.chat.id, movie, offset=0, filter=True)
     if files:
+        key = f"{query.message.chat.id}-{query.message.id}"
         settings = await get_settings(query.message.chat.id)
         temp.SEND_ALL_TEMP[query.from_user.id] = files
         temp.SHORT[message.from_user.id] = message.chat.id
         temp.GETALL[key] = files
-        key = f"{query.message.chat.id}-{query.message.id}"
         files_link = ''
         pre = 'filep' if settings['file_secure'] else 'file'
         if settings['button']:
@@ -286,7 +286,7 @@ async def language_check(bot, query):
         ])
 
         btn.insert(0, [
-            InlineKeyboardButton("! Sᴇɴᴅ Aʟʟ Tᴏ PM !", url=f"https://telegram.me/{temp.U_NAME}?start=allfiles_{key}")
+            InlineKeyboardButton("! Sᴇɴᴅ Aʟʟ Tᴏ PM !", callback_data=f"sendfiles#{key}")
         ])
 
         if offset != "":
@@ -370,11 +370,11 @@ async def quality_check(bot, query):
         movie = f"{movie} {quality}"
     files, offset, total_results = await get_search_results(query.message.chat.id, movie, offset=0, filter=True)
     if files:
+        key = f"{query.message.chat.id}-{query.message.id}"
         settings = await get_settings(query.message.chat.id)
         temp.SEND_ALL_TEMP[query.from_user.id] = files
         temp.SHORT[message.from_user.id] = message.chat.id
         temp.GETALL[key] = files
-        key = f"{query.message.chat.id}-{query.message.id}"
         files_link = ''
         pre = 'filep' if settings['file_secure'] else 'file'
         if settings['button']:
@@ -397,7 +397,7 @@ async def quality_check(bot, query):
         ])
 
         btn.insert(0, [
-            InlineKeyboardButton("! Sᴇɴᴅ Aʟʟ Tᴏ PM !", url=f"https://telegram.me/{temp.U_NAME}?start=allfiles_{key}")
+            InlineKeyboardButton("! Sᴇɴᴅ Aʟʟ Tᴏ PM !", callback_data=f"sendfiles#{key}")
         ])
 
         if offset != "":
@@ -474,11 +474,11 @@ async def seasons_check(bot, query):
         movie = f"{movie} {seasons}"
     files, offset, total_results = await get_search_results(query.message.chat.id, movie, offset=0, filter=True)
     if files:
+        key = f"{query.message.chat.id}-{query.message.id}"
         settings = await get_settings(query.message.chat.id)
         temp.SEND_ALL_TEMP[query.from_user.id] = files
         temp.SHORT[message.from_user.id] = message.chat.id
         temp.GETALL[key] = files
-        key = f"{query.message.chat.id}-{query.message.id}"
         files_link = ''
         pre = 'filep' if settings['file_secure'] else 'file'
         if settings['button']:
@@ -501,7 +501,7 @@ async def seasons_check(bot, query):
         ])
 
         btn.insert(0, [
-            InlineKeyboardButton("! Sᴇɴᴅ Aʟʟ Tᴏ PM !", url=f"https://telegram.me/{temp.U_NAME}?start=allfiles_{key}")
+            InlineKeyboardButton("! Sᴇɴᴅ Aʟʟ Tᴏ PM !", callback_data=f"sendfiles#{key}")
         ])
 
         if offset != "":
@@ -1982,7 +1982,7 @@ async def auto_filter(client, msg, spoll=False):
     ])
 
     btn.insert(0, [
-        InlineKeyboardButton("! Sᴇɴᴅ Aʟʟ Tᴏ PM !", url=f"https://telegram.me/{temp.U_NAME}?start=allfiles_{key}"),
+        InlineKeyboardButton("! Sᴇɴᴅ Aʟʟ Tᴏ PM !", callback_data=f"sendfiles#{key}"),
     ])
 
     if offset != "":
