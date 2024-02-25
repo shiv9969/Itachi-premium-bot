@@ -951,7 +951,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
         if f_caption is None:
             f_caption = f"{title}"
         await query.answer()
-        if IS_VERIFY and not await check_verification(client, query.from_user.id) and not await await db.has_premium_access(query.from_user.id):
+        if IS_VERIFY and not await check_verification(client, query.from_user.id) and not await db.has_premium_access(query.from_user.id):
             btn = [[
                 InlineKeyboardButton("Vᴇʀɪғʏ", url=await get_token(client, query.from_user.id, f"https://telegram.me/{temp.U_NAME}?start=", file_id)),
                 InlineKeyboardButton("Hᴏᴡ Tᴏ Vᴇʀɪғʏ", url=HOW_TO_VERIFY)
