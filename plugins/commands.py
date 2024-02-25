@@ -381,7 +381,7 @@ async def start(client, message):
                             ]
                         )
                     )
-                    return 
+                    
     elif data.startswith("all"):
         files = temp.GETALL.get(file_id)
         if not files:
