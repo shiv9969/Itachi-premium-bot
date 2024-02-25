@@ -346,9 +346,11 @@ async def start(client, message):
             )
             return
         else:
+            chat_id = int("-" + file_id.split("-")[1])
+            g = (chat_id, f"https://telegram.me/{temp.U_NAME}?start=allfiles_{file_id}")
             k = await client.send_message(chat_id=message.from_user.id, text=f"<b>Get All Files in a Single Click!!!</i></b>", 
             reply_markup=InlineKeyboardMarkup([[
-                            InlineKeyboardButton('📂 Gᴇᴛ Aʟʟ Fɪʟᴇꜱ  📂', callback_data="all")]])
+                            InlineKeyboardButton('📂 Gᴇᴛ Aʟʟ Fɪʟᴇꜱ  📂', url=g)]])
             )
                     
     elif data.startswith("all"):
