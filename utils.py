@@ -55,6 +55,7 @@ class temp(object):
     JK_DEV = {}
     SHORT = {}
     GETALL = {}
+    PERALL = {}
     
 async def check_expired_premium(client):
     while 1:
