@@ -331,17 +331,17 @@ async def start(client, message):
             )
     if data.startswith("sendfiles"):
         if await db.has_premium_access(message.from_user.id):
-            files = temp.GETALL.get(file_id)
+            files = temp.PERALL.get(file_id)
             if not files:
                 return await message.reply('<b><i>Nᴏ Sᴜᴄʜ Fɪʟᴇ Eᴇxɪsᴛ.</b></i>')
             filesarr = []
             for file in files:
                 file_id = file.file_id
                 files_ = await get_file_details(file_id)
-                files3 = files_[0]
-                title = ' '.join(filter(lambda x: not x.startswith('[') and not x.startswith('@'), files3.file_name.split()))
-                size=get_size(files3.file_size)
-                f_caption=files3.caption
+                files1 = files_[0]
+                title = ' '.join(filter(lambda x: not x.startswith('[') and not x.startswith('@'), files1.file_name.split()))
+                size=get_size(files1.file_size)
+                f_caption=files1.caption
                 if CUSTOM_FILE_CAPTION:
                     try:
                         f_caption=CUSTOM_FILE_CAPTION.format(file_name= '' if title is None else title, file_size='' if size is None else size, file_caption='' if f_caption is None else f_caption)
