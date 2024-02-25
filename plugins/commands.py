@@ -329,7 +329,7 @@ async def start(client, message):
                 text="<b>Iɴᴠᴀʟɪᴅ ʟɪɴᴋ ᴏʀ Exᴘɪʀᴇᴅ ʟɪɴᴋ !</b>",
                 protect_content=True if PROTECT_CONTENT else False
             )
-    if data.startswith("all"):
+    if data.startswith("sendfiles"):
         # if ['is_shortlink']:
         chat_id = int("-" + file_id.split("-")[1])
         userid = message.from_user.id if message.from_user else None
