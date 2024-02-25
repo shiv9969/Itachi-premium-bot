@@ -340,7 +340,7 @@ async def start(client, message):
             reply_markup=InlineKeyboardMarkup([[
                             InlineKeyboardButton('📂 Gᴇᴛ Aʟʟ Fɪʟᴇꜱ  📂', url=gg)]])
             )
-         elif ['is_shortlink']:
+        elif ['is_shortlink']:
             k = await client.send_message(chat_id=message.from_user.id,text=f"<b>Get All Files in a Single Click!!!\n\n📂 ʟɪɴᴋ ➠ : {g}\n\n<i>Note: This message is deleted in 5 mins to avoid copyrights. Save the link to Somewhere else</i></b>", reply_markup=InlineKeyboardMarkup(
                     [
                         [
