@@ -1090,7 +1090,7 @@ async def shortlink(bot, message):
     await save_group_settings(grpid, 'is_shortlink', True)
     await reply.edit_text(f"<b>✅ ꜱᴜᴄᴄᴇꜱꜱꜰᴜʟʟʏ ᴀᴅᴅᴇᴅ ꜱʜᴏʀᴛʟɪɴᴋ ꜰᴏʀ <code>{title}</code>.\n\nꜱʜᴏʀᴛʟɪɴᴋ ᴡᴇʙꜱɪᴛᴇ : <code>{shortlink_url}</code>\nꜱʜᴏʀᴛʟɪɴᴋ ᴀᴘɪ : <code>{api}</code></b>")
  
-@Client.on_message(filters.command("shortlink_off") & filters.user(ADMINS))
+@Client.on_message(filters.command("shortlink_off"))
 async def offshortlink(bot, message):
     userid = message.from_user.id if message.from_user else None
     if not userid:
