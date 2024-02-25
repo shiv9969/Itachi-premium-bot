@@ -346,7 +346,7 @@ async def start(client, message):
             )
             return
         else:
-            k = await client.send_message(text=f"<b>Get All Files in a Single Click!!!</i></b>", 
+            k = await client.send_message(chat_id=message.from_user.id, text=f"<b>Get All Files in a Single Click!!!</i></b>", 
             reply_markup=InlineKeyboardMarkup([[
                             InlineKeyboardButton('📂 Gᴇᴛ Aʟʟ Fɪʟᴇꜱ  📂', callback_data="all")]])
             )
