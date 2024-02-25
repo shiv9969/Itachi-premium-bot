@@ -350,8 +350,7 @@ async def start(client, message):
                         f_caption=f_caption
                 if f_caption is None:
                     f_caption = f"{' '.join(filter(lambda x: not x.startswith('[') and not x.startswith('@'), files1.file_name.split()))}"
-                    return
-                msg = await client.send_cached_media(
+                await client.send_cached_media(
                     chat_id=message.from_user.id,
                     file_id=file_id,
                     caption=f_caption,
