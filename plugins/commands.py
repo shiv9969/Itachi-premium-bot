@@ -379,7 +379,7 @@ async def start(client, message):
                         # ]
                     # )
                 # )
-                return 
+                # return 
         elif ['is_shortlink']:
             chat_id = int("-" + file_id.split("-")[1])
             userid = message.from_user.id if message.from_user else None
