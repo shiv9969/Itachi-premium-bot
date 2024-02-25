@@ -235,9 +235,14 @@ async def next_page(bot, query):
         InlineKeyboardButton("Qᴜᴀʟɪᴛʏꜱ", callback_data=f"lusi_films#{req}"),
         InlineKeyboardButton("Sᴇᴀꜱᴏɴꜱ", callback_data=f"jk_dev#{req}")
     ])
-    btn.insert(0, [
-        InlineKeyboardButton("! Sᴇɴᴅ Aʟʟ Tᴏ PM !", callback_data=f"sendfiles#{key}"),  
-    ])
+    if ['is_shortlink']:
+        btn.insert(0, [
+           InlineKeyboardButton("! Sᴇɴᴅ Aʟʟ Tᴏ PM !", callback_data=f"send_fall#files#{offset}#{req}"),
+        ])
+    else:
+        btn.insert(0, [
+            InlineKeyboardButton("! Sᴇɴᴅ Aʟʟ Tᴏ PM !", callback_data=f"send_fall#{pre}#{0}#{message.from_user.id}"),
+        ])
     try:
         await query.message.edit_text(text=cap + files_link, reply_markup=InlineKeyboardMarkup(btn), disable_web_page_preview=True)
     except MessageNotModified:
@@ -285,9 +290,14 @@ async def language_check(bot, query):
             InlineKeyboardButton("Sᴇᴀꜱᴏɴꜱ", callback_data=f"jk_dev#{userid}")
         ])
 
-        btn.insert(0, [
-            InlineKeyboardButton("! Sᴇɴᴅ Aʟʟ Tᴏ PM !", callback_data=f"sendfiles#{key}")
-        ])
+        if ['is_shortlink']:
+            btn.insert(0, [
+                InlineKeyboardButton("! Sᴇɴᴅ Aʟʟ Tᴏ PM !", callback_data=f"sendfiles#{key}"),
+            ])
+        else:
+            btn.insert(0, [
+                InlineKeyboardButton("! Sᴇɴᴅ Aʟʟ Tᴏ PM !", callback_data=f"send_fall#{pre}#{0}#{userid}")
+            ])
 
         if offset != "":
             key = f"{query.message.chat.id}-{query.message.id}"
@@ -396,9 +406,14 @@ async def quality_check(bot, query):
             InlineKeyboardButton("Sᴇᴀꜱᴏɴꜱ", callback_data=f"jk_dev#{userid}")
         ])
 
-        btn.insert(0, [
-            InlineKeyboardButton("! Sᴇɴᴅ Aʟʟ Tᴏ PM !", callback_data=f"sendfiles#{key}")
-        ])
+        if ['is_shortlink']:
+            btn.insert(0, [
+                InlineKeyboardButton("! Sᴇɴᴅ Aʟʟ Tᴏ PM !", callback_data=f"sendfiles#{key}"),
+            ])
+        else:
+            btn.insert(0, [
+                InlineKeyboardButton("! Sᴇɴᴅ Aʟʟ Tᴏ PM !", callback_data=f"send_fall#{pre}#{0}#{userid}")
+            ])
 
         if offset != "":
             key = f"{query.message.chat.id}-{query.message.id}"
@@ -499,10 +514,15 @@ async def seasons_check(bot, query):
             InlineKeyboardButton("Qᴜᴀʟɪᴛʏꜱ", callback_data=f"lusi_films#{userid}"),
             InlineKeyboardButton("Sᴇʟᴇᴄᴛ Aɢᴀɪɴ", callback_data=f"jk_dev#{userid}")
         ])
-
-        btn.insert(0, [
-            InlineKeyboardButton("! Sᴇɴᴅ Aʟʟ Tᴏ PM !", callback_data=f"sendfiles#{key}")
-        ])
+        
+        if ['is_shortlink']:
+            btn.insert(0, [
+                InlineKeyboardButton("! Sᴇɴᴅ Aʟʟ Tᴏ PM !", callback_data=f"sendfiles#{key}"),
+            ])
+        else:
+            btn.insert(0, [
+                InlineKeyboardButton("! Sᴇɴᴅ Aʟʟ Tᴏ PM !", callback_data=f"send_fall#{pre}#{0}#{userid}")
+            ])
 
         if offset != "":
             key = f"{query.message.chat.id}-{query.message.id}"
@@ -865,7 +885,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
                     await query.answer(f"Hᴇʏ {query.from_user.first_name}, Tʜɪs Is Nᴏᴛ Yᴏᴜʀ Mᴏᴠɪᴇ Rᴇǫᴜᴇsᴛ. Rᴇǫᴜᴇsᴛ Yᴏᴜʀ's !", show_alert=True)
             else:
                 if clicked == typed:
-                    if IS_VERIFY and not await check_verification(client, query.from_user.id) and not IS_SHORTLINK is True:
+                    if IS_VERIFY and not await check_verification(client, query.from_user.id) and not await db.has_premium_access(query.from_user.id):
                         btn = [[
                             InlineKeyboardButton("Vᴇʀɪғʏ", url=await get_token(client, query.from_user.id, f"https://telegram.me/{temp.U_NAME}?start=", file_id)),
                             InlineKeyboardButton("Hᴏᴡ Tᴏ Vᴇʀɪғʏ", url=HOW_TO_VERIFY)
@@ -891,24 +911,6 @@ async def cb_handler(client: Client, query: CallbackQuery):
                                 [
                                 [
                                 InlineKeyboardButton("🖥️ ᴡᴀᴛᴄʜ & ᴅᴏᴡɴʟᴏᴀᴅ 📥", callback_data=f"streaming#{file_id}")
-                            ],[
-                                InlineKeyboardButton('Sᴜᴘᴘᴏʀᴛ Gʀᴏᴜᴘ', url=GRP_LNK),
-                                InlineKeyboardButton('Uᴘᴅᴀᴛᴇs Cʜᴀɴɴᴇʟ', url=CHNL_LNK)
-                                ]
-                                ]
-                            )
-                        )
-                        return await query.answer('Cʜᴇᴄᴋ PM, I ʜᴀᴠᴇ sᴇɴᴛ ғɪʟᴇs ɪɴ PM', show_alert=True)
-                    if await db.has_premium_access(query.from_user.id):
-                        await client.send_cached_media(
-                            chat_id=query.from_user.id,
-                            file_id=file_id,
-                            caption=f_caption,
-                            protect_content=True if ident == "filep" else False,
-                            reply_markup=InlineKeyboardMarkup(
-                                [
-                                [
-                                InlineKeyboardButton("🖥️ ᴡᴀᴛᴄʜ / ᴅᴏᴡɴʟᴏᴀᴅ 📥", callback_data=f"streaming#{file_id}")
                             ],[
                                 InlineKeyboardButton('Sᴜᴘᴘᴏʀᴛ Gʀᴏᴜᴘ', url=GRP_LNK),
                                 InlineKeyboardButton('Uᴘᴅᴀᴛᴇs Cʜᴀɴɴᴇʟ', url=CHNL_LNK)
@@ -1956,6 +1958,7 @@ async def auto_filter(client, msg, spoll=False):
         reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("🅿︎🅻︎🅴︎🅰︎🆂︎🅴︎  🆆︎🅰︎🅸︎🆃︎", url=CHNL_LNK)]]))
         settings = await get_settings(message.chat.id)
     key = f"{message.chat.id}-{message.id}"
+    temp.SEND_ALL_TEMP[message.from_user.id] = files
     temp.GETALL[key] = files
     temp.KEYWORD[message.from_user.id] = search
     temp.SHORT[message.from_user.id] = message.chat.id
@@ -1980,10 +1983,14 @@ async def auto_filter(client, msg, spoll=False):
         InlineKeyboardButton("Qᴜᴀʟɪᴛʏꜱ", callback_data=f"lusi_films#{message.from_user.id}"),
         InlineKeyboardButton("Sᴇᴀꜱᴏɴꜱ", callback_data=f"jk_dev#{message.from_user.id}")
     ])
-
-    btn.insert(0, [
-        InlineKeyboardButton("! Sᴇɴᴅ Aʟʟ Tᴏ PM !", callback_data=f"sendfiles#{key}"),
-    ])
+    if ['is_shortlink']:
+        btn.insert(0, [
+            InlineKeyboardButton("! Sᴇɴᴅ Aʟʟ Tᴏ PM !", callback_data=f"sendfiles#{key}"),
+        ])
+    else:
+        btn.insert(0, [
+            InlineKeyboardButton("! Sᴇɴᴅ Aʟʟ Tᴏ PM !", callback_data=f"send_fall#{pre}#{0}#{message.from_user.id}"),
+        ])
 
     if offset != "":
         key = f"{message.chat.id}-{message.id}"
