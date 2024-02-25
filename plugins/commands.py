@@ -338,10 +338,10 @@ async def start(client, message):
             for file in files:
                 file_id = file.file_id
                 files_ = await get_file_details(file_id)
-                files1 = files_[0]
-                title = ' '.join(filter(lambda x: not x.startswith('[') and not x.startswith('@'), files1.file_name.split()))
-                size=get_size(files1.file_size)
-                f_caption=files1.caption
+                files3 = files_[0]
+                title = ' '.join(filter(lambda x: not x.startswith('[') and not x.startswith('@'), files3.file_name.split()))
+                size=get_size(files3.file_size)
+                f_caption=files3.caption
                 if CUSTOM_FILE_CAPTION:
                     try:
                         f_caption=CUSTOM_FILE_CAPTION.format(file_name= '' if title is None else title, file_size='' if size is None else size, file_caption='' if f_caption is None else f_caption)
