@@ -330,11 +330,17 @@ async def start(client, message):
                 protect_content=True if PROTECT_CONTENT else False
             )
     if data.startswith("sendfiles"):
-        if ['is_shortlink']:
+        if await db.has_premium_access(message.from_user.id):
             chat_id = int("-" + file_id.split("-")[1])
             userid = message.from_user.id if message.from_user else None
             g = await get_shortlink(chat_id, f"https://telegram.me/{temp.U_NAME}?start=allfiles_{file_id}")
             gg = chat_id, f"https://telegram.me/{temp.U_NAME}?start=allfiles_{file_id}"
+            
+            k = await client.send_message(chat_id=message.from_user.id, text=f"<b>Get All Files in a Single Click!!!</i></b>", 
+            reply_markup=InlineKeyboardMarkup([[
+                            InlineKeyboardButton('📂 Gᴇᴛ Aʟʟ Fɪʟᴇꜱ  📂', url=gg)]])
+            )
+         elif ['is_shortlink']:
             k = await client.send_message(chat_id=message.from_user.id,text=f"<b>Get All Files in a Single Click!!!\n\n📂 ʟɪɴᴋ ➠ : {g}\n\n<i>Note: This message is deleted in 5 mins to avoid copyrights. Save the link to Somewhere else</i></b>", reply_markup=InlineKeyboardMarkup(
                     [
                         [
@@ -344,11 +350,6 @@ async def start(client, message):
                         ]
                     ]
                 )
-            )
-        elif await db.has_premium_access(message.from_user.id):
-            k = await client.send_message(chat_id=message.from_user.id, text=f"<b>Get All Files in a Single Click!!!</i></b>", 
-            reply_markup=InlineKeyboardMarkup([[
-                            InlineKeyboardButton('📂 Gᴇᴛ Aʟʟ Fɪʟᴇꜱ  📂', url=gg)]])
             )
                     
     elif data.startswith("all"):
