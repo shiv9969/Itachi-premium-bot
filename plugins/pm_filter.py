@@ -142,7 +142,6 @@ async def next_page(bot, query):
     if not files:
         return
     settings = await get_settings(query.message.chat.id)
-    temp.SEND_ALL_TEMP[query.from_user.id] = files
     temp.SHORT[message.from_user.id] = message.chat.id
     temp.GETALL[key] = files
     files_link = ''
@@ -235,14 +234,9 @@ async def next_page(bot, query):
         InlineKeyboardButton("Qᴜᴀʟɪᴛʏꜱ", callback_data=f"lusi_films#{req}"),
         InlineKeyboardButton("Sᴇᴀꜱᴏɴꜱ", callback_data=f"jk_dev#{req}")
     ])
-    if ['is_shortlink']:
-        btn.insert(0, [
-           InlineKeyboardButton("! Sᴇɴᴅ Aʟʟ Tᴏ PM !", callback_data=f"send_fall#files#{offset}#{req}"),
-        ])
-    else:
-        btn.insert(0, [
-            InlineKeyboardButton("! Sᴇɴᴅ Aʟʟ Tᴏ PM !", callback_data=f"send_fall#{pre}#{0}#{message.from_user.id}"),
-        ])
+    btn.insert(0, [
+        InlineKeyboardButton("! Sᴇɴᴅ Aʟʟ Tᴏ PM !", callback_data=f"sendfiles#{key}"),  
+    ])
     try:
         await query.message.edit_text(text=cap + files_link, reply_markup=InlineKeyboardMarkup(btn), disable_web_page_preview=True)
     except MessageNotModified:
@@ -266,7 +260,6 @@ async def language_check(bot, query):
     if files:
         key = f"{query.message.chat.id}-{query.message.id}"
         settings = await get_settings(query.message.chat.id)
-        temp.SEND_ALL_TEMP[query.from_user.id] = files
         temp.SHORT[message.from_user.id] = message.chat.id
         temp.GETALL[key] = files
         files_link = ''
@@ -290,14 +283,9 @@ async def language_check(bot, query):
             InlineKeyboardButton("Sᴇᴀꜱᴏɴꜱ", callback_data=f"jk_dev#{userid}")
         ])
 
-        if ['is_shortlink']:
-            btn.insert(0, [
-                InlineKeyboardButton("! Sᴇɴᴅ Aʟʟ Tᴏ PM !", callback_data=f"sendfiles#{key}"),
-            ])
-        else:
-            btn.insert(0, [
-                InlineKeyboardButton("! Sᴇɴᴅ Aʟʟ Tᴏ PM !", callback_data=f"send_fall#{pre}#{0}#{userid}")
-            ])
+        btn.insert(0, [
+            InlineKeyboardButton("! Sᴇɴᴅ Aʟʟ Tᴏ PM !", callback_data=f"sendfiles#{key}")
+        ])
 
         if offset != "":
             key = f"{query.message.chat.id}-{query.message.id}"
@@ -382,7 +370,6 @@ async def quality_check(bot, query):
     if files:
         key = f"{query.message.chat.id}-{query.message.id}"
         settings = await get_settings(query.message.chat.id)
-        temp.SEND_ALL_TEMP[query.from_user.id] = files
         temp.SHORT[message.from_user.id] = message.chat.id
         temp.GETALL[key] = files
         files_link = ''
@@ -406,14 +393,9 @@ async def quality_check(bot, query):
             InlineKeyboardButton("Sᴇᴀꜱᴏɴꜱ", callback_data=f"jk_dev#{userid}")
         ])
 
-        if ['is_shortlink']:
-            btn.insert(0, [
-                InlineKeyboardButton("! Sᴇɴᴅ Aʟʟ Tᴏ PM !", callback_data=f"sendfiles#{key}"),
-            ])
-        else:
-            btn.insert(0, [
-                InlineKeyboardButton("! Sᴇɴᴅ Aʟʟ Tᴏ PM !", callback_data=f"send_fall#{pre}#{0}#{userid}")
-            ])
+        btn.insert(0, [
+            InlineKeyboardButton("! Sᴇɴᴅ Aʟʟ Tᴏ PM !", callback_data=f"sendfiles#{key}")
+        ])
 
         if offset != "":
             key = f"{query.message.chat.id}-{query.message.id}"
@@ -491,7 +473,6 @@ async def seasons_check(bot, query):
     if files:
         key = f"{query.message.chat.id}-{query.message.id}"
         settings = await get_settings(query.message.chat.id)
-        temp.SEND_ALL_TEMP[query.from_user.id] = files
         temp.SHORT[message.from_user.id] = message.chat.id
         temp.GETALL[key] = files
         files_link = ''
@@ -514,15 +495,10 @@ async def seasons_check(bot, query):
             InlineKeyboardButton("Qᴜᴀʟɪᴛʏꜱ", callback_data=f"lusi_films#{userid}"),
             InlineKeyboardButton("Sᴇʟᴇᴄᴛ Aɢᴀɪɴ", callback_data=f"jk_dev#{userid}")
         ])
-        
-        if ['is_shortlink']:
-            btn.insert(0, [
-                InlineKeyboardButton("! Sᴇɴᴅ Aʟʟ Tᴏ PM !", callback_data=f"sendfiles#{key}"),
-            ])
-        else:
-            btn.insert(0, [
-                InlineKeyboardButton("! Sᴇɴᴅ Aʟʟ Tᴏ PM !", callback_data=f"send_fall#{pre}#{0}#{userid}")
-            ])
+
+        btn.insert(0, [
+            InlineKeyboardButton("! Sᴇɴᴅ Aʟʟ Tᴏ PM !", callback_data=f"sendfiles#{key}")
+        ])
 
         if offset != "":
             key = f"{query.message.chat.id}-{query.message.id}"
@@ -957,19 +933,6 @@ async def cb_handler(client: Client, query: CallbackQuery):
             await query.answer("Jᴏɪɴ ᴏᴜʀ Bᴀᴄᴋ-ᴜᴘ ᴄʜᴀɴɴᴇʟ ᴍᴀʜɴ! 😒", show_alert=True)
             return
         ident, file_id = query.data.split("#")
-        if file_id == "send_all":
-            send_files = temp.SEND_ALL_TEMP.get(query.from_user.id)
-            is_over = await send_all(client, query.from_user.id, send_files, ident)
-            if is_over == 'done':
-                return await query.answer(f"Hᴇʏ {query.from_user.first_name}, Aʟʟ ғɪʟᴇs ᴏɴ ᴛʜɪs ᴘᴀɢᴇ ʜᴀs ʙᴇᴇɴ sᴇɴᴛ sᴜᴄᴄᴇssғᴜʟʟʏ ᴛᴏ ʏᴏᴜʀ PM !", show_alert=True)
-            elif is_over == 'fsub':
-                return await query.answer("Hᴇʏ, Yᴏᴜ ᴀʀᴇ ɴᴏᴛ ᴊᴏɪɴᴇᴅ ɪɴ ᴍʏ ʙᴀᴄᴋ ᴜᴘ ᴄʜᴀɴɴᴇʟ. Cʜᴇᴄᴋ ᴍʏ PM ᴛᴏ ᴊᴏɪɴ ᴀɴᴅ ɢᴇᴛ ғɪʟᴇs !", show_alert=True)
-            elif is_over == 'jk_dev':
-                return await query.answer("Hᴇʏ Special User Your  Aʟʟ ғɪʟᴇs ᴏɴ ᴛʜɪs ᴘᴀɢᴇ ʜᴀs ʙᴇᴇɴ sᴇɴᴛ sᴜᴄᴄᴇssғᴜʟʟʏ ᴛᴏ ʏᴏᴜʀ PM !", show_alert=True)
-            elif is_over == 'verify':
-                return await query.answer("Hᴇʏ, Yᴏᴜ ʜᴀᴠᴇ ɴᴏᴛ ᴠᴇʀɪғɪᴇᴅ ᴛᴏᴅᴀʏ. Yᴏᴜ ʜᴀᴠᴇ ᴛᴏ ᴠᴇʀɪғʏ ᴛᴏ ᴄᴏɴᴛɪɴᴜᴇ. Cʜᴇᴄᴋ ᴍʏ PM ᴛᴏ ᴠᴇʀɪғʏ ᴀɴᴅ ɢᴇᴛ ғɪʟᴇs !", show_alert=True)
-            else:
-                return await query.answer(f"Eʀʀᴏʀ: {is_over}", show_alert=True)
         files_ = await get_file_details(file_id)
         if not files_:
             return await query.answer('Nᴏ sᴜᴄʜ ғɪʟᴇ ᴇxɪsᴛ.')
@@ -988,7 +951,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
         if f_caption is None:
             f_caption = f"{title}"
         await query.answer()
-        if IS_VERIFY and not await check_verification(client, query.from_user.id):
+        if IS_VERIFY and not await check_verification(client, query.from_user.id) and not await await db.has_premium_access(query.from_user.id):
             btn = [[
                 InlineKeyboardButton("Vᴇʀɪғʏ", url=await get_token(client, query.from_user.id, f"https://telegram.me/{temp.U_NAME}?start=", file_id)),
                 InlineKeyboardButton("Hᴏᴡ Tᴏ Vᴇʀɪғʏ", url=HOW_TO_VERIFY)
@@ -1004,6 +967,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
                 reply_markup=InlineKeyboardMarkup(btn)
             )
             return
+        else:
             await client.send_cached_media(
                 chat_id=query.from_user.id,
                 file_id=file_id,
@@ -1019,41 +983,8 @@ async def cb_handler(client: Client, query: CallbackQuery):
                  ]
                 ]
             ))
-        if await db.has_premium_access(query.from_user.id):
-            await client.send_cached_media(
-                chat_id=query.from_user.id,
-                file_id=file_id,
-                caption=f_caption,
-                protect_content=True if ident == 'checksubp' else False,
-                reply_markup=InlineKeyboardMarkup(
-                [
-                 [
-                  InlineKeyboardButton("🖥️ Wᴀᴛᴄʜ / Dᴏᴡɴʟᴏᴀᴅ 📥", callback_data=f"streaming#{file_id}")
-               ],[
-                  InlineKeyboardButton('Sᴜᴘᴘᴏʀᴛ Gʀᴏᴜᴘ', url=GRP_LNK),
-                  InlineKeyboardButton('Uᴘᴅᴀᴛᴇs Cʜᴀɴɴᴇʟ', url=CHNL_LNK)
-                 ]
-                ]
-            ))
     elif query.data == "pages":
         await query.answer()
-
-    elif query.data.startswith("send_fall"):
-        temp_var, ident, offset, userid = query.data.split("#")
-        if int(userid) not in [query.from_user.id, 0]:
-            return await query.answer(script.ALRT_TXT.format(query.from_user.first_name), show_alert=True)
-        files = temp.SEND_ALL_TEMP.get(query.from_user.id)
-        is_over = await send_all(client, query.from_user.id, files, ident)
-        if is_over == 'done':
-            return await query.answer(f"Hᴇʏ {query.from_user.first_name}, Aʟʟ ғɪʟᴇs ᴏɴ ᴛʜɪs ᴘᴀɢᴇ ʜᴀs ʙᴇᴇɴ sᴇɴᴛ sᴜᴄᴄᴇssғᴜʟʟʏ ᴛᴏ ʏᴏᴜʀ PM !", show_alert=True)
-        elif is_over == 'fsub':
-            return await query.answer("Hᴇʏ, Yᴏᴜ ᴀʀᴇ ɴᴏᴛ ᴊᴏɪɴᴇᴅ ɪɴ ᴍʏ ʙᴀᴄᴋ ᴜᴘ ᴄʜᴀɴɴᴇʟ. Cʜᴇᴄᴋ ᴍʏ PM ᴛᴏ ᴊᴏɪɴ ᴀɴᴅ ɢᴇᴛ ғɪʟᴇs !", show_alert=True)
-        elif is_over == 'jk_dev':
-                return await query.answer("Hᴇʏ Special User Your  Aʟʟ ғɪʟᴇs ᴏɴ ᴛʜɪs ᴘᴀɢᴇ ʜᴀs ʙᴇᴇɴ sᴇɴᴛ sᴜᴄᴄᴇssғᴜʟʟʏ ᴛᴏ ʏᴏᴜʀ PM !", show_alert=True)
-        elif is_over == 'verify':
-            return await query.answer("Hᴇʏ, Yᴏᴜ ʜᴀᴠᴇ ɴᴏᴛ ᴠᴇʀɪғɪᴇᴅ ᴛᴏᴅᴀʏ. Yᴏᴜ ʜᴀᴠᴇ ᴛᴏ ᴠᴇʀɪғʏ ᴛᴏ ᴄᴏɴᴛɪɴᴜᴇ. Cʜᴇᴄᴋ ᴍʏ PM ᴛᴏ ᴠᴇʀɪғʏ ᴀɴᴅ ɢᴇᴛ ғɪʟᴇs !", show_alert=True)
-        else:
-            return await query.answer(f"Eʀʀᴏʀ: {is_over}", show_alert=True)
 
     elif query.data.startswith("killfilesdq"):
         ident, keyword = query.data.split("#")
@@ -1958,7 +1889,6 @@ async def auto_filter(client, msg, spoll=False):
         reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("🅿︎🅻︎🅴︎🅰︎🆂︎🅴︎  🆆︎🅰︎🅸︎🆃︎", url=CHNL_LNK)]]))
         settings = await get_settings(message.chat.id)
     key = f"{message.chat.id}-{message.id}"
-    temp.SEND_ALL_TEMP[message.from_user.id] = files
     temp.GETALL[key] = files
     temp.KEYWORD[message.from_user.id] = search
     temp.SHORT[message.from_user.id] = message.chat.id
@@ -1983,14 +1913,10 @@ async def auto_filter(client, msg, spoll=False):
         InlineKeyboardButton("Qᴜᴀʟɪᴛʏꜱ", callback_data=f"lusi_films#{message.from_user.id}"),
         InlineKeyboardButton("Sᴇᴀꜱᴏɴꜱ", callback_data=f"jk_dev#{message.from_user.id}")
     ])
-    if ['is_shortlink']:
-        btn.insert(0, [
-            InlineKeyboardButton("! Sᴇɴᴅ Aʟʟ Tᴏ PM !", callback_data=f"sendfiles#{key}"),
-        ])
-    else:
-        btn.insert(0, [
-            InlineKeyboardButton("! Sᴇɴᴅ Aʟʟ Tᴏ PM !", callback_data=f"send_fall#{pre}#{0}#{message.from_user.id}"),
-        ])
+
+    btn.insert(0, [
+        InlineKeyboardButton("! Sᴇɴᴅ Aʟʟ Tᴏ PM !", callback_data=f"sendfiles#{key}"),
+    ])
 
     if offset != "":
         key = f"{message.chat.id}-{message.id}"
