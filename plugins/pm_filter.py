@@ -145,7 +145,6 @@ async def next_page(bot, query):
     temp.SEND_ALL_TEMP[query.from_user.id] = files
     temp.SHORT[message.from_user.id] = message.chat.id
     temp.GETALL[key] = files
-    temp.PERALL[key] = files
     files_link = ''
     imdb = await get_poster(search, file=(files[0]).file_name) if settings["imdb"] else None
     TEMPLATE = settings['template']
@@ -265,7 +264,6 @@ async def language_check(bot, query):
         temp.SEND_ALL_TEMP[query.from_user.id] = files
         temp.SHORT[message.from_user.id] = message.chat.id
         temp.GETALL[key] = files
-        temp.PERALL[key] = files
         files_link = ''
         pre = 'filep' if settings['file_secure'] else 'file'
         if settings['button']:
@@ -377,7 +375,6 @@ async def quality_check(bot, query):
         temp.SEND_ALL_TEMP[query.from_user.id] = files
         temp.SHORT[message.from_user.id] = message.chat.id
         temp.GETALL[key] = files
-        temp.PERALL[key] = files
         files_link = ''
         pre = 'filep' if settings['file_secure'] else 'file'
         if settings['button']:
@@ -482,7 +479,6 @@ async def seasons_check(bot, query):
         temp.SEND_ALL_TEMP[query.from_user.id] = files
         temp.SHORT[message.from_user.id] = message.chat.id
         temp.GETALL[key] = files
-        temp.PERALL[key] = files
         files_link = ''
         pre = 'filep' if settings['file_secure'] else 'file'
         if settings['button']:
@@ -1961,7 +1957,6 @@ async def auto_filter(client, msg, spoll=False):
         settings = await get_settings(message.chat.id)
     key = f"{message.chat.id}-{message.id}"
     temp.GETALL[key] = files
-    temp.PERALL[key] = files
     temp.KEYWORD[message.from_user.id] = search
     temp.SHORT[message.from_user.id] = message.chat.id
     files_link = ''
