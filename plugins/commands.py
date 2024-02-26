@@ -331,22 +331,22 @@ async def start(client, message):
                 protect_content=True if PROTECT_CONTENT else False
             )
     if data.startswith("sendfiles"):
-        if await db.has_premium_access(message.from_user.id):
-            chat_id = int("-" + file_id.split("-")[1])
-            userid = message.from_user.id if message.from_user else None
-            g = f"https://telegram.me/{temp.U_NAME}?start=allfiles_{file_id}"
-            k = await client.send_message(chat_id=message.from_user.id,text=f"<b>Get All Files in a Single Click!!!</i></b>", 
-            reply_markup=InlineKeyboardMarkup([[
-                            InlineKeyboardButton('📂 Gᴇᴛ Aʟʟ Fɪʟᴇꜱ  📂', url=g)]]))
-        elif ['is_shortlink']:
-            chat_id = int("-" + file_id.split("-")[1])
-            userid = message.from_user.id if message.from_user else None
-            g = await get_shortlink(chat_id, f"https://telegram.me/{temp.U_NAME}?start=allfiles_{file_id}")
-            k = await client.send_message(chat_id=message.from_user.id,text=f"<b>Get All Files in a Single Click!!!\n\n📂 ʟɪɴᴋ ➠ : {g}</i></b>", 
-            reply_markup=InlineKeyboardMarkup([[
-                            InlineKeyboardButton('📂 Dᴏᴡɴʟᴏᴀᴅ Nᴏᴡ 📂', url=g)], 
-                            [InlineKeyboardButton('🤔 Hᴏᴡ Tᴏ Dᴏᴡɴʟᴏᴀᴅ 🤔', url=await get_tutorial(chat_id))]]))  
-            return 
+        # if await db.has_premium_access(message.from_user.id):
+            # chat_id = int("-" + file_id.split("-")[1])
+            # userid = message.from_user.id if message.from_user else None
+            # g = f"https://telegram.me/{temp.U_NAME}?start=allfiles_{file_id}"
+            # k = await client.send_message(chat_id=message.from_user.id,text=f"<b>Get All Files in a Single Click!!!</i></b>", 
+            # reply_markup=InlineKeyboardMarkup([[
+                            # InlineKeyboardButton('📂 Gᴇᴛ Aʟʟ Fɪʟᴇꜱ  📂', url=g)]]))
+        # elif ['is_shortlink']:
+        chat_id = int("-" + file_id.split("-")[1])
+        userid = message.from_user.id if message.from_user else None
+        g = await get_shortlink(chat_id, f"https://telegram.me/{temp.U_NAME}?start=allfiles_{file_id}")
+        k = await client.send_message(chat_id=message.from_user.id,text=f"<b>Get All Files in a Single Click!!!\n\n📂 ʟɪɴᴋ ➠ : {g}</i></b>", 
+        reply_markup=InlineKeyboardMarkup([[
+                        InlineKeyboardButton('📂 Dᴏᴡɴʟᴏᴀᴅ Nᴏᴡ 📂', url=g)], 
+                        [InlineKeyboardButton('🤔 Hᴏᴡ Tᴏ Dᴏᴡɴʟᴏᴀᴅ 🤔', url=await get_tutorial(chat_id))]]))  
+        return 
     elif data.startswith("short"):
         if await db.has_premium_access(message.from_user.id):
             files = await get_file_details(file_id)
