@@ -14,10 +14,10 @@ import pyrogram
 from database.connections_mdb import active_connection, all_connections, delete_connection, if_active, make_active, \
     make_inactive
 from info import *
-from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton, CallbackQuery, InputMediaPhoto, InputMediaVideo
+from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton, CallbackQuery, InputMediaPhoto
 from pyrogram import Client, filters, enums
 from pyrogram.errors import FloodWait, UserIsBlocked, MessageNotModified, PeerIdInvalid
-from utils import get_size, is_subscribed, get_poster, search_gagala, temp, get_settings, save_group_settings, get_shortlink, send_all, check_verification, get_token, stream_site, get_tutorial
+from utils import get_size, is_subscribed, get_poster, search_gagala, temp, get_settings, save_group_settings, get_shortlink, check_verification, get_token, stream_site, get_tutorial
 from database.users_chats_db import db
 from database.ia_filterdb import Media, get_file_details, get_search_results, get_bad_files
 from database.filters_mdb import (
@@ -77,6 +77,26 @@ async def stream_download(bot, query):
                 ],[
                     InlineKeyboardButton('⁉️ ᴄʟᴏsᴇ ⁉️', callback_data='close_data')]]))
 
+@Client.on_message(filters.command("streamlink"))
+async def streamlink(bot, query):
+    file_id = query.data.split('#', 1)[1] 
+    user_id = query.from_user.id
+    username =  query.from_user.mention 
+    msg = await bot.send_cached_media(
+        chat_id=BIN_CHANNEL,
+        file_id=file_id)
+    online = f"{URL}watch/{msg.id}"
+    download = f"{URL}download/{msg.id}"
+    await msg.reply_text(text=f"Command Link Genrated✅\ntg://openmessage?user_id={user_id}\n•• ᴜꜱᴇʀɴᴀᴍᴇ : {username}",
+        reply_markup=InlineKeyboardMarkup([[
+                InlineKeyboardButton("📥 ᴅᴏᴡɴʟᴏᴀᴅ 📥", url=download),
+                InlineKeyboardButton("🖥️ ꜱᴛʀᴇᴇᴍ 🖥️", url=online)]]))  
+        await query.message.reply_text(
+            text="Sᴛʀᴇᴀᴍɪɴɢ Lɪɴᴋ Sᴜᴄᴄᴇꜱꜱғᴜʟʟʏ Gᴇɴʀᴀᴛᴇᴅ ✅\n\n💌 ᴅᴏᴡɴʟᴏᴀᴅ ʟɪɴᴋ : {download}\n\n🖥 ᴡᴀᴛᴄʜ ᴏɴʟɪɴᴇ : {online}\n\nTʜᴇ ʟɪɴᴋ ᴡɪʟʟ ɴᴏᴛ ᴇxᴘɪʀᴇ ᴜɴᴛɪʟ ᴛʜᴇ ʙᴏᴛ'ꜱ ꜱᴇʀᴠᴇʀ ɪꜱ ᴄʜᴀɴɢᴇᴅ.",
+            disable_web_page_preview=True,
+            reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("📥 ᴅᴏᴡɴʟᴏᴀᴅ 📥", url=download),  # we download Link
+                                                InlineKeyboardButton('🖥️ ꜱᴛʀᴇᴇᴍ 🖥️', url=online)]])  # web stream Link
+        ) 
 
 @Client.on_message(filters.group & filters.text & filters.incoming)
 async def give_filter(client, message):
@@ -142,7 +162,7 @@ async def next_page(bot, query):
     if not files:
         return
     settings = await get_settings(query.message.chat.id)
-    temp.SHORT[message.from_user.id] = message.chat.id
+    temp.SHORT[query.from_user.id] = query.message.chat.id
     temp.GETALL[key] = files
     files_link = ''
     imdb = await get_poster(search, file=(files[0]).file_name) if settings["imdb"] else None
@@ -260,7 +280,7 @@ async def language_check(bot, query):
     if files:
         key = f"{query.message.chat.id}-{query.message.id}"
         settings = await get_settings(query.message.chat.id)
-        temp.SHORT[message.from_user.id] = message.chat.id
+        temp.SHORT[query.from_user.id] = query.message.chat.id
         temp.GETALL[key] = files
         files_link = ''
         pre = 'filep' if settings['file_secure'] else 'file'
@@ -370,7 +390,7 @@ async def quality_check(bot, query):
     if files:
         key = f"{query.message.chat.id}-{query.message.id}"
         settings = await get_settings(query.message.chat.id)
-        temp.SHORT[message.from_user.id] = message.chat.id
+        temp.SHORT[query.from_user.id] = query.message.chat.id
         temp.GETALL[key] = files
         files_link = ''
         pre = 'filep' if settings['file_secure'] else 'file'
@@ -473,7 +493,7 @@ async def seasons_check(bot, query):
     if files:
         key = f"{query.message.chat.id}-{query.message.id}"
         settings = await get_settings(query.message.chat.id)
-        temp.SHORT[message.from_user.id] = message.chat.id
+        temp.SHORT[query.from_user.id] = query.message.chat.id
         temp.GETALL[key] = files
         files_link = ''
         pre = 'filep' if settings['file_secure'] else 'file'
@@ -1208,7 +1228,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
         await client.edit_message_media(
             query.message.chat.id, 
             query.message.id, 
-            InputMediaVideo(random.choice(ST_VID))
+            InputMediaPhoto(random.choice(PICS))
         )
         await query.message.edit_text(
             text=script.START_TXT.format(query.from_user.mention, gtxt, temp.U_NAME, temp.B_NAME),
@@ -1310,8 +1330,8 @@ async def cb_handler(client: Client, query: CallbackQuery):
                 InlineKeyboardButton('⇋ ʙᴀᴄᴋ ᴛᴏ ʜᴏᴍᴇ ⇋', callback_data='start')
             ]]
             reply_markup = InlineKeyboardMarkup(buttons)
-            await query.message.edit_text(
-                text=script.PLAN_TXT.format(query.from_user.mention),
+            await query.message.edit_photo(
+                photo=(SUBSCRIPTION), caption=(script.PLAN_TXT.format(query.from_user.mention)),
                 reply_markup=reply_markup,
                 parse_mode=enums.ParseMode.HTML
             )
@@ -1501,7 +1521,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
         await client.edit_message_media(
             query.message.chat.id, 
             query.message.id, 
-            InputMediaVideo(random.choice(ST_VID))
+            InputMediaPhoto(random.choice(PICS))
         )
         reply_markup = InlineKeyboardMarkup(buttons)
         await query.message.edit_text(
@@ -1522,7 +1542,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
         await client.edit_message_media(
             query.message.chat.id, 
             query.message.id, 
-            InputMediaVideo(random.choice(ST_VID))
+            InputMediaPhoto(random.choice(PICS))
         )
         reply_markup = InlineKeyboardMarkup(buttons)
         await query.message.edit_text(
@@ -1596,7 +1616,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
         await client.edit_message_media(
             query.message.chat.id, 
             query.message.id, 
-            InputMediaVideo(random.choice(ST_VID))
+            InputMediaPhoto(random.choice(PICS))
         )
         await query.message.edit_text(
             text=script.ALL_FILTERS.format(query.from_user.mention),
@@ -1611,7 +1631,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
         await client.edit_message_media(
             query.message.chat.id, 
             query.message.id, 
-            InputMediaVideo(random.choice(ST_VID))
+            InputMediaPhoto(random.choice(PICS))
         )
         reply_markup = InlineKeyboardMarkup(buttons)
         await query.message.edit_text(
@@ -1628,7 +1648,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
         await client.edit_message_media(
             query.message.chat.id, 
             query.message.id, 
-            InputMediaVideo(random.choice(ST_VID))
+            InputMediaPhoto(random.choice(PICS))
         )
         await query.message.edit_text(
             text=script.SOURCE_TXT,
@@ -1644,7 +1664,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
         await client.edit_message_media(
             query.message.chat.id, 
             query.message.id, 
-            InputMediaVideo(random.choice(ST_VID))
+            InputMediaPhoto(random.choice(PICS))
         )
         await query.message.edit_text(
             text=script.MANUELFILTER_TXT,
@@ -1658,7 +1678,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
         await client.edit_message_media(
             query.message.chat.id, 
             query.message.id, 
-            InputMediaVideo(random.choice(ST_VID))
+            InputMediaPhoto(random.choice(PICS))
         )
         reply_markup = InlineKeyboardMarkup(buttons)
         await query.message.edit_text(
@@ -1673,7 +1693,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
         await client.edit_message_media(
             query.message.chat.id, 
             query.message.id, 
-            InputMediaVideo(random.choice(ST_VID))
+            InputMediaPhoto(random.choice(PICS))
         )
         reply_markup = InlineKeyboardMarkup(buttons)
         await query.message.edit_text(
@@ -1688,7 +1708,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
         await client.edit_message_media(
             query.message.chat.id, 
             query.message.id, 
-            InputMediaVideo(random.choice(ST_VID))
+            InputMediaPhoto(random.choice(PICS))
         )
         reply_markup = InlineKeyboardMarkup(buttons)
         await query.message.edit_text(
@@ -1706,7 +1726,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
         await client.edit_message_media(
             query.message.chat.id, 
             query.message.id, 
-            InputMediaVideo(random.choice(ST_VID))
+            InputMediaPhoto(random.choice(PICS))
         )
         reply_markup = InlineKeyboardMarkup(buttons)
         total = await Media.count_documents()
@@ -1730,7 +1750,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
         await client.edit_message_media(
             query.message.chat.id, 
             query.message.id, 
-            InputMediaVideo(random.choice(ST_VID))
+            InputMediaPhoto(random.choice(PICS))
         )
         reply_markup = InlineKeyboardMarkup(buttons)
         total = await Media.count_documents()
@@ -1753,7 +1773,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
             await client.edit_message_media(
                 query.message.chat.id, 
                 query.message.id, 
-                InputMediaVideo(random.choice(ST_VID))
+                InputMediaPhoto(random.choice(PICS))
             )
             reply_markup = InlineKeyboardMarkup(btn)
             await query.message.edit_text(
