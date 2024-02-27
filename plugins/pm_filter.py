@@ -94,12 +94,12 @@ async def streamlink(bot, query, message):
         reply_markup=InlineKeyboardMarkup([[
                 InlineKeyboardButton("📥 ᴅᴏᴡɴʟᴏᴀᴅ 📥", url=download),
                 InlineKeyboardButton("🖥️ ꜱᴛʀᴇᴇᴍ 🖥️", url=online)]]))  
-        await query.message.reply_text(
-            text="Sᴛʀᴇᴀᴍɪɴɢ Lɪɴᴋ Sᴜᴄᴄᴇꜱꜱғᴜʟʟʏ Gᴇɴʀᴀᴛᴇᴅ ✅\n\n💌 ᴅᴏᴡɴʟᴏᴀᴅ ʟɪɴᴋ : {download}\n\n🖥 ᴡᴀᴛᴄʜ ᴏɴʟɪɴᴇ : {online}\n\nTʜᴇ ʟɪɴᴋ ᴡɪʟʟ ɴᴏᴛ ᴇxᴘɪʀᴇ ᴜɴᴛɪʟ ᴛʜᴇ ʙᴏᴛ'ꜱ ꜱᴇʀᴠᴇʀ ɪꜱ ᴄʜᴀɴɢᴇᴅ.",
-            disable_web_page_preview=True,
-            reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("📥 ᴅᴏᴡɴʟᴏᴀᴅ 📥", url=download),  # we download Link
-                                                InlineKeyboardButton('🖥️ ꜱᴛʀᴇᴇᴍ 🖥️', url=online)]])  # web stream Link
-        ) 
+    await query.message.reply_text(
+        text="Sᴛʀᴇᴀᴍɪɴɢ Lɪɴᴋ Sᴜᴄᴄᴇꜱꜱғᴜʟʟʏ Gᴇɴʀᴀᴛᴇᴅ ✅\n\n💌 ᴅᴏᴡɴʟᴏᴀᴅ ʟɪɴᴋ : {download}\n\n🖥 ᴡᴀᴛᴄʜ ᴏɴʟɪɴᴇ : {online}\n\nTʜᴇ ʟɪɴᴋ ᴡɪʟʟ ɴᴏᴛ ᴇxᴘɪʀᴇ ᴜɴᴛɪʟ ᴛʜᴇ ʙᴏᴛ'ꜱ ꜱᴇʀᴠᴇʀ ɪꜱ ᴄʜᴀɴɢᴇᴅ.",
+        disable_web_page_preview=True,
+        reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("📥 ᴅᴏᴡɴʟᴏᴀᴅ 📥", url=download),  # we download Link
+                                            InlineKeyboardButton('🖥️ ꜱᴛʀᴇᴇᴍ 🖥️', url=online)]])  # web stream Link
+    ) 
 
 @Client.on_message(filters.group & filters.text & filters.incoming)
 async def give_filter(client, message):
