@@ -4,7 +4,7 @@ from datetime import timedelta
 import pytz
 import datetime, time
 from Script import script 
-from info import ADMINS, PREMIUM_LOGS
+from info import ADMINS, PREMIUM_LOGS, OWNER_USER_NAME, SUBSCRIPTION
 from utils import get_seconds
 from database.users_chats_db import db 
 from pyrogram import Client, filters 
@@ -146,8 +146,8 @@ async def plan(client, message):
     users = message.from_user.mention 
     btn = [[
 	
-        InlineKeyboardButton("📲 ꜱᴇɴᴅ ᴘᴀʏᴍᴇɴᴛ ꜱᴄʀᴇᴇɴꜱʜᴏᴛ ʜᴇʀᴇ", url=f'https://t.me/jk_dev')],[InlineKeyboardButton("❌ ᴄʟᴏꜱᴇ ❌", callback_data="close_data")
+        InlineKeyboardButton("🎁 Tᴀᴘ Tᴏ Vɪᴇᴡ Pʟᴀɴꜱ 🎁", callback_data='premium_info')],[InlineKeyboardButton("❌ ᴄʟᴏꜱᴇ ❌", callback_data="close_data")
     ]]
-    await message.reply_photo(photo="https://graph.org/file/b33fc41862b276fa21cc4.jpg", caption=script.PREMIUM_TEXT.format(message.from_user.mention), reply_markup=InlineKeyboardMarkup(btn))
+    await message.reply_photo(photo=(SUBSCRIPTION), caption=script.PREMIUM_TEXT.format(message.from_user.mention), reply_markup=InlineKeyboardMarkup(btn))
     
 # SPECIAL THANKS TO @JK_DEV FOR MODIFYING THESE AMAZING CODES 
