@@ -54,7 +54,7 @@ COLLECTION_NAME = environ.get('COLLECTION_NAME', 'Telegram_files')
 STREAM_SITE = (environ.get('STREAM_SITE', 'urlshortx.com'))
 STREAM_API = (environ.get('STREAM_API', '8afa8fbc218cc0791c62495f2c510c92524503ce'))
 STREAMHTO = (environ.get('STREAMHTO', 'https://t.me/Hoe/69'))
-STREAM_LINK_MODE = is_enabled((environ.get('STREAM_LINK_MODE', "False")) False)
+STREAM_LINK_MODE = is_enabled((environ.get('STREAM_LINK_MODE', "False")), False)
 
 #premium Users Satuts
 premium = environ.get('PREMIUM_LOGS', '-1001433302422')
