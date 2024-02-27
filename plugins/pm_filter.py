@@ -79,9 +79,9 @@ async def stream_download(bot, query):
 
 @Client.on_message(filters.command("streamlink"))
 async def streamlink(bot, query, message):
-    replied = message.reply_to_message
-    if not replied:
-        return await message.reply('Reply to a message to get a streaming link.')
+    # replied = message.reply_to_message
+    # if not replied:
+        # return await message.reply('Reply to a message to get a streaming link.')
     file_id = query.data.split('#', 1)[1] 
     user_id = query.from_user.id
     username =  query.from_user.mention 
