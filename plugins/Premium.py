@@ -146,7 +146,7 @@ async def plan(client, message):
     users = message.from_user.mention 
     btn = [[
 	
-        InlineKeyboardButton("🎁 Tᴀᴘ Tᴏ Vɪᴇᴡ Pʟᴀɴꜱ 🎁", callback_data='premium_info')],[InlineKeyboardButton("❌ ᴄʟᴏꜱᴇ ❌", callback_data="close_data")
+        InlineKeyboardButton("🎁 Tᴀᴘ Tᴏ Vɪᴇᴡ Pʟᴀɴꜱ 🎁", callback_data='seeplans')],[InlineKeyboardButton("❌ ᴄʟᴏꜱᴇ ❌", callback_data="close_data")
     ]]
     await message.reply_photo(photo=(SUBSCRIPTION), caption=script.PREMIUM_TEXT.format(message.from_user.mention), reply_markup=InlineKeyboardMarkup(btn))
     
