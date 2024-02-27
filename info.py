@@ -54,6 +54,8 @@ COLLECTION_NAME = environ.get('COLLECTION_NAME', 'Telegram_files')
 STREAM_SITE = (environ.get('STREAM_SITE', 'urlshortx.com'))
 STREAM_API = (environ.get('STREAM_API', '8afa8fbc218cc0791c62495f2c510c92524503ce'))
 STREAMHTO = (environ.get('STREAMHTO', 'https://t.me/Hoe/69'))
+STREAM_LINK_MODE = is_enabled((environ.get('STREAM_LINK_MODE', "False")) False)
+
 #premium Users Satuts
 premium = environ.get('PREMIUM_LOGS', '-1001433302422')
 PREMIUM_LOGS = int(premium) if premium and id_pattern.search(premium) else None
@@ -65,7 +67,7 @@ IS_SHORTLINK = is_enabled((environ.get('IS_SHORTLINK', 'True')), False)
 
 # verify link shortner
 IS_VERIFY = is_enabled((environ.get('IS_VERIFY', 'True')), False)
-HOW_TO_VERIFY = environ.get('HOW_TO_VERIFY', "https://t.me/c/184570043")
+HOW_TO_VERIFY = environ.get('HOW_TO_VERIFY', "https://t.me/c/1843")
 VERIFY2_URL = environ.get('VERIFY2_URL', "urlshortx.com")
 VERIFY2_API = environ.get('VERIFY2_API', "8afa8fbc218cc0791c62495f2c510c92524503ce")
 
@@ -73,8 +75,8 @@ DELETE_CHANNELS = [int(dch) if id_pattern.search(dch) else dch for dch in enviro
 MAX_B_TN = environ.get("MAX_B_TN", "7")
 MAX_BTN = is_enabled((environ.get('MAX_BTN', "True")), True)
 PORT = environ.get("PORT", "8080")
-GRP_LNK = environ.get('GRP_LNK', 'https://t.me/+xpgODfC0d3o3MDE1')
-CHNL_LNK = environ.get('CHNL_LNK', 'https://t.me/+YlRh7cwHCwc2YjJl')
+GRP_LNK = environ.get('GRP_LNK', 'https://t.me/apnamovie4')
+CHNL_LNK = environ.get('CHNL_LNK', 'https://t.me/lusifilms')
 MSG_ALRT = environ.get('MSG_ALRT', 'Wʜᴀᴛ Aʀᴇ Yᴏᴜ Lᴏᴏᴋɪɴɢ Aᴛ ?')
 LOG_CHANNEL = int(environ.get('LOG_CHANNEL', -1001433302422))
 SUPPORT_CHAT = environ.get('SUPPORT_CHAT', 'DQ_The_File_Donor_Support')
