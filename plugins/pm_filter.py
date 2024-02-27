@@ -78,7 +78,7 @@ async def stream_download(bot, query):
                     InlineKeyboardButton('⁉️ ᴄʟᴏsᴇ ⁉️', callback_data='close_data')]]))
 
 @Client.on_message(filters.command("streamlink"))
-async def streamlink(bot, query, message):
+async def streamlink(bot, query):
     # replied = message.reply_to_message
     # if not replied:
         # return await message.reply('Reply to a message to get a streaming link.')
