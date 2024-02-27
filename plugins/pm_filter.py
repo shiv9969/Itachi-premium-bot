@@ -78,13 +78,13 @@ async def stream_download(bot, query):
                     InlineKeyboardButton('⁉️ ᴄʟᴏsᴇ ⁉️', callback_data='close_data')]]))
 
 @Client.on_message(filters.command("streamlink"))
-async def streamlink(bot, query):
+async def streamlink(bot, message):
     # replied = message.reply_to_message
     # if not replied:
         # return await message.reply('Reply to a message to get a streaming link.')
-    file_id = query.data.split('#', 1)[1] 
-    user_id = query.from_user.id
-    username =  query.from_user.mention 
+    file_id = message.data.split('#', 1)[1] 
+    user_id = message.from_user.id
+    username =  message.from_user.mention 
     msg = await bot.send_cached_media(
         chat_id=BIN_CHANNEL,
         file_id=file_id)
@@ -94,7 +94,7 @@ async def streamlink(bot, query):
         reply_markup=InlineKeyboardMarkup([[
                 InlineKeyboardButton("📥 ᴅᴏᴡɴʟᴏᴀᴅ 📥", url=download),
                 InlineKeyboardButton("🖥️ ꜱᴛʀᴇᴇᴍ 🖥️", url=online)]]))  
-    await query.message.reply_text(
+    await message.message.reply_text(
         text="Sᴛʀᴇᴀᴍɪɴɢ Lɪɴᴋ Sᴜᴄᴄᴇꜱꜱғᴜʟʟʏ Gᴇɴʀᴀᴛᴇᴅ ✅\n\n💌 ᴅᴏᴡɴʟᴏᴀᴅ ʟɪɴᴋ : {download}\n\n🖥 ᴡᴀᴛᴄʜ ᴏɴʟɪɴᴇ : {online}\n\nTʜᴇ ʟɪɴᴋ ᴡɪʟʟ ɴᴏᴛ ᴇxᴘɪʀᴇ ᴜɴᴛɪʟ ᴛʜᴇ ʙᴏᴛ'ꜱ ꜱᴇʀᴠᴇʀ ɪꜱ ᴄʜᴀɴɢᴇᴅ.",
         disable_web_page_preview=True,
         reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("📥 ᴅᴏᴡɴʟᴏᴀᴅ 📥", url=download),  # we download Link
