@@ -1272,18 +1272,31 @@ async def cb_handler(client: Client, query: CallbackQuery):
         )       
 
     elif query.data == "seeplans":
-        btn = [[
-            InlineKeyboardButton('📲 ꜱᴇɴᴅ ᴘᴀʏᴍᴇɴᴛ ꜱᴄʀᴇᴇɴꜱʜᴏᴛ', url=f"https://t.me/{OWNER_USER_NAME}")
-        ],[
-            InlineKeyboardButton('❌ ᴄʟᴏꜱᴇ ❌', callback_data='close_data')
-        ]]
-        reply_markup = InlineKeyboardMarkup(btn)
-        await query.message.reply_photo(
-            photo=(SUBSCRIPTION),
-            caption=script.PREPLANS_TXT.format(query.from_user.mention),
-            reply_markup=reply_markup,
-            parse_mode=enums.ParseMode.HTML
-        )
+        if await db.has_premium_access(query.from_user.id):
+            await query.answer("ʏᴏᴜ ᴀʟʀᴇᴀᴅʏ ʜᴀᴠᴇ ᴀ ᴘʟᴀɴ ғʀɪᴇɴᴅ 🙂\n\nᴡᴀɪᴛ ғᴏʀ ʏᴏᴜʀ  ᴘʟᴀɴ ᴛᴏ ᴇɴᴅ, ᴛʜᴇɴ ʏᴏᴜ ᴄᴀɴ ʙᴜʏ ᴀ ɴᴇᴡ ᴘʟᴀɴ", show_alert=True)      
+            return 
+        else:
+            buttons = [[
+                InlineKeyboardButton('• ꜰʀᴇᴇ ᴛʀɪᴀʟ •', callback_data='free')
+            ],[
+                InlineKeyboardButton('• ʙʀᴏɴᴢᴇ •', callback_data='broze'),
+                InlineKeyboardButton('• ꜱɪʟᴠᴇʀ •', callback_data='silver')
+            ],[
+                InlineKeyboardButton('• ɢᴏʟᴅ •', callback_data='gold'),
+                InlineKeyboardButton('• ᴘʟᴀᴛɪɴᴜᴍ •', callback_data='platinum')
+            ],[
+                InlineKeyboardButton('• ᴅɪᴀᴍᴏɴᴅ •', callback_data='diamond'),
+                InlineKeyboardButton('• ᴏᴛʜᴇʀ •', callback_data='other')
+            ],[
+                InlineKeyboardButton('❌ ᴄʟᴏꜱᴇ ❌', callback_data='close_data')
+            ]]
+            reply_markup = InlineKeyboardMarkup(buttons)
+            await query.message.reply_photo(
+                photo=(SUBSCRIPTION),
+                caption=script.PREPLANS_TXT.format(query.from_user.mention),
+                reply_markup=reply_markup,
+                parse_mode=enums.ParseMode.HTML
+            )
  
     elif query.data == "give_trial":
         user_id = query.from_user.id
