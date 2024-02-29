@@ -57,6 +57,10 @@ async def start(client, message):
                     InlineKeyboardButton('• ᴀʙᴏᴜᴛ •', callback_data='about')
                     
                   ]]
+        if IS_VERIFY is True:
+            buttons.append([
+                InlineKeyboardButton('✨ ʙᴜʏ ꜱᴜʙꜱᴄʀɪᴘᴛɪᴏɴ : ʀᴇᴍᴏᴠᴇ ᴀᴅꜱ ✨', callback_data="premium_info")
+            ])
         reply_markup = InlineKeyboardMarkup(buttons)
         current_time = datetime.now(pytz.timezone(TIMEZONE))
         curr_time = current_time.hour        
@@ -77,10 +81,6 @@ async def start(client, message):
             reply_markup=reply_markup,
             parse_mode=enums.ParseMode.HTML
         )
-        if IS_VERIFY is True:
-            buttons.append([
-                InlineKeyboardButton('✨ ʙᴜʏ ꜱᴜʙꜱᴄʀɪᴘᴛɪᴏɴ : ʀᴇᴍᴏᴠᴇ ᴀᴅꜱ ✨', callback_data="premium_info")
-            ])
         return
     if AUTH_CHANNEL and not await is_subscribed(client, message):
         try:
