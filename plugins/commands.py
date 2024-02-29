@@ -57,7 +57,7 @@ async def start(client, message):
                     InlineKeyboardButton('• ᴀʙᴏᴜᴛ •', callback_data='about')
                     
                   ]]
-        if IS_VERIFY is True:
+        if IS_VERIFY or IS_SHORTLINK is True:
             buttons.append([
                 InlineKeyboardButton('✨ ʙᴜʏ ꜱᴜʙꜱᴄʀɪᴘᴛɪᴏɴ : ʀᴇᴍᴏᴠᴇ ᴀᴅꜱ ✨', callback_data="premium_info")
             ])
