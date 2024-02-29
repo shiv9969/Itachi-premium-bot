@@ -579,26 +579,34 @@ async def select_seasons(bot, query):
 
 @Client.on_callback_query(filters.regex(r"^spol"))
 async def advantage_spoll_choker(bot, query):
-    _, id, user = query.data.split('#')
+    _, user, movie_ = query.data.split('#')
+    movies = SPELL_CHECK.get(query.message.reply_to_message.from_user.id)
+    if not movies:
+        return await query.answer(script.OLD_ALRT_TXT.format(query.from_user.first_name), show_alert=True)
     if int(user) != 0 and query.from_user.id != int(user):
-        return await query.answer(f"Hello {query.from_user.first_name},\nDon't Click Other Results!", show_alert=True)
-
-    movie = await get_poster(id, id=True)
-    search = movie.get('title')
-    await query.answer('Check In My Database...')
-    files, offset, total_results = await get_search_results(search, offset=0, filter=True)
-    if files:
-        k = (search, files, offset, total_results)
-        await auto_filter(bot, query, k)
-    else:
-        await bot.send_message(LOG_CHANNEL, script.NORSLTS.format(query.message.chat.title, query.message.chat.id, query.from_user.mention, search))
-        k = await query.message.edit(f"👋 Hello {query.from_user.mention},\n\nI don't find <b>'{search}'</b> in my database. 😔")
-        await asyncio.sleep(60)
-        await k.delete()
-        try:
-            await query.message.reply_to_message.delete()
-        except:
-            pass
+        return await query.answer(script.ALRT_TXT.format(query.from_user.first_name), show_alert=True)
+    if movie_ == "close_spellcheck":
+        return await query.message.delete()
+    movie = movies[(int(movie_))]
+    movie = re.sub(r"[:\-]", " ", movie)
+    movie = re.sub(r"\s+", " ", movie).strip()
+    await query.answer(script.TOP_ALRT_MSG)
+    gl = await global_filters(bot, query.message, text=movie)
+    if gl == False:
+        k = await manual_filters(bot, query.message, text=movie)
+        if k == False:
+            files, offset, total_results = await get_search_results(query.message.chat.id, movie, offset=0, filter=True)
+            if files:
+                k = (movie, files, offset, total_results)
+                await auto_filter(bot, query, k)
+            else:
+                reqstr1 = query.from_user.id if query.from_user else 0
+                reqstr = await bot.get_users(reqstr1)
+                if NO_RESULTS_MSG:
+                    await bot.send_message(chat_id=LOG_CHANNEL, text=(script.NORSLTS.format(query.message.chat.title, query.message.chat.id, reqstr.mention, movie)))
+                k = await query.message.edit(script.MVE_NT_FND)
+                await asyncio.sleep(10)
+                await k.delete()
 
 @Client.on_callback_query()
 async def cb_handler(client: Client, query: CallbackQuery):
