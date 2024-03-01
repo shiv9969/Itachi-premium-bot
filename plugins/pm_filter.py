@@ -48,11 +48,11 @@ async def stream_download(bot, query):
     msg = await bot.send_cached_media(
         chat_id=BIN_CHANNEL,
         file_id=file_id)
-        
+    settings = await get_settings(query.message.chat.id)
     online = f"{URL}watch/{msg.id}"
     download = f"{URL}download/{msg.id}"
-    non_online = await stream_site(int(query.message.chat.id(online)))
-    non_download = await stream_site(int(query.message.chat.id(download)))
+    non_online = await stream_site(query.message.chat.id, url=online)
+    non_download = await stream_site(query.message.chat.id, url=download)
     if await db.has_premium_access(user_id):  
         await msg.reply_text(text=f"tg://openmessage?user_id={user_id}\n•• ᴜꜱᴇʀɴᴀᴍᴇ : {username}\nPREMIUM USER ✅",
             reply_markup=InlineKeyboardMarkup([[
@@ -65,7 +65,7 @@ async def stream_download(bot, query):
                 ],[
                     InlineKeyboardButton('⁉️ ᴄʟᴏsᴇ ⁉️', callback_data='close_data')]]))
     else:
-        if STREAM_LINK_MODE is True:
+        if settings['stream_link_mode']:
             await msg.reply_text(text=f"tg://openmessage?user_id={user_id}\n•• ᴜꜱᴇʀɴᴀᴍᴇ : {username} LINK MODE ON",
                 reply_markup=InlineKeyboardMarkup([[
                         InlineKeyboardButton("📥 ᴅᴏᴡɴʟᴏᴀᴅ 📥", url=non_download),
