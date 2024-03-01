@@ -149,8 +149,7 @@ class Database:
             return chat.get('settings', default)
         return default
     
-    async def bot_settings(self, id):
-        default = {
+        default_setgs = {
             'stream_link_mode': STREAM_LINK_MODE,
             'pm_filter': PM_FILTER,
             'is_verify': IS_VERIFY,
@@ -158,6 +157,11 @@ class Database:
             'how_to_verify': HOW_TO_VERIFY,
             'imdb': IMDB
         }
+    async def bot_settings(self, id):
+        chat = await self.grp.find_one({'id':int(id)})
+        if chat:
+            return chat.get('settings', self.default_setgs)
+        return self.default_setgs
         
     async def disable_chat(self, chat, reason="No Reason"):
         chat_status=dict(
