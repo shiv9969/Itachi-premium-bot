@@ -1,6 +1,6 @@
 # https://github.com/odysseusmax/animated-lamp/blob/master/bot/database/database.py
 import motor.motor_asyncio
-from info import *
+from info import DATABASE_NAME, DATABASE_URI, IMDB, IMDB_TEMPLATE, MELCOW_NEW_USERS, P_TTI_SHOW_OFF, SINGLE_BUTTON, SPELL_CHECK_REPLY, PROTECT_CONTENT, AUTO_DELETE, MAX_BTN, AUTO_FFILTER, SHORTLINK_API, SHORTLINK_URL, IS_SHORTLINK, TUTORIAL, IS_TUTORIAL
 import datetime
 import pytz
 
@@ -141,23 +141,14 @@ class Database:
             'shortlink_api': SHORTLINK_API,
             'is_shortlink': IS_SHORTLINK,
             'tutorial': TUTORIAL,
-            'is_tutorial': IS_TUTORIAL,
-            'stream_site': STREAM_SITE,
-            'stream_api': STREAM_API,
-            'stream_link_mode': STREAM_LINK_MODE,
-            'streamhto': STREAMHTO,
-            'verify_url': VERIFY2_URL,
-            'verify_api': VERIFY2_API,
-            'is_verify': IS_VERIFY,
-            'how_to_verify': HOW_TO_VERIFY
-            
-            
+            'is_tutorial': IS_TUTORIAL
         }
         chat = await self.grp.find_one({'id':int(id)})
         if chat:
             return chat.get('settings', default)
         return default
-        
+ 
+               
     async def disable_chat(self, chat, reason="No Reason"):
         chat_status=dict(
             is_disabled=True,
