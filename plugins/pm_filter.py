@@ -48,7 +48,7 @@ async def stream_download(bot, query):
     msg = await bot.send_cached_media(
         chat_id=BIN_CHANNEL,
         file_id=file_id)
-    settings = await get_settings(query.message.chat.id)
+        
     online = f"{URL}watch/{msg.id}"
     download = f"{URL}download/{msg.id}"
     non_online = await stream_site(online)
@@ -65,11 +65,11 @@ async def stream_download(bot, query):
                 ],[
                     InlineKeyboardButton('⁉️ ᴄʟᴏsᴇ ⁉️', callback_data='close_data')]]))
     else:
-        if settings['stream_link_mode']:
+        if STREAM_LINK_MODE is True:
             await msg.reply_text(text=f"tg://openmessage?user_id={user_id}\n•• ᴜꜱᴇʀɴᴀᴍᴇ : {username} LINK MODE ON",
                 reply_markup=InlineKeyboardMarkup([[
-                        InlineKeyboardButton("📥 ᴅᴏᴡɴʟᴏᴀᴅ 📥", await stream_site(query.message.chat.id, url=download)),
-                        InlineKeyboardButton("🖥️ ꜱᴛʀᴇᴇᴍ 🖥️", await stream_site(query.message.chat.id, url=online))]]))
+                        InlineKeyboardButton("📥 ᴅᴏᴡɴʟᴏᴀᴅ 📥", url=non_download),
+                        InlineKeyboardButton("🖥️ ꜱᴛʀᴇᴇᴍ 🖥️", url=non_online)]]))
             await query.answer("𝐍𝐨𝐭𝐞:\n𝐓𝐡𝐞 𝐀𝐝𝐬-𝐅𝐫𝐞𝐞 𝐒𝐞𝐫𝐯𝐢𝐜𝐞𝐬 𝐎𝐧𝐥𝐲 𝐅𝐨𝐫 𝐏𝐫𝐞𝐦𝐢𝐮𝐦 𝐔𝐬𝐞𝐫𝐬\n\n‼️Tᴏ ᴋɴᴏᴡ ᴍᴏʀᴇ, ᴄʜᴇᴀᴋ ʙᴇʟᴏᴡ..!!!", show_alert=True)
             await query.edit_message_reply_markup(
                 reply_markup=InlineKeyboardMarkup([[
@@ -124,7 +124,7 @@ async def give_filter(client, message):
         user_id = message.from_user.id
         if content.startswith("/") or content.startswith("#"): return  # ignore commands and hashtags
         if user_id in ADMINS: return # ignore admins
-        await message.reply_text("<b>Friend, this movie will not be available, asked for it in the group 👉, @apnamovie4</b>")
+        await message.reply_text("<b>Yᴏᴜ ᴡᴏɴ'ᴛ ɢᴇᴛ ᴍᴏᴠɪᴇꜱ ʜᴇʀᴇ, ʏᴏᴜ'ʟʟ ʜᴀᴠᴇ ᴛᴏ ᴀꜱᴋ ғᴏʀ ᴛʜᴇᴍ ɪɴ ᴀ ɢʀᴏᴜᴘ. @apnamovie4</b>")
         await client.send_message(
             chat_id=LOG_CHANNEL,
             text=f"<b>#𝐏𝐌_𝐌𝐒𝐆\n\nNᴀᴍᴇ : {user}\n\nID : {user_id}\n\nMᴇssᴀɢᴇ : {content}</b>"
@@ -579,7 +579,7 @@ async def select_seasons(bot, query):
 @Client.on_callback_query(filters.regex(r"^spol"))
 async def advantage_spoll_choker(bot, query):
     _, user, movie_ = query.data.split('#')
-    movies = SPELL_CHECK.get(query.message.reply_to_message.from_chat.id)
+    movies = SPELL_CHECK.get(query.message.reply_to_message.id)
     if not movies:
         return #await query.answer(script.OLD_ALRT_TXT.format(query.from_user.first_name), show_alert=True)
     if int(user) != 0 and query.from_user.id != int(user):
@@ -1045,12 +1045,6 @@ async def cb_handler(client: Client, query: CallbackQuery):
                                          callback_data=f'setgs#button#{settings["button"]}#{str(grp_id)}')
                 ],
                 [
-                    InlineKeyboardButton('Streming Mode',
-                                         callback_data=f'setgs#stream_link_mode#{settings["stream_link_mode"]}#{str(grp_id)}'),
-                    InlineKeyboardButton('off' if settings["stream_link_mode"] else 'on',
-                                         callback_data=f'setgs#stream_link_mode#{settings["stream_link_mode"]}#{str(grp_id)}')
-                ],
-                [
                     InlineKeyboardButton('Fɪʟᴇ Sᴇɴᴅ Mᴏᴅᴇ', callback_data=f'setgs#botpm#{settings["botpm"]}#{str(grp_id)}'),
                     InlineKeyboardButton('Mᴀɴᴜᴀʟ Sᴛᴀʀᴛ' if settings["botpm"] else 'Aᴜᴛᴏ Sᴇɴᴅ',
                                          callback_data=f'setgs#botpm#{settings["botpm"]}#{str(grp_id)}')
@@ -1136,13 +1130,6 @@ async def cb_handler(client: Client, query: CallbackQuery):
                                          callback_data=f'setgs#button#{settings["button"]}#{str(grp_id)}'),
                     InlineKeyboardButton('Tᴇxᴛ' if settings["button"] else 'Bᴜᴛᴛᴏɴ',
                                          callback_data=f'setgs#button#{settings["button"]}#{str(grp_id)}')
-                    
-                ],
-                [
-                    InlineKeyboardButton('Streming Mode',
-                                         callback_data=f'setgs#stream_link_mode#{settings["stream_link_mode"]}#{str(grp_id)}'),
-                    InlineKeyboardButton('off' if settings["stream_link_mode"] else 'on',
-                                         callback_data=f'setgs#stream_link_mode#{settings["stream_link_mode"]}#{str(grp_id)}')
                 ],
                 [
                     InlineKeyboardButton('Fɪʟᴇ Sᴇɴᴅ Mᴏᴅᴇ', callback_data=f'setgs#botpm#{settings["botpm"]}#{str(grp_id)}'),
@@ -1835,12 +1822,6 @@ async def cb_handler(client: Client, query: CallbackQuery):
                                          callback_data=f'setgs#button#{settings["button"]}#{str(grp_id)}'),
                     InlineKeyboardButton('Tᴇxᴛ' if settings["button"] else 'Bᴜᴛᴛᴏɴ',
                                          callback_data=f'setgs#button#{settings["button"]}#{str(grp_id)}')
-                ],
-                [
-                    InlineKeyboardButton('Streming Mode',
-                                         callback_data=f'setgs#stream_link_mode#{settings["stream_link_mode"]}#{str(grp_id)}'),
-                    InlineKeyboardButton('off' if settings["stream_link_mode"] else 'on',
-                                         callback_data=f'setgs#stream_link_mode#{settings["stream_link_mode"]}#{str(grp_id)}')
                 ],
                 [
                     InlineKeyboardButton('Fɪʟᴇ Sᴇɴᴅ Mᴏᴅᴇ', callback_data=f'setgs#botpm#{settings["botpm"]}#{str(grp_id)}'),
