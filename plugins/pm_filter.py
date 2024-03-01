@@ -96,7 +96,7 @@ async def private_receive_handler(client, message):
     if replied and replied.media:
         msg = await client.send_cached_media(
             chat_id=BIN_CHANNEL,
-            file_id)
+            file_id=replied)
 
    # file_name = file_id.file_name.replace("_", " ").replace(".mp4", "").replace(".mkv", "").replace(".", " ")
 
