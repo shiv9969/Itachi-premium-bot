@@ -142,26 +142,14 @@ class Database:
             'shortlink_api': SHORTLINK_API,
             'is_shortlink': IS_SHORTLINK,
             'tutorial': TUTORIAL,
-            'is_tutorial': IS_TUTORIAL
+            'is_tutorial': IS_TUTORIAL,
+            'stream_site': STREAM_SITE,
+            'stream_api': STREAM_API
         }
         chat = await self.grp.find_one({'id':int(id)})
         if chat:
             return chat.get('settings', default)
         return default
-    
-    async def bot_settings(self, id):
-        default_setgs = {
-            'stream_link_mode': STREAM_LINK_MODE,
-            'pm_filter': PM_FILTER,
-            'is_verify': IS_VERIFY,
-            'no_results_msg': NO_RESULTS_MSG,
-            'how_to_verify': HOW_TO_VERIFY,
-            'imdb': IMDB
-        }
-        # chat = await self.grp.find_one({'id':int(id)})
-        # if chat:
-            # return chat.get('settings', default_setgs)
-        # return default_setgs
         
     async def disable_chat(self, chat, reason="No Reason"):
         chat_status=dict(
