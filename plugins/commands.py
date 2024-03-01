@@ -1226,7 +1226,7 @@ async def verifyoff(bot, message):
     if user.status != enums.ChatMemberStatus.ADMINISTRATOR and user.status != enums.ChatMemberStatus.OWNER and str(userid) not in ADMINS:
         return await message.reply_text("<b>ᴏɴʟʏ ɢʀᴏᴜᴘ ᴏᴡɴᴇʀ ᴏʀ ᴀᴅᴍɪɴ ᴄᴀɴ ᴜꜱᴇ ᴛʜɪꜱ ᴄᴏᴍᴍᴀɴᴅ !</b>")
     else:
-        await save_group_settings(grpid, 'is_verify, False)
+        await save_group_settings(grpid, 'is_verify', False)
         ENABLE_SHORTLINK = False
         return await message.reply_text("ᴠᴇʀɪғʏ ꜱᴜᴄᴄᴇꜱꜱꜰᴜʟʟʏ ᴅɪꜱᴀʙʟᴇᴅ.")
         
