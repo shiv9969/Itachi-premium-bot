@@ -89,7 +89,7 @@ async def stream_download(bot, query):
                     ],[
                         InlineKeyboardButton('⁉️ ᴄʟᴏsᴇ ⁉️', callback_data='close_data')]]))
                         
-@Client.on_message(filters.command("stream")
+@Client.on_message(filters.command("stream"))
 async def private_receive_handler(client, message):
     file_id = message.document or message.video
 
