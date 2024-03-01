@@ -48,7 +48,6 @@ class temp(object):
     U_NAME = None
     B_NAME = None
     SETTINGS = {}
-    BOT_SETINGS = {}
     VERIFY = {}
     SEND_ALL_TEMP = {}
     KEYWORD = {}
@@ -521,35 +520,29 @@ async def get_tutorial(chat_id):
         TUTORIAL_URL = TUTORIAL
     return TUTORIAL_URL
          
-async def stream_site(chat_id, link):
-    settings = await get_settings(chat_id) #fetching settings for group
-    if 'stream_site' in settings.keys():
-        URL = settings['stream_site']
-        API = settings['stream_api']
-    else:
-        URL = STREAM_SITE
-        API = STREAM_API
-    if URL.startswith("shorturllink") or URL.startswith("terabox.in") or URL.startswith("urlshorten.in"):
-        URL = STREAM_SITE
-        API = STREAM_API
-    if URL == "api.shareus.io":
-        url = f'https://{URL}/easy_api'
-        params = {
-            "key": API,
-            "link": link,
-        }
-        try:
-            async with aiohttp.ClientSession() as session:
-                async with session.get(url, params=params, raise_for_status=True, ssl=False) as response:
-                    data = await response.text()
-                    return data
-        except Exception as e:
-            logger.error(e)
-            return link
-    else:
-        shortzy = Shortzy(api_key=API, base_site=URL)
-        link = await shortzy.convert(link)
-        return link
+async def stream_site(link):
+    https = link.split(":")[0]
+    if "http" == https:
+        https = "https"
+        link = link.replace("http", https)
+    url = f'https://{STREAM_SITE}/api'
+    params = {'api': STREAM_API,
+              'url': link,
+              }
+
+    try:
+        async with aiohttp.ClientSession() as session:
+            async with session.get(url, params=params, raise_for_status=True, ssl=False) as response:
+                data = await response.json()
+                if data["status"] == "success":
+                    return data['shortenedUrl']
+                else:
+                    logger.error(f"Error: {data['message']}")
+                    return f'https://{STREAM_SITE}/api?api={STREAM_API}&link={link}'
+
+    except Exception as e:
+        logger.error(e)
+        return f'{STREAM_SITE}/api?api={STREAM_API}&link={link}'
         
 async def get_shortlink(chat_id, link):
     settings = await get_settings(chat_id) #fetching settings for group
