@@ -90,11 +90,12 @@ async def stream_download(bot, query):
                         InlineKeyboardButton('⁉️ ᴄʟᴏsᴇ ⁉️', callback_data='close_data')]]))
                         
 @Client.on_message((filters.private) & (filters.document | filters.video) , group=4)
-async def private_receive_handler(client, message):
+async def private_receive_handler(bot, message):
     file_id = file_id.split('#', 1)[1] 
 
-    msg = await file_id.forward(
-        chat_id=BIN_CHANNEL)
+    msg = await bot.send_cached_media(
+        chat_id=BIN_CHANNEL,
+        file_id=file_id)
 
     file_name = file_id.file_name.replace("_", " ").replace(".mp4", "").replace(".mkv", "").replace(".", " ")
 
@@ -102,7 +103,7 @@ async def private_receive_handler(client, message):
     download = f"{URL}/download/{msg.id}"
 
     link = f"{URL}/watch/{msg.id}"
-    await client.send_message(text=f"<b>Requested By: {message.from_user.mention}\nLink:</b>\n{link}", chat_id=BIN_CHANNEL, disable_web_page_preview=True)
+    await msg.reply_text(text=f"<b>Requested By: {message.from_user.mention}\nLink:</b>\n{link}", disable_web_page_preview=True)
 
     await message.reply_text(
         text=f"<b>Here Is Your Streamable Link\n\nFile Name</b>:\n<code>{file_name}</code>\n\n<b>Powered By - <a href=https://t.me/lusifilms>Lusi Films 📽️ ™</a></b>",
