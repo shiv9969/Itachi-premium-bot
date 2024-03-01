@@ -160,8 +160,8 @@ class Database:
     async def bot_settings(self, id):
         chat = await self.grp.find_one({'id':int(id)})
         if chat:
-            return chat.get('settings', self.default_setgs)
-        return self.default_setgs
+            return chat.get('settings', default_setgs)
+        return default_setgs
         
     async def disable_chat(self, chat, reason="No Reason"):
         chat_status=dict(
