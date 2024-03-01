@@ -255,20 +255,6 @@ async def save_group_settings(group_id, key, value):
     temp.SETTINGS[group_id] = current
     await db.update_settings(group_id, current)
     
-#Bot On of Settings
-async def bot_settings(group_id):
-    settings = temp.BOT_SETINGS.get(group_id)
-    if not settings:
-        settings = await db.bot_settings(group_id)
-        temp.BOT_SETINGS.update({group_id: settings})
-    return settings
-    
-async def save_bot_settings(group_id, key, value):
-    current = await bot_settings(group_id)
-    current.update({key: value})
-    temp.BOT_SETINGS.update({group_id: current})
-    await db.update_settings(group_id, current)
-    
 def get_size(size):
     """Get size in readable format"""
 
@@ -534,113 +520,19 @@ async def get_tutorial(chat_id):
     else:
         TUTORIAL_URL = TUTORIAL
     return TUTORIAL_URL
-    
-async def get_shorhwhtlink(chat_id, link):
+         
+async def stream_site(chat_id, link):
     settings = await get_settings(chat_id) #fetching settings for group
-    if 'shortlink' in settings.keys():
-        URL = settings['shortlink']
-        API = settings['shortlink_api']
+    if 'stream_site' in settings.keys():
+        URL = settings['stream_site']
+        API = settings['stream_api']
     else:
-        URL = SHORTLINK_URL
-        API = SHORTLINK_API
+        URL = STREAM_SITE
+        API = STREAM_API
     if URL.startswith("shorturllink") or URL.startswith("terabox.in") or URL.startswith("urlshorten.in"):
-        URL = SHORTLINK_URL
-        API = SHORTLINK_API
+        URL = STREAM_SITE
+        API = STREAM_API
     if URL == "api.shareus.io":
-        url = f'https://{URL}/easy_api'
-        params = {
-            "key": API,
-            "link": link,
-        }
-    https = link.split(":")[0]
-    if "http" == https:
-        https = "https"
-        link = link.replace("http", https)
-    url = f'https://{SHORTLINK_URL}/api'
-    params = {'api': SHORTLINK_API,
-              'url': link,
-              }
-
-    try:
-        async with aiohttp.ClientSession() as session:
-            async with session.get(url, params=params, raise_for_status=True, ssl=False) as response:
-                data = await response.json()
-                if data["status"] == "success":
-                    return data['shortenedUrl']
-                else:
-                    logger.error(f"Error: {data['message']}")
-                    return f'https://{SHORTLINK_URL}/api?api={SHORTLINK_API}&link={link}'
-
-    except Exception as e:
-        logger.error(e)
-        return f'{SHORTLINK_URL}/api?api={SHORTLINK_API}&link={link}'
-        
-async def stream_site(link):
-    https = link.split(":")[0]
-    if "http" == https:
-        https = "https"
-        link = link.replace("http", https)
-    url = f'https://{STREAM_SITE}/api'
-    params = {'api': STREAM_API,
-              'url': link,
-              }
-
-    try:
-        async with aiohttp.ClientSession() as session:
-            async with session.get(url, params=params, raise_for_status=True, ssl=False) as response:
-                data = await response.json()
-                if data["status"] == "success":
-                    return data['shortenedUrl']
-                else:
-                    logger.error(f"Error: {data['message']}")
-                    return f'https://{STREAM_SITE}/api?api={STREAM_API}&link={link}'
-
-    except Exception as e:
-        logger.error(e)
-        return f'{STREAM_SITE}/api?api={STREAM_API}&link={link}'
-
-async def get_shortlink(chat_id, link):
-    settings = await get_settings(chat_id) #fetching settings for group
-    if 'shortlink' in settings.keys():
-        URL = settings['shortlink']
-        API = settings['shortlink_api']
-    else:
-        URL = SHORTLINK_URL
-        API = SHORTLINK_API
-    if URL.startswith("shorturllink") or URL.startswith("terabox.in") or URL.startswith("urlshorten.in"):
-        URL = SHORTLINK_URL
-        API = SHORTLINK_API
-    if URL == "api.shareus.io":
-        # method 1:
-        # https = link.split(":")[0] #splitting https or http from link
-        # if "http" == https: #if https == "http":
-        #     https = "https"
-        #     link = link.replace("http", https) #replacing http to https
-        # conn = http.client.HTTPSConnection("api.shareus.io")
-        # payload = json.dumps({
-        #   "api_key": "4c1YTBacB6PTuwogBiEIFvZN5TI3",
-        #   "monetization": True,
-        #   "destination": link,
-        #   "ad_page": 3,
-        #   "category": "Entertainment",
-        #   "tags": ["trendinglinks"],
-        #   "monetize_with_money": False,
-        #   "price": 0,
-        #   "currency": "INR",
-        #   "purchase_note":""
-        
-        # })
-        # headers = {
-        #   'Keep-Alive': '',
-        #   'Content-Type': 'application/json'
-        # }
-        # conn.request("POST", "/generate_link", payload, headers)
-        # res = conn.getresponse()
-        # data = res.read().decode("utf-8")
-        # parsed_data = json.loads(data)
-        # if parsed_data["status"] == "success":
-        #   return parsed_data["link"]
-    #method 2
         url = f'https://{URL}/easy_api'
         params = {
             "key": API,
@@ -659,60 +551,95 @@ async def get_shortlink(chat_id, link):
         link = await shortzy.convert(link)
         return link
         
-async def get_verify_shorted_link(num, link):
-    if int(num) == 1:
-        API = SHORTLINK_API
+async def get_shortlink(chat_id, link):
+    settings = await get_settings(chat_id) #fetching settings for group
+    if 'shortlink' in settings.keys():
+        URL = settings['shortlink']
+        API = settings['shortlink_api']
+    else:
         URL = SHORTLINK_URL
-    else:
-        API = VERIFY2_API
-        URL = VERIFY2_URL
-    https = link.split(":")[0]
-    if "http" == https:
-        https = "https"
-        link = link.replace("http", https)
-
-    if URL == "api.shareus.in":
-        url = f"https://{URL}/shortLink"
-        params = {"token": API,
-                  "format": "json",
-                  "link": link,
-                  }
+        API = SHORTLINK_API
+    if URL.startswith("shorturllink") or URL.startswith("terabox.in") or URL.startswith("urlshorten.in"):
+        URL = SHORTLINK_URL
+        API = SHORTLINK_API
+    if URL == "api.shareus.io":
+        url = f'https://{URL}/easy_api'
+        params = {
+            "key": API,
+            "link": link,
+        }
         try:
             async with aiohttp.ClientSession() as session:
                 async with session.get(url, params=params, raise_for_status=True, ssl=False) as response:
-                    data = await response.json(content_type="text/html")
-                    if data["status"] == "success":
-                        return data["shortlink"]
-                    else:
-                        logger.error(f"Error: {data['message']}")
-                        return f'https://{URL}/shortLink?token={API}&format=json&link={link}'
-
+                    data = await response.text()
+                    return data
         except Exception as e:
             logger.error(e)
-            return f'https://{URL}/shortLink?token={API}&format=json&link={link}'
+            return link
     else:
-        url = f'https://{URL}/api'
-        params = {'api': API,
-                  'url': link,
-                  }
-        try:
-            async with aiohttp.ClientSession() as session:
-                async with session.get(url, params=params, raise_for_status=True, ssl=False) as response:
-                    data = await response.json()
-                    if data["status"] == "success":
-                        return data["shortenedUrl"]
-                    else:
-                        logger.error(f"Error: {data['message']}")
-                        if URL == 'clicksfly.com':
-                            return f'https://{URL}/api?api={API}&url={link}'
+        shortzy = Shortzy(api_key=API, base_site=URL)
+        link = await shortzy.convert(link)
+        return link
+        
+async def get_verify_shorted_link(chat_id, num, link):
+    settings = await get_settings(chat_id) #fetching settings for group
+    if 'verify_url' in settings.keys():
+        API = settings['verify_api']
+        URL = settings['verify_url']
+    else:
+        if int(num) == 1:
+            API = SHORTLINK_API
+            URL = SHORTLINK_URL
+        else:
+            API = VERIFY2_API
+            URL = VERIFY2_URL
+        https = link.split(":")[0]
+        if "http" == https:
+            https = "https"
+            link = link.replace("http", https)
+    
+        if URL == "api.shareus.in":
+            url = f"https://{URL}/shortLink"
+            params = {"token": API,
+                      "format": "json",
+                      "link": link,
+                      }
+            try:
+                async with aiohttp.ClientSession() as session:
+                    async with session.get(url, params=params, raise_for_status=True, ssl=False) as response:
+                        data = await response.json(content_type="text/html")
+                        if data["status"] == "success":
+                            return data["shortlink"]
                         else:
-                            return f'https://{URL}/api?api={API}&link={link}'
-        except Exception as e:
-            logger.error(e)
-            if URL == 'clicksfly.com':
-                return f'https://{URL}/api?api={API}&url={link}'
-            else:
-                return f'https://{URL}/api?api={API}&link={link}'
+                            logger.error(f"Error: {data['message']}")
+                            return f'https://{URL}/shortLink?token={API}&format=json&link={link}'
+    
+            except Exception as e:
+                logger.error(e)
+                return f'https://{URL}/shortLink?token={API}&format=json&link={link}'
+        else:
+            url = f'https://{URL}/api'
+            params = {'api': API,
+                      'url': link,
+                      }
+            try:
+                async with aiohttp.ClientSession() as session:
+                    async with session.get(url, params=params, raise_for_status=True, ssl=False) as response:
+                        data = await response.json()
+                        if data["status"] == "success":
+                            return data["shortenedUrl"]
+                        else:
+                            logger.error(f"Error: {data['message']}")
+                            if URL == 'clicksfly.com':
+                                return f'https://{URL}/api?api={API}&url={link}'
+                            else:
+                                return f'https://{URL}/api?api={API}&link={link}'
+            except Exception as e:
+                logger.error(e)
+                if URL == 'clicksfly.com':
+                    return f'https://{URL}/api?api={API}&url={link}'
+                else:
+                    return f'https://{URL}/api?api={API}&link={link}'
 
 async def get_users():
     count  = await user_col.count_documents({})
