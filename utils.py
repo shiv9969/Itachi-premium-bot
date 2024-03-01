@@ -48,6 +48,7 @@ class temp(object):
     U_NAME = None
     B_NAME = None
     SETTINGS = {}
+    BOT_SETINGS = {}
     VERIFY = {}
     SEND_ALL_TEMP = {}
     KEYWORD = {}
@@ -252,6 +253,20 @@ async def save_group_settings(group_id, key, value):
     current = await get_settings(group_id)
     current[key] = value
     temp.SETTINGS[group_id] = current
+    await db.update_settings(group_id, current)
+    
+#Bot On of Settings
+async def bot_settings(group_id):
+    settings = temp.BOT_SETINGS.get(group_id)
+    if not settings:
+        settings = await db.bot_settings(group_id)
+        temp.BOT_SETINGS[group_id] = settings
+    return settings
+    
+async def save_bot_settings(group_id, key, value):
+    current = await bot_settings(group_id)
+    current[key] = value
+    temp.BOT_SETINGS[group_id] = current
     await db.update_settings(group_id, current)
     
 def get_size(size):
