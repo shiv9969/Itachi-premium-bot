@@ -1,6 +1,7 @@
 # https://github.com/odysseusmax/animated-lamp/blob/master/bot/database/database.py
 import motor.motor_asyncio
-from info import DATABASE_NAME, DATABASE_URI, IMDB, IMDB_TEMPLATE, MELCOW_NEW_USERS, P_TTI_SHOW_OFF, SINGLE_BUTTON, SPELL_CHECK_REPLY, PROTECT_CONTENT, AUTO_DELETE, MAX_BTN, AUTO_FFILTER, SHORTLINK_API, SHORTLINK_URL, IS_SHORTLINK, TUTORIAL, IS_TUTORIAL
+from info import DATABASE_NAME, DATABASE_URI, IMDB, IMDB_TEMPLATE, MELCOW_NEW_USERS, P_TTI_SHOW_OFF, SINGLE_BUTTON, SPELL_CHECK_REPLY, PROTECT_CONTENT, AUTO_DELETE, MAX_BTN, AUTO_FFILTER, SHORTLINK_API, SHORTLINK_URL, IS_SHORTLINK, TUTORIAL, IS_TUTORIAL, STREAM_LINK_MODE \
+PM_FILTER, IS_VERIFY, NO_RESULTS_MSG, HOW_TO_VERIFY, IMDB
 import datetime
 import pytz
 
@@ -148,7 +149,16 @@ class Database:
             return chat.get('settings', default)
         return default
     
-
+    async def bot_settings(self, id):
+        default = {
+            'stream_link_mode': STREAM_LINK_MODE,
+            'pm_filter': PM_FILTER,
+            'is_verify': IS_VERIFY,
+            'no_results_msg': NO_RESULTS_MSG,
+            'how_to_verify': HOW_TO_VERIFY,
+            'imdb': IMDB
+        }
+        
     async def disable_chat(self, chat, reason="No Reason"):
         chat_status=dict(
             is_disabled=True,
