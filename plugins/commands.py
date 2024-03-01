@@ -368,7 +368,7 @@ async def start(client, message):
                     f_caption=f_caption
             if f_caption is None:
                 f_caption = f"{' '.join(filter(lambda x: not x.startswith('[') and not x.startswith('@'), files1.file_name.split()))}"
-            if  ['is_verify'] and not await check_verification(client, message.from_user.id) and not await db.has_premium_access(message.from_user.id) await get_settings(message.chat.id):
+            if  ['is_verify'] and not await check_verification(client, message.from_user.id) and not await db.has_premium_access(message.from_user.id) and await get_settings(message.chat.id):
                 btn = [[
                         InlineKeyboardButton("♻️ Vᴇʀɪғʏ ♻️", url=await get_token(message.chat.id, f"https://telegram.me/{temp.U_NAME}?start=", file_id)),
                         InlineKeyboardButton("⚠️ Hᴏᴡ Tᴏ Vᴇʀɪғʏ ⚠️", url=HOW_TO_VERIFY)
