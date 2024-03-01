@@ -1139,7 +1139,7 @@ async def onshortlink(bot, message):
         return await message.reply_text("ꜱʜᴏʀᴛʟɪɴᴋ ꜱᴜᴄᴄᴇꜱꜱꜰᴜʟʟʏ ᴇɴᴀʙʟᴇᴅ.")
 
 @Client.on_message(filters.command("streamlink_on") & filters.user(ADMINS))
-async def onshortlink(bot, message):
+async def streamlink_on(bot, message):
     userid = message.from_user.id if message.from_user else None
     if not userid:
         return await message.reply(f"ʏᴏᴜ'ʀᴇ ᴀɴᴏɴʏᴍᴏᴜꜱ ᴀᴅᴍɪɴ, ᴛᴜʀɴ ᴏꜰꜰ ᴀɴᴏɴʏᴍᴏᴜꜱ ᴀᴅᴍɪɴ ᴀɴᴅ ᴛʀʏ ᴛʜɪꜱ ᴀɢᴀɪɴ ᴄᴏᴍᴍᴀɴᴅ.")
