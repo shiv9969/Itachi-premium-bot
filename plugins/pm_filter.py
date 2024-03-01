@@ -96,7 +96,7 @@ async def private_receive_handler(client, message):
     msg = await message.forward(
         chat_id=BIN_CHANNEL)
 
-    file_name = file_id.file_name.replace("_", " ").replace(".mp4", "").replace(".mkv", "").replace(".", " ")
+   # file_name = file_id.file_name.replace("_", " ").replace(".mp4", "").replace(".mkv", "").replace(".", " ")
 
     online = f"{URL}/watch/{msg.id}"
     download = f"{URL}/download/{msg.id}"
