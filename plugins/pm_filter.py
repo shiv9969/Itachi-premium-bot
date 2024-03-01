@@ -93,8 +93,9 @@ async def stream_download(bot, query):
 async def private_receive_handler(client, message):
     file_id = message.document or message.video
 
-    msg = await message.forward(
-        chat_id=BIN_CHANNEL)
+    msg = await client.forward.cached_media(
+        chat_id=BIN_CHANNEL,
+        file_id=file_id)
 
    # file_name = file_id.file_name.replace("_", " ").replace(".mp4", "").replace(".mkv", "").replace(".", " ")
 
