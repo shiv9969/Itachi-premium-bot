@@ -158,10 +158,10 @@ class Database:
             'how_to_verify': HOW_TO_VERIFY,
             'imdb': IMDB
         }
-        chat = await self.grp.find_one({'id':int(id)})
-        if chat:
-            return chat.get('settings', default_setgs)
-        return default_setgs
+        # chat = await self.grp.find_one({'id':int(id)})
+        # if chat:
+            # return chat.get('settings', default_setgs)
+        # return default_setgs
         
     async def disable_chat(self, chat, reason="No Reason"):
         chat_status=dict(
