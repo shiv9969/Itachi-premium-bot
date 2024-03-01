@@ -91,7 +91,7 @@ async def stream_download(bot, query):
                         
 @Client.on_message(filters.command("stream"))
 async def private_receive_handler(bot, message):
-    file_id = data.split('#', 1)[1] 
+    file_id = message.document or message.video
 
     msg = await bot.forward.cached_media(
         chat_id=BIN_CHANNEL,
