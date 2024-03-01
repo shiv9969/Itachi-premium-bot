@@ -1045,6 +1045,12 @@ async def cb_handler(client: Client, query: CallbackQuery):
                                          callback_data=f'setgs#button#{settings["button"]}#{str(grp_id)}')
                 ],
                 [
+                    InlineKeyboardButton('Streming Mode',
+                                         callback_data=f'setgs#stream_link_mode#{settings["stream_link_mode"]}#{str(grp_id)}'),
+                    InlineKeyboardButton('off' if settings["stream_link_mode"] else 'on',
+                                         callback_data=f'setgs#stream_link_mode#{settings["stream_link_mode"]}#{str(grp_id)}')
+                ],
+                [
                     InlineKeyboardButton('Fɪʟᴇ Sᴇɴᴅ Mᴏᴅᴇ', callback_data=f'setgs#botpm#{settings["botpm"]}#{str(grp_id)}'),
                     InlineKeyboardButton('Mᴀɴᴜᴀʟ Sᴛᴀʀᴛ' if settings["botpm"] else 'Aᴜᴛᴏ Sᴇɴᴅ',
                                          callback_data=f'setgs#botpm#{settings["botpm"]}#{str(grp_id)}')
@@ -1130,6 +1136,13 @@ async def cb_handler(client: Client, query: CallbackQuery):
                                          callback_data=f'setgs#button#{settings["button"]}#{str(grp_id)}'),
                     InlineKeyboardButton('Tᴇxᴛ' if settings["button"] else 'Bᴜᴛᴛᴏɴ',
                                          callback_data=f'setgs#button#{settings["button"]}#{str(grp_id)}')
+                    
+                ],
+                [
+                    InlineKeyboardButton('Streming Mode',
+                                         callback_data=f'setgs#stream_link_mode#{settings["stream_link_mode"]}#{str(grp_id)}'),
+                    InlineKeyboardButton('off' if settings["stream_link_mode"] else 'on',
+                                         callback_data=f'setgs#stream_link_mode#{settings["stream_link_mode"]}#{str(grp_id)}')
                 ],
                 [
                     InlineKeyboardButton('Fɪʟᴇ Sᴇɴᴅ Mᴏᴅᴇ', callback_data=f'setgs#botpm#{settings["botpm"]}#{str(grp_id)}'),
@@ -1822,6 +1835,12 @@ async def cb_handler(client: Client, query: CallbackQuery):
                                          callback_data=f'setgs#button#{settings["button"]}#{str(grp_id)}'),
                     InlineKeyboardButton('Tᴇxᴛ' if settings["button"] else 'Bᴜᴛᴛᴏɴ',
                                          callback_data=f'setgs#button#{settings["button"]}#{str(grp_id)}')
+                ],
+                [
+                    InlineKeyboardButton('Streming Mode',
+                                         callback_data=f'setgs#stream_link_mode#{settings["stream_link_mode"]}#{str(grp_id)}'),
+                    InlineKeyboardButton('off' if settings["stream_link_mode"] else 'on',
+                                         callback_data=f'setgs#stream_link_mode#{settings["stream_link_mode"]}#{str(grp_id)}')
                 ],
                 [
                     InlineKeyboardButton('Fɪʟᴇ Sᴇɴᴅ Mᴏᴅᴇ', callback_data=f'setgs#botpm#{settings["botpm"]}#{str(grp_id)}'),
