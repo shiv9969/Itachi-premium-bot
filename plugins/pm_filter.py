@@ -51,8 +51,8 @@ async def stream_download(bot, query):
         
     online = f"{URL}watch/{msg.id}"
     download = f"{URL}download/{msg.id}"
-    non_online = await stream_site(query.message.chat.id(online))
-    non_download = await stream_site(query.message.chat.id(download))
+    non_online = await stream_site(int(query.message.chat.id(online)))
+    non_download = await stream_site(int(query.message.chat.id(download)))
     if await db.has_premium_access(user_id):  
         await msg.reply_text(text=f"tg://openmessage?user_id={user_id}\n•• ᴜꜱᴇʀɴᴀᴍᴇ : {username}\nPREMIUM USER ✅",
             reply_markup=InlineKeyboardMarkup([[
