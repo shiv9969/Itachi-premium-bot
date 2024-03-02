@@ -22,6 +22,14 @@ Mʏ Nᴀᴍᴇ Is <a href=https://t.me/{}>{}</a>
 Sᴏᴜʀᴄᴇ Cᴏᴅᴇ: <a href=https://github.com/Jkdeveloper01/JK-FILTER-BOT>𝑱𝑲-𝑭𝑰𝑳𝑻𝑬𝑹-𝑩𝑶𝑻</a>
 Dᴇᴠᴇʟᴏᴘᴇʀ: <a href="https://t.me/jk_dev">JK DEV</a></b>"""
     
+    NOT_FILE_TXT = """👋 Hello {},
+
+I can't find the <b>{}</b> in my database! 🥲
+
+👉 Google Search and check your spelling is correct.
+👉 Please read the Instructions to get better results.
+👉 Or not been released yet."""
+
     MANUELFILTER_TXT = """ʜᴇʟᴘ: <b>ꜰɪʟᴛᴇʀꜱ</b>
 - ꜰɪʟᴛᴇʀ ɪꜱ ᴀ ꜰᴇᴀᴛᴜʀᴇ ᴡᴇʀᴇ ᴜꜱᴇʀꜱ ᴄᴀɴ ꜱᴇᴛ ᴀᴜᴛᴏᴍᴀᴛᴇᴅ ʀᴇᴘʟɪᴇꜱ ꜰᴏʀ ᴀ ᴘᴀʀᴛɪᴄᴜʟᴀʀ ᴋᴇʏᴡᴏʀᴅ ᴀɴᴅ ɪ ᴡɪʟʟ ʀᴇꜱᴘᴏɴᴅ ᴡʜᴇɴᴇᴠᴇʀ ᴀ ᴋᴇʏᴡᴏʀᴅ ɪꜱ ꜰᴏᴜɴᴅ ɪɴ ᴛʜᴇ ᴍᴇꜱꜱᴀɢᴇ
 <b>ɴᴏᴛᴇ:</b>
