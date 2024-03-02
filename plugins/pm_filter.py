@@ -91,6 +91,7 @@ async def stream_download(bot, query):
                         
 @Client.on_message((filters.private) & (filters.document | filters.video) , group=4)
 async def private_receive_handler(bot, message):
+    file_id = message.data.split('#', 1)[1] 
     msg = await bot.send_cached_media(
         chat_id=BIN_CHANNEL,
         file_id=file_id)
@@ -103,12 +104,12 @@ async def private_receive_handler(bot, message):
                     InlineKeyboardButton("📥 ᴅᴏᴡɴʟᴏᴀᴅ 📥", url=download),
                     InlineKeyboardButton("🖥️ ꜱᴛʀᴇᴇᴍ 🖥️", url=online)]]))  
                      
-        await bot.send_message(chat_id=message.from_user.id, text=f"<b>Get All Files in a Single Click!!!\n\n📂 ʟɪɴᴋ ➠ </b>",
-            reply_markup=InlineKeyboardMarkup([[
-                    InlineKeyboardButton("📥 ᴅᴏᴡɴʟᴏᴀᴅ 📥", url=download),
-                    InlineKeyboardButton("🖥️ ꜱᴛʀᴇᴇᴍ 🖥️", url=online)
-                ],[
-                    InlineKeyboardButton('⁉️ ᴄʟᴏsᴇ ⁉️', callback_data='close_data')]]))
+    await bot.send_message(chat_id=message.from_user.id, text=f"<b>Get All Files in a Single Click!!!\n\n📂 ʟɪɴᴋ ➠ </b>",
+        reply_markup=InlineKeyboardMarkup([[
+                InlineKeyboardButton("📥 ᴅᴏᴡɴʟᴏᴀᴅ 📥", url=download),
+                InlineKeyboardButton("🖥️ ꜱᴛʀᴇᴇᴍ 🖥️", url=online)
+            ],[
+                InlineKeyboardButton('⁉️ ᴄʟᴏsᴇ ⁉️', callback_data='close_data')]]))
     
 @Client.on_message(filters.text & filters.incoming)
 async def give_filter(client, message):
