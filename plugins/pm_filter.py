@@ -93,14 +93,14 @@ async def stream_download(bot, query):
 async def private_receive_handler(bot, message):
     file_id = message.document or message.video
     #file_id = message.data.split('#', 1)[1] 
-    msg = await bot.send_cached_media(
+    msg = await message.forward(
         chat_id=BIN_CHANNEL,
         file_id=file_id)
         
     online = f"{URL}watch/{msg.id}"
     download = f"{URL}download/{msg.id}"
     
-    await msg.reply_text(text=f"tg://openmessage?user_id={user_id}\n•• ᴜꜱᴇʀɴᴀᴍᴇ : {username}\nPREMIUM USER ✅",
+    await msg.reply_text(text=f"tg://openmessage?user_id=\n•• ᴜꜱᴇʀɴᴀᴍᴇ : \nPREMIUM USER ✅",
             reply_markup=InlineKeyboardMarkup([[
                     InlineKeyboardButton("📥 ᴅᴏᴡɴʟᴏᴀᴅ 📥", url=download),
                     InlineKeyboardButton("🖥️ ꜱᴛʀᴇᴇᴍ 🖥️", url=online)]]))  
