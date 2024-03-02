@@ -91,32 +91,24 @@ async def stream_download(bot, query):
                         
 @Client.on_message((filters.private) & (filters.document | filters.video) , group=4)
 async def private_receive_handler(bot, message):
-    file_id = int(file_id.split('-')[1])
-
     msg = await bot.send_cached_media(
         chat_id=BIN_CHANNEL,
         file_id=file_id)
-
-    file_name = file_id.file_name.replace("_", " ").replace(".mp4", "").replace(".mkv", "").replace(".", " ")
-
-    online = f"{URL}/watch/{msg.id}"
-    download = f"{URL}/download/{msg.id}"
-
-    link = f"{URL}/watch/{msg.id}"
-    await msg.reply_text(text=f"<b>Requested By: {message.from_user.mention}\nLink:</b>\n{link}", disable_web_page_preview=True)
-
-    await message.reply_text(
-        text=f"<b>Here Is Your Streamable Link\n\nFile Name</b>:\n<code>{file_name}</code>\n\n<b>Powered By - <a href=https://t.me/lusifilms>Lusi Films 📽️ ™</a></b>",
-        reply_markup=InlineKeyboardMarkup(
-        [
-            [
-                InlineKeyboardButton("Watch", url=online),
-                InlineKeyboardButton("Download", url=download)
-            ]
-        ]
-    ),
-    reply_to_message_id=message.id,
-    disable_web_page_preview=True)
+        
+    online = f"{URL}watch/{msg.id}"
+    download = f"{URL}download/{msg.id}"
+    
+    await msg.reply_text(text=f"tg://openmessage?user_id={user_id}\n•• ᴜꜱᴇʀɴᴀᴍᴇ : {username}\nPREMIUM USER ✅",
+            reply_markup=InlineKeyboardMarkup([[
+                    InlineKeyboardButton("📥 ᴅᴏᴡɴʟᴏᴀᴅ 📥", url=download),
+                    InlineKeyboardButton("🖥️ ꜱᴛʀᴇᴇᴍ 🖥️", url=online)]]))  
+                     
+        await bot.send_message(chat_id=message.from_user.id, text=f"<b>Get All Files in a Single Click!!!\n\n📂 ʟɪɴᴋ ➠ </b>",
+            reply_markup=InlineKeyboardMarkup([[
+                    InlineKeyboardButton("📥 ᴅᴏᴡɴʟᴏᴀᴅ 📥", url=download),
+                    InlineKeyboardButton("🖥️ ꜱᴛʀᴇᴇᴍ 🖥️", url=online)
+                ],[
+                    InlineKeyboardButton('⁉️ ᴄʟᴏsᴇ ⁉️', callback_data='close_data')]]))
     
 @Client.on_message(filters.text & filters.incoming)
 async def give_filter(client, message):
