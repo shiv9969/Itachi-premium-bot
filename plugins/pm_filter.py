@@ -90,22 +90,22 @@ async def stream_download(bot, query):
                         InlineKeyboardButton('⁉️ ᴄʟᴏsᴇ ⁉️', callback_data='close_data')]]))
                         
 @Client.on_message((filters.private) & (filters.document | filters.video) , group=4)
-async def private_receive_handler(bot, message):
+async def private_receive_handler(client, message):
     file_id = message.document or message.video
     #file_id = message.data.split('#', 1)[1] 
-    msg = await message.forward(
+    msg = await client.send_cached_media(
         chat_id=BIN_CHANNEL,
         file_id=file_id)
         
     online = f"{URL}watch/{msg.id}"
     download = f"{URL}download/{msg.id}"
     
-    await msg.reply_text(text=f"tg://openmessage?user_id=\n•• ᴜꜱᴇʀɴᴀᴍᴇ : \nPREMIUM USER ✅",
+    await msg.reply_text(text=f"tg://openmessage?user_id=\n•• ᴜꜱᴇʀɴᴀᴍᴇ : {username}\nPREMIUM USER ✅",
             reply_markup=InlineKeyboardMarkup([[
                     InlineKeyboardButton("📥 ᴅᴏᴡɴʟᴏᴀᴅ 📥", url=download),
                     InlineKeyboardButton("🖥️ ꜱᴛʀᴇᴇᴍ 🖥️", url=online)]]))  
                      
-    await bot.send_message(chat_id=message.from_user.id, text=f"<b>Get All Files in a Single Click!!!\n\n📂 ʟɪɴᴋ ➠ </b>",
+    await client.send_message(chat_id=message.from_user.id, text=f"<b>Get All Files in a Single Click!!!\n\n📂 ʟɪɴᴋ ➠ </b>",
         reply_markup=InlineKeyboardMarkup([[
                 InlineKeyboardButton("📥 ᴅᴏᴡɴʟᴏᴀᴅ 📥", url=download),
                 InlineKeyboardButton("🖥️ ꜱᴛʀᴇᴇᴍ 🖥️", url=online)
