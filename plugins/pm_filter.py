@@ -2015,6 +2015,7 @@ async def auto_filter(client, msg, spoll=False):
     if imdb and imdb.get('poster'):
         try:
             hehe = await message.reply_photo(photo=imdb.get('poster'), caption=cap[:1024] + files_link, reply_markup=InlineKeyboardMarkup(btn))
+            await message.delete()
             await m.delete()
             try:
                 if settings['auto_delete']:
@@ -2055,6 +2056,7 @@ async def auto_filter(client, msg, spoll=False):
                 await message.delete()
     else:
         fuk = await message.reply_photo(photo=NOR_IMG, caption=cap + files_link, reply_markup=InlineKeyboardMarkup(btn))
+        await message.delete()
         await m.delete()
         try:
             if settings['auto_delete']:
