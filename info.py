@@ -70,7 +70,7 @@ HOW_TO_VERIFY = environ.get('HOW_TO_VERIFY', "https://t.me/c/1843")
 VERIFY2_URL = environ.get('VERIFY2_URL', "urlshortx.com")
 VERIFY2_API = environ.get('VERIFY2_API', "8afa8fbc218cc0791c62495f2c510c92524503ce")
 
-DELETE_CHANNELS = [int(dch) if id_pattern.search(dch) else dch for dch in environ.get('DELETE_CHANNELS', '-1001946764456').split()]
+DELETE_CHANNELS = [int(dch) if id_pattern.search(dch) else dch for dch in environ.get('DELETE_CHANNELS', '-1001998895377').split()]
 MAX_B_TN = environ.get("MAX_B_TN", "7")
 MAX_BTN = is_enabled((environ.get('MAX_BTN', "True")), True)
 PORT = environ.get("PORT", "8080")
