@@ -15,7 +15,7 @@ def is_enabled(value, default):
 SESSION = environ.get('SESSION', 'Media_search')
 API_ID = int(environ.get('API_ID', "15561124"))
 API_HASH = environ.get('API_HASH', "277b0bfae263554a5211e856d389b9d8")
-BOT_TOKEN = environ.get('BOT_TOKEN', "6564345795:AAFkufPlTjiyWSZXobZKN5iAkRLN945-vAg")
+BOT_TOKEN = environ.get('BOT_TOKEN', "6564345795:AAFkbZKN5iAkRLN945-vAg")
 TIMEZONE = environ.get("TIMEZONE", "Asia/Kolkata")
 # Bot settings
 CACHE_TIME = int(environ.get('CACHE_TIME', 300))
@@ -45,7 +45,7 @@ SUPPORT_CHAT_ID = int(support_chat_id) if support_chat_id and id_pattern.search(
 NO_RESULTS_MSG = is_enabled((environ.get("NO_RESULTS_MSG", 'True')), False)
 
 # MongoDB information
-DATABASE_URI = environ.get('DATABASE_URI', "mongodb+srv://botlusi:botlusi@cluster0.h2y3oej.mongodb.net/?retryWrites=true&w=majority")
+DATABASE_URI = environ.get('DATABASE_URI', "mongodb+srv:/")
 DATABASE_NAME = environ.get('DATABASE_NAME', "Lusibot")
 COLLECTION_NAME = environ.get('COLLECTION_NAME', 'Telegram_files')
 
