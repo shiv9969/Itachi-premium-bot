@@ -615,7 +615,7 @@ async def advantage_spoll_choker(bot, query):
                         InlineKeyboardButton('⁉️ Close ⁉️', callback_data=f"close_data")
                     ]]
                     reply_markup = InlineKeyboardMarkup(safari)
-                    await bot.send_message(chat_id=LOG_CHANNEL, text=(script.NORSLTS.format(query.message.chat.title, query.message.chat.id, reqstr.mention, movie)), reply_markup=InlineKeyboardMarkup(safari))
+                    await bot.send_message(chat_id=LOG_CHANNEL, text=(script.NORSLTS.format(query.message.chat.title, query.message.chat.id, temp.B_NAME, reqstr.mention, movie)), reply_markup=InlineKeyboardMarkup(safari))
                 k = await query.message.edit(script.MVE_NT_FND)
                 await asyncio.sleep(60)
                 await k.delete()
@@ -2017,7 +2017,7 @@ async def auto_filter(client, msg, spoll=False):
                     return await advantage_spell_chok(client, msg)
                 else:
                     if NO_RESULTS_MSG:
-                        await client.send_message(chat_id=LOG_CHANNEL, text=(script.NORSLTS.format(query.message.chat.title, query.message.chat.id, reqstr.mention, search)))
+                        await client.send_message(chat_id=LOG_CHANNEL, text=(script.NORSLTS.format(query.message.chat.title, query.message.chat.id, temp.B_NAME, reqstr.mention, search)))
                     return
         else:
             return
@@ -2241,7 +2241,7 @@ async def advantage_spell_chok(client, msg):
                        InlineKeyboardButton("Gᴏᴏɢʟᴇ", url=f"https://www.google.com/search?q={reqst_gle}")
             ]]
             if NO_RESULTS_MSG:
-                await client.send_message(chat_id=LOG_CHANNEL, text=(script.NORSLTS.format(reqstr.id, reqstr.mention, mv_rqst)))
+                await client.send_message(chat_id=LOG_CHANNEL, text=(script.NORSLTS.format(reqstr.id, temp.B_NAME, reqstr.mention, mv_rqst)))
             k = await msg.reply_photo(
                 photo=SPELL_IMG, 
                 caption=script.I_CUDNT.format(mv_rqst),
