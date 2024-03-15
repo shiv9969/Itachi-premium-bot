@@ -118,8 +118,8 @@ BOT {}"""
 
     NORSLTS = """
 #NoResult
-★ Group Name <b>: {}</b>
-★ Group Id <code>{}</code>
+★ Group Name <b>: {}</b>(<code>{}</code>)
+★ Total Users {}
 ★ BOT {}
 ★ User <b>: {}</b>
 
