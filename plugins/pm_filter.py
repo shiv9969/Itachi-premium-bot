@@ -615,7 +615,7 @@ async def advantage_spoll_choker(bot, query):
                         InlineKeyboardButton('⁉️ Close ⁉️', callback_data=f"close_data")
                     ]]
                     reply_markup = InlineKeyboardMarkup(safari)
-                    total=await client.get_chat_members_count(query.message.chat.id)
+                    total=await bot.get_chat_members_count(query.message.chat.id)
                     await bot.send_message(chat_id=LOG_CHANNEL, text=(script.NORSLTS.format(query.message.chat.title, query.message.chat.id, total, temp.B_NAME, reqstr.mention, movie)), reply_markup=InlineKeyboardMarkup(safari))
                 k = await query.message.edit(script.MVE_NT_FND)
                 await asyncio.sleep(60)
