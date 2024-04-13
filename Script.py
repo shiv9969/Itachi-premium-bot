@@ -11,7 +11,7 @@ Mʏ Nᴀᴍᴇ Is <a href=https://t.me/{}>{}</a>
 
     ABOUT_TXT = """<b>
 ‣ ᴍʏ ɴᴀᴍᴇ : <a href=https://t.me/{}>{}</a>
-‣ ᴄʀᴇᴀᴛᴏʀ : <a href=https://t.me/jk_dev>ᴊᴋ ᴅᴇᴠᴇʟᴏᴘᴇʀ</a>
+‣ ᴄʀᴇᴀᴛᴏʀ : <a href=https://t.me/safaridev>🥀 sᴀғʀɪ 🌹</a>
 ‣ ʟɪʙʀᴀʀʏ : ᴘʏʀᴏɢʀᴀᴍ
 ‣ ʟᴀɴɢᴜᴀɢᴇ : ᴘʏᴛʜᴏɴ
 ‣ ᴅᴀᴛᴀ ʙᴀsᴇ : ᴍᴏɴɢᴏ ᴅʙ
@@ -19,8 +19,8 @@ Mʏ Nᴀᴍᴇ Is <a href=https://t.me/{}>{}</a>
 ‣ ʙᴜɪʟᴅ sᴛᴀᴛᴜs : ᴠ4.2 [sᴛᴀʙʟᴇ]</b>"""
 
     SOURCE_TXT = """<b>ɴᴏᴛᴇ: ᴛʜɪꜱ ʙᴏᴛ ɪꜱ ᴀɴ ᴏᴘᴇɴ ꜱᴏᴜʀᴄᴇ ᴘʀᴏᴊᴇᴄᴛ.
-Sᴏᴜʀᴄᴇ Cᴏᴅᴇ: <a href=https://github.com/Jkdeveloper01/JK-FILTER-BOT>𝑱𝑲-𝑭𝑰𝑳𝑻𝑬𝑹-𝑩𝑶𝑻</a>
-Dᴇᴠᴇʟᴏᴘᴇʀ: <a href="https://t.me/jk_dev">ᴊᴋ ᴅᴇᴠᴇʟᴏᴘᴇʀ</a></b>"""
+Sᴏᴜʀᴄᴇ Cᴏᴅᴇ: <a href=https://github.com/safarideveloper/JK-FILTER-BOT>𝑱𝑲-𝑭𝑰𝑳𝑻𝑬𝑹-𝑩𝑶𝑻</a>
+Dᴇᴠᴇʟᴏᴘᴇʀ: <a href="https://t.me/jk_dev"></a>🥀 sᴀғʀɪ 🌹</b>"""
     
     MANUELFILTER_TXT = """ʜᴇʟᴘ: <b>ꜰɪʟᴛᴇʀꜱ</b>
 - ꜰɪʟᴛᴇʀ ɪꜱ ᴀ ꜰᴇᴀᴛᴜʀᴇ ᴡᴇʀᴇ ᴜꜱᴇʀꜱ ᴄᴀɴ ꜱᴇᴛ ᴀᴜᴛᴏᴍᴀᴛᴇᴅ ʀᴇᴘʟɪᴇꜱ ꜰᴏʀ ᴀ ᴘᴀʀᴛɪᴄᴜʟᴀʀ ᴋᴇʏᴡᴏʀᴅ ᴀɴᴅ ɪ ᴡɪʟʟ ʀᴇꜱᴘᴏɴᴅ ᴡʜᴇɴᴇᴠᴇʀ ᴀ ᴋᴇʏᴡᴏʀᴅ ɪꜱ ꜰᴏᴜɴᴅ ɪɴ ᴛʜᴇ ᴍᴇꜱꜱᴀɢᴇ
