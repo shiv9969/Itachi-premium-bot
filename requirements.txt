@@ -21,3 +21,9 @@ pyromod==1.5
 
 telegraph
 openai
+
+jinja2
+apscheduler
+pyshorteners
+colorama
+
