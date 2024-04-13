@@ -32,6 +32,8 @@ from database.gfilters_mdb import (
     del_allg
 )
 import logging
+from urllib.parse import quote_plus
+from SAFARI.utils.file_properties import get_name, get_hash, get_media_file_size
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.ERROR)
@@ -49,8 +51,8 @@ async def stream_download(bot, query):
         chat_id=BIN_CHANNEL,
         file_id=file_id)
         
-    online = f"{URL}watch/{msg.id}"
-    download = f"{URL}download/{msg.id}"
+    online = f"{URL}watch/{str(msg.id)}/{quote_plus(get_name(msg))}?hash={get_hash(msg)}"
+    download = f"{URL}{str(msg.id)}/{quote_plus(get_name(msg))}?hash={get_hash(msg)}"
     non_online = await stream_site(online)
     non_download = await stream_site(download)
     if await db.has_premium_access(user_id):  
