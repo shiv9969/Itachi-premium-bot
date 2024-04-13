@@ -18,7 +18,7 @@ from pyrogram import types
 from Script import script 
 from datetime import date, datetime 
 import pytz
-from utils import temp
+from utils import temp, check_expired_premium
 
 logging.basicConfig(
     level=logging.INFO,
