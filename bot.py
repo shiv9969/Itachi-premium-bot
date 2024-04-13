@@ -89,11 +89,11 @@ async def start():
     bind_address = "0.0.0.0"
     await web.TCPSite(app, bind_address, PORT).start()
     await idle()
-        await SafariBot.send_message(chat_id=LOG_CHANNEL, text=script.RESTART_TXT.format(today, time))
-        try:
-            m = await SafariBot.send_message(chat_id=BIN_CHANNEL, text="Test")
-            await m.delete()
-        except:
+    await SafariBot.send_message(chat_id=LOG_CHANNEL, text=script.RESTART_TXT.format(today, time))
+    try:
+        m = await SafariBot.send_message(chat_id=BIN_CHANNEL, text="Test")
+        await m.delete()
+    except:
             logging.error("Make sure bot admin in BIN_CHANNEL, exiting now")
             exit()
     
