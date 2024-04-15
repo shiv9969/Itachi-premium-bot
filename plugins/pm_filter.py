@@ -18,7 +18,7 @@ from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton, CallbackQ
 from pyrogram import Client, filters, enums
 from pyrogram.errors import FloodWait, UserIsBlocked, MessageNotModified, PeerIdInvalid
 from utils import get_size, is_subscribed, get_poster, search_gagala, temp, get_settings, save_group_settings, get_shortlink, check_verification, get_token, stream_site, get_tutorial
-from database.users_chats_db import db
+from database.users_chats_db import db, get_referal_users_count
 from database.ia_filterdb import Media, get_file_details, get_search_results, get_bad_files
 from database.filters_mdb import (
     del_all,
@@ -1245,7 +1245,30 @@ async def cb_handler(client: Client, query: CallbackQuery):
             parse_mode=enums.ParseMode.HTML
         )
         await query.answer(MSG_ALRT)
-
+        
+    elif query.data == "show_reff":
+        total_referrals = await get_referal_users_count(user_id)
+        await query.answer(text=f'You Have: {total_referrals} Refferal Points')
+        
+    elif query.data == "subscription":
+        user_id = query.from_user.id
+        total_referrals = await get_referal_users_count(user_id)
+        buttons = [[
+            InlineKeyboardButton('Invite 🔗', url=f'https://telegram.me/share/url?url=https://t.me/{temp.U_NAME}?start=reff-{user_id}&text=E1%B4%84%CA%9F%C9%AA%E1%B4%84%E1%B4%8B%20%E1%B4%8F%C9%B4%20%E1%B4%9B%CA%9C%E1%B4%87%20%CA%9F%C9%AA%C9%B4%E1%B4%8B%20%E1%B4%80%C9%B4%E1%B4%85%20%E1%B4%87%C9%B4%E1%B4%8A%E1%B4%8F%CA%8F%20%C9%B4%E1%B4%87%E1%B4%A1%20%E1%B4%80%C9%B4%E1%B4%85%20%E1%B4%9B%CA%80%E1%B4%87%C9%B4%E1%B4%85%C9%AA%C9%B4%C9%A2%20%E1%B4%8D%E1%B4%8F%E1%B4%A0%C9%AA%E1%B4%87s/s%E1%B4%87%CA%80%C9%AA%E1%B4%87s'), 
+            InlineKeyboardButton('⏳{total_referrals}', callback_data=f"show_reff")
+            InlineKeyboardButton('⇚Back', callback_data='start')
+        ]]
+        reply_markup = InlineKeyboardMarkup(buttons)
+        await client.edit_message_media(
+            query.message.chat.id, 
+            query.message.id, 
+            InputMediaPhoto(random.choice(PICS))
+        )
+        await query.message.edit_text(
+            text=script.SUBSCRIPTION_TXT.format(REFERAL_PREMEIUM_TIME, temp.U_NAME, query.from_user.id, REFERAL_COUNT),
+            reply_markup=reply_markup,
+            parse_mode=enums.ParseMode.HTML
+        )
     elif query.data.startswith("not_available"):
         _, user_id, movie = data.split(":")
         try:
