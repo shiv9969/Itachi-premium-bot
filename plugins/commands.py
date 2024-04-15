@@ -68,7 +68,8 @@ async def start(client, message):
                 ],[
                     InlineKeyboardButton('• ᴄᴏᴍᴍᴀɴᴅꜱ •', callback_data='help'),
                     InlineKeyboardButton('• ᴀʙᴏᴜᴛ •', callback_data='about')
-                    
+                ],[
+                    InlineKeyboardButton('ʀᴇғғᴇʀ 💖', callback_data='subscription') 
                   ]]
         if IS_VERIFY or IS_SHORTLINK is True:
             buttons.append([
@@ -131,7 +132,9 @@ async def start(client, message):
                     InlineKeyboardButton('• ᴜᴘᴅᴀᴛᴇꜱ •', callback_data='channels')
                 ],[
                     InlineKeyboardButton('• ᴄᴏᴍᴍᴀɴᴅꜱ •', callback_data='help'),
-                    InlineKeyboardButton('• ᴀʙᴏᴜᴛ •', callback_data='about')
+                    InlineKeyboardButton('• ᴀʙᴏᴜᴛ •', callback_data='about'), 
+                ],[
+                    InlineKeyboardButton('ʀᴇғғᴇʀ 💖', callback_data='subscription') 
                   ]]
         if IS_VERIFY or IS_SHORTLINK is True:
             buttons.append([
