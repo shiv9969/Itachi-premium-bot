@@ -41,22 +41,11 @@ class Database:
         self._client = motor.motor_asyncio.AsyncIOMotorClient(uri)
         self.db = self._client[database_name]
         self.col = self.db.users
-        self.coll = self.db.userss
         self.grp = self.db.groups
         self.users = self.db.uersz
 
 
     def new_user(self, id, name):
-        return dict(
-            id = id,
-            name = name,
-            ban_status=dict(
-                is_banned=False,
-                ban_reason="",
-            ),
-        )
-
-    def nnew_user(self, id, name):
         return dict(
             id = id,
             name = name,
@@ -96,18 +85,6 @@ class Database:
     async def add_user(self, id, name):
         user = self.new_user(id, name)
         await self.col.insert_one(user)
-
-    async def aadd_user(self, id, name):
-        user = self.nnew_user(id, name)
-        await self.coll.insert_one(user)
-        
-    async def iis_user_exist(self, id):
-        user = await self.coll.find_one({'id':int(id)})
-        return bool(user)
-
-    async def ttotal_users_count(self):
-        count = await self.coll.count_documents({})
-        return count
 
     async def is_user_exist(self, id):
         user = await self.col.find_one({'id':int(id)})
@@ -292,8 +269,19 @@ class Database:
         user_data = {"id": user_id, "expiry_time": expiry_time, "has_free_trial": True}
         await self.users.update_one({"id": user_id}, {"$set": user_data}, upsert=True)
 
-    async def add_referal_users(self, id, name):
-        user = self.new_user(id, name)
-        await self.col.insert_one(user)
+    async def check_invite(self, user_id):
+        user_data = await self.get_user(user_id)
+        if user_data:
+            return user_data.get("invite", False)
+        return False
+
+    async def save_user(self, user_id):
+        #await set_free_trial_status(user_id)
+        user_id = user_id
+        seconds = 3        
+        expiry_time = datetime.datetime.now() + datetime.timedelta(seconds=seconds)
+        user_data = {"id": user_id, "expiry_time": expiry_time, "invite": True}
+        await self.users.update_one({"id": user_id}, {"$set": user_data}, upsert=True)
+    
 
 db = Database(DATABASE_URI, DATABASE_NAME)
