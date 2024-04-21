@@ -105,6 +105,10 @@ class Database:
         user = await self.coll.find_one({'id':int(id)})
         return bool(user)
 
+    async def ttotal_users_count(self):
+        count = await self.coll.count_documents({})
+        return count
+
     async def is_user_exist(self, id):
         user = await self.col.find_one({'id':int(id)})
         return bool(user)
