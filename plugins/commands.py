@@ -10,7 +10,7 @@ from pyrogram import Client, filters, enums
 from pyrogram.errors import ChatAdminRequired, FloodWait
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 from database.ia_filterdb import Media, get_file_details, unpack_new_file_id, get_bad_files
-from database.users_chats_db import db, delete_all_referal_users, get_referal_users_count, get_referal_all_users, referal_add_user
+from database.users_chats_db import db, delete_all_referal_users, get_referal_users_count, get_referal_all_users, referal_add_user, all_invited, add_invited
 from info import *
 from utils import get_settings, get_size, is_subscribed, save_group_settings, temp, verify_user, check_token, check_verification, get_token, send_all, get_tutorial, get_shortlink, get_seconds
 from database.connections_mdb import active_connection
@@ -298,8 +298,12 @@ async def start(client, message):
     elif data.split("-", 1)[0] == "reff":
         user_id = int(data.split("-", 1)[1])
         safari = await referal_add_user(user_id, message.from_user.id)
+        invited = await  add_invited(user_id, message.from_user.id) 
         if safari:
             await message.reply(f"<b>You have joined using the referral link of user with ID {user_id}\n\nSend /start again to use the bot</b>")
+        else:
+            if invited:
+                await message.reply(f"<b>You have Already invited</b>")
             num_referrals = await get_referal_users_count(user_id)
             await client.send_message(chat_id = user_id, text = "<b>{} start the bot with your referral link\n\nTotal Referals - {}</b>".format(message.from_user.mention, num_referrals))
             if await get_referal_users_count(user_id) == 2:
