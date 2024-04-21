@@ -23,8 +23,9 @@ async def invited_user(user_id, ref_user_id):
         return False
 
 async def invited_all_users(user_id):
-    user_db = invited[str(user_id)]
-    return user_db.find()
+    user_db = invited_user[str(user_id)]
+    count = user_db.count_documents({})
+    return count
     #
 async def referal_add_user(user_id, ref_user_id):
     user_db = mydb[str(user_id)]
