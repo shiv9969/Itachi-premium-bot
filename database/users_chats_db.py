@@ -269,19 +269,8 @@ class Database:
         user_data = {"id": user_id, "expiry_time": expiry_time, "has_free_trial": True}
         await self.users.update_one({"id": user_id}, {"$set": user_data}, upsert=True)
 
-    async def check_invite(self, user_id):
-        user_data = await self.get_user(user_id)
-        if user_data:
-            return user_data.get("invite", False)
-        return False
-
-    async def save_user(self, user_id):
-        #await set_free_trial_status(user_id)
-        user_id = user_id
-        seconds = 3        
-        expiry_time = datetime.datetime.now() + datetime.timedelta(seconds=seconds)
-        user_data = {"id": user_id, "expiry_time": expiry_time, "invite": True}
-        await self.users.update_one({"id": user_id}, {"$set": user_data}, upsert=True)
+    async def check_invite(self, user_data):
+        await self.users.update_one({"id": user_data["id"]}, {"$set": user_data})
     
 
 db = Database(DATABASE_URI, DATABASE_NAME)
