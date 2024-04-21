@@ -41,7 +41,7 @@ class Database:
         self._client = motor.motor_asyncio.AsyncIOMotorClient(uri)
         self.db = self._client[database_name]
         self.col = self.db.users
-        self.coll = self.db.users
+        self.coll = self.db.userss
         self.grp = self.db.groups
         self.users = self.db.uersz
 
