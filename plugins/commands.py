@@ -302,15 +302,16 @@ async def start(client, message):
         invited = await invited_all_users(user_id) 
         if invited:
             await message.reply(f"You Have already invited")
-        elif safari:   
-            await message.reply(f"<b>You have joined using the referral link of user with ID {user_id}\n\nSend /start again to use the bot</b>") 
-            num_referrals = await get_referal_users_count(user_id)
-            await client.send_message(chat_id = user_id, text = "<b>{} start the bot with your referral link\n\nTotal Referals - {}</b>".format(message.from_user.mention, num_referrals))
-            if await get_referal_users_count(user_id) == 2:
-                await db.give_referal(user_id)
-                await delete_all_referal_users(user_id)
-                await client.send_message(chat_id = user_id, text = "<b>You Have Successfully Completed Total Referal.\n\nYou Added In Premium For 1 Month</b>")
-                return 
+        else:  
+            if await referal_add_user(user_id, message.from_user.id):
+                await message.reply(f"<b>You have joined using the referral link of user with ID {user_id}\n\nSend /start again to use the bot</b>") 
+                num_referrals = await get_referal_users_count(user_id)
+                await client.send_message(chat_id = user_id, text = "<b>{} start the bot with your referral link\n\nTotal Referals - {}</b>".format(message.from_user.mention, num_referrals))
+                if await get_referal_users_count(user_id) == 2:
+                    await db.give_referal(user_id)
+                    await delete_all_referal_users(user_id)
+                    await client.send_message(chat_id = user_id, text = "<b>You Have Successfully Completed Total Referal.\n\nYou Added In Premium For 1 Month</b>")
+                    return 
                     
     elif data.split("-", 1)[0] == "verify":
         userid = data.split("-", 2)[1]
