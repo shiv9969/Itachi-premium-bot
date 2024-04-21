@@ -8,7 +8,7 @@ import time
 from pymongo import MongoClient
 from pymongo.errors import DuplicateKeyError
 
-my_client = MongoClient(DATABASE_URI)
+my_client = MongoClient(DATABASE_URI, DATABASE_NAME)
 mydb = my_client["referal_user"]
 
 async def referal_add_user(user_id, ref_user_id):
