@@ -10,7 +10,22 @@ from pymongo.errors import DuplicateKeyError
 
 my_client = MongoClient(DATABASE_URI)
 mydb = my_client["referal_user"]
+invited_client = MongoClient(DATABASE_URI)
+invited = my_client["invite_user"]
 
+async def invited_user(user_id, ref_user_id):
+    user_db = invited[str(user_id)]
+    user = {'_id': ref_user_id}
+    try:
+        user_db.insert_one(user)
+        return True
+    except DuplicateKeyError:
+        return False
+
+async def invited_all_users(user_id):
+    user_db = invited[str(user_id)]
+    return user_db.find()
+    #
 async def referal_add_user(user_id, ref_user_id):
     user_db = mydb[str(user_id)]
     user = {'_id': ref_user_id}
