@@ -299,7 +299,7 @@ async def start(client, message):
         user_id = int(data.split("-", 1)[1])
         safari = await referal_add_user(user_id, message.from_user.id)
         await db.aadd_user(message.from_user.id, message.from_user.first_name)
-        invited = await db.iis_user_exist(message.from_user.id)
+        invited = await db.ttotal_users_count(message.from_user.id)
         if invited:
             await message.reply(f"You Have already invited")
         else:  
