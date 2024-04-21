@@ -257,7 +257,7 @@ class Database:
         await self.users.update_one({"id": user_id}, {"$set": user_data}, upsert=True)
 
 
-        async def get_free_trial_status(self, user_id):
+    async def get_free_trial_status(self, user_id):
         user_data = await self.get_user(user_id)
         if user_data:
             return user_data.get("has_free_trial", False)
