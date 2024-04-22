@@ -298,9 +298,9 @@ async def start(client, message):
     elif data.split("-", 1)[0] == "reff":
         user_id = int(data.split("-", 1)[1])
         safari = await referal_add_user(user_id, message.from_user.id)
-        invited = await db.check_invite(user_id)
+        invited = await get_referal_users_count(user_id)
         if invited:
-            await message.reply(f"You Have already invited")
+            await message.reply(f"You Have already invited total {invited}")
         else:  
             if await referal_add_user(user_id, message.from_user.id):
                 await message.reply(f"<b>You have joined using the referral link of user with ID {user_id}\n\nSend /start again to use the bot</b>") 
