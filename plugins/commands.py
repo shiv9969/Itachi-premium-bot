@@ -304,7 +304,7 @@ async def start(client, message):
             await message.reply(" You Already invited {total}") 
             return
         else:
-            if safari:
+            if await referal_add_user(user_id, message.from_user.id):
                 await message.reply(f"<b>You have joined using the referral link of user with ID {user_id}\n\nSend /start again to use the bot total user</b>") 
             num_referrals = await get_referal_users_count(user_id)
             await client.send_message(chat_id = user_id, text = "<b>{} start the bot with your referral link\n\nTotal Referals - {}</b>".format(message.from_user.mention, num_referrals))
