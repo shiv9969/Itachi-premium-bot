@@ -52,9 +52,9 @@ DATABASE_URI = environ.get('DATABASE_URI', "mongodb+srv:/")
 DATABASE_NAME = environ.get('DATABASE_NAME', "Lusibot")
 COLLECTION_NAME = environ.get('COLLECTION_NAME', 'Telegram_files')
 
-#refer Database
-DATABASE_URI2 = environ.get('DATABASE_URI2', "mongodb+srv://mrx:mrx@cluster0.lxhhtym.mongodb.net/?retryWrites=true&w=majority")
-DATABASE_NAME2 = environ.get('DATABASE_NAME2', "refer")
+#refer time, or count
+REFERAL_TIME = environ.get('REFERAL_TIME', "86400")
+USERS_COUNT = environ.get('USERS_COUNT', "2")
 
 #stream link shortner
 STREAM_SITE = (environ.get('STREAM_SITE', 'urlshortx.com'))
