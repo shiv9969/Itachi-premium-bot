@@ -298,26 +298,26 @@ async def start(client, message):
         
     elif data.split("-", 1)[0] == "reff":
         user_id = int(data.split("-", 1)[1])
-        safari = await referal_add_user(user_id, message.from_user.id)
-        total = await get_referal_users_count(user_id)
-        if total:
-            await message.reply(" You Already invited {total}") 
+        safari = await db2.referal_add_user(user_id, message.from_user.id)
+        #total = await get_referal_users_count(user_id)
+        if safari:
+            """await message.reply(" You Already invited {total}") 
             return
         else:
-            if await referal_add_user(user_id, message.from_user.id):
-                await message.reply(f"<b>You have joined using the referral link of user with ID {user_id}\n\nSend /start again to use the bot total user</b>") 
-            num_referrals = await get_referal_users_count(user_id)
+            if await referal_add_user(user_id, message.from_user.id):"""
+            await message.reply(f"<b>You have joined using the referral link of user with ID {user_id}\n\nSend /start again to use the bot total user</b>") 
+            num_referrals = await db2.get_referal_users_count(user_id)
             await client.send_message(chat_id = user_id, text = "<b>{} start the bot with your referral link\n\nTotal Referals - {}</b>".format(message.from_user.mention, num_referrals))
-            if await get_referal_users_count(user_id) == 4:
+            if await db2.get_referal_users_count(user_id) == 2:
                 await db.give_referal(user_id)
-                await delete_all_referal_users(user_id)
+                await db2.delete_all_referal_users(user_id)
                 await client.send_message(chat_id = user_id, text = "<b>You Have Successfully Completed Total Referal.\n\nYou Added In Premium For 1 Month</b>")
                 return 
 
     elif data.split("-", 1)[0] == "del":
         user_id = int(data.split("-", 1)[1])
         
-        await delete_all_referal_users(user_id)
+        await db2.delete_all_referal_users(user_id)
         await message.reply("<b>Invite Successfully Deleted </b>")
         return 
                 
