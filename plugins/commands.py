@@ -297,10 +297,9 @@ async def start(client, message):
         
     elif data.split("-", 1)[0] == "reff":
         user_id = int(data.split("-", 1)[1])
-        safari = await referal_add_user(user_id, message.from_user.id)
-        save_invites = await db.update_invited(user_id) or await db.save_invites(user_id) 
-        if save_invites:
-            await message.reply("You Already invited ") 
+        if await db.update_invited(user_id) and await db.save_invites(user_id):
+            await message.reply("You Already invited ")
+            await db.update_invited(user_id)
             return
         else:
             if await referal_add_user(user_id, message.from_user.id):
