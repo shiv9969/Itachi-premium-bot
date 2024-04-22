@@ -52,9 +52,10 @@ DATABASE_URI = environ.get('DATABASE_URI', "mongodb+srv:/")
 DATABASE_NAME = environ.get('DATABASE_NAME', "Lusibot")
 COLLECTION_NAME = environ.get('COLLECTION_NAME', 'Telegram_files')
 
-#refer time, or count
-REFERAL_TIME = environ.get('REFERAL_TIME', "86400")
-USERS_COUNT = environ.get('USERS_COUNT', "2")
+#refer time, or user count
+REFERAL_TIME = environ.get('REFERAL_TIME', "86400") # set in seconds
+USERS_COUNT = environ.get('USERS_COUNT', "2") # Set Referel User Count
+INVITED_USER_TIME = environ.get('INVITED_USER_TIME', "86400") #set in seconds, free trail in invites users, 
 
 #stream link shortner
 STREAM_SITE = (environ.get('STREAM_SITE', 'urlshortx.com'))
