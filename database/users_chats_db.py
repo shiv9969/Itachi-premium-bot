@@ -43,8 +43,32 @@ class Database:
         self.col = self.db.users
         self.grp = self.db.groups
         self.users = self.db.uersz
+        self.coll = self.db.user
 
+    def nnew_user(self, id):
+        return dict(
+            _id=int(id)
+        )
 
+    async def aadd_user(self, b, m):
+        u = m.from_user
+        if not await self.iis_user_exist(u.id):
+            user = self.nnew_user(u.id)
+            await self.coll.insert_one(user)            
+
+    async def iis_user_exist(self, id):
+        user = await self.coll.find_one({'_id': int(id)})
+        return bool(user)
+
+    async def ttotal_users_count(self):
+        count = await self.coll.count_documents({})
+        return count
+
+    async def gget_all_users(self):
+        all_users = self.coll.find({})
+        return all_users
+
+    ################
     def new_user(self, id, name):
         return dict(
             id = id,
