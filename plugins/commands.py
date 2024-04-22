@@ -316,7 +316,7 @@ async def start(client, message):
     elif data.split("-", 1)[0] == "del":
         user_id = int(data.split("-", 1)[1])
         
-        await db2.delete_all_referal_users(user_id)
+        await delete_all_referal_users(user_id)
         await message.reply("<b>Invite Successfully Deleted </b>")
         return 
                 
