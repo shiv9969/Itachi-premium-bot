@@ -301,7 +301,7 @@ async def start(client, message):
         total = await get_referal_users_count(user_id)
         await db.aadd_user(client, message)
         if safari:
-            if await db.iis_user_exist(user_id):
+            if await ttotal_users_count(user_id):
                 await message.reply(" You Already invited ") 
             else:
                 await message.reply(f"<b>You have joined using the referral link of user with ID {user_id}\n\nSend /start again to use the bot total user {total}</b>") 
