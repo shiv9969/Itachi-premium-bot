@@ -301,7 +301,7 @@ async def start(client, message):
         total = await get_referal_users_count(user_id)
         await db.aadd_user(client, message)
         if safari:
-            if await ttotal_users_count(user_id):
+            if await db.ttotal_users_count(user_id):
                 await message.reply(" You Already invited ") 
                 return
             else:
