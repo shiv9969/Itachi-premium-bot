@@ -8,7 +8,7 @@ import datetime
 
 
 
-class Database:
+class Databasse:
 
     def __init__(self, uri2, database_name2):
         self._client = motor.motor_asyncio.AsyncIOMotorClient(uri2)
@@ -40,4 +40,4 @@ async def delete_all_referal_users(self, user_id):
     user_db.delete_many({}) 
 
 
-db2 = Database(DATABASE_URI2, DATABASE_NAME2)
+db2 = Databasse(DATABASE_URI2, DATABASE_NAME2)
