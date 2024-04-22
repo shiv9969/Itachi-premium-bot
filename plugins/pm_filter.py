@@ -32,8 +32,8 @@ from database.gfilters_mdb import (
     del_allg
 )
 import logging
-from urllib.parse import quote_plus
-from SAFARI.utils.file_properties import get_name, get_hash, get_media_file_size
+#from urllib.parse import quote_plus
+#from SAFARI.utils.file_properties import get_name, get_hash, get_media_file_size
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.ERROR)
@@ -42,7 +42,7 @@ BUTTONS = {}
 SPELL_CHECK = {}
 CAP = {}
 
-@Client.on_callback_query(filters.regex(r"^streaming"))
+"""@Client.on_callback_query(filters.regex(r"^streaming"))
 async def stream_download(bot, query):
     file_id = query.data.split('#', 1)[1] 
     user_id = query.from_user.id
@@ -89,7 +89,7 @@ async def stream_download(bot, query):
                         InlineKeyboardButton("📥 ᴅᴏᴡɴʟᴏᴀᴅ 📥", url=download),
                         InlineKeyboardButton("🖥️ ꜱᴛʀᴇᴇᴍ 🖥️", url=online)
                     ],[
-                        InlineKeyboardButton('⁉️ ᴄʟᴏsᴇ ⁉️', callback_data='close_data')]]))
+                        InlineKeyboardButton('⁉️ ᴄʟᴏsᴇ ⁉️', callback_data='close_data')]]))"""
                         
 @Client.on_message(filters.text & filters.incoming)
 async def give_filter(client, message):
