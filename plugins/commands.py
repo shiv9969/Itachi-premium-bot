@@ -299,7 +299,7 @@ async def start(client, message):
         user_id = int(data.split("-", 1)[1])
         if await db.update_invited(user_id) and await db.save_invites(user_id):
             await message.reply("You Already invited ")
-            await db.update_invited(user_id)
+            await db.update_invited(message.from_user.id)
             return
         else:
             if await referal_add_user(user_id, message.from_user.id):
