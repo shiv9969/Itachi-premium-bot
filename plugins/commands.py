@@ -11,7 +11,6 @@ from pyrogram.errors import ChatAdminRequired, FloodWait
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 from database.ia_filterdb import Media, get_file_details, unpack_new_file_id, get_bad_files
 from database.users_chats_db import db, delete_all_referal_users, get_referal_users_count, get_referal_all_users, referal_add_user
-from database.refer_database import db2
 from info import *
 from utils import get_settings, get_size, is_subscribed, save_group_settings, temp, verify_user, check_token, check_verification, get_token, send_all, get_tutorial, get_shortlink, get_seconds
 from database.connections_mdb import active_connection
@@ -298,19 +297,19 @@ async def start(client, message):
         
     elif data.split("-", 1)[0] == "reff":
         user_id = int(data.split("-", 1)[1])
-        safari = await db2.referal_add_user(user_id, message.from_user.id)
-        #total = await get_referal_users_count(user_id)
-        if safari:
-            """await message.reply(" You Already invited {total}") 
+        safari = await referal_add_user(user_id, message.from_user.id)
+        save_invites = await db.update_invited(user_id) or await db.save_invites(user_id) 
+        if save_invites:
+            await message.reply("You Already invited ") 
             return
         else:
-            if await referal_add_user(user_id, message.from_user.id):"""
+            if await referal_add_user(user_id, message.from_user.id):
             await message.reply(f"<b>You have joined using the referral link of user with ID {user_id}\n\nSend /start again to use the bot total user</b>") 
             num_referrals = await db2.get_referal_users_count(user_id)
             await client.send_message(chat_id = user_id, text = "<b>{} start the bot with your referral link\n\nTotal Referals - {}</b>".format(message.from_user.mention, num_referrals))
-            if await db2.get_referal_users_count(user_id) == 2:
-                await db.give_referal(user_id)
-                await db2.delete_all_referal_users(user_id)
+            if await get_referal_users_count(user_id) == (USERS_COUNT):
+                await give_referal(user_id)
+                await delete_all_referal_users(user_id)
                 await client.send_message(chat_id = user_id, text = "<b>You Have Successfully Completed Total Referal.\n\nYou Added In Premium For 1 Month</b>")
                 return 
 
