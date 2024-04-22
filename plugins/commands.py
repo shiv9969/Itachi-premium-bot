@@ -11,6 +11,7 @@ from pyrogram.errors import ChatAdminRequired, FloodWait
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 from database.ia_filterdb import Media, get_file_details, unpack_new_file_id, get_bad_files
 from database.users_chats_db import db, delete_all_referal_users, get_referal_users_count, get_referal_all_users, referal_add_user
+from database.refer_database import db2
 from info import *
 from utils import get_settings, get_size, is_subscribed, save_group_settings, temp, verify_user, check_token, check_verification, get_token, send_all, get_tutorial, get_shortlink, get_seconds
 from database.connections_mdb import active_connection
@@ -299,9 +300,8 @@ async def start(client, message):
         user_id = int(data.split("-", 1)[1])
         safari = await referal_add_user(user_id, message.from_user.id)
         total = await get_referal_users_count(user_id)
-        await db.aadd_user(client, message)
         if safari:
-            if await db.ttotal_users_count():
+            if await get_referal_users_count(user_id):
                 await message.reply(" You Already invited ") 
                 return
             else:
