@@ -1,6 +1,6 @@
 # https://github.com/odysseusmax/animated-lamp/blob/master/bot/database/database.py
 import motor.motor_asyncio
-from info import DATABASE_NAME, DATABASE_URI, IMDB, IMDB_TEMPLATE, MELCOW_NEW_USERS, P_TTI_SHOW_OFF, SINGLE_BUTTON, SPELL_CHECK_REPLY, PROTECT_CONTENT, AUTO_DELETE, MAX_BTN, AUTO_FFILTER, SHORTLINK_API, SHORTLINK_URL, IS_SHORTLINK, TUTORIAL, IS_TUTORIAL
+from info import DATABASE_NAME, DATABASE_URI, IMDB, IMDB_TEMPLATE, MELCOW_NEW_USERS, P_TTI_SHOW_OFF, SINGLE_BUTTON, SPELL_CHECK_REPLY, PROTECT_CONTENT, AUTO_DELETE, MAX_BTN, AUTO_FFILTER, SHORTLINK_API, SHORTLINK_URL, IS_SHORTLINK, TUTORIAL, IS_TUTORIAL, REFERAL_TIME
 import datetime
 import pytz
 import re
@@ -45,30 +45,7 @@ class Database:
         self.users = self.db.uersz
         self.coll = self.db.user
 
-    def nnew_user(self, id):
-        return dict(
-            _id=int(id)
-        )
 
-    async def aadd_user(self, b, m):
-        u = m.from_user
-        if not await self.iis_user_exist(u.id):
-            user = self.nnew_user(u.id)
-            await self.coll.insert_one(user)            
-
-    async def iis_user_exist(self, id):
-        user = await self.coll.find_one({'_id': int(id)})
-        return bool(user)
-
-    async def ttotal_users_count(self):
-        count = await self.coll.count_documents({})
-        return count
-
-    async def gget_all_users(self):
-        all_users = self.coll.find({})
-        return all_users
-
-    ################
     def new_user(self, id, name):
         return dict(
             id = id,
@@ -280,7 +257,7 @@ class Database:
         await self.users.update_one({"id": user_id}, {"$set": user_data}, upsert=True)
 
 
-    async def get_free_trial_status(self, user_id):
+    async def save_invites(self, user_id):
         user_data = await self.get_user(user_id)
         if user_data:
             return user_data.get("has_free_trial", False)
@@ -288,13 +265,10 @@ class Database:
 
     async def give_referal(self, userid):        
         user_id = userid
-        seconds = 43200*60         
+        seconds = (REFERAL_TIME)         
         expiry_time = datetime.datetime.now() + datetime.timedelta(seconds=seconds)
         user_data = {"id": user_id, "expiry_time": expiry_time, "has_free_trial": True}
         await self.users.update_one({"id": user_id}, {"$set": user_data}, upsert=True)
 
-    async def check_invite(self, user_data):
-        await self.users.update_one({"id": user_data["id"]}, {"$set": user_data})
-    
 
 db = Database(DATABASE_URI, DATABASE_NAME)
