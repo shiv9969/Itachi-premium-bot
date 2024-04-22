@@ -40,4 +40,4 @@ async def delete_all_referal_users(self, user_id):
     user_db.delete_many({}) 
 
 
-db = Database(DATABASE_URI2, DATABASE_NAME2)
+db2 = Database(DATABASE_URI2, DATABASE_NAME2)
