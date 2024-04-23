@@ -46,6 +46,29 @@ class Database:
         self.coll = self.db.user
 
 
+    def new_referal_user(self, id, name):
+        return dict(
+            id = id,
+            name = name,
+            ban_status=dict(
+                is_banned=False,
+                ban_reason="",
+            ),
+        )
+
+    async def add_referal_user(self, id, name):
+        user = self.new_referal_user(id, name)
+        await self.coll.insert_one(user)
+
+    async def referal_user_exist(self, id):
+        user = await self.coll.find_one({'id':int(id)})
+        return bool(user)
+    
+    async def total_referal_users(self):
+        count = await self.coll.count_documents({})
+        return count
+        #############
+        
     def new_user(self, id, name):
         return dict(
             id = id,
