@@ -1249,7 +1249,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
         await query.answer(MSG_ALRT)
         
     elif query.data == "show_reff":
-        total_referrals = await get_referal_users_count(user_id)
+        total_referrals = await get_referal_users_count(user_id, "referal_user")
         await query.answer(text=f'You Have: {total_referrals} Refferal Points', show_alert=True)
         
     elif query.data == "subscription":
