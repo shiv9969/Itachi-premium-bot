@@ -28,9 +28,6 @@ SPELL_IMG = environ.get("SPELL_IMG", "https://telegra.ph/file/5e2d4418525832bc9a
 SUBSCRIPTION = (environ.get('SUBSCRIPTION', 'https://graph.org/file/12adf3a7451bf2a72b454.jpg'))
 CODE = (environ.get('CODE', 'https://telegra.ph/file/2217e1bd03dc0f8146d75.jpg')) # Scanner Code image 
 
-REFERAL_COUNT = int(environ.get('REFERAL_COUNT', '1')) # number of referal count
-REFERAL_PREMEIUM_TIME = environ.get('REFERAL_PREMEIUM_TIME', '1 month')
-
 # Admins, Channels & Users
 ADMINS = [int(admin) if id_pattern.search(admin) else admin for admin in environ.get('ADMINS', '5069888600').split()]
 OWNER_USER_NAME = environ.get("OWNER_USER_NAME", "jk_dev") # widout 👉 @
@@ -53,9 +50,9 @@ DATABASE_NAME = environ.get('DATABASE_NAME', "Lusibot")
 COLLECTION_NAME = environ.get('COLLECTION_NAME', 'Telegram_files')
 
 #refer time, or user count
-REFERAL_TIME = "2592000" # set in seconds | already seted 1 month premium
-USERS_COUNT = "2" # Set Referel User Count
-INVITED_USER_TIME = "86400" #set in seconds, free trail invites users in 1 day, 
+REFERAL_USER_TIME = int(environ.get('REFERAL_USER_TIME', "2592000")) # set in seconds | already seted 1 month premium
+USERS_COUNT = int(environ.get('USERS_COUNT', "2")) # Set Referel User Count
+INVITED_USER_TRAIL = int(environ.get('INVITED_USER_TRAIL', "86400")) #set in seconds, free trail invites users in 1 day, 
 
 #stream link shortner
 STREAM_SITE = (environ.get('STREAM_SITE', 'urlshortx.com'))
