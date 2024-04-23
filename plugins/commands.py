@@ -298,28 +298,22 @@ async def start(client, message):
     elif data.split("-", 1)[0] == "reff":
         user_id = int(data.split("-", 1)[1])
         if await db.has_premium_access(message.from_user.id):
-            if await referal_add_user(user_id, message.from_user.id):
-                await message.reply(f"<b>You have joined using the referral link of user with ID {user_id}\n\nSend /start again to use the bot total user</b>") 
-            num_referrals = await get_referal_users_count(user_id)
-            await client.send_message(chat_id = user_id, text = "<b>{} start the bot with your referral link\n\nTotal Referals - {}</b>".format(message.from_user.mention, num_referrals))
-            if await get_referal_users_count(user_id) == USERS_COUNT:
-                await delete_all_referal_users(user_id)
-                await client.send_message(chat_id = user_id, text = "<b>You Have Successfully Completed Total Referal.\n\nYou Added In Premium For 1 Month</b>")
+            await message.reply("ʏᴏᴜ ᴀʀᴇ ᴀ ᴘʀᴇᴍɪᴜᴍ ᴜsᴇʀ 🌟💝,\nʏᴏᴜ ᴄᴀɴɴᴏᴛ ᴏᴘᴇɴ ᴛʜᴇ ɪɴᴠɪᴛᴇ ʟɪɴᴋ. 🔗🚫") 
             return
         elif await db.save_invites(message.from_user.id):
-            await message.reply("You are Already Invited")
+            await message.reply("ʏᴏᴜ ᴀʀᴇ ᴀʟʀᴇᴀᴅʏ ɪɴᴠɪᴛᴇᴅ 🙅")
             return
         else:
             if await referal_add_user(user_id, message.from_user.id):
-                await message.reply(f"<b>You have joined using the referral link of user with ID {user_id}\n\nSend /start again to use the bot total user</b>") 
+                await message.reply(f"<b>ʏᴏᴜ ʜᴀᴠᴇ ᴊᴏɪɴᴇᴅ ᴜsɪɴɢ ᴛʜᴇ ʀᴇғᴇʀʀᴀʟ ʟɪɴᴋ ᴏғ ᴜsᴇʀ ᴡɪᴛʜ ɪᴅ {user_id},\n\nᴄᴏɴɢʀᴀᴛᴜʟᴀᴛɪᴏɴs 🎁🎉, ʏᴏᴜ ʜᴀᴠᴇ ɢᴏᴛ 1 ᴅᴀʏ ғʀᴇᴇ ᴘʀᴇᴍɪᴜᴍ ᴛʀɪᴀʟ, ɴᴏᴡ ʏᴏᴜ ᴄᴀɴ ɢᴇᴛ ᴍᴏᴠɪᴇs ᴡɪᴛʜᴏᴜᴛ ᴀᴅs ғᴏʀ 1 ᴅᴀʏ.</b>") 
                 await db.update_invited(message.from_user.id)
             num_referrals = await get_referal_users_count(user_id)
-            await client.send_message(chat_id = user_id, text = "<b>{} start the bot with your referral link\n\nTotal Referals - {}</b>".format(message.from_user.mention, num_referrals))
+            await client.send_message(chat_id = user_id, text = "<b>{} sᴛᴀʀᴛ ᴛʜᴇ ʙᴏᴛ ᴡɪᴛʜ ʏᴏᴜʀ ʀᴇғᴇʀʀᴀʟ ʟɪɴᴋ\n\nᴛᴏᴛᴀʟ ʀᴇғᴇʀᴀʟs - {}</b>".format(message.from_user.mention, num_referrals))
             if await get_referal_users_count(user_id) == USERS_COUNT:
                 await db.give_referal(user_id)
                 await db.add_referal_user(message.from_user.id, message.from_user.first_name) 
                 await delete_all_referal_users(user_id)
-                await client.send_message(chat_id = user_id, text = "<b>You Have Successfully Completed Total Referal.\n\nYou Added In Premium For 1 Month</b>")
+                await client.send_message(chat_id = user_id, text = "<b>ᴄᴏɴɢʀᴀᴛᴜʟᴀᴛɪᴏɴs 🎁🎉, ʏᴏᴜʀ ᴛᴏᴛᴀʟ ʀᴇғᴇʀʀᴀʟ ʜᴀs ʙᴇᴇɴ ᴄᴏᴍᴘʟᴇᴛᴇᴅ.\n\nʏᴏᴜ ɢᴇᴛ ᴘʀᴇᴍɪᴜᴍ ғᴏʀ 1 ᴍᴏɴᴛʜ</b>")
                 return 
 
     elif data.split("-", 1)[0] == "del":
