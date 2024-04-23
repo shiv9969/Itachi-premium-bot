@@ -297,9 +297,12 @@ async def start(client, message):
         
     elif data.split("-", 1)[0] == "reff":
         user_id = int(data.split("-", 1)[1])
-        if await db.update_invited(user_id) and await db.save_invites(user_id):
-            await message.reply("You Already invited ")
-            await db.update_invited(message.from_user.id)
+        await db.update_invited(user_id)
+        if await db.has_premium_access(user_id):
+            await message.reply("You are a premium user, you cannot open the invite link.")
+            return
+        elif await db.save_invites(user_id):
+            await message.reply("You are Already Invited")
             return
         else:
             if await referal_add_user(user_id, message.from_user.id):
