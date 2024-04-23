@@ -298,9 +298,15 @@ async def start(client, message):
     elif data.split("-", 1)[0] == "reff":
         user_id = int(data.split("-", 1)[1])
         if await db.has_premium_access(message.from_user.id):
-            await message.reply("You are a premium user, you cannot open the invite link.")
+            if await referal_add_user(user_id, message.from_user.id):
+                await message.reply(f"<b>You have joined using the referral link of user with ID {user_id}\n\nSend /start again to use the bot total user</b>") 
+            num_referrals = await get_referal_users_count(user_id)
+            await client.send_message(chat_id = user_id, text = "<b>{} start the bot with your referral link\n\nTotal Referals - {}</b>".format(message.from_user.mention, num_referrals))
+            if await get_referal_users_count(user_id) == USERS_COUNT:
+                await delete_all_referal_users(user_id)
+                await client.send_message(chat_id = user_id, text = "<b>You Have Successfully Completed Total Referal.\n\nYou Added In Premium For 1 Month</b>")
             return
-        elif await db.referal_user_exist(message.from_user.id):
+        elif await db.save_invites(message.from_user.id):
             await message.reply("You are Already Invited")
             return
         else:
