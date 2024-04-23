@@ -1254,7 +1254,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
         
     elif query.data == "subscription":
         user_id = query.from_user.id
-        total_referrals = await get_referal_users_count(user_id)
+        total_referrals = await get_referal_users_count(user_id, "referal_user")
         buttons = [[
             InlineKeyboardButton('Invite 🔗', url=f'https://telegram.me/share/url?url=https://t.me/{temp.U_NAME}?start=reff-{user_id}&text=E1%B4%84%CA%9F%C9%AA%E1%B4%84%E1%B4%8B%20%E1%B4%8F%C9%B4%20%E1%B4%9B%CA%9C%E1%B4%87%20%CA%9F%C9%AA%C9%B4%E1%B4%8B%20%E1%B4%80%C9%B4%E1%B4%85%20%E1%B4%87%C9%B4%E1%B4%8A%E1%B4%8F%CA%8F%20%C9%B4%E1%B4%87%E1%B4%A1%20%E1%B4%80%C9%B4%E1%B4%85%20%E1%B4%9B%CA%80%E1%B4%87%C9%B4%E1%B4%85%C9%AA%C9%B4%C9%A2%20%E1%B4%8D%E1%B4%8F%E1%B4%A0%C9%AA%E1%B4%87s/s%E1%B4%87%CA%80%C9%AA%E1%B4%87s'), 
             InlineKeyboardButton('⏳{total_referrals}', callback_data=f"show_reff"), 
