@@ -300,9 +300,9 @@ async def start(client, message):
         if await db.has_premium_access(message.from_user.id):
             await message.reply("You are a premium user, you cannot open the invite link.")
             return
-        elif await db.save_invites(message.from_user.id):
-            await message.reply("You are Already Invited")
-            return
+        #elif await db.save_invites(message.from_user.id):
+           # await message.reply("You are Already Invited")
+            #return
         else:
             if await referal_add_user(user_id, message.from_user.id):
                 await message.reply(f"<b>You have joined using the referral link of user with ID {user_id}\n\nSend /start again to use the bot total user</b>") 
