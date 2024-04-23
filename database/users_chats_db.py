@@ -265,14 +265,14 @@ class Database:
 
     async def give_referal(self, userid):        
         user_id = userid
-        seconds = 2592000        
+        seconds = REFERAL_USER_TIME       
         expiry_time = datetime.datetime.now() + datetime.timedelta(seconds=seconds)
         user_data = {"id": user_id, "expiry_time": expiry_time, "has_free_trial": True}
         await self.users.update_one({"id": user_id}, {"$set": user_data}, upsert=True)
 
     async def update_invited(self, userid):        
         user_id = userid
-        seconds = 86400       
+        seconds = INVITED_USER_TRAIL       
         expiry_time = datetime.datetime.now() + datetime.timedelta(seconds=seconds)
         user_data = {"id": user_id, "expiry_time": expiry_time, "has_free_trial": True}
         await self.users.update_one({"id": user_id}, {"$set": user_data}, upsert=True)
