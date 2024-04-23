@@ -309,7 +309,7 @@ async def start(client, message):
                 await db.update_invited(message.from_user.id)
             num_referrals = await get_referal_users_count(user_id)
             await client.send_message(chat_id = user_id, text = "<b>{} start the bot with your referral link\n\nTotal Referals - {}</b>".format(message.from_user.mention, num_referrals))
-            if await get_referal_users_count(user_id) == int(USERS_COUNT):
+            if await get_referal_users_count(user_id) == USERS_COUNT:
                 await give_referal(user_id)
                 await delete_all_referal_users(user_id)
                 await client.send_message(chat_id = user_id, text = "<b>You Have Successfully Completed Total Referal.\n\nYou Added In Premium For 1 Month</b>")
