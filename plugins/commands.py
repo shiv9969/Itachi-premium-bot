@@ -311,7 +311,6 @@ async def start(client, message):
             await client.send_message(chat_id = user_id, text = "<b>{} sᴛᴀʀᴛ ᴛʜᴇ ʙᴏᴛ ᴡɪᴛʜ ʏᴏᴜʀ ʀᴇғᴇʀʀᴀʟ ʟɪɴᴋ\n\nᴛᴏᴛᴀʟ ʀᴇғᴇʀᴀʟs - {}</b>".format(message.from_user.mention, num_referrals))
             if await get_referal_users_count(user_id) == USERS_COUNT:
                 await db.give_referal(user_id)
-                await db.add_referal_user(message.from_user.id, message.from_user.first_name) 
                 await delete_all_referal_users(user_id)
                 await client.send_message(chat_id = user_id, text = "<b>ᴄᴏɴɢʀᴀᴛᴜʟᴀᴛɪᴏɴs 🎁🎉, ʏᴏᴜʀ ᴛᴏᴛᴀʟ ʀᴇғᴇʀʀᴀʟ ʜᴀs ʙᴇᴇɴ ᴄᴏᴍᴘʟᴇᴛᴇᴅ.\n\nʏᴏᴜ ɢᴇᴛ ᴘʀᴇᴍɪᴜᴍ ғᴏʀ 1 ᴍᴏɴᴛʜ</b>")
                 return 
