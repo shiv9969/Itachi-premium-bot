@@ -67,12 +67,12 @@ async def start(client, message):
                     InlineKeyboardButton('• ᴜᴘᴅᴀᴛᴇꜱ •', callback_data='channels')
                 ],[
                     InlineKeyboardButton('• ᴄᴏᴍᴍᴀɴᴅꜱ •', callback_data='help'),
-                    InlineKeyboardButton('• ᴀʙᴏᴜᴛ •', callback_data='about')
-                ],[
-                    InlineKeyboardButton('ʀᴇғғᴇʀ 💖', callback_data='subscription') 
-                  ]]
+                    InlineKeyboardButton('• ᴀʙᴏᴜᴛ •', callback_data='about') 
+                ]]
         if IS_VERIFY or IS_SHORTLINK is True:
             buttons.append([
+                InlineKeyboardButton('ʀᴇғғᴇʀ 💖', callback_data='subscription')
+            ],[
                 InlineKeyboardButton('✨ ʙᴜʏ ꜱᴜʙꜱᴄʀɪᴘᴛɪᴏɴ : ʀᴇᴍᴏᴠᴇ ᴀᴅꜱ ✨', callback_data="premium_info")
             ])
         reply_markup = InlineKeyboardMarkup(buttons)
@@ -133,11 +133,11 @@ async def start(client, message):
                 ],[
                     InlineKeyboardButton('• ᴄᴏᴍᴍᴀɴᴅꜱ •', callback_data='help'),
                     InlineKeyboardButton('• ᴀʙᴏᴜᴛ •', callback_data='about'), 
-                ],[
-                    InlineKeyboardButton('ʀᴇғғᴇʀ 💖', callback_data='subscription') 
-                  ]]
+                ]]
         if IS_VERIFY or IS_SHORTLINK is True:
             buttons.append([
+                InlineKeyboardButton('ʀᴇғғᴇʀ 💖', callback_data='subscription')
+            ],[
                 InlineKeyboardButton('✨ ʙᴜʏ ꜱᴜʙꜱᴄʀɪᴘᴛɪᴏɴ : ʀᴇᴍᴏᴠᴇ ᴀᴅꜱ ✨', callback_data="premium_info")
             ])
         reply_markup = InlineKeyboardMarkup(buttons)
