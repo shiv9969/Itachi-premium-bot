@@ -42,7 +42,7 @@ BUTTONS = {}
 SPELL_CHECK = {}
 CAP = {}
 
-"""@Client.on_callback_query(filters.regex(r"^streaming"))
+@Client.on_callback_query(filters.regex(r"^streaming"))
 async def stream_download(bot, query):
     file_id = query.data.split('#', 1)[1] 
     user_id = query.from_user.id
@@ -89,7 +89,7 @@ async def stream_download(bot, query):
                         InlineKeyboardButton("📥 ᴅᴏᴡɴʟᴏᴀᴅ 📥", url=download),
                         InlineKeyboardButton("🖥️ ꜱᴛʀᴇᴇᴍ 🖥️", url=online)
                     ],[
-                        InlineKeyboardButton('⁉️ ᴄʟᴏsᴇ ⁉️', callback_data='close_data')]]))"""
+                        InlineKeyboardButton('⁉️ ᴄʟᴏsᴇ ⁉️', callback_data='close_data')]]))
                         
 @Client.on_message(filters.text & filters.incoming)
 async def give_filter(client, message):
@@ -1218,11 +1218,11 @@ async def cb_handler(client: Client, query: CallbackQuery):
                 ],[
                     InlineKeyboardButton('• ᴄᴏᴍᴍᴀɴᴅꜱ •', callback_data='help'),
                     InlineKeyboardButton('• ᴀʙᴏᴜᴛ •', callback_data='about'), 
-                ],[
-                    InlineKeyboardButton('ʀᴇғғᴇʀ 💖', callback_data='subscription') 
                  ]]
         if IS_VERIFY or IS_SHORTLINK is True:
             buttons.append([
+                InlineKeyboardButton('ʀᴇғғᴇʀ 💖', callback_data='subscription')
+            ],[
                 InlineKeyboardButton('✨ ʙᴜʏ ꜱᴜʙꜱᴄʀɪᴘᴛɪᴏɴ : ʀᴇᴍᴏᴠᴇ ᴀᴅꜱ ✨', callback_data="premium_info")
             ])
         reply_markup = InlineKeyboardMarkup(buttons)
