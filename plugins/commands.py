@@ -377,9 +377,9 @@ async def start(client, message):
         return
     elif data.startswith("short"):
         user = message.from_user.id
-        #if temp.SHORT.get(user)==None:
-            #await message.reply_text(text="<b><i>Nᴏ Sᴜᴄʜ Fɪʟᴇ Eᴇxɪsᴛ.</b></i>")
-        #else:
+        if temp.SHORT.get(user)==None:
+            await message.reply_text(text="<b><i>Nᴏ Sᴜᴄʜ Fɪʟᴇ Eᴇxɪsᴛ.</b></i>")
+        else:
         chat_id = temp.SHORT.get(user)
         settings = await get_settings(chat_id)
         if settings['is_shortlink']:
@@ -472,9 +472,9 @@ async def start(client, message):
             return 
         else:
             user = message.from_user.id
-            #if temp.SHORT.get(user)==None:
-                #await message.reply_text(text="<b><i>Nᴏ Sᴜᴄʜ Fɪʟᴇ Eᴇxɪsᴛ.</b></i>")
-            #else:
+            if temp.SHORT.get(user)==None:
+                await message.reply_text(text="<b><i>Search Again In Group.</b></i>")
+            else:
             chat_id = temp.SHORT.get(user)
             settings = await get_settings(chat_id)
             if settings['is_shortlink']:
