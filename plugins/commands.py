@@ -18,37 +18,10 @@ from database.connections_mdb import active_connection
 import re
 import json
 import base64
-from SAFARI.utils import SafariBot
 logger = logging.getLogger(__name__)
 
 TIMEZONE = "Asia/Kolkata"
 BATCH_FILES = {}
-
-@SafariBot.on_message()
-async def react_to_message(client, message):
-    chat_id = message.chat.id
-    message_id = message.id
-    emojis = ["👍", "👎", "❤️", "🔥", "🥰", "👏", "😁", "🤔", "🤯", "😱", "😢", "🎉", "🤩", "🙏", "👌", "🕊", "🤡", "😍", "🐳", "❤‍🔥", "🌚", "💯", "⚡️", "🏆", "💔", "😐", "🍓", "🍾", "💋", "🤓", "👻", "👨‍💻", "👀", "🙈", "😇", "😨", "🤝", "✍️", "🤗", "🎅", "🎄", "☃️", "💅", "🤪", "🗿", "🆒", "💘", "🙉", "🦄", "😘", "💊", "🙊", "😎", "👾", "🤷‍♂", "🤷", "🤷‍♀"]
-
-    # Choose a random emoji from the list
-    random_emoji = random.choice(emojis)
-    url = f'https://api.telegram.org/bot{BOT_TOKEN}/setMessageReaction'
-    # Parameters for the request
-    params = {
-        'chat_id': chat_id,
-        'message_id': message_id,
-        'reaction': [{
-            "type": "emoji",
-            "emoji": random_emoji
-        }]
-    }
-    response = requests.post(url, json=params)
-    if response.status_code == 200:
-        print("Reaction set successfully!")
-        print("Response content:", response.content)
-    else:
-        print(f"Failed to set reaction. Status code: {response.status_code}")
-        print("Response content:", response.content)
 
 
 @Client.on_message(filters.command("start") & filters.incoming)
