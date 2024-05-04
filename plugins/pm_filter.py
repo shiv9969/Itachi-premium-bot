@@ -130,13 +130,14 @@ async def reply_stream(client, message):
 
 @Client.on_message(filters.group & filters.text & filters.incoming)
 async def force_sub(client, message):
+    user = message.from_user.mention
     if AUTH_CHANNEL and not await is_subscribed(client, message):
         invite_link = await client.create_chat_invite_link(int(AUTH_CHANNEL))
         btn = [[
                 InlineKeyboardButton("❆ Jᴏɪɴ Oᴜʀ Cʜᴀɴɴᴇʟ ❆", url=f't.me/lusifilms')
               ]]
         await message.reply_photo(photo='https://telegra.ph/file/ff04f7c51c5d078c08430.jpg',
-            caption="🌺𝐃𝐞𝐚𝐫 𝐮𝐬𝐞𝐫 {message.from_user.mention}\n\n<b>𝘍𝘪𝘳𝘴𝘵 𝘺𝘰𝘶 𝘫𝘰𝘪𝘯 𝘰𝘶𝘳 𝘤𝘩𝘢𝘯𝘯𝘦𝘭 𝘵𝘩𝘦𝘯 𝘤𝘰𝘮𝘦 𝘣𝘢𝘤𝘬 𝘢𝘯𝘥 𝘴𝘦𝘢𝘳𝘤𝘩 𝘢𝘨𝘢𝘪𝘯\n\n<i>पहले आप हमारे चैनल को ज्वाइन करे फिर वापस आकर फिर से सर्च करें</i></b>",
+            caption="🌺𝐃𝐞𝐚𝐫 𝐮𝐬𝐞𝐫 {user}\n\n<b>𝘍𝘪𝘳𝘴𝘵 𝘺𝘰𝘶 𝘫𝘰𝘪𝘯 𝘰𝘶𝘳 𝘤𝘩𝘢𝘯𝘯𝘦𝘭 𝘵𝘩𝘦𝘯 𝘤𝘰𝘮𝘦 𝘣𝘢𝘤𝘬 𝘢𝘯𝘥 𝘴𝘦𝘢𝘳𝘤𝘩 𝘢𝘨𝘢𝘪𝘯\n\n<i>पहले आप हमारे चैनल को ज्वाइन करे फिर वापस आकर फिर से सर्च करें</i></b>",
             reply_markup=InlineKeyboardMarkup(btn),
         )
         return
