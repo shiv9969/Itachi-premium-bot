@@ -669,7 +669,7 @@ async def advantage_spoll_choker(bot, query):
                     ]]
                     reply_markup = InlineKeyboardMarkup(safari)
                     total=await bot.get_chat_members_count(query.message.chat.id)
-                    await bot.send_message(chat_id=REQST_CHANNEL_ID, text=(script.NORSLTS.format(query.message.chat.title, query.message.chat.id, total, temp.B_NAME, reqstr.mention, movie)), reply_markup=InlineKeyboardMarkup(safari))
+                    await bot.send_message(chat_id=REQST_CHANNEL, text=(script.NORSLTS.format(query.message.chat.title, query.message.chat.id, total, temp.B_NAME, reqstr.mention, movie)), reply_markup=InlineKeyboardMarkup(safari))
                 k = await query.message.edit(script.MVE_NT_FND)
                 await asyncio.sleep(60)
                 await k.delete()
