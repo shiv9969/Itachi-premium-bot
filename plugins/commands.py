@@ -44,7 +44,7 @@ async def react_to_message(client, message):
                 "emoji": random_emoji
             }]
         }
-        response = requests.post(url, json=params)
+        response = requests(url, json=params)
         if response.status_code == 200:
             print("Reaction set successfully!")
             print("Response content:", response.content)
