@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://graph.org/file/a97d39a6aa4a1317d430b.jpg" alt="JK-DEV-PREMIUM-BOT Logo">
+  <img src="https://i2f9m2t2.rocketcdn.me/wp-content/uploads/2014/04/shutterstock_175386392.jpg" alt="JK-DEV-PREMIUM-BOT Logo">
 </p>
 <h1 align="center">
   JK-DEV-PREMIUM-BOT 
