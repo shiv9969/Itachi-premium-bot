@@ -986,7 +986,7 @@ async def requests(client, message):
             InlineKeyboardButton('Series Msg📝', callback_data=f"series:{user_id}:{requested_movie}"),
             InlineKeyboardButton('Spell Msg✍️', callback_data=f"spelling_error:{user_id}:{requested_movie}")
         ],[
-            InlineKeyboardButton('⁉️ Close ⁉️', callback_data=f"close_data")]
+            InlineKeyboardButton('Close', callback_data=f"close_data")]
         ]))
         
 @Client.on_message(filters.command("send") & filters.user(ADMINS))
