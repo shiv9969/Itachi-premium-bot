@@ -23,39 +23,6 @@ logger = logging.getLogger(__name__)
 TIMEZONE = "Asia/Kolkata"
 BATCH_FILES = {}
 
-emojis = ["👍", "👎", "❤️", "🔥", "🥰", "👏", "😁", "🤔", "🤯", "😱", "😢", "🎉", "🤩", "🙏", "👌", "🕊", "🤡", "😍", "🐳", "❤‍🔥", "🌚", "💯", "⚡️", "🏆", "💔", "😐", "🍓", "🍾", "💋", "🤓", "👻", "👨‍💻", "👀", "🙈", "😇", "😨", "🤝", "✍️", "🤗", "🎅", "🎄", "☃️", "💅", "🤪", "🗿", "🆒", "💘", "🙉", "🦄", "😘", "💊", "🙊", "😎", "👾", "🤷‍♂", "🤷", "🤷‍♀"]
-
-@Client.on_message()
-async def react_to_message(client, message):
-    try:
-        chat_id = message.chat.id
-        message_id = message.id
-    
-
-        # Choose a random emoji from the list
-        random_emoji = random.choice(emojis)
-        url = f'https://api.telegram.org/bot{BOT_TOKEN}/setMessageReaction'
-        # Parameters for the request
-        params = {
-            'chat_id': chat_id,
-            'message_id': message_id,
-            'reaction': [{
-                "type": "emoji",
-                "emoji": random_emoji
-            }]
-        }
-        response = requests(url, json=params)
-        if response.status_code == 200:
-            print("Reaction set successfully!")
-            print("Response content:", response.content)
-        else:
-            print(f"Failed to set reaction. Status code: {response.status_code}")
-            print("Response content:", response.content)
-    except Exception as e:
-            print(e)  # print the error message
-            await message.reply(f"error found\n\n{e}")
-            return
-
 @Client.on_message(filters.command("start") & filters.incoming)
 async def start(client, message):
     if message.chat.type in [enums.ChatType.GROUP, enums.ChatType.SUPERGROUP]:
