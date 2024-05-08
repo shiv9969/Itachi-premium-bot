@@ -50,15 +50,15 @@ DATABASE_NAME = environ.get('DATABASE_NAME', "MINATO")
 COLLECTION_NAME = environ.get('COLLECTION_NAME', 'Telegram_files')
 
 #refer time, or user count
-REFERAL_USER_TIME = int(environ.get('REFERAL_USER_TIME', "2592000")) # set in seconds | already seted 1 month premium
+REFERAL_USER_TIME = int(environ.get('REFERAL_USER_TIME', "3600")) # set in seconds | already seted 1 month premium
 USERS_COUNT = int(environ.get('USERS_COUNT', "2")) # Set Referel User Count
-INVITED_USER_TRAIL = int(environ.get('INVITED_USER_TRAIL', "86400")) #set in seconds, free trail invites users in 1 day, 
+INVITED_USER_TRAIL = int(environ.get('INVITED_USER_TRAIL', "3600")) #set in seconds, free trail invites users in 1 day, 
 
 #stream link shortner
 STREAM_SITE = (environ.get('STREAM_SITE', 'goo.aslink.in'))
 STREAM_API = (environ.get('STREAM_API', 'f4462cdd84d7ee8863228f2e40fac761bc56e707'))
 STREAMHTO = (environ.get('STREAMHTO', 'https://t.me/ThappyHour'))
-STREAM_LINK_MODE = is_enabled((environ.get('STREAM_LINK_MODE', "False")), False)
+STREAM_LINK_MODE = is_enabled((environ.get('STREAM_LINK_MODE', "True")), False)
 
 #premium Users Satuts
 premium = environ.get('PREMIUM_LOGS', '-1002106576609')
