@@ -70,17 +70,17 @@ async def start(client, message):
                         InlineKeyboardButton('🌈 ᴄʜᴀɴɴᴇʟ', url=f'http://t.me/The_Happy_Hour_Hindi')
                     ],[
                         InlineKeyboardButton('🏕️ ᴀʙᴏᴜᴛ', callback_data='about'),
-                        InlineKeyboardButton('🍾 ᴄᴏᴍᴍᴀɴᴅꜱ', callback_data='seeplans')
-                        # InlineKeyboardButton('🌹 ʀᴇғғᴇʀ', callback_data='subscription')
+                        InlineKeyboardButton('🍾 ᴄᴏᴍᴍᴀɴᴅꜱ', callback_data='seeplans'),
+                        InlineKeyboardButton('🌹 ʀᴇғғᴇʀ', callback_data='subscription')
                     ],[
                         InlineKeyboardButton('🍁 ꜱᴇʟᴇᴄᴛ ᴄʜᴀᴛ & ꜱʜᴀʀᴇ ʙᴏᴛ 🍁', url='https://t.me/share/url?url=%F0%9F%91%89%20%C9%AA%EA%9C%B0%20%CA%8F%E1%B4%8F%E1%B4%9C%20%C9%B4%E1%B4%87%E1%B4%87%E1%B4%85%20%E1%B4%80%C9%B4%CA%8F%20%E1%B4%8D%E1%B4%8F%E1%B4%A0%C9%AA%E1%B4%87%2C%20%EA%9C%B1%E1%B4%87%CA%80%C9%AA%E1%B4%87%EA%9C%B1%20%26%20%0A%E1%B4%80%C9%B4%C9%AA%E1%B4%8D%E1%B4%87%20-%20%E1%B4%8A%E1%B4%9C%EA%9C%B1%E1%B4%9B%20%E1%B4%9B%CA%8F%E1%B4%98%E1%B4%87%20%C9%B4%E1%B4%80%E1%B4%8D%E1%B4%87%20%26%20%C9%A2%E1%B4%87%E1%B4%9B%20%C9%AA%C9%B4%203%20%EA%9C%B1%E1%B4%87%E1%B4%84%E1%B4%8F%C9%B4%E1%B4%85%20%E2%9C%85%0A%0A%E1%B4%8A%E1%B4%8F%C9%AA%C9%B4%20%E1%B4%8F%E1%B4%9C%CA%80%20%E1%B4%8D%E1%B4%8F%E1%B4%A0%C9%AA%E1%B4%87%20%CA%80%E1%B4%87%C7%AB%E1%B4%9C%E1%B4%87%EA%9C%B1%E1%B4%9B%20%C9%A2%CA%80%E1%B4%8F%E1%B4%9C%E1%B4%98%20%E2%9C%85%0A%F0%9F%91%89%20%40ThappyHour%20%0A%F0%9F%91%89%20%40ThappyHour%0A%0A%E1%B4%8A%E1%B4%8F%C9%AA%C9%B4%20%EA%9C%B0%E1%B4%8F%CA%80%20%C9%B4%E1%B4%87%E1%B4%A1%20%CA%80%E1%B4%87%CA%9F%E1%B4%87%E1%B4%80%EA%9C%B1%E1%B4%87%20%E1%B4%8D%E1%B4%8F%E1%B4%A0%C9%AA%E1%B4%87%20%E2%9C%85%0A%F0%9F%91%89%20%40The_Happy_Hour_Hindi%0A%F0%9F%91%89%20%40The_Happy_Hour_Hindi%0A%0A%F0%9F%91%89%20%E1%B4%9B%CA%9C%E1%B4%87%20%CA%9C%E1%B4%80%E1%B4%98%E1%B4%98%CA%8F%20%CA%9C%E1%B4%8F%E1%B4%9C%CA%80%E2%84%A2%20%E2%9C%85')
                         ]]
             if IS_VERIFY or IS_SHORTLINK is True:
+                # buttons.append([
+                #     InlineKeyboardButton('🌹 ʀᴇғғᴇʀ 🌹', callback_data='subscription')
+                # ]) 
                 buttons.append([
-                    InlineKeyboardButton('🌹 ʀᴇғғᴇʀ 🌹', callback_data='subscription')
-                ]) 
-                buttons.append([
-                    InlineKeyboardButton('📚 ʙᴜʏ ꜱᴜʙꜱᴄʀɪᴘᴛɪᴏɴ 📚', callback_data="premium_info")
+                    InlineKeyboardButton('📚 ʙᴜʏ ꜱᴜʙꜱᴄʀɪᴘᴛɪᴏɴ 📚', callback_data='seeplans')
                 ])
             reply_markup = InlineKeyboardMarkup(buttons)
             current_time = datetime.now(pytz.timezone(TIMEZONE))
@@ -140,17 +140,17 @@ async def start(client, message):
                         InlineKeyboardButton('🌈 ᴄʜᴀɴɴᴇʟ', url=f'http://t.me/The_Happy_Hour_Hindi')
                     ],[
                         InlineKeyboardButton('🏕️ ᴀʙᴏᴜᴛ', callback_data='about'),
-                        InlineKeyboardButton('🍾 ᴄᴏᴍᴍᴀɴᴅꜱ', callback_data='seeplans')
-                        # InlineKeyboardButton('🌹 ʀᴇғғᴇʀ', callback_data='subscription')
+                        InlineKeyboardButton('🍾 ᴄᴏᴍᴍᴀɴᴅꜱ', callback_data='seeplans'),
+                        InlineKeyboardButton('🌹 ʀᴇғғᴇʀ', callback_data='subscription')
                     ],[
                         InlineKeyboardButton('🍁 ꜱᴇʟᴇᴄᴛ ᴄʜᴀᴛ & ꜱʜᴀʀᴇ ʙᴏᴛ 🍁', url='https://t.me/share/url?url=%F0%9F%91%89%20%C9%AA%EA%9C%B0%20%CA%8F%E1%B4%8F%E1%B4%9C%20%C9%B4%E1%B4%87%E1%B4%87%E1%B4%85%20%E1%B4%80%C9%B4%CA%8F%20%E1%B4%8D%E1%B4%8F%E1%B4%A0%C9%AA%E1%B4%87%2C%20%EA%9C%B1%E1%B4%87%CA%80%C9%AA%E1%B4%87%EA%9C%B1%20%26%20%0A%E1%B4%80%C9%B4%C9%AA%E1%B4%8D%E1%B4%87%20-%20%E1%B4%8A%E1%B4%9C%EA%9C%B1%E1%B4%9B%20%E1%B4%9B%CA%8F%E1%B4%98%E1%B4%87%20%C9%B4%E1%B4%80%E1%B4%8D%E1%B4%87%20%26%20%C9%A2%E1%B4%87%E1%B4%9B%20%C9%AA%C9%B4%203%20%EA%9C%B1%E1%B4%87%E1%B4%84%E1%B4%8F%C9%B4%E1%B4%85%20%E2%9C%85%0A%0A%E1%B4%8A%E1%B4%8F%C9%AA%C9%B4%20%E1%B4%8F%E1%B4%9C%CA%80%20%E1%B4%8D%E1%B4%8F%E1%B4%A0%C9%AA%E1%B4%87%20%CA%80%E1%B4%87%C7%AB%E1%B4%9C%E1%B4%87%EA%9C%B1%E1%B4%9B%20%C9%A2%CA%80%E1%B4%8F%E1%B4%9C%E1%B4%98%20%E2%9C%85%0A%F0%9F%91%89%20%40ThappyHour%20%0A%F0%9F%91%89%20%40ThappyHour%0A%0A%E1%B4%8A%E1%B4%8F%C9%AA%C9%B4%20%EA%9C%B0%E1%B4%8F%CA%80%20%C9%B4%E1%B4%87%E1%B4%A1%20%CA%80%E1%B4%87%CA%9F%E1%B4%87%E1%B4%80%EA%9C%B1%E1%B4%87%20%E1%B4%8D%E1%B4%8F%E1%B4%A0%C9%AA%E1%B4%87%20%E2%9C%85%0A%F0%9F%91%89%20%40The_Happy_Hour_Hindi%0A%F0%9F%91%89%20%40The_Happy_Hour_Hindi%0A%0A%F0%9F%91%89%20%E1%B4%9B%CA%9C%E1%B4%87%20%CA%9C%E1%B4%80%E1%B4%98%E1%B4%98%CA%8F%20%CA%9C%E1%B4%8F%E1%B4%9C%CA%80%E2%84%A2%20%E2%9C%85')
                         ]]
             if IS_VERIFY or IS_SHORTLINK is True:
+                # buttons.append([
+                #     InlineKeyboardButton('🌹 ʀᴇғғᴇʀ 🌹', callback_data='subscription')
+                # ]) 
                 buttons.append([
-                    InlineKeyboardButton('🌹 ʀᴇғғᴇʀ 🌹', callback_data='subscription')
-                ]) 
-                buttons.append([
-                    InlineKeyboardButton('📚 ʙᴜʏ ꜱᴜʙꜱᴄʀɪᴘᴛɪᴏɴ 📚', callback_data="premium_info")
+                    InlineKeyboardButton('📚 ʙᴜʏ ꜱᴜʙꜱᴄʀɪᴘᴛɪᴏɴ 📚', callback_data='seeplans')
                 ])
             reply_markup = InlineKeyboardMarkup(buttons)
             current_time = datetime.now(pytz.timezone(TIMEZONE))
@@ -425,6 +425,8 @@ async def start(client, message):
                     btn = [[
                             InlineKeyboardButton("♻️ Vᴇʀɪғʏ ♻️", url=await get_token(client, message.from_user.id, f"https://telegram.me/{temp.U_NAME}?start=", file_id)),
                             InlineKeyboardButton("⚠️ Hᴏᴡ Tᴏ Vᴇʀɪғʏ ⚠️", url=HOW_TO_VERIFY)
+                            ],[
+                            InlineKeyboardButton("🏕️ ʀᴇᴍᴏᴠᴇ ᴠᴇʀɪꜰɪᴄᴀᴛɪᴏɴ 🏕️", callback_data='seeplans')
                             ]]
                     await message.reply_text(
                         text="You Are Not Verifid Today...",
