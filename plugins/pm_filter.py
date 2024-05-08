@@ -137,7 +137,7 @@ async def force_sub(client, message):
                 InlineKeyboardButton("❆ Jᴏɪɴ Oᴜʀ Cʜᴀɴɴᴇʟ ❆", url=f't.me/The_Happy_Hours')
               ]]
         msg=await message.reply_photo(photo='https://i2f9m2t2.rocketcdn.me/wp-content/uploads/2014/04/shutterstock_175386392.jpg',
-            caption=f"🌺𝐃𝐞𝐚𝐫 𝐮𝐬𝐞𝐫 {user}\n\n<b>𝘍𝘪𝘳𝘴𝘵 𝘺𝘰𝘶 𝘫𝘰𝘪𝘯 𝘰𝘶𝘳 𝘤𝘩𝘢𝘯𝘯𝘦𝘭 𝘵𝘩𝘦𝘯 𝘤𝘰𝘮𝘦 𝘣𝘢𝘤𝘬 𝘢𝘯𝘥 𝘴𝘦𝘢𝘳𝘤𝘩 𝘢𝘨𝘢𝘪𝘯\n\n<i>पहले आप हमारे चैनल को ज्वाइन करे फिर वापस आकर फिर से सर्च करें</i></b>",
+            caption=f"🌺𝐃𝐞𝐚𝐫 𝐮𝐬𝐞𝐫 {user}\n\n<b>𝘍𝘪𝘳𝘴𝘵 𝘺𝘰𝘶 𝘫𝘰𝘪𝘯 𝘰𝘶𝘳 𝘤𝘩𝘢𝘯𝘯𝘦𝘭 𝘵𝘩𝘦𝘯 𝘤𝘰𝘮𝘦 𝘣𝘢𝘤𝘬 𝘢𝘯𝘥 𝘴𝘦𝘢𝘳𝘤𝘩 𝘢𝘨𝘢𝘪𝘯\n\n<i>पहले आप हमारे चैनल को ज्वाइन करे फिर वापस सर्च करें</i></b>",
             reply_markup=InlineKeyboardMarkup(btn),
         )
         await message.delete()
@@ -170,11 +170,11 @@ async def give_filter(client, message):
             return
         else:
             return await message.reply_text(f"<b>Hᴇʏ {message.from_user.mention},\n\nʏᴏᴜʀ ʀᴇǫᴜᴇꜱᴛ ɪꜱ ᴀʟʀᴇᴀᴅʏ ᴀᴠᴀɪʟᴀʙʟᴇ ✅\n\n📂 ꜰɪʟᴇꜱ ꜰᴏᴜɴᴅ : {str(total_results)}\n🔍 ꜱᴇᴀʀᴄʜ :</b> <code>{search}</code>\n\n<b>‼️ ᴛʜɪs ɪs ᴀ <u>sᴜᴘᴘᴏʀᴛ ɢʀᴏᴜᴘ</u> sᴏ ᴛʜᴀᴛ ʏᴏᴜ ᴄᴀɴ'ᴛ ɢᴇᴛ ғɪʟᴇs ғʀᴏᴍ ʜᴇʀᴇ...\n\n📝 ꜱᴇᴀʀᴄʜ ʜᴇʀᴇ : 👇</b>",   
-            reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("🔍 ᴊᴏɪɴ ᴀɴᴅ ꜱᴇᴀʀᴄʜ ʜᴇʀᴇ 🔎", url=f"https://t.me/Hidden_Technology_Bot")]]))
+            reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("🔍 ᴊᴏɪɴ ᴀɴᴅ ꜱᴇᴀʀᴄʜ ʜᴇʀᴇ 🔎", url=f"https://t.me/ThappyHour")]]))
 
 @Client.on_message(filters.private & filters.text & filters.incoming)
 async def pm_text(bot, message):
-    if PM_FILTER == True:  
+    if PM_FILTER == False:  
         await auto_filter(bot, message) 
     else:
         content = message.text
