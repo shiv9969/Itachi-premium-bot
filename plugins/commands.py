@@ -25,460 +25,368 @@ BATCH_FILES = {}
 
 @Client.on_message(filters.command("start") & filters.incoming)
 async def start(client, message):
-    if message.chat.type in [enums.ChatType.GROUP, enums.ChatType.SUPERGROUP]:
-        buttons = [[
-                    InlineKeyboardButton('☆ ᴀᴅᴅ ᴍᴇ ᴛᴏ ʏᴏᴜʀ ɢʀᴏᴜᴘ ☆', url=f'http://t.me/{temp.U_NAME}?startgroup=true')
-                ],[
-                    InlineKeyboardButton('🍁 ʜᴏᴡ ᴛᴏ ᴜꜱᴇ 🍁', url="https://t.me/{temp.U_NAME}?start=help")
-                  ]]
-        reply_markup = InlineKeyboardMarkup(buttons)
-        current_time = datetime.now(pytz.timezone(TIMEZONE))
-        curr_time = current_time.hour        
-        if curr_time < 12:
-            gtxt = "ɢᴏᴏᴅ ᴍᴏʀɴɪɴɢ 👋" 
-        elif curr_time < 17:
-            gtxt = "ɢᴏᴏᴅ ᴀғᴛᴇʀɴᴏᴏɴ 👋" 
-        elif curr_time < 21:
-            gtxt = "ɢᴏᴏᴅ ᴇᴠᴇɴɪɴɢ 👋"
-        else:
-            gtxt = "ɢᴏᴏᴅ ɴɪɢʜᴛ 👋"
-        m=await message.reply_sticker("CAACAgUAAxkBAAEkohxmOzL_8-HJRwudONzAED-tMt27LQACRwADJpleD38508ect3TIHgQ") 
-        await asyncio.sleep(2)
-        await m.delete()
-        await message.reply_photo(
-            photo=(PICS),
-            caption=script.START_TXT.format(message.from_user.mention, gtxt, temp.U_NAME, temp.B_NAME),
-            reply_markup=reply_markup,
-            parse_mode=enums.ParseMode.HTML
-        )
-        await asyncio.sleep(2) # 😢 https://github.com/EvamariaTG/EvaMaria/blob/master/plugins/p_ttishow.py#L17 😬 wait a bit, before checking.
-        if not await db.get_chat(message.chat.id):
-            total=await client.get_chat_members_count(message.chat.id)
-            await client.send_message(LOG_CHANNEL, script.LOG_TEXT_G.format(temp.B_NAME, message.chat.title, message.chat.id, total, "Unknown"))       
-            await db.add_chat(message.chat.id, message.chat.title)
-        return 
-    if not await db.is_user_exist(message.from_user.id):
-        await db.add_user(message.from_user.id, message.from_user.first_name)
-        await client.send_message(LOG_CHANNEL, script.LOG_TEXT_P.format(message.from_user.id, message.from_user.mention, temp.B_NAME))
-    if len(message.command) != 2:
-        buttons = [[
-                    InlineKeyboardButton('☆ ᴀᴅᴅ ᴍᴇ ᴛᴏ ʏᴏᴜʀ ɢʀᴏᴜᴘ ☆', url=f'http://telegram.me/{temp.U_NAME}?startgroup=true')
-                ],[
-                    InlineKeyboardButton('📚 ʙᴀᴄᴋᴜᴘ', url=CHNL_LNK),
-                    InlineKeyboardButton('🌿 ɢʀᴏᴜᴘ', url=GRP_LNK),
-                    InlineKeyboardButton('🌈 ᴄʜᴀɴɴᴇʟ', url=f'http://t.me/The_Happy_Hour_Hindi')
-                ],[
-                    InlineKeyboardButton('🏕️ ᴀʙᴏᴜᴛ', callback_data='about'),
-                    InlineKeyboardButton('🍾 ᴄᴏᴍᴍᴀɴᴅꜱ', callback_data='seeplans'),
-                    # InlineKeyboardButton('🌹 ʀᴇғғᴇʀ', callback_data='subscription')
-                ],[
-                    InlineKeyboardButton('🍁 ꜱᴇʟᴇᴄᴛ ᴄʜᴀᴛ & ꜱʜᴀʀᴇ ʙᴏᴛ 🍁', url='https://t.me/share/url?url=%F0%9F%91%89%20%C9%AA%EA%9C%B0%20%CA%8F%E1%B4%8F%E1%B4%9C%20%C9%B4%E1%B4%87%E1%B4%87%E1%B4%85%20%E1%B4%80%C9%B4%CA%8F%20%E1%B4%8D%E1%B4%8F%E1%B4%A0%C9%AA%E1%B4%87%2C%20%EA%9C%B1%E1%B4%87%CA%80%C9%AA%E1%B4%87%EA%9C%B1%20%26%20%0A%E1%B4%80%C9%B4%C9%AA%E1%B4%8D%E1%B4%87%20-%20%E1%B4%8A%E1%B4%9C%EA%9C%B1%E1%B4%9B%20%E1%B4%9B%CA%8F%E1%B4%98%E1%B4%87%20%C9%B4%E1%B4%80%E1%B4%8D%E1%B4%87%20%26%20%C9%A2%E1%B4%87%E1%B4%9B%20%C9%AA%C9%B4%203%20%EA%9C%B1%E1%B4%87%E1%B4%84%E1%B4%8F%C9%B4%E1%B4%85%20%E2%9C%85%0A%0A%E1%B4%8A%E1%B4%8F%C9%AA%C9%B4%20%E1%B4%8F%E1%B4%9C%CA%80%20%E1%B4%8D%E1%B4%8F%E1%B4%A0%C9%AA%E1%B4%87%20%CA%80%E1%B4%87%C7%AB%E1%B4%9C%E1%B4%87%EA%9C%B1%E1%B4%9B%20%C9%A2%CA%80%E1%B4%8F%E1%B4%9C%E1%B4%98%20%E2%9C%85%0A%F0%9F%91%89%20%40ThappyHour%20%0A%F0%9F%91%89%20%40ThappyHour%0A%0A%E1%B4%8A%E1%B4%8F%C9%AA%C9%B4%20%EA%9C%B0%E1%B4%8F%CA%80%20%C9%B4%E1%B4%87%E1%B4%A1%20%CA%80%E1%B4%87%CA%9F%E1%B4%87%E1%B4%80%EA%9C%B1%E1%B4%87%20%E1%B4%8D%E1%B4%8F%E1%B4%A0%C9%AA%E1%B4%87%20%E2%9C%85%0A%F0%9F%91%89%20%40The_Happy_Hour_Hindi%0A%F0%9F%91%89%20%40The_Happy_Hour_Hindi%0A%0A%F0%9F%91%89%20%E1%B4%9B%CA%9C%E1%B4%87%20%CA%9C%E1%B4%80%E1%B4%98%E1%B4%98%CA%8F%20%CA%9C%E1%B4%8F%E1%B4%9C%CA%80%E2%84%A2%20%E2%9C%85')
-                    ]]
-        if IS_VERIFY or IS_SHORTLINK is True:
-            buttons.append([
-                InlineKeyboardButton('🌹 ʀᴇғғᴇʀ 🌹', callback_data='subscription')
-            ],[
-                InlineKeyboardButton('📚 ʙᴜʏ ꜱᴜʙꜱᴄʀɪᴘᴛɪᴏɴ 📚', callback_data="premium_info")
-            ])
-        reply_markup = InlineKeyboardMarkup(buttons)
-        current_time = datetime.now(pytz.timezone(TIMEZONE))
-        curr_time = current_time.hour        
-        if curr_time < 12:
-            gtxt = "ɢᴏᴏᴅ ᴍᴏʀɴɪɴɢ 👋" 
-        elif curr_time < 17:
-            gtxt = "ɢᴏᴏᴅ ᴀғᴛᴇʀɴᴏᴏɴ 👋" 
-        elif curr_time < 21:
-            gtxt = "ɢᴏᴏᴅ ᴇᴠᴇɴɪɴɢ 👋"
-        else:
-            gtxt = "ɢᴏᴏᴅ ɴɪɢʜᴛ 👋"
-        m=await message.reply_sticker("CAACAgUAAxkBAAEkohxmOzL_8-HJRwudONzAED-tMt27LQACRwADJpleD38508ect3TIHgQ") 
-        await asyncio.sleep(2)
-        await m.delete()
-        await message.reply_photo(
-            photo=random.choice(PICS),
-            caption=script.START_TXT.format(message.from_user.mention, gtxt, temp.U_NAME, temp.B_NAME),
-            reply_markup=reply_markup,
-            parse_mode=enums.ParseMode.HTML
-        )
-        return
-    if AUTH_CHANNEL and not await is_subscribed(client, message):
-        try:
-            invite_link = await client.create_chat_invite_link(int(AUTH_CHANNEL))
-        except ChatAdminRequired:
-            logger.error("Mᴀᴋᴇ sᴜʀᴇ Bᴏᴛ ɪs ᴀᴅᴍɪɴ ɪɴ Fᴏʀᴄᴇsᴜʙ ᴄʜᴀɴɴᴇʟ")
-            return
-        btn = [
-            [
-                InlineKeyboardButton(
-                    "❆ Jᴏɪɴ Oᴜʀ Bᴀᴄᴋ-Uᴘ Cʜᴀɴɴᴇʟ ❆", url=invite_link.invite_link
-                )
-            ]
-        ]
-
-        if message.command[1] != "subscribe":
-            try:
-                kk, file_id = message.command[1].split("_", 1)
-                pre = 'checksubp' if kk == 'filep' else 'checksub' 
-                btn.append([InlineKeyboardButton("↻ Tʀʏ Aɢᴀɪɴ", url=f"https://t.me/{temp.U_NAME}?start={pre}_{file_id}")])
-            except (IndexError, ValueError):
-                btn.append([InlineKeyboardButton("↻ Tʀʏ Aɢᴀɪɴ", url=f"https://t.me/{temp.U_NAME}?start={message.command[1]}")])
-        await client.send_message(
-            chat_id=message.from_user.id,
-            text="**Yᴏᴜ ᴀʀᴇ ɴᴏᴛ ɪɴ ᴏᴜʀ Bᴀᴄᴋ-ᴜᴘ ᴄʜᴀɴɴᴇʟ ɢɪᴠᴇɴ ʙᴇʟᴏᴡ sᴏ ʏᴏᴜ ᴅᴏɴ'ᴛ ɢᴇᴛ ᴛʜᴇ ᴍᴏᴠɪᴇ ғɪʟᴇ...\n\nIғ ʏᴏᴜ ᴡᴀɴᴛ ᴛʜᴇ ᴍᴏᴠɪᴇ ғɪʟᴇ, ᴄʟɪᴄᴋ ᴏɴ ᴛʜᴇ '❆ Jᴏɪɴ Oᴜʀ Bᴀᴄᴋ-Uᴘ Cʜᴀɴɴᴇʟ ❆' ʙᴜᴛᴛᴏɴ ʙᴇʟᴏᴡ ᴀɴᴅ ᴊᴏɪɴ ᴏᴜʀ ʙᴀᴄᴋ-ᴜᴘ ᴄʜᴀɴɴᴇʟ, ᴛʜᴇɴ ᴄʟɪᴄᴋ ᴏɴ ᴛʜᴇ '↻ Tʀʏ Aɢᴀɪɴ' ʙᴜᴛᴛᴏɴ ʙᴇʟᴏᴡ...\n\nTʜᴇɴ ʏᴏᴜ ᴡɪʟʟ ɢᴇᴛ ᴛʜᴇ ᴍᴏᴠɪᴇ ғɪʟᴇs...**",
-            reply_markup=InlineKeyboardMarkup(btn),
-            parse_mode=enums.ParseMode.MARKDOWN
-            )
-        return
-    if len(message.command) == 2 and message.command[1] in ["subscribe", "error", "okay", "help"]:
-        buttons = [[
-                    InlineKeyboardButton('☆ ᴀᴅᴅ ᴍᴇ ᴛᴏ ʏᴏᴜʀ ɢʀᴏᴜᴘ ☆', url=f'http://telegram.me/{temp.U_NAME}?startgroup=true')
-                ],[
-                    InlineKeyboardButton('📚 ʙᴀᴄᴋᴜᴘ', url=CHNL_LNK),
-                    InlineKeyboardButton('🌿 ɢʀᴏᴜᴘ', url=GRP_LNK),
-                    InlineKeyboardButton('🌈 ᴄʜᴀɴɴᴇʟ', url=f'http://t.me/The_Happy_Hour_Hindi')
-                ],[
-                    InlineKeyboardButton('🏕️ ᴀʙᴏᴜᴛ', callback_data='about'),
-                    InlineKeyboardButton('🍾 ᴄᴏᴍᴍᴀɴᴅꜱ', callback_data='seeplans'),
-                    # InlineKeyboardButton('🌹 ʀᴇғғᴇʀ', callback_data='subscription')
-                ],[
-                    InlineKeyboardButton('🍁 ꜱᴇʟᴇᴄᴛ ᴄʜᴀᴛ & ꜱʜᴀʀᴇ ʙᴏᴛ 🍁', url='https://t.me/share/url?url=%F0%9F%91%89%20%C9%AA%EA%9C%B0%20%CA%8F%E1%B4%8F%E1%B4%9C%20%C9%B4%E1%B4%87%E1%B4%87%E1%B4%85%20%E1%B4%80%C9%B4%CA%8F%20%E1%B4%8D%E1%B4%8F%E1%B4%A0%C9%AA%E1%B4%87%2C%20%EA%9C%B1%E1%B4%87%CA%80%C9%AA%E1%B4%87%EA%9C%B1%20%26%20%0A%E1%B4%80%C9%B4%C9%AA%E1%B4%8D%E1%B4%87%20-%20%E1%B4%8A%E1%B4%9C%EA%9C%B1%E1%B4%9B%20%E1%B4%9B%CA%8F%E1%B4%98%E1%B4%87%20%C9%B4%E1%B4%80%E1%B4%8D%E1%B4%87%20%26%20%C9%A2%E1%B4%87%E1%B4%9B%20%C9%AA%C9%B4%203%20%EA%9C%B1%E1%B4%87%E1%B4%84%E1%B4%8F%C9%B4%E1%B4%85%20%E2%9C%85%0A%0A%E1%B4%8A%E1%B4%8F%C9%AA%C9%B4%20%E1%B4%8F%E1%B4%9C%CA%80%20%E1%B4%8D%E1%B4%8F%E1%B4%A0%C9%AA%E1%B4%87%20%CA%80%E1%B4%87%C7%AB%E1%B4%9C%E1%B4%87%EA%9C%B1%E1%B4%9B%20%C9%A2%CA%80%E1%B4%8F%E1%B4%9C%E1%B4%98%20%E2%9C%85%0A%F0%9F%91%89%20%40ThappyHour%20%0A%F0%9F%91%89%20%40ThappyHour%0A%0A%E1%B4%8A%E1%B4%8F%C9%AA%C9%B4%20%EA%9C%B0%E1%B4%8F%CA%80%20%C9%B4%E1%B4%87%E1%B4%A1%20%CA%80%E1%B4%87%CA%9F%E1%B4%87%E1%B4%80%EA%9C%B1%E1%B4%87%20%E1%B4%8D%E1%B4%8F%E1%B4%A0%C9%AA%E1%B4%87%20%E2%9C%85%0A%F0%9F%91%89%20%40The_Happy_Hour_Hindi%0A%F0%9F%91%89%20%40The_Happy_Hour_Hindi%0A%0A%F0%9F%91%89%20%E1%B4%9B%CA%9C%E1%B4%87%20%CA%9C%E1%B4%80%E1%B4%98%E1%B4%98%CA%8F%20%CA%9C%E1%B4%8F%E1%B4%9C%CA%80%E2%84%A2%20%E2%9C%85')
-                    ]]
-        if IS_VERIFY or IS_SHORTLINK is True:
-            buttons.append([
-                InlineKeyboardButton('🌹 ʀᴇғғᴇʀ 🌹', callback_data='subscription')
-            ],[
-                InlineKeyboardButton('📚 ʙᴜʏ ꜱᴜʙꜱᴄʀɪᴘᴛɪᴏɴ 📚', callback_data="premium_info")
-            ])
-        reply_markup = InlineKeyboardMarkup(buttons)
-        current_time = datetime.now(pytz.timezone(TIMEZONE))
-        curr_time = current_time.hour        
-        if curr_time < 12:
-            gtxt = "ɢᴏᴏᴅ ᴍᴏʀɴɪɴɢ 👋" 
-        elif curr_time < 17:
-            gtxt = "ɢᴏᴏᴅ ᴀғᴛᴇʀɴᴏᴏɴ 👋" 
-        elif curr_time < 21:
-            gtxt = "ɢᴏᴏᴅ ᴇᴠᴇɴɪɴɢ 👋"
-        else:
-            gtxt = "ɢᴏᴏᴅ ɴɪɢʜᴛ 👋"
-        m=await message.reply_sticker("CAACAgUAAxkBAAEkohxmOzL_8-HJRwudONzAED-tMt27LQACRwADJpleD38508ect3TIHgQ") 
-        await asyncio.sleep(2)
-        await m.delete()
-        await message.reply_photo(
-            photo=random.choice(PICS),
-            caption=script.START_TXT.format(message.from_user.mention, gtxt, temp.U_NAME, temp.B_NAME),
-            reply_markup=reply_markup,
-            parse_mode=enums.ParseMode.HTML
-        )
-        return
-    if len(message.command) == 2 and message.command[1] in ["premium"]:
-        buttons = [[
-                    InlineKeyboardButton('📲 ꜱᴇɴᴅ ᴘᴀʏᴍᴇɴᴛ ꜱᴄʀᴇᴇɴꜱʜᴏᴛ', url=f"https://t.me/Master_Jiraya_Bot")
-                  ],[
-                    InlineKeyboardButton('❌ ᴄʟᴏꜱᴇ ❌', callback_data='close_data')
-                  ]]
-        reply_markup = InlineKeyboardMarkup(buttons)
-        await message.reply_photo(
-            photo=(SUBSCRIPTION),
-            caption=script.PREPLANS_TXT.format(message.from_user.mention),
-            reply_markup=reply_markup,
-            parse_mode=enums.ParseMode.HTML
-        )
-        return  
-    data = message.command[1]
     try:
-        pre, file_id = data.split('_', 1)
-    except:
-        file_id = data
-        pre = ""
-    if data.split("-", 1)[0] == "BATCH":
-        sts = await message.reply("<b>Pʟᴇᴀsᴇ ᴡᴀɪᴛ...</b>")
-        file_id = data.split("-", 1)[1]
-        msgs = BATCH_FILES.get(file_id)
-        if not msgs:
-            file = await client.download_media(file_id)
-            try: 
-                with open(file) as file_data:
-                    msgs=json.loads(file_data.read())
-            except:
-                await sts.edit("Fᴀɪʟᴇᴅ")
-                return await client.send_message(LOG_CHANNEL, "Uɴᴀʙʟᴇ Tᴏ Oᴘᴇɴ Fɪʟᴇ.")
-            os.remove(file)
-            BATCH_FILES[file_id] = msgs
-        for msg in msgs:
-            title = msg.get("title")
-            size=get_size(int(msg.get("size", 0)))
-            f_caption=msg.get("caption", "")
-            if BATCH_FILE_CAPTION:
-                try:
-                    f_caption=BATCH_FILE_CAPTION.format(file_name= '' if title is None else title, file_size='' if size is None else size, file_caption='' if f_caption is None else f_caption)
-                except Exception as e:
-                    logger.exception(e)
-                    f_caption=f_caption
-            if f_caption is None:
-                f_caption = f"{title}"
-            try:
-                await client.send_cached_media(
-                    chat_id=message.from_user.id,
-                    file_id=msg.get("file_id"),
-                    caption=f_caption,
-                    protect_content=msg.get('protect', False),
-                    reply_markup=InlineKeyboardMarkup(
-                        [
-                         [
-                          InlineKeyboardButton("🖥️ ᴡᴀᴛᴄʜ & ᴅᴏᴡɴʟᴏᴀᴅ 📥", callback_data=f"streaming#{file_id}")
-                       ],[
+        if message.chat.type in [enums.ChatType.GROUP, enums.ChatType.SUPERGROUP]:
+            buttons = [[
+                        InlineKeyboardButton('☆ ᴀᴅᴅ ᴍᴇ ᴛᴏ ʏᴏᴜʀ ɢʀᴏᴜᴘ ☆', url=f'http://t.me/{temp.U_NAME}?startgroup=true')
+                    ],[
+                        InlineKeyboardButton('🍁 ʜᴏᴡ ᴛᴏ ᴜꜱᴇ 🍁', url="https://t.me/{temp.U_NAME}?start=help")
+                      ]]
+            reply_markup = InlineKeyboardMarkup(buttons)
+            current_time = datetime.now(pytz.timezone(TIMEZONE))
+            curr_time = current_time.hour        
+            if curr_time < 12:
+                gtxt = "ɢᴏᴏᴅ ᴍᴏʀɴɪɴɢ 👋" 
+            elif curr_time < 17:
+                gtxt = "ɢᴏᴏᴅ ᴀғᴛᴇʀɴᴏᴏɴ 👋" 
+            elif curr_time < 21:
+                gtxt = "ɢᴏᴏᴅ ᴇᴠᴇɴɪɴɢ 👋"
+            else:
+                gtxt = "ɢᴏᴏᴅ ɴɪɢʜᴛ 👋"
+            m=await message.reply_sticker("CAACAgUAAxkBAAEkohxmOzL_8-HJRwudONzAED-tMt27LQACRwADJpleD38508ect3TIHgQ") 
+            await asyncio.sleep(2)
+            await m.delete()
+            await message.reply_photo(
+                photo=(PICS),
+                caption=script.START_TXT.format(message.from_user.mention, gtxt, temp.U_NAME, temp.B_NAME),
+                reply_markup=reply_markup,
+                parse_mode=enums.ParseMode.HTML
+            )
+            await asyncio.sleep(2) # 😢 https://github.com/EvamariaTG/EvaMaria/blob/master/plugins/p_ttishow.py#L17 😬 wait a bit, before checking.
+            if not await db.get_chat(message.chat.id):
+                total=await client.get_chat_members_count(message.chat.id)
+                await client.send_message(LOG_CHANNEL, script.LOG_TEXT_G.format(temp.B_NAME, message.chat.title, message.chat.id, total, "Unknown"))       
+                await db.add_chat(message.chat.id, message.chat.title)
+            return 
+        if not await db.is_user_exist(message.from_user.id):
+            await db.add_user(message.from_user.id, message.from_user.first_name)
+            await client.send_message(LOG_CHANNEL, script.LOG_TEXT_P.format(message.from_user.id, message.from_user.mention, temp.B_NAME))
+        if len(message.command) != 2:
+            buttons = [[
+                        InlineKeyboardButton('☆ ᴀᴅᴅ ᴍᴇ ᴛᴏ ʏᴏᴜʀ ɢʀᴏᴜᴘ ☆', url=f'http://telegram.me/{temp.U_NAME}?startgroup=true')
+                    ],[
+                        InlineKeyboardButton('📚 ʙᴀᴄᴋᴜᴘ', url=CHNL_LNK),
+                        InlineKeyboardButton('🌿 ɢʀᴏᴜᴘ', url=GRP_LNK),
+                        InlineKeyboardButton('🌈 ᴄʜᴀɴɴᴇʟ', url=f'http://t.me/The_Happy_Hour_Hindi')
+                    ],[
+                        InlineKeyboardButton('🏕️ ᴀʙᴏᴜᴛ', callback_data='about'),
+                        InlineKeyboardButton('🍾 ᴄᴏᴍᴍᴀɴᴅꜱ', callback_data='seeplans'),
+                        # InlineKeyboardButton('🌹 ʀᴇғғᴇʀ', callback_data='subscription')
+                    ],[
                         InlineKeyboardButton('🍁 ꜱᴇʟᴇᴄᴛ ᴄʜᴀᴛ & ꜱʜᴀʀᴇ ʙᴏᴛ 🍁', url='https://t.me/share/url?url=%F0%9F%91%89%20%C9%AA%EA%9C%B0%20%CA%8F%E1%B4%8F%E1%B4%9C%20%C9%B4%E1%B4%87%E1%B4%87%E1%B4%85%20%E1%B4%80%C9%B4%CA%8F%20%E1%B4%8D%E1%B4%8F%E1%B4%A0%C9%AA%E1%B4%87%2C%20%EA%9C%B1%E1%B4%87%CA%80%C9%AA%E1%B4%87%EA%9C%B1%20%26%20%0A%E1%B4%80%C9%B4%C9%AA%E1%B4%8D%E1%B4%87%20-%20%E1%B4%8A%E1%B4%9C%EA%9C%B1%E1%B4%9B%20%E1%B4%9B%CA%8F%E1%B4%98%E1%B4%87%20%C9%B4%E1%B4%80%E1%B4%8D%E1%B4%87%20%26%20%C9%A2%E1%B4%87%E1%B4%9B%20%C9%AA%C9%B4%203%20%EA%9C%B1%E1%B4%87%E1%B4%84%E1%B4%8F%C9%B4%E1%B4%85%20%E2%9C%85%0A%0A%E1%B4%8A%E1%B4%8F%C9%AA%C9%B4%20%E1%B4%8F%E1%B4%9C%CA%80%20%E1%B4%8D%E1%B4%8F%E1%B4%A0%C9%AA%E1%B4%87%20%CA%80%E1%B4%87%C7%AB%E1%B4%9C%E1%B4%87%EA%9C%B1%E1%B4%9B%20%C9%A2%CA%80%E1%B4%8F%E1%B4%9C%E1%B4%98%20%E2%9C%85%0A%F0%9F%91%89%20%40ThappyHour%20%0A%F0%9F%91%89%20%40ThappyHour%0A%0A%E1%B4%8A%E1%B4%8F%C9%AA%C9%B4%20%EA%9C%B0%E1%B4%8F%CA%80%20%C9%B4%E1%B4%87%E1%B4%A1%20%CA%80%E1%B4%87%CA%9F%E1%B4%87%E1%B4%80%EA%9C%B1%E1%B4%87%20%E1%B4%8D%E1%B4%8F%E1%B4%A0%C9%AA%E1%B4%87%20%E2%9C%85%0A%F0%9F%91%89%20%40The_Happy_Hour_Hindi%0A%F0%9F%91%89%20%40The_Happy_Hour_Hindi%0A%0A%F0%9F%91%89%20%E1%B4%9B%CA%9C%E1%B4%87%20%CA%9C%E1%B4%80%E1%B4%98%E1%B4%98%CA%8F%20%CA%9C%E1%B4%8F%E1%B4%9C%CA%80%E2%84%A2%20%E2%9C%85')
-                    ]
-                         ]
+                        ]]
+            if IS_VERIFY or IS_SHORTLINK is True:
+                buttons.append([
+                    InlineKeyboardButton('🌹 ʀᴇғғᴇʀ 🌹', callback_data='subscription')
+                ],[
+                    InlineKeyboardButton('📚 ʙᴜʏ ꜱᴜʙꜱᴄʀɪᴘᴛɪᴏɴ 📚', callback_data="premium_info")
+                ])
+            reply_markup = InlineKeyboardMarkup(buttons)
+            current_time = datetime.now(pytz.timezone(TIMEZONE))
+            curr_time = current_time.hour        
+            if curr_time < 12:
+                gtxt = "ɢᴏᴏᴅ ᴍᴏʀɴɪɴɢ 👋" 
+            elif curr_time < 17:
+                gtxt = "ɢᴏᴏᴅ ᴀғᴛᴇʀɴᴏᴏɴ 👋" 
+            elif curr_time < 21:
+                gtxt = "ɢᴏᴏᴅ ᴇᴠᴇɴɪɴɢ 👋"
+            else:
+                gtxt = "ɢᴏᴏᴅ ɴɪɢʜᴛ 👋"
+            m=await message.reply_sticker("CAACAgUAAxkBAAEkohxmOzL_8-HJRwudONzAED-tMt27LQACRwADJpleD38508ect3TIHgQ") 
+            await asyncio.sleep(2)
+            await m.delete()
+            await message.reply_photo(
+                photo=random.choice(PICS),
+                caption=script.START_TXT.format(message.from_user.mention, gtxt, temp.U_NAME, temp.B_NAME),
+                reply_markup=reply_markup,
+                parse_mode=enums.ParseMode.HTML
+            )
+            return
+        if AUTH_CHANNEL and not await is_subscribed(client, message):
+            try:
+                invite_link = await client.create_chat_invite_link(int(AUTH_CHANNEL))
+            except ChatAdminRequired:
+                logger.error("Mᴀᴋᴇ sᴜʀᴇ Bᴏᴛ ɪs ᴀᴅᴍɪɴ ɪɴ Fᴏʀᴄᴇsᴜʙ ᴄʜᴀɴɴᴇʟ")
+                return
+            btn = [
+                [
+                    InlineKeyboardButton(
+                        "❆ Jᴏɪɴ Oᴜʀ Bᴀᴄᴋ-Uᴘ Cʜᴀɴɴᴇʟ ❆", url=invite_link.invite_link
                     )
+                ]
+            ]
+    
+            if message.command[1] != "subscribe":
+                try:
+                    kk, file_id = message.command[1].split("_", 1)
+                    pre = 'checksubp' if kk == 'filep' else 'checksub' 
+                    btn.append([InlineKeyboardButton("↻ Tʀʏ Aɢᴀɪɴ", url=f"https://t.me/{temp.U_NAME}?start={pre}_{file_id}")])
+                except (IndexError, ValueError):
+                    btn.append([InlineKeyboardButton("↻ Tʀʏ Aɢᴀɪɴ", url=f"https://t.me/{temp.U_NAME}?start={message.command[1]}")])
+            await client.send_message(
+                chat_id=message.from_user.id,
+                text="**Yᴏᴜ ᴀʀᴇ ɴᴏᴛ ɪɴ ᴏᴜʀ Bᴀᴄᴋ-ᴜᴘ ᴄʜᴀɴɴᴇʟ ɢɪᴠᴇɴ ʙᴇʟᴏᴡ sᴏ ʏᴏᴜ ᴅᴏɴ'ᴛ ɢᴇᴛ ᴛʜᴇ ᴍᴏᴠɪᴇ ғɪʟᴇ...\n\nIғ ʏᴏᴜ ᴡᴀɴᴛ ᴛʜᴇ ᴍᴏᴠɪᴇ ғɪʟᴇ, ᴄʟɪᴄᴋ ᴏɴ ᴛʜᴇ '❆ Jᴏɪɴ Oᴜʀ Bᴀᴄᴋ-Uᴘ Cʜᴀɴɴᴇʟ ❆' ʙᴜᴛᴛᴏɴ ʙᴇʟᴏᴡ ᴀɴᴅ ᴊᴏɪɴ ᴏᴜʀ ʙᴀᴄᴋ-ᴜᴘ ᴄʜᴀɴɴᴇʟ, ᴛʜᴇɴ ᴄʟɪᴄᴋ ᴏɴ ᴛʜᴇ '↻ Tʀʏ Aɢᴀɪɴ' ʙᴜᴛᴛᴏɴ ʙᴇʟᴏᴡ...\n\nTʜᴇɴ ʏᴏᴜ ᴡɪʟʟ ɢᴇᴛ ᴛʜᴇ ᴍᴏᴠɪᴇ ғɪʟᴇs...**",
+                reply_markup=InlineKeyboardMarkup(btn),
+                parse_mode=enums.ParseMode.MARKDOWN
                 )
-            except FloodWait as e:
-                await asyncio.sleep(e.x)
-                logger.warning(f"Floodwait of {e.x} sec.")
-                await client.send_cached_media(
-                    chat_id=message.from_user.id,
-                    file_id=msg.get("file_id"),
-                    caption=f_caption,
-                    protect_content=msg.get('protect', False),
-                    reply_markup=InlineKeyboardMarkup(
-                        [
-                         [
-                          InlineKeyboardButton("🖥️ ᴡᴀᴛᴄʜ & ᴅᴏᴡɴʟᴏᴀᴅ 📥", callback_data=f"streaming#{file_id}")
-                          
-                       ],[
-                          InlineKeyboardButton('🍁 ꜱᴇʟᴇᴄᴛ ᴄʜᴀᴛ & ꜱʜᴀʀᴇ ʙᴏᴛ 🍁', url='https://t.me/share/url?url=%F0%9F%91%89%20%C9%AA%EA%9C%B0%20%CA%8F%E1%B4%8F%E1%B4%9C%20%C9%B4%E1%B4%87%E1%B4%87%E1%B4%85%20%E1%B4%80%C9%B4%CA%8F%20%E1%B4%8D%E1%B4%8F%E1%B4%A0%C9%AA%E1%B4%87%2C%20%EA%9C%B1%E1%B4%87%CA%80%C9%AA%E1%B4%87%EA%9C%B1%20%26%20%0A%E1%B4%80%C9%B4%C9%AA%E1%B4%8D%E1%B4%87%20-%20%E1%B4%8A%E1%B4%9C%EA%9C%B1%E1%B4%9B%20%E1%B4%9B%CA%8F%E1%B4%98%E1%B4%87%20%C9%B4%E1%B4%80%E1%B4%8D%E1%B4%87%20%26%20%C9%A2%E1%B4%87%E1%B4%9B%20%C9%AA%C9%B4%203%20%EA%9C%B1%E1%B4%87%E1%B4%84%E1%B4%8F%C9%B4%E1%B4%85%20%E2%9C%85%0A%0A%E1%B4%8A%E1%B4%8F%C9%AA%C9%B4%20%E1%B4%8F%E1%B4%9C%CA%80%20%E1%B4%8D%E1%B4%8F%E1%B4%A0%C9%AA%E1%B4%87%20%CA%80%E1%B4%87%C7%AB%E1%B4%9C%E1%B4%87%EA%9C%B1%E1%B4%9B%20%C9%A2%CA%80%E1%B4%8F%E1%B4%9C%E1%B4%98%20%E2%9C%85%0A%F0%9F%91%89%20%40ThappyHour%20%0A%F0%9F%91%89%20%40ThappyHour%0A%0A%E1%B4%8A%E1%B4%8F%C9%AA%C9%B4%20%EA%9C%B0%E1%B4%8F%CA%80%20%C9%B4%E1%B4%87%E1%B4%A1%20%CA%80%E1%B4%87%CA%9F%E1%B4%87%E1%B4%80%EA%9C%B1%E1%B4%87%20%E1%B4%8D%E1%B4%8F%E1%B4%A0%C9%AA%E1%B4%87%20%E2%9C%85%0A%F0%9F%91%89%20%40The_Happy_Hour_Hindi%0A%F0%9F%91%89%20%40The_Happy_Hour_Hindi%0A%0A%F0%9F%91%89%20%E1%B4%9B%CA%9C%E1%B4%87%20%CA%9C%E1%B4%80%E1%B4%98%E1%B4%98%CA%8F%20%CA%9C%E1%B4%8F%E1%B4%9C%CA%80%E2%84%A2%20%E2%9C%85')
-                         ]
-                        ]
-                    )
-                )
-            except Exception as e:
-                logger.warning(e, exc_info=True)
-                continue
-            await asyncio.sleep(1) 
-        await sts.delete()
-        return
-    elif data.split("-", 1)[0] == "DSTORE":
-        sts = await message.reply("<b>Pʟᴇᴀsᴇ ᴡᴀɪᴛ...</b>")
-        b_string = data.split("-", 1)[1]
-        decoded = (base64.urlsafe_b64decode(b_string + "=" * (-len(b_string) % 4))).decode("ascii")
+            return
+        if len(message.command) == 2 and message.command[1] in ["subscribe", "error", "okay", "help"]:
+            buttons = [[
+                        InlineKeyboardButton('☆ ᴀᴅᴅ ᴍᴇ ᴛᴏ ʏᴏᴜʀ ɢʀᴏᴜᴘ ☆', url=f'http://telegram.me/{temp.U_NAME}?startgroup=true')
+                    ],[
+                        InlineKeyboardButton('📚 ʙᴀᴄᴋᴜᴘ', url=CHNL_LNK),
+                        InlineKeyboardButton('🌿 ɢʀᴏᴜᴘ', url=GRP_LNK),
+                        InlineKeyboardButton('🌈 ᴄʜᴀɴɴᴇʟ', url=f'http://t.me/The_Happy_Hour_Hindi')
+                    ],[
+                        InlineKeyboardButton('🏕️ ᴀʙᴏᴜᴛ', callback_data='about'),
+                        InlineKeyboardButton('🍾 ᴄᴏᴍᴍᴀɴᴅꜱ', callback_data='seeplans'),
+                        # InlineKeyboardButton('🌹 ʀᴇғғᴇʀ', callback_data='subscription')
+                    ],[
+                        InlineKeyboardButton('🍁 ꜱᴇʟᴇᴄᴛ ᴄʜᴀᴛ & ꜱʜᴀʀᴇ ʙᴏᴛ 🍁', url='https://t.me/share/url?url=%F0%9F%91%89%20%C9%AA%EA%9C%B0%20%CA%8F%E1%B4%8F%E1%B4%9C%20%C9%B4%E1%B4%87%E1%B4%87%E1%B4%85%20%E1%B4%80%C9%B4%CA%8F%20%E1%B4%8D%E1%B4%8F%E1%B4%A0%C9%AA%E1%B4%87%2C%20%EA%9C%B1%E1%B4%87%CA%80%C9%AA%E1%B4%87%EA%9C%B1%20%26%20%0A%E1%B4%80%C9%B4%C9%AA%E1%B4%8D%E1%B4%87%20-%20%E1%B4%8A%E1%B4%9C%EA%9C%B1%E1%B4%9B%20%E1%B4%9B%CA%8F%E1%B4%98%E1%B4%87%20%C9%B4%E1%B4%80%E1%B4%8D%E1%B4%87%20%26%20%C9%A2%E1%B4%87%E1%B4%9B%20%C9%AA%C9%B4%203%20%EA%9C%B1%E1%B4%87%E1%B4%84%E1%B4%8F%C9%B4%E1%B4%85%20%E2%9C%85%0A%0A%E1%B4%8A%E1%B4%8F%C9%AA%C9%B4%20%E1%B4%8F%E1%B4%9C%CA%80%20%E1%B4%8D%E1%B4%8F%E1%B4%A0%C9%AA%E1%B4%87%20%CA%80%E1%B4%87%C7%AB%E1%B4%9C%E1%B4%87%EA%9C%B1%E1%B4%9B%20%C9%A2%CA%80%E1%B4%8F%E1%B4%9C%E1%B4%98%20%E2%9C%85%0A%F0%9F%91%89%20%40ThappyHour%20%0A%F0%9F%91%89%20%40ThappyHour%0A%0A%E1%B4%8A%E1%B4%8F%C9%AA%C9%B4%20%EA%9C%B0%E1%B4%8F%CA%80%20%C9%B4%E1%B4%87%E1%B4%A1%20%CA%80%E1%B4%87%CA%9F%E1%B4%87%E1%B4%80%EA%9C%B1%E1%B4%87%20%E1%B4%8D%E1%B4%8F%E1%B4%A0%C9%AA%E1%B4%87%20%E2%9C%85%0A%F0%9F%91%89%20%40The_Happy_Hour_Hindi%0A%F0%9F%91%89%20%40The_Happy_Hour_Hindi%0A%0A%F0%9F%91%89%20%E1%B4%9B%CA%9C%E1%B4%87%20%CA%9C%E1%B4%80%E1%B4%98%E1%B4%98%CA%8F%20%CA%9C%E1%B4%8F%E1%B4%9C%CA%80%E2%84%A2%20%E2%9C%85')
+                        ]]
+            if IS_VERIFY or IS_SHORTLINK is True:
+                buttons.append([
+                    InlineKeyboardButton('🌹 ʀᴇғғᴇʀ 🌹', callback_data='subscription')
+                ],[
+                    InlineKeyboardButton('📚 ʙᴜʏ ꜱᴜʙꜱᴄʀɪᴘᴛɪᴏɴ 📚', callback_data="premium_info")
+                ])
+            reply_markup = InlineKeyboardMarkup(buttons)
+            current_time = datetime.now(pytz.timezone(TIMEZONE))
+            curr_time = current_time.hour        
+            if curr_time < 12:
+                gtxt = "ɢᴏᴏᴅ ᴍᴏʀɴɪɴɢ 👋" 
+            elif curr_time < 17:
+                gtxt = "ɢᴏᴏᴅ ᴀғᴛᴇʀɴᴏᴏɴ 👋" 
+            elif curr_time < 21:
+                gtxt = "ɢᴏᴏᴅ ᴇᴠᴇɴɪɴɢ 👋"
+            else:
+                gtxt = "ɢᴏᴏᴅ ɴɪɢʜᴛ 👋"
+            m=await message.reply_sticker("CAACAgUAAxkBAAEkohxmOzL_8-HJRwudONzAED-tMt27LQACRwADJpleD38508ect3TIHgQ") 
+            await asyncio.sleep(2)
+            await m.delete()
+            await message.reply_photo(
+                photo=random.choice(PICS),
+                caption=script.START_TXT.format(message.from_user.mention, gtxt, temp.U_NAME, temp.B_NAME),
+                reply_markup=reply_markup,
+                parse_mode=enums.ParseMode.HTML
+            )
+            return
+        if len(message.command) == 2 and message.command[1] in ["premium"]:
+            buttons = [[
+                        InlineKeyboardButton('📲 ꜱᴇɴᴅ ᴘᴀʏᴍᴇɴᴛ ꜱᴄʀᴇᴇɴꜱʜᴏᴛ', url=f"https://t.me/Master_Jiraya_Bot")
+                      ],[
+                        InlineKeyboardButton('❌ ᴄʟᴏꜱᴇ ❌', callback_data='close_data')
+                      ]]
+            reply_markup = InlineKeyboardMarkup(buttons)
+            await message.reply_photo(
+                photo=(SUBSCRIPTION),
+                caption=script.PREPLANS_TXT.format(message.from_user.mention),
+                reply_markup=reply_markup,
+                parse_mode=enums.ParseMode.HTML
+            )
+            return  
+        data = message.command[1]
         try:
-            f_msg_id, l_msg_id, f_chat_id, protect = decoded.split("_", 3)
+            pre, file_id = data.split('_', 1)
         except:
-            f_msg_id, l_msg_id, f_chat_id = decoded.split("_", 2)
-            protect = "/pbatch" if PROTECT_CONTENT else "batch"
-        diff = int(l_msg_id) - int(f_msg_id)
-        async for msg in client.iter_messages(int(f_chat_id), int(l_msg_id), int(f_msg_id)):
-            if msg.media:
-                media = getattr(msg, msg.media.value)
+            file_id = data
+            pre = ""
+        if data.split("-", 1)[0] == "BATCH":
+            sts = await message.reply("<b>Pʟᴇᴀsᴇ ᴡᴀɪᴛ...</b>")
+            file_id = data.split("-", 1)[1]
+            msgs = BATCH_FILES.get(file_id)
+            if not msgs:
+                file = await client.download_media(file_id)
+                try: 
+                    with open(file) as file_data:
+                        msgs=json.loads(file_data.read())
+                except:
+                    await sts.edit("Fᴀɪʟᴇᴅ")
+                    return await client.send_message(LOG_CHANNEL, "Uɴᴀʙʟᴇ Tᴏ Oᴘᴇɴ Fɪʟᴇ.")
+                os.remove(file)
+                BATCH_FILES[file_id] = msgs
+            for msg in msgs:
+                title = msg.get("title")
+                size=get_size(int(msg.get("size", 0)))
+                f_caption=msg.get("caption", "")
                 if BATCH_FILE_CAPTION:
                     try:
-                        f_caption=BATCH_FILE_CAPTION.format(file_name=getattr(media, 'file_name', ''), file_size=getattr(media, 'file_size', ''), file_caption=getattr(msg, 'caption', ''))
+                        f_caption=BATCH_FILE_CAPTION.format(file_name= '' if title is None else title, file_size='' if size is None else size, file_caption='' if f_caption is None else f_caption)
                     except Exception as e:
                         logger.exception(e)
-                        f_caption = getattr(msg, 'caption', '')
-                else:
+                        f_caption=f_caption
+                if f_caption is None:
+                    f_caption = f"{title}"
+                try:
+                    await client.send_cached_media(
+                        chat_id=message.from_user.id,
+                        file_id=msg.get("file_id"),
+                        caption=f_caption,
+                        protect_content=msg.get('protect', False),
+                        reply_markup=InlineKeyboardMarkup(
+                            [
+                             [
+                              InlineKeyboardButton("🖥️ ᴡᴀᴛᴄʜ & ᴅᴏᴡɴʟᴏᴀᴅ 📥", callback_data=f"streaming#{file_id}")
+                           ],[
+                            InlineKeyboardButton('🍁 ꜱᴇʟᴇᴄᴛ ᴄʜᴀᴛ & ꜱʜᴀʀᴇ ʙᴏᴛ 🍁', url='https://t.me/share/url?url=%F0%9F%91%89%20%C9%AA%EA%9C%B0%20%CA%8F%E1%B4%8F%E1%B4%9C%20%C9%B4%E1%B4%87%E1%B4%87%E1%B4%85%20%E1%B4%80%C9%B4%CA%8F%20%E1%B4%8D%E1%B4%8F%E1%B4%A0%C9%AA%E1%B4%87%2C%20%EA%9C%B1%E1%B4%87%CA%80%C9%AA%E1%B4%87%EA%9C%B1%20%26%20%0A%E1%B4%80%C9%B4%C9%AA%E1%B4%8D%E1%B4%87%20-%20%E1%B4%8A%E1%B4%9C%EA%9C%B1%E1%B4%9B%20%E1%B4%9B%CA%8F%E1%B4%98%E1%B4%87%20%C9%B4%E1%B4%80%E1%B4%8D%E1%B4%87%20%26%20%C9%A2%E1%B4%87%E1%B4%9B%20%C9%AA%C9%B4%203%20%EA%9C%B1%E1%B4%87%E1%B4%84%E1%B4%8F%C9%B4%E1%B4%85%20%E2%9C%85%0A%0A%E1%B4%8A%E1%B4%8F%C9%AA%C9%B4%20%E1%B4%8F%E1%B4%9C%CA%80%20%E1%B4%8D%E1%B4%8F%E1%B4%A0%C9%AA%E1%B4%87%20%CA%80%E1%B4%87%C7%AB%E1%B4%9C%E1%B4%87%EA%9C%B1%E1%B4%9B%20%C9%A2%CA%80%E1%B4%8F%E1%B4%9C%E1%B4%98%20%E2%9C%85%0A%F0%9F%91%89%20%40ThappyHour%20%0A%F0%9F%91%89%20%40ThappyHour%0A%0A%E1%B4%8A%E1%B4%8F%C9%AA%C9%B4%20%EA%9C%B0%E1%B4%8F%CA%80%20%C9%B4%E1%B4%87%E1%B4%A1%20%CA%80%E1%B4%87%CA%9F%E1%B4%87%E1%B4%80%EA%9C%B1%E1%B4%87%20%E1%B4%8D%E1%B4%8F%E1%B4%A0%C9%AA%E1%B4%87%20%E2%9C%85%0A%F0%9F%91%89%20%40The_Happy_Hour_Hindi%0A%F0%9F%91%89%20%40The_Happy_Hour_Hindi%0A%0A%F0%9F%91%89%20%E1%B4%9B%CA%9C%E1%B4%87%20%CA%9C%E1%B4%80%E1%B4%98%E1%B4%98%CA%8F%20%CA%9C%E1%B4%8F%E1%B4%9C%CA%80%E2%84%A2%20%E2%9C%85')
+                        ]
+                             ]
+                        )
+                    )
+                except FloodWait as e:
+                    await asyncio.sleep(e.x)
+                    logger.warning(f"Floodwait of {e.x} sec.")
+                    await client.send_cached_media(
+                        chat_id=message.from_user.id,
+                        file_id=msg.get("file_id"),
+                        caption=f_caption,
+                        protect_content=msg.get('protect', False),
+                        reply_markup=InlineKeyboardMarkup(
+                            [
+                             [
+                              InlineKeyboardButton("🖥️ ᴡᴀᴛᴄʜ & ᴅᴏᴡɴʟᴏᴀᴅ 📥", callback_data=f"streaming#{file_id}")
+                              
+                           ],[
+                              InlineKeyboardButton('🍁 ꜱᴇʟᴇᴄᴛ ᴄʜᴀᴛ & ꜱʜᴀʀᴇ ʙᴏᴛ 🍁', url='https://t.me/share/url?url=%F0%9F%91%89%20%C9%AA%EA%9C%B0%20%CA%8F%E1%B4%8F%E1%B4%9C%20%C9%B4%E1%B4%87%E1%B4%87%E1%B4%85%20%E1%B4%80%C9%B4%CA%8F%20%E1%B4%8D%E1%B4%8F%E1%B4%A0%C9%AA%E1%B4%87%2C%20%EA%9C%B1%E1%B4%87%CA%80%C9%AA%E1%B4%87%EA%9C%B1%20%26%20%0A%E1%B4%80%C9%B4%C9%AA%E1%B4%8D%E1%B4%87%20-%20%E1%B4%8A%E1%B4%9C%EA%9C%B1%E1%B4%9B%20%E1%B4%9B%CA%8F%E1%B4%98%E1%B4%87%20%C9%B4%E1%B4%80%E1%B4%8D%E1%B4%87%20%26%20%C9%A2%E1%B4%87%E1%B4%9B%20%C9%AA%C9%B4%203%20%EA%9C%B1%E1%B4%87%E1%B4%84%E1%B4%8F%C9%B4%E1%B4%85%20%E2%9C%85%0A%0A%E1%B4%8A%E1%B4%8F%C9%AA%C9%B4%20%E1%B4%8F%E1%B4%9C%CA%80%20%E1%B4%8D%E1%B4%8F%E1%B4%A0%C9%AA%E1%B4%87%20%CA%80%E1%B4%87%C7%AB%E1%B4%9C%E1%B4%87%EA%9C%B1%E1%B4%9B%20%C9%A2%CA%80%E1%B4%8F%E1%B4%9C%E1%B4%98%20%E2%9C%85%0A%F0%9F%91%89%20%40ThappyHour%20%0A%F0%9F%91%89%20%40ThappyHour%0A%0A%E1%B4%8A%E1%B4%8F%C9%AA%C9%B4%20%EA%9C%B0%E1%B4%8F%CA%80%20%C9%B4%E1%B4%87%E1%B4%A1%20%CA%80%E1%B4%87%CA%9F%E1%B4%87%E1%B4%80%EA%9C%B1%E1%B4%87%20%E1%B4%8D%E1%B4%8F%E1%B4%A0%C9%AA%E1%B4%87%20%E2%9C%85%0A%F0%9F%91%89%20%40The_Happy_Hour_Hindi%0A%F0%9F%91%89%20%40The_Happy_Hour_Hindi%0A%0A%F0%9F%91%89%20%E1%B4%9B%CA%9C%E1%B4%87%20%CA%9C%E1%B4%80%E1%B4%98%E1%B4%98%CA%8F%20%CA%9C%E1%B4%8F%E1%B4%9C%CA%80%E2%84%A2%20%E2%9C%85')
+                             ]
+                            ]
+                        )
+                    )
+                except Exception as e:
+                    logger.warning(e, exc_info=True)
+                    continue
+                await asyncio.sleep(1) 
+            await sts.delete()
+            return
+        elif data.split("-", 1)[0] == "DSTORE":
+            sts = await message.reply("<b>Pʟᴇᴀsᴇ ᴡᴀɪᴛ...</b>")
+            b_string = data.split("-", 1)[1]
+            decoded = (base64.urlsafe_b64decode(b_string + "=" * (-len(b_string) % 4))).decode("ascii")
+            try:
+                f_msg_id, l_msg_id, f_chat_id, protect = decoded.split("_", 3)
+            except:
+                f_msg_id, l_msg_id, f_chat_id = decoded.split("_", 2)
+                protect = "/pbatch" if PROTECT_CONTENT else "batch"
+            diff = int(l_msg_id) - int(f_msg_id)
+            async for msg in client.iter_messages(int(f_chat_id), int(l_msg_id), int(f_msg_id)):
+                if msg.media:
                     media = getattr(msg, msg.media.value)
-                    file_name = getattr(media, 'file_name', '')
-                    f_caption = getattr(msg, 'caption', file_name)
-                try:
-                    await msg.copy(message.chat.id, caption=f_caption, protect_content=True if protect == "/pbatch" else False)
-                except FloodWait as e:
-                    await asyncio.sleep(e.x)
-                    await msg.copy(message.chat.id, caption=f_caption, protect_content=True if protect == "/pbatch" else False)
-                except Exception as e:
-                    logger.exception(e)
+                    if BATCH_FILE_CAPTION:
+                        try:
+                            f_caption=BATCH_FILE_CAPTION.format(file_name=getattr(media, 'file_name', ''), file_size=getattr(media, 'file_size', ''), file_caption=getattr(msg, 'caption', ''))
+                        except Exception as e:
+                            logger.exception(e)
+                            f_caption = getattr(msg, 'caption', '')
+                    else:
+                        media = getattr(msg, msg.media.value)
+                        file_name = getattr(media, 'file_name', '')
+                        f_caption = getattr(msg, 'caption', file_name)
+                    try:
+                        await msg.copy(message.chat.id, caption=f_caption, protect_content=True if protect == "/pbatch" else False)
+                    except FloodWait as e:
+                        await asyncio.sleep(e.x)
+                        await msg.copy(message.chat.id, caption=f_caption, protect_content=True if protect == "/pbatch" else False)
+                    except Exception as e:
+                        logger.exception(e)
+                        continue
+                elif msg.empty:
                     continue
-            elif msg.empty:
-                continue
+                else:
+                    try:
+                        await msg.copy(message.chat.id, protect_content=True if protect == "/pbatch" else False)
+                    except FloodWait as e:
+                        await asyncio.sleep(e.x)
+                        await msg.copy(message.chat.id, protect_content=True if protect == "/pbatch" else False)
+                    except Exception as e:
+                        logger.exception(e)
+                        continue
+                await asyncio.sleep(1) 
+            return await sts.delete()
+            
+        elif data.split("-", 1)[0] == "reff":
+            user_id = int(data.split("-", 1)[1])
+            if await db.has_premium_access(message.from_user.id):
+                await message.reply("ʏᴏᴜ ᴀʀᴇ ᴀ ᴘʀᴇᴍɪᴜᴍ ᴜsᴇʀ 🌟💝,\nʏᴏᴜ ᴄᴀɴɴᴏᴛ ᴏᴘᴇɴ ᴛʜᴇ ɪɴᴠɪᴛᴇ ʟɪɴᴋ. 🔗🚫") 
+                return
+            elif await db.save_invites(message.from_user.id):
+                await message.reply("ʏᴏᴜ ᴀʀᴇ ᴀʟʀᴇᴀᴅʏ ɪɴᴠɪᴛᴇᴅ 🙅")
+                return
             else:
-                try:
-                    await msg.copy(message.chat.id, protect_content=True if protect == "/pbatch" else False)
-                except FloodWait as e:
-                    await asyncio.sleep(e.x)
-                    await msg.copy(message.chat.id, protect_content=True if protect == "/pbatch" else False)
-                except Exception as e:
-                    logger.exception(e)
-                    continue
-            await asyncio.sleep(1) 
-        return await sts.delete()
-        
-    elif data.split("-", 1)[0] == "reff":
-        user_id = int(data.split("-", 1)[1])
-        if await db.has_premium_access(message.from_user.id):
-            await message.reply("ʏᴏᴜ ᴀʀᴇ ᴀ ᴘʀᴇᴍɪᴜᴍ ᴜsᴇʀ 🌟💝,\nʏᴏᴜ ᴄᴀɴɴᴏᴛ ᴏᴘᴇɴ ᴛʜᴇ ɪɴᴠɪᴛᴇ ʟɪɴᴋ. 🔗🚫") 
-            return
-        elif await db.save_invites(message.from_user.id):
-            await message.reply("ʏᴏᴜ ᴀʀᴇ ᴀʟʀᴇᴀᴅʏ ɪɴᴠɪᴛᴇᴅ 🙅")
-            return
-        else:
-            if await referal_add_user(user_id, message.from_user.id):
-                await message.reply(f"<b>ʏᴏᴜ ʜᴀᴠᴇ ᴊᴏɪɴᴇᴅ ᴜsɪɴɢ ᴛʜᴇ ʀᴇғᴇʀʀᴀʟ ʟɪɴᴋ ᴏғ ᴜsᴇʀ ᴡɪᴛʜ ɪᴅ {user_id},\n\nᴄᴏɴɢʀᴀᴛᴜʟᴀᴛɪᴏɴs 🎁🎉, ʏᴏᴜ ʜᴀᴠᴇ ɢᴏᴛ 1 ᴅᴀʏ ғʀᴇᴇ ᴘʀᴇᴍɪᴜᴍ ᴛʀɪᴀʟ, ɴᴏᴡ ʏᴏᴜ ᴄᴀɴ ɢᴇᴛ ᴍᴏᴠɪᴇs ᴡɪᴛʜᴏᴜᴛ ᴀᴅs ғᴏʀ 1 ᴅᴀʏ.</b>") 
-                await db.update_invited(message.from_user.id)
-            num_referrals = await get_referal_users_count(user_id)
-            await client.send_message(chat_id = user_id, text = "<b>{} sᴛᴀʀᴛ ᴛʜᴇ ʙᴏᴛ ᴡɪᴛʜ ʏᴏᴜʀ ʀᴇғᴇʀʀᴀʟ ʟɪɴᴋ\n\nᴛᴏᴛᴀʟ ʀᴇғᴇʀᴀʟs - {}</b>".format(message.from_user.mention, num_referrals))
-            if await get_referal_users_count(user_id) == USERS_COUNT:
-                await db.give_referal(user_id)
-                await delete_all_referal_users(user_id)
-                await client.send_message(chat_id = user_id, text = "<b>ᴄᴏɴɢʀᴀᴛᴜʟᴀᴛɪᴏɴs 🎁🎉, ʏᴏᴜʀ ᴛᴏᴛᴀʟ ʀᴇғᴇʀʀᴀʟ ʜᴀs ʙᴇᴇɴ ᴄᴏᴍᴘʟᴇᴛᴇᴅ.\n\nʏᴏᴜ ɢᴇᴛ ᴘʀᴇᴍɪᴜᴍ ғᴏʀ 1 ᴍᴏɴᴛʜ</b>")
-                return 
-
-    elif data.split("-", 1)[0] == "del":
-        user_id = int(data.split("-", 1)[1])
-        
-        await delete_all_referal_users(user_id)
-        await message.reply("<b>Invite Successfully Deleted </b>")
-        return 
-                
-    elif data.split("-", 1)[0] == "verify":
-        userid = data.split("-", 2)[1]
-        token = data.split("-", 3)[2]
-        fileid = data.split("-", 3)[3]
-        if str(message.from_user.id) != str(userid):
-            return await message.reply_text(
-                text="<b>Iɴᴠᴀʟɪᴅ ʟɪɴᴋ ᴏʀ Exᴘɪʀᴇᴅ ʟɪɴᴋ !</b>",
-                protect_content=True if PROTECT_CONTENT else False
-            )
-        is_valid = await check_token(client, userid, token)
-        
-        if is_valid == True:
-            if fileid == "all":
+                if await referal_add_user(user_id, message.from_user.id):
+                    await message.reply(f"<b>ʏᴏᴜ ʜᴀᴠᴇ ᴊᴏɪɴᴇᴅ ᴜsɪɴɢ ᴛʜᴇ ʀᴇғᴇʀʀᴀʟ ʟɪɴᴋ ᴏғ ᴜsᴇʀ ᴡɪᴛʜ ɪᴅ {user_id},\n\nᴄᴏɴɢʀᴀᴛᴜʟᴀᴛɪᴏɴs 🎁🎉, ʏᴏᴜ ʜᴀᴠᴇ ɢᴏᴛ 1 ᴅᴀʏ ғʀᴇᴇ ᴘʀᴇᴍɪᴜᴍ ᴛʀɪᴀʟ, ɴᴏᴡ ʏᴏᴜ ᴄᴀɴ ɢᴇᴛ ᴍᴏᴠɪᴇs ᴡɪᴛʜᴏᴜᴛ ᴀᴅs ғᴏʀ 1 ᴅᴀʏ.</b>") 
+                    await db.update_invited(message.from_user.id)
+                num_referrals = await get_referal_users_count(user_id)
+                await client.send_message(chat_id = user_id, text = "<b>{} sᴛᴀʀᴛ ᴛʜᴇ ʙᴏᴛ ᴡɪᴛʜ ʏᴏᴜʀ ʀᴇғᴇʀʀᴀʟ ʟɪɴᴋ\n\nᴛᴏᴛᴀʟ ʀᴇғᴇʀᴀʟs - {}</b>".format(message.from_user.mention, num_referrals))
+                if await get_referal_users_count(user_id) == USERS_COUNT:
+                    await db.give_referal(user_id)
+                    await delete_all_referal_users(user_id)
+                    await client.send_message(chat_id = user_id, text = "<b>ᴄᴏɴɢʀᴀᴛᴜʟᴀᴛɪᴏɴs 🎁🎉, ʏᴏᴜʀ ᴛᴏᴛᴀʟ ʀᴇғᴇʀʀᴀʟ ʜᴀs ʙᴇᴇɴ ᴄᴏᴍᴘʟᴇᴛᴇᴅ.\n\nʏᴏᴜ ɢᴇᴛ ᴘʀᴇᴍɪᴜᴍ ғᴏʀ 1 ᴍᴏɴᴛʜ</b>")
+                    return 
+    
+        elif data.split("-", 1)[0] == "del":
+            user_id = int(data.split("-", 1)[1])
+            
+            await delete_all_referal_users(user_id)
+            await message.reply("<b>Invite Successfully Deleted </b>")
+            return 
+                    
+        elif data.split("-", 1)[0] == "verify":
+            userid = data.split("-", 2)[1]
+            token = data.split("-", 3)[2]
+            fileid = data.split("-", 3)[3]
+            if str(message.from_user.id) != str(userid):
+                return await message.reply_text(
+                    text="<b>Iɴᴠᴀʟɪᴅ ʟɪɴᴋ ᴏʀ Exᴘɪʀᴇᴅ ʟɪɴᴋ !</b>",
+                    protect_content=True if PROTECT_CONTENT else False
+                )
+            is_valid = await check_token(client, userid, token)
+            
+            if is_valid == True:
+                if fileid == "all":
+                    btn = [[
+                        InlineKeyboardButton("Gᴇᴛ Fɪʟᴇ", url=f"https://telegram.me/{temp.U_NAME}?start=allfiles_{file_id}")
+                    ]]
+                    await verify_user(client, userid, token)
+                    await message.reply_text(
+                        text=f"<b>Hᴇʏ {message.from_user.mention}, Yᴏᴜ ᴀʀᴇ sᴜᴄᴄᴇssғᴜʟʟʏ ᴠᴇʀɪғɪᴇᴅ !\nNᴏᴡ ʏᴏᴜ ʜᴀᴠᴇ ᴜɴʟɪᴍɪᴛᴇᴅ ᴀᴄᴄᴇss ғᴏʀ ᴀʟʟ ᴍᴏᴠɪᴇs ᴛɪʟʟ ᴛʜᴇ ɴᴇxᴛ ᴠᴇʀɪғɪᴄᴀᴛɪᴏɴ ᴡʜɪᴄʜ ɪs ᴀғᴛᴇʀ 12 ʜᴏᴜʀs ғʀᴏᴍ ɴᴏᴡ.</b>",
+                        protect_content=True if PROTECT_CONTENT else False,
+                        reply_markup=InlineKeyboardMarkup(btn)
+                    )
+                    return
                 btn = [[
-                    InlineKeyboardButton("Gᴇᴛ Fɪʟᴇ", url=f"https://telegram.me/{temp.U_NAME}?start=allfiles_{file_id}")
+                    InlineKeyboardButton("Get File", url=f"https://telegram.me/{temp.U_NAME}?start=files_{fileid}")
                 ]]
-                await verify_user(client, userid, token)
                 await message.reply_text(
                     text=f"<b>Hᴇʏ {message.from_user.mention}, Yᴏᴜ ᴀʀᴇ sᴜᴄᴄᴇssғᴜʟʟʏ ᴠᴇʀɪғɪᴇᴅ !\nNᴏᴡ ʏᴏᴜ ʜᴀᴠᴇ ᴜɴʟɪᴍɪᴛᴇᴅ ᴀᴄᴄᴇss ғᴏʀ ᴀʟʟ ᴍᴏᴠɪᴇs ᴛɪʟʟ ᴛʜᴇ ɴᴇxᴛ ᴠᴇʀɪғɪᴄᴀᴛɪᴏɴ ᴡʜɪᴄʜ ɪs ᴀғᴛᴇʀ 12 ʜᴏᴜʀs ғʀᴏᴍ ɴᴏᴡ.</b>",
                     protect_content=True if PROTECT_CONTENT else False,
                     reply_markup=InlineKeyboardMarkup(btn)
                 )
+                await verify_user(client, userid, token)
                 return
-            btn = [[
-                InlineKeyboardButton("Get File", url=f"https://telegram.me/{temp.U_NAME}?start=files_{fileid}")
-            ]]
-            await message.reply_text(
-                text=f"<b>Hᴇʏ {message.from_user.mention}, Yᴏᴜ ᴀʀᴇ sᴜᴄᴄᴇssғᴜʟʟʏ ᴠᴇʀɪғɪᴇᴅ !\nNᴏᴡ ʏᴏᴜ ʜᴀᴠᴇ ᴜɴʟɪᴍɪᴛᴇᴅ ᴀᴄᴄᴇss ғᴏʀ ᴀʟʟ ᴍᴏᴠɪᴇs ᴛɪʟʟ ᴛʜᴇ ɴᴇxᴛ ᴠᴇʀɪғɪᴄᴀᴛɪᴏɴ ᴡʜɪᴄʜ ɪs ᴀғᴛᴇʀ 12 ʜᴏᴜʀs ғʀᴏᴍ ɴᴏᴡ.</b>",
-                protect_content=True if PROTECT_CONTENT else False,
-                reply_markup=InlineKeyboardMarkup(btn)
-            )
-            await verify_user(client, userid, token)
-            return
-        else:
-            return await message.reply_text(
-                text="<b>Iɴᴠᴀʟɪᴅ ʟɪɴᴋ ᴏʀ Exᴘɪʀᴇᴅ ʟɪɴᴋ !</b>",
-                protect_content=True if PROTECT_CONTENT else False
-            )
-    if data.startswith("sendfiles"):
-        chat_id = int("-" + file_id.split("-")[1])
-        userid = message.from_user.id if message.from_user else None
-        g = await get_shortlink(chat_id, f"https://telegram.me/{temp.U_NAME}?start=allfiles_{file_id}")
-        k = await client.send_message(chat_id=message.from_user.id,text=f"<b>Get All Files in a Single Click!!!\n\n📂 ʟɪɴᴋ ➠ : {g}</b>", reply_markup=InlineKeyboardMarkup(
-                [
-                    [
-                        InlineKeyboardButton('📁 ᴍᴏᴠɪᴇ ᴅᴏᴡɴʟᴏᴀᴅ ʟɪɴᴋ 📁', url=g)
-                    ], [
-                        InlineKeyboardButton('🤔 Hᴏᴡ Tᴏ Dᴏᴡɴʟᴏᴀᴅ 🤔', url=await get_tutorial(chat_id))
-                    ]
-                ]
-            )
-        )
-        return
-    elif data.startswith("short"):
-        user = message.from_user.id
-        if temp.SHORT.get(user)==None:
-            await message.reply_text(text="<b><i>Nᴏ Sᴜᴄʜ Fɪʟᴇ Eᴇxɪsᴛ.</b></i>")
-        else:
-            chat_id = temp.SHORT.get(user)
-        settings = await get_settings(chat_id)
-        if settings['is_shortlink']:
-            files_ = await get_file_details(file_id)
-            files = files_[0]
-            g = await get_shortlink(chat_id, f"https://telegram.me/{temp.U_NAME}?start=file_{file_id}")
-            k = await client.send_message(chat_id=message.from_user.id,text=f"<b>📕Nᴀᴍᴇ ➠ : <code>{files.file_name}</code> \n\n🔗Sɪᴢᴇ ➠ : {get_size(files.file_size)}\n\n📂Fɪʟᴇ ʟɪɴᴋ ➠ : {g}.</i></b>", 
-            reply_markup=InlineKeyboardMarkup([[
-                        InlineKeyboardButton('📂 ᴍᴏᴠɪᴇ ᴅᴏᴡɴʟᴏᴀᴅ ʟɪɴᴋ 📂', url=g)], 
-                        [InlineKeyboardButton('🤔 Hᴏᴡ Tᴏ Dᴏᴡɴʟᴏᴀᴅ 🤔', url=await get_tutorial(chat_id))]]))
-            return
-    elif data.startswith("all"):
-        files = temp.GETALL.get(file_id)
-        if not files:
-            return await message.reply('<b><i>Nᴏ Sᴜᴄʜ Fɪʟᴇ Eᴇxɪsᴛ.</b></i>')
-        filesarr = []
-        for file in files:
-            file_id = file.file_id
-            files_ = await get_file_details(file_id)
-            files1 = files_[0]
-            title = ' '.join(filter(lambda x: not x.startswith('[') and not x.startswith('@'), files1.file_name.split()))
-            size=get_size(files1.file_size)
-            f_caption=files1.caption
-            if CUSTOM_FILE_CAPTION:
-                try:
-                    f_caption=CUSTOM_FILE_CAPTION.format(file_name= '' if title is None else title, file_size='' if size is None else size, file_caption='' if f_caption is None else f_caption)
-                except Exception as e:
-                    logger.exception(e)
-                    f_caption=f_caption
-            if f_caption is None:
-                f_caption = f"{' '.join(filter(lambda x: not x.startswith('[') and not x.startswith('@'), files1.file_name.split()))}"
-            if IS_VERIFY and not await check_verification(client, message.from_user.id) and not await db.has_premium_access(message.from_user.id):
-                btn = [[
-                        InlineKeyboardButton("♻️ Vᴇʀɪғʏ ♻️", url=await get_token(client, message.from_user.id, f"https://telegram.me/{temp.U_NAME}?start=", file_id)),
-                        InlineKeyboardButton("⚠️ Hᴏᴡ Tᴏ Vᴇʀɪғʏ ⚠️", url=HOW_TO_VERIFY)
-                        ]]
-                await message.reply_text(
-                    text="You Are Not Verifid Today...",
-                    protect_content=True if pre == 'filep' else False,
-                    reply_markup=InlineKeyboardMarkup(btn)
+            else:
+                return await message.reply_text(
+                    text="<b>Iɴᴠᴀʟɪᴅ ʟɪɴᴋ ᴏʀ Exᴘɪʀᴇᴅ ʟɪɴᴋ !</b>",
+                    protect_content=True if PROTECT_CONTENT else False
                 )
-                return
-            msg = await client.send_cached_media(
-                chat_id=message.from_user.id,
-                file_id=file_id,
-                caption=f_caption,
-                protect_content=True if pre == 'filep' else False,
-                reply_markup=InlineKeyboardMarkup(
+        if data.startswith("sendfiles"):
+            chat_id = int("-" + file_id.split("-")[1])
+            userid = message.from_user.id if message.from_user else None
+            g = await get_shortlink(chat_id, f"https://telegram.me/{temp.U_NAME}?start=allfiles_{file_id}")
+            k = await client.send_message(chat_id=message.from_user.id,text=f"<b>Get All Files in a Single Click!!!\n\n📂 ʟɪɴᴋ ➠ : {g}</b>", reply_markup=InlineKeyboardMarkup(
                     [
-                     [
-                      InlineKeyboardButton("🖥️ ᴡᴀᴛᴄʜ / ᴅᴏᴡɴʟᴏᴀᴅ 📥", callback_data=f"streaming#{file_id}")
-                   ],[
-                      InlineKeyboardButton('🍁 ꜱᴇʟᴇᴄᴛ ᴄʜᴀᴛ & ꜱʜᴀʀᴇ ʙᴏᴛ 🍁', url='https://t.me/share/url?url=%F0%9F%91%89%20%C9%AA%EA%9C%B0%20%CA%8F%E1%B4%8F%E1%B4%9C%20%C9%B4%E1%B4%87%E1%B4%87%E1%B4%85%20%E1%B4%80%C9%B4%CA%8F%20%E1%B4%8D%E1%B4%8F%E1%B4%A0%C9%AA%E1%B4%87%2C%20%EA%9C%B1%E1%B4%87%CA%80%C9%AA%E1%B4%87%EA%9C%B1%20%26%20%0A%E1%B4%80%C9%B4%C9%AA%E1%B4%8D%E1%B4%87%20-%20%E1%B4%8A%E1%B4%9C%EA%9C%B1%E1%B4%9B%20%E1%B4%9B%CA%8F%E1%B4%98%E1%B4%87%20%C9%B4%E1%B4%80%E1%B4%8D%E1%B4%87%20%26%20%C9%A2%E1%B4%87%E1%B4%9B%20%C9%AA%C9%B4%203%20%EA%9C%B1%E1%B4%87%E1%B4%84%E1%B4%8F%C9%B4%E1%B4%85%20%E2%9C%85%0A%0A%E1%B4%8A%E1%B4%8F%C9%AA%C9%B4%20%E1%B4%8F%E1%B4%9C%CA%80%20%E1%B4%8D%E1%B4%8F%E1%B4%A0%C9%AA%E1%B4%87%20%CA%80%E1%B4%87%C7%AB%E1%B4%9C%E1%B4%87%EA%9C%B1%E1%B4%9B%20%C9%A2%CA%80%E1%B4%8F%E1%B4%9C%E1%B4%98%20%E2%9C%85%0A%F0%9F%91%89%20%40ThappyHour%20%0A%F0%9F%91%89%20%40ThappyHour%0A%0A%E1%B4%8A%E1%B4%8F%C9%AA%C9%B4%20%EA%9C%B0%E1%B4%8F%CA%80%20%C9%B4%E1%B4%87%E1%B4%A1%20%CA%80%E1%B4%87%CA%9F%E1%B4%87%E1%B4%80%EA%9C%B1%E1%B4%87%20%E1%B4%8D%E1%B4%8F%E1%B4%A0%C9%AA%E1%B4%87%20%E2%9C%85%0A%F0%9F%91%89%20%40The_Happy_Hour_Hindi%0A%F0%9F%91%89%20%40The_Happy_Hour_Hindi%0A%0A%F0%9F%91%89%20%E1%B4%9B%CA%9C%E1%B4%87%20%CA%9C%E1%B4%80%E1%B4%98%E1%B4%98%CA%8F%20%CA%9C%E1%B4%8F%E1%B4%9C%CA%80%E2%84%A2%20%E2%9C%85')
-                     ]
+                        [
+                            InlineKeyboardButton('📁 ᴍᴏᴠɪᴇ ᴅᴏᴡɴʟᴏᴀᴅ ʟɪɴᴋ 📁', url=g)
+                        ], [
+                            InlineKeyboardButton('🤔 Hᴏᴡ Tᴏ Dᴏᴡɴʟᴏᴀᴅ 🤔', url=await get_tutorial(chat_id))
+                        ]
                     ]
                 )
             )
-            
-    elif data.startswith("files"):
-        if await db.has_premium_access(message.from_user.id):
-            files = await get_file_details(file_id)
-            if not files:
-                return await message.reply('<b><i>Nᴏ Sᴜᴄʜ Fɪʟᴇ Eᴇxɪsᴛ.</b></i>')
-            filesarr = []
-            for file in files:
-                file_id = file.file_id
-                files_ = await get_file_details(file_id)
-                files = files_[0]
-                title = ' '.join(filter(lambda x: not x.startswith('[') and not x.startswith('@'), files.file_name.split()))
-                size=get_size(files.file_size)
-                f_caption=files.caption
-                if CUSTOM_FILE_CAPTION:
-                    try:
-                        f_caption=CUSTOM_FILE_CAPTION.format(file_name= '' if title is None else title, file_size='' if size is None else size, file_caption='' if f_caption is None else f_caption)
-                    except Exception as e:
-                        logger.exception(e)
-                        f_caption=f_caption
-                if f_caption is None:
-                    f_caption = f"{' '.join(filter(lambda x: not x.startswith('[') and not x.startswith('@'), files.file_name.split()))}"
-            await client.send_cached_media(
-                chat_id=message.from_user.id,
-                file_id=file_id,
-                caption=f_caption,
-                protect_content=True if pre == 'filep' else False,
-                reply_markup=InlineKeyboardMarkup([[
-                      InlineKeyboardButton("🖥️ ᴡᴀᴛᴄʜ / ᴅᴏᴡɴʟᴏᴀᴅ 📥", callback_data=f"streaming#{file_id}")],
-                      [InlineKeyboardButton('🍁 ꜱᴇʟᴇᴄᴛ ᴄʜᴀᴛ & ꜱʜᴀʀᴇ ʙᴏᴛ 🍁', url='https://t.me/share/url?url=%F0%9F%91%89%20%C9%AA%EA%9C%B0%20%CA%8F%E1%B4%8F%E1%B4%9C%20%C9%B4%E1%B4%87%E1%B4%87%E1%B4%85%20%E1%B4%80%C9%B4%CA%8F%20%E1%B4%8D%E1%B4%8F%E1%B4%A0%C9%AA%E1%B4%87%2C%20%EA%9C%B1%E1%B4%87%CA%80%C9%AA%E1%B4%87%EA%9C%B1%20%26%20%0A%E1%B4%80%C9%B4%C9%AA%E1%B4%8D%E1%B4%87%20-%20%E1%B4%8A%E1%B4%9C%EA%9C%B1%E1%B4%9B%20%E1%B4%9B%CA%8F%E1%B4%98%E1%B4%87%20%C9%B4%E1%B4%80%E1%B4%8D%E1%B4%87%20%26%20%C9%A2%E1%B4%87%E1%B4%9B%20%C9%AA%C9%B4%203%20%EA%9C%B1%E1%B4%87%E1%B4%84%E1%B4%8F%C9%B4%E1%B4%85%20%E2%9C%85%0A%0A%E1%B4%8A%E1%B4%8F%C9%AA%C9%B4%20%E1%B4%8F%E1%B4%9C%CA%80%20%E1%B4%8D%E1%B4%8F%E1%B4%A0%C9%AA%E1%B4%87%20%CA%80%E1%B4%87%C7%AB%E1%B4%9C%E1%B4%87%EA%9C%B1%E1%B4%9B%20%C9%A2%CA%80%E1%B4%8F%E1%B4%9C%E1%B4%98%20%E2%9C%85%0A%F0%9F%91%89%20%40ThappyHour%20%0A%F0%9F%91%89%20%40ThappyHour%0A%0A%E1%B4%8A%E1%B4%8F%C9%AA%C9%B4%20%EA%9C%B0%E1%B4%8F%CA%80%20%C9%B4%E1%B4%87%E1%B4%A1%20%CA%80%E1%B4%87%CA%9F%E1%B4%87%E1%B4%80%EA%9C%B1%E1%B4%87%20%E1%B4%8D%E1%B4%8F%E1%B4%A0%C9%AA%E1%B4%87%20%E2%9C%85%0A%F0%9F%91%89%20%40The_Happy_Hour_Hindi%0A%F0%9F%91%89%20%40The_Happy_Hour_Hindi%0A%0A%F0%9F%91%89%20%E1%B4%9B%CA%9C%E1%B4%87%20%CA%9C%E1%B4%80%E1%B4%98%E1%B4%98%CA%8F%20%CA%9C%E1%B4%8F%E1%B4%9C%CA%80%E2%84%A2%20%E2%9C%85')]]))
-            return 
-        else:
+            return
+        elif data.startswith("short"):
             user = message.from_user.id
             if temp.SHORT.get(user)==None:
-                await message.reply_text(text="<b><i>Search Again In Group.</b></i>")
+                await message.reply_text(text="<b><i>Nᴏ Sᴜᴄʜ Fɪʟᴇ Eᴇxɪsᴛ.</b></i>")
             else:
                 chat_id = temp.SHORT.get(user)
             settings = await get_settings(chat_id)
@@ -491,89 +399,212 @@ async def start(client, message):
                             InlineKeyboardButton('📂 ᴍᴏᴠɪᴇ ᴅᴏᴡɴʟᴏᴀᴅ ʟɪɴᴋ 📂', url=g)], 
                             [InlineKeyboardButton('🤔 Hᴏᴡ Tᴏ Dᴏᴡɴʟᴏᴀᴅ 🤔', url=await get_tutorial(chat_id))]]))
                 return
-    files_ = await get_file_details(file_id)           
-    if not files_:
-        pre, file_id = ((base64.urlsafe_b64decode(data + "=" * (-len(data) % 4))).decode("ascii")).split("_", 1)
-        try:
-            if await db.has_premium_access(message.from_user.id):
-                await client.send_cached_media(
+        elif data.startswith("all"):
+            files = temp.GETALL.get(file_id)
+            if not files:
+                return await message.reply('<b><i>Nᴏ Sᴜᴄʜ Fɪʟᴇ Eᴇxɪsᴛ.</b></i>')
+            filesarr = []
+            for file in files:
+                file_id = file.file_id
+                files_ = await get_file_details(file_id)
+                files1 = files_[0]
+                title = ' '.join(filter(lambda x: not x.startswith('[') and not x.startswith('@'), files1.file_name.split()))
+                size=get_size(files1.file_size)
+                f_caption=files1.caption
+                if CUSTOM_FILE_CAPTION:
+                    try:
+                        f_caption=CUSTOM_FILE_CAPTION.format(file_name= '' if title is None else title, file_size='' if size is None else size, file_caption='' if f_caption is None else f_caption)
+                    except Exception as e:
+                        logger.exception(e)
+                        f_caption=f_caption
+                if f_caption is None:
+                    f_caption = f"{' '.join(filter(lambda x: not x.startswith('[') and not x.startswith('@'), files1.file_name.split()))}"
+                if IS_VERIFY and not await check_verification(client, message.from_user.id) and not await db.has_premium_access(message.from_user.id):
+                    btn = [[
+                            InlineKeyboardButton("♻️ Vᴇʀɪғʏ ♻️", url=await get_token(client, message.from_user.id, f"https://telegram.me/{temp.U_NAME}?start=", file_id)),
+                            InlineKeyboardButton("⚠️ Hᴏᴡ Tᴏ Vᴇʀɪғʏ ⚠️", url=HOW_TO_VERIFY)
+                            ]]
+                    await message.reply_text(
+                        text="You Are Not Verifid Today...",
+                        protect_content=True if pre == 'filep' else False,
+                        reply_markup=InlineKeyboardMarkup(btn)
+                    )
+                    return
+                msg = await client.send_cached_media(
                     chat_id=message.from_user.id,
                     file_id=file_id,
+                    caption=f_caption,
                     protect_content=True if pre == 'filep' else False,
                     reply_markup=InlineKeyboardMarkup(
                         [
                          [
                           InlineKeyboardButton("🖥️ ᴡᴀᴛᴄʜ / ᴅᴏᴡɴʟᴏᴀᴅ 📥", callback_data=f"streaming#{file_id}")
-              
                        ],[
                           InlineKeyboardButton('🍁 ꜱᴇʟᴇᴄᴛ ᴄʜᴀᴛ & ꜱʜᴀʀᴇ ʙᴏᴛ 🍁', url='https://t.me/share/url?url=%F0%9F%91%89%20%C9%AA%EA%9C%B0%20%CA%8F%E1%B4%8F%E1%B4%9C%20%C9%B4%E1%B4%87%E1%B4%87%E1%B4%85%20%E1%B4%80%C9%B4%CA%8F%20%E1%B4%8D%E1%B4%8F%E1%B4%A0%C9%AA%E1%B4%87%2C%20%EA%9C%B1%E1%B4%87%CA%80%C9%AA%E1%B4%87%EA%9C%B1%20%26%20%0A%E1%B4%80%C9%B4%C9%AA%E1%B4%8D%E1%B4%87%20-%20%E1%B4%8A%E1%B4%9C%EA%9C%B1%E1%B4%9B%20%E1%B4%9B%CA%8F%E1%B4%98%E1%B4%87%20%C9%B4%E1%B4%80%E1%B4%8D%E1%B4%87%20%26%20%C9%A2%E1%B4%87%E1%B4%9B%20%C9%AA%C9%B4%203%20%EA%9C%B1%E1%B4%87%E1%B4%84%E1%B4%8F%C9%B4%E1%B4%85%20%E2%9C%85%0A%0A%E1%B4%8A%E1%B4%8F%C9%AA%C9%B4%20%E1%B4%8F%E1%B4%9C%CA%80%20%E1%B4%8D%E1%B4%8F%E1%B4%A0%C9%AA%E1%B4%87%20%CA%80%E1%B4%87%C7%AB%E1%B4%9C%E1%B4%87%EA%9C%B1%E1%B4%9B%20%C9%A2%CA%80%E1%B4%8F%E1%B4%9C%E1%B4%98%20%E2%9C%85%0A%F0%9F%91%89%20%40ThappyHour%20%0A%F0%9F%91%89%20%40ThappyHour%0A%0A%E1%B4%8A%E1%B4%8F%C9%AA%C9%B4%20%EA%9C%B0%E1%B4%8F%CA%80%20%C9%B4%E1%B4%87%E1%B4%A1%20%CA%80%E1%B4%87%CA%9F%E1%B4%87%E1%B4%80%EA%9C%B1%E1%B4%87%20%E1%B4%8D%E1%B4%8F%E1%B4%A0%C9%AA%E1%B4%87%20%E2%9C%85%0A%F0%9F%91%89%20%40The_Happy_Hour_Hindi%0A%F0%9F%91%89%20%40The_Happy_Hour_Hindi%0A%0A%F0%9F%91%89%20%E1%B4%9B%CA%9C%E1%B4%87%20%CA%9C%E1%B4%80%E1%B4%98%E1%B4%98%CA%8F%20%CA%9C%E1%B4%8F%E1%B4%9C%CA%80%E2%84%A2%20%E2%9C%85')
                          ]
                         ]
                     )
                 )
-                return
-            elif IS_VERIFY and not await check_verification(client, message.from_user.id):
-                btn = [[
-                    InlineKeyboardButton("♻️ Vᴇʀɪғʏ ♻️", url=await get_token(client, message.from_user.id, f"https://telegram.me/{temp.U_NAME}?start=", file_id)),
-                    InlineKeyboardButton("⚠️ Hᴏᴡ Tᴏ Vᴇʀɪғʏ ⚠️", url=HOW_TO_VERIFY)
-                    ],[
-                    InlineKeyboardButton("📚 Buy Premium 📚", callback_data='seeplans')
-                ]]
-                await message.reply_text(
-                    text="You Are Not Verified Today...",
-                    protect_content=True if PROTECT_CONTENT else False,
-                    reply_markup=InlineKeyboardMarkup(btn)
+                
+        elif data.startswith("files"):
+            if await db.has_premium_access(message.from_user.id):
+                files = await get_file_details(file_id)
+                if not files:
+                    return await message.reply('<b><i>Nᴏ Sᴜᴄʜ Fɪʟᴇ Eᴇxɪsᴛ.</b></i>')
+                filesarr = []
+                for file in files:
+                    file_id = file.file_id
+                    files_ = await get_file_details(file_id)
+                    files = files_[0]
+                    title = ' '.join(filter(lambda x: not x.startswith('[') and not x.startswith('@'), files.file_name.split()))
+                    size=get_size(files.file_size)
+                    f_caption=files.caption
+                    if CUSTOM_FILE_CAPTION:
+                        try:
+                            f_caption=CUSTOM_FILE_CAPTION.format(file_name= '' if title is None else title, file_size='' if size is None else size, file_caption='' if f_caption is None else f_caption)
+                        except Exception as e:
+                            logger.exception(e)
+                            f_caption=f_caption
+                    if f_caption is None:
+                        f_caption = f"{' '.join(filter(lambda x: not x.startswith('[') and not x.startswith('@'), files.file_name.split()))}"
+                await client.send_cached_media(
+                    chat_id=message.from_user.id,
+                    file_id=file_id,
+                    caption=f_caption,
+                    protect_content=True if pre == 'filep' else False,
+                    reply_markup=InlineKeyboardMarkup([[
+                          InlineKeyboardButton("🖥️ ᴡᴀᴛᴄʜ / ᴅᴏᴡɴʟᴏᴀᴅ 📥", callback_data=f"streaming#{file_id}")],
+                          [InlineKeyboardButton('🍁 ꜱᴇʟᴇᴄᴛ ᴄʜᴀᴛ & ꜱʜᴀʀᴇ ʙᴏᴛ 🍁', url='https://t.me/share/url?url=%F0%9F%91%89%20%C9%AA%EA%9C%B0%20%CA%8F%E1%B4%8F%E1%B4%9C%20%C9%B4%E1%B4%87%E1%B4%87%E1%B4%85%20%E1%B4%80%C9%B4%CA%8F%20%E1%B4%8D%E1%B4%8F%E1%B4%A0%C9%AA%E1%B4%87%2C%20%EA%9C%B1%E1%B4%87%CA%80%C9%AA%E1%B4%87%EA%9C%B1%20%26%20%0A%E1%B4%80%C9%B4%C9%AA%E1%B4%8D%E1%B4%87%20-%20%E1%B4%8A%E1%B4%9C%EA%9C%B1%E1%B4%9B%20%E1%B4%9B%CA%8F%E1%B4%98%E1%B4%87%20%C9%B4%E1%B4%80%E1%B4%8D%E1%B4%87%20%26%20%C9%A2%E1%B4%87%E1%B4%9B%20%C9%AA%C9%B4%203%20%EA%9C%B1%E1%B4%87%E1%B4%84%E1%B4%8F%C9%B4%E1%B4%85%20%E2%9C%85%0A%0A%E1%B4%8A%E1%B4%8F%C9%AA%C9%B4%20%E1%B4%8F%E1%B4%9C%CA%80%20%E1%B4%8D%E1%B4%8F%E1%B4%A0%C9%AA%E1%B4%87%20%CA%80%E1%B4%87%C7%AB%E1%B4%9C%E1%B4%87%EA%9C%B1%E1%B4%9B%20%C9%A2%CA%80%E1%B4%8F%E1%B4%9C%E1%B4%98%20%E2%9C%85%0A%F0%9F%91%89%20%40ThappyHour%20%0A%F0%9F%91%89%20%40ThappyHour%0A%0A%E1%B4%8A%E1%B4%8F%C9%AA%C9%B4%20%EA%9C%B0%E1%B4%8F%CA%80%20%C9%B4%E1%B4%87%E1%B4%A1%20%CA%80%E1%B4%87%CA%9F%E1%B4%87%E1%B4%80%EA%9C%B1%E1%B4%87%20%E1%B4%8D%E1%B4%8F%E1%B4%A0%C9%AA%E1%B4%87%20%E2%9C%85%0A%F0%9F%91%89%20%40The_Happy_Hour_Hindi%0A%F0%9F%91%89%20%40The_Happy_Hour_Hindi%0A%0A%F0%9F%91%89%20%E1%B4%9B%CA%9C%E1%B4%87%20%CA%9C%E1%B4%80%E1%B4%98%E1%B4%98%CA%8F%20%CA%9C%E1%B4%8F%E1%B4%9C%CA%80%E2%84%A2%20%E2%9C%85')]]))
+                return 
+            else:
+                user = message.from_user.id
+                if temp.SHORT.get(user)==None:
+                    await message.reply_text(text="<b><i>Search Again In Group.</b></i>")
+                else:
+                    chat_id = temp.SHORT.get(user)
+                settings = await get_settings(chat_id)
+                if settings['is_shortlink']:
+                    files_ = await get_file_details(file_id)
+                    files = files_[0]
+                    g = await get_shortlink(chat_id, f"https://telegram.me/{temp.U_NAME}?start=file_{file_id}")
+                    k = await client.send_message(chat_id=message.from_user.id,text=f"<b>📕Nᴀᴍᴇ ➠ : <code>{files.file_name}</code> \n\n🔗Sɪᴢᴇ ➠ : {get_size(files.file_size)}\n\n📂Fɪʟᴇ ʟɪɴᴋ ➠ : {g}.</i></b>", 
+                    reply_markup=InlineKeyboardMarkup([[
+                                InlineKeyboardButton('📂 ᴍᴏᴠɪᴇ ᴅᴏᴡɴʟᴏᴀᴅ ʟɪɴᴋ 📂', url=g)], 
+                                [InlineKeyboardButton('🤔 Hᴏᴡ Tᴏ Dᴏᴡɴʟᴏᴀᴅ 🤔', url=await get_tutorial(chat_id))]]))
+                    return
+        files_ = await get_file_details(file_id)           
+        if not files_:
+            pre, file_id = ((base64.urlsafe_b64decode(data + "=" * (-len(data) % 4))).decode("ascii")).split("_", 1)
+            try:
+                if await db.has_premium_access(message.from_user.id):
+                    await client.send_cached_media(
+                        chat_id=message.from_user.id,
+                        file_id=file_id,
+                        protect_content=True if pre == 'filep' else False,
+                        reply_markup=InlineKeyboardMarkup(
+                            [
+                             [
+                              InlineKeyboardButton("🖥️ ᴡᴀᴛᴄʜ / ᴅᴏᴡɴʟᴏᴀᴅ 📥", callback_data=f"streaming#{file_id}")
+                  
+                           ],[
+                              InlineKeyboardButton('🍁 ꜱᴇʟᴇᴄᴛ ᴄʜᴀᴛ & ꜱʜᴀʀᴇ ʙᴏᴛ 🍁', url='https://t.me/share/url?url=%F0%9F%91%89%20%C9%AA%EA%9C%B0%20%CA%8F%E1%B4%8F%E1%B4%9C%20%C9%B4%E1%B4%87%E1%B4%87%E1%B4%85%20%E1%B4%80%C9%B4%CA%8F%20%E1%B4%8D%E1%B4%8F%E1%B4%A0%C9%AA%E1%B4%87%2C%20%EA%9C%B1%E1%B4%87%CA%80%C9%AA%E1%B4%87%EA%9C%B1%20%26%20%0A%E1%B4%80%C9%B4%C9%AA%E1%B4%8D%E1%B4%87%20-%20%E1%B4%8A%E1%B4%9C%EA%9C%B1%E1%B4%9B%20%E1%B4%9B%CA%8F%E1%B4%98%E1%B4%87%20%C9%B4%E1%B4%80%E1%B4%8D%E1%B4%87%20%26%20%C9%A2%E1%B4%87%E1%B4%9B%20%C9%AA%C9%B4%203%20%EA%9C%B1%E1%B4%87%E1%B4%84%E1%B4%8F%C9%B4%E1%B4%85%20%E2%9C%85%0A%0A%E1%B4%8A%E1%B4%8F%C9%AA%C9%B4%20%E1%B4%8F%E1%B4%9C%CA%80%20%E1%B4%8D%E1%B4%8F%E1%B4%A0%C9%AA%E1%B4%87%20%CA%80%E1%B4%87%C7%AB%E1%B4%9C%E1%B4%87%EA%9C%B1%E1%B4%9B%20%C9%A2%CA%80%E1%B4%8F%E1%B4%9C%E1%B4%98%20%E2%9C%85%0A%F0%9F%91%89%20%40ThappyHour%20%0A%F0%9F%91%89%20%40ThappyHour%0A%0A%E1%B4%8A%E1%B4%8F%C9%AA%C9%B4%20%EA%9C%B0%E1%B4%8F%CA%80%20%C9%B4%E1%B4%87%E1%B4%A1%20%CA%80%E1%B4%87%CA%9F%E1%B4%87%E1%B4%80%EA%9C%B1%E1%B4%87%20%E1%B4%8D%E1%B4%8F%E1%B4%A0%C9%AA%E1%B4%87%20%E2%9C%85%0A%F0%9F%91%89%20%40The_Happy_Hour_Hindi%0A%F0%9F%91%89%20%40The_Happy_Hour_Hindi%0A%0A%F0%9F%91%89%20%E1%B4%9B%CA%9C%E1%B4%87%20%CA%9C%E1%B4%80%E1%B4%98%E1%B4%98%CA%8F%20%CA%9C%E1%B4%8F%E1%B4%9C%CA%80%E2%84%A2%20%E2%9C%85')
+                             ]
+                            ]
+                        )
+                    )
+                    return
+                elif IS_VERIFY and not await check_verification(client, message.from_user.id):
+                    btn = [[
+                        InlineKeyboardButton("♻️ Vᴇʀɪғʏ ♻️", url=await get_token(client, message.from_user.id, f"https://telegram.me/{temp.U_NAME}?start=", file_id)),
+                        InlineKeyboardButton("⚠️ Hᴏᴡ Tᴏ Vᴇʀɪғʏ ⚠️", url=HOW_TO_VERIFY)
+                        ],[
+                        InlineKeyboardButton("📚 Buy Premium 📚", callback_data='seeplans')
+                    ]]
+                    await message.reply_text(
+                        text="You Are Not Verified Today...",
+                        protect_content=True if PROTECT_CONTENT else False,
+                        reply_markup=InlineKeyboardMarkup(btn)
+                    )
+                    return
+                msg = await client.send_cached_media(
+                    chat_id=message.from_user.id,
+                    file_id=file_id,
+                    protect_content=True if pre == 'filep' else False,
+                    reply_markup=InlineKeyboardMarkup(
+                        [
+                         [
+                          InlineKeyboardButton("🖥️ ᴡᴀᴛᴄʜ & ᴅᴏᴡɴʟᴏᴀᴅ 📥", callback_data=f"streaming#{file_id}")
+                  
+                       ],[
+                          InlineKeyboardButton('🍁 ꜱᴇʟᴇᴄᴛ ᴄʜᴀᴛ & ꜱʜᴀʀᴇ ʙᴏᴛ 🍁', url='https://t.me/share/url?url=%F0%9F%91%89%20%C9%AA%EA%9C%B0%20%CA%8F%E1%B4%8F%E1%B4%9C%20%C9%B4%E1%B4%87%E1%B4%87%E1%B4%85%20%E1%B4%80%C9%B4%CA%8F%20%E1%B4%8D%E1%B4%8F%E1%B4%A0%C9%AA%E1%B4%87%2C%20%EA%9C%B1%E1%B4%87%CA%80%C9%AA%E1%B4%87%EA%9C%B1%20%26%20%0A%E1%B4%80%C9%B4%C9%AA%E1%B4%8D%E1%B4%87%20-%20%E1%B4%8A%E1%B4%9C%EA%9C%B1%E1%B4%9B%20%E1%B4%9B%CA%8F%E1%B4%98%E1%B4%87%20%C9%B4%E1%B4%80%E1%B4%8D%E1%B4%87%20%26%20%C9%A2%E1%B4%87%E1%B4%9B%20%C9%AA%C9%B4%203%20%EA%9C%B1%E1%B4%87%E1%B4%84%E1%B4%8F%C9%B4%E1%B4%85%20%E2%9C%85%0A%0A%E1%B4%8A%E1%B4%8F%C9%AA%C9%B4%20%E1%B4%8F%E1%B4%9C%CA%80%20%E1%B4%8D%E1%B4%8F%E1%B4%A0%C9%AA%E1%B4%87%20%CA%80%E1%B4%87%C7%AB%E1%B4%9C%E1%B4%87%EA%9C%B1%E1%B4%9B%20%C9%A2%CA%80%E1%B4%8F%E1%B4%9C%E1%B4%98%20%E2%9C%85%0A%F0%9F%91%89%20%40ThappyHour%20%0A%F0%9F%91%89%20%40ThappyHour%0A%0A%E1%B4%8A%E1%B4%8F%C9%AA%C9%B4%20%EA%9C%B0%E1%B4%8F%CA%80%20%C9%B4%E1%B4%87%E1%B4%A1%20%CA%80%E1%B4%87%CA%9F%E1%B4%87%E1%B4%80%EA%9C%B1%E1%B4%87%20%E1%B4%8D%E1%B4%8F%E1%B4%A0%C9%AA%E1%B4%87%20%E2%9C%85%0A%F0%9F%91%89%20%40The_Happy_Hour_Hindi%0A%F0%9F%91%89%20%40The_Happy_Hour_Hindi%0A%0A%F0%9F%91%89%20%E1%B4%9B%CA%9C%E1%B4%87%20%CA%9C%E1%B4%80%E1%B4%98%E1%B4%98%CA%8F%20%CA%9C%E1%B4%8F%E1%B4%9C%CA%80%E2%84%A2%20%E2%9C%85')
+                         ]
+                        ]
+                    )
                 )
+                filetype = msg.media
+                file = getattr(msg, filetype.value)
+                title = ' '.join(filter(lambda x: not x.startswith('[') and not x.startswith('Linkz') and not x.startswith('boxoffice') and not x.startswith('Original') and not x.startswith('Villa') and not x.startswith('{') and not x.startswith('Links') and not x.startswith('@') and not x.startswith('www'), file.file_name.split()))
+                size=get_size(file.file_size)
+                f_caption = f"<code>{title}</code>"
+                if CUSTOM_FILE_CAPTION:
+                    try:
+                        f_caption=CUSTOM_FILE_CAPTION.format(file_name= '' if title is None else title, file_size='' if size is None else size, file_caption='')
+                    except:
+                        return
+                await msg.edit_caption(f_caption)
+                # del_msg = await message.reply_text("<b>⚠️ᴛʜɪs ғɪʟᴇ ᴡɪʟʟ ʙᴇ ᴅᴇʟᴇᴛᴇᴅ ᴀғᴛᴇʀ 5 ᴍɪɴᴜᴛᴇs\n\nᴘʟᴇᴀsᴇ ғᴏʀᴡᴀʀᴅ ᴛʜᴇ ғɪʟᴇ sᴏᴍᴇᴡʜᴇʀᴇ ʙᴇғᴏʀᴇ ᴅᴏᴡɴʟᴏᴀᴅɪɴɢ..</b>")
+                # safari = msg
+                # await asyncio.sleep(300)
+                # await safari.delete()
+                # await del_msg.edit_text("<b>ʏᴏᴜʀ ғɪʟᴇ ᴡᴀs ᴅᴇʟᴇᴛᴇᴅ sᴜᴄᴄᴇssғᴜʟʟʏ ᴀғᴛᴇʀ 5 ᴍɪɴᴜᴛᴇs ᴛᴏ ᴀᴠᴏɪᴅ ᴄᴏᴘʏʀɪɢʜᴛ 📢</b>")
                 return
-            msg = await client.send_cached_media(
+            except:
+                pass
+            return await message.reply('Nᴏ sᴜᴄʜ ғɪʟᴇ ᴇxɪsᴛ.')
+        files = files_[0]
+        title = ' '.join(filter(lambda x: not x.startswith('[') and not x.startswith('Linkz') and not x.startswith('{') and not x.startswith('Links') and not x.startswith('boxoffice') and not x.startswith('Original') and not x.startswith('Villa') and not x.startswith('@') and not x.startswith('www'), files.file_name.split()))
+        size=get_size(files.file_size)
+        f_caption=files.caption
+        if CUSTOM_FILE_CAPTION:
+            try:
+                f_caption=CUSTOM_FILE_CAPTION.format(file_name= '' if title is None else title, file_size='' if size is None else size, file_caption='' if f_caption is None else f_caption)
+            except Exception as e:
+                logger.exception(e)
+                f_caption=f_caption
+        if f_caption is None:
+            f_caption = f"{' '.join(filter(lambda x: not x.startswith('[') and not x.startswith('Linkz') and not x.startswith('{') and not x.startswith('Links')and not x.startswith('boxoffice') and not x.startswith('Original') and not x.startswith('Villa') and not x.startswith('@') and not x.startswith('www'), files.file_name.split()))}"
+        if await db.has_premium_access(message.from_user.id):
+            await client.send_cached_media(
                 chat_id=message.from_user.id,
                 file_id=file_id,
+                caption=f_caption,
                 protect_content=True if pre == 'filep' else False,
                 reply_markup=InlineKeyboardMarkup(
                     [
                      [
-                      InlineKeyboardButton("🖥️ ᴡᴀᴛᴄʜ & ᴅᴏᴡɴʟᴏᴀᴅ 📥", callback_data=f"streaming#{file_id}")
-              
+                      InlineKeyboardButton("🖥️ ᴡᴀᴛᴄʜ / ᴅᴏᴡɴʟᴏᴀᴅ 📥", callback_data=f"streaming#{file_id}")
+                  
                    ],[
                       InlineKeyboardButton('🍁 ꜱᴇʟᴇᴄᴛ ᴄʜᴀᴛ & ꜱʜᴀʀᴇ ʙᴏᴛ 🍁', url='https://t.me/share/url?url=%F0%9F%91%89%20%C9%AA%EA%9C%B0%20%CA%8F%E1%B4%8F%E1%B4%9C%20%C9%B4%E1%B4%87%E1%B4%87%E1%B4%85%20%E1%B4%80%C9%B4%CA%8F%20%E1%B4%8D%E1%B4%8F%E1%B4%A0%C9%AA%E1%B4%87%2C%20%EA%9C%B1%E1%B4%87%CA%80%C9%AA%E1%B4%87%EA%9C%B1%20%26%20%0A%E1%B4%80%C9%B4%C9%AA%E1%B4%8D%E1%B4%87%20-%20%E1%B4%8A%E1%B4%9C%EA%9C%B1%E1%B4%9B%20%E1%B4%9B%CA%8F%E1%B4%98%E1%B4%87%20%C9%B4%E1%B4%80%E1%B4%8D%E1%B4%87%20%26%20%C9%A2%E1%B4%87%E1%B4%9B%20%C9%AA%C9%B4%203%20%EA%9C%B1%E1%B4%87%E1%B4%84%E1%B4%8F%C9%B4%E1%B4%85%20%E2%9C%85%0A%0A%E1%B4%8A%E1%B4%8F%C9%AA%C9%B4%20%E1%B4%8F%E1%B4%9C%CA%80%20%E1%B4%8D%E1%B4%8F%E1%B4%A0%C9%AA%E1%B4%87%20%CA%80%E1%B4%87%C7%AB%E1%B4%9C%E1%B4%87%EA%9C%B1%E1%B4%9B%20%C9%A2%CA%80%E1%B4%8F%E1%B4%9C%E1%B4%98%20%E2%9C%85%0A%F0%9F%91%89%20%40ThappyHour%20%0A%F0%9F%91%89%20%40ThappyHour%0A%0A%E1%B4%8A%E1%B4%8F%C9%AA%C9%B4%20%EA%9C%B0%E1%B4%8F%CA%80%20%C9%B4%E1%B4%87%E1%B4%A1%20%CA%80%E1%B4%87%CA%9F%E1%B4%87%E1%B4%80%EA%9C%B1%E1%B4%87%20%E1%B4%8D%E1%B4%8F%E1%B4%A0%C9%AA%E1%B4%87%20%E2%9C%85%0A%F0%9F%91%89%20%40The_Happy_Hour_Hindi%0A%F0%9F%91%89%20%40The_Happy_Hour_Hindi%0A%0A%F0%9F%91%89%20%E1%B4%9B%CA%9C%E1%B4%87%20%CA%9C%E1%B4%80%E1%B4%98%E1%B4%98%CA%8F%20%CA%9C%E1%B4%8F%E1%B4%9C%CA%80%E2%84%A2%20%E2%9C%85')
                      ]
                     ]
                 )
             )
-            filetype = msg.media
-            file = getattr(msg, filetype.value)
-            title = ' '.join(filter(lambda x: not x.startswith('[') and not x.startswith('Linkz') and not x.startswith('boxoffice') and not x.startswith('Original') and not x.startswith('Villa') and not x.startswith('{') and not x.startswith('Links') and not x.startswith('@') and not x.startswith('www'), file.file_name.split()))
-            size=get_size(file.file_size)
-            f_caption = f"<code>{title}</code>"
-            if CUSTOM_FILE_CAPTION:
-                try:
-                    f_caption=CUSTOM_FILE_CAPTION.format(file_name= '' if title is None else title, file_size='' if size is None else size, file_caption='')
-                except:
-                    return
-            await msg.edit_caption(f_caption)
-            # del_msg = await message.reply_text("<b>⚠️ᴛʜɪs ғɪʟᴇ ᴡɪʟʟ ʙᴇ ᴅᴇʟᴇᴛᴇᴅ ᴀғᴛᴇʀ 5 ᴍɪɴᴜᴛᴇs\n\nᴘʟᴇᴀsᴇ ғᴏʀᴡᴀʀᴅ ᴛʜᴇ ғɪʟᴇ sᴏᴍᴇᴡʜᴇʀᴇ ʙᴇғᴏʀᴇ ᴅᴏᴡɴʟᴏᴀᴅɪɴɢ..</b>")
-            # safari = msg
-            # await asyncio.sleep(300)
-            # await safari.delete()
-            # await del_msg.edit_text("<b>ʏᴏᴜʀ ғɪʟᴇ ᴡᴀs ᴅᴇʟᴇᴛᴇᴅ sᴜᴄᴄᴇssғᴜʟʟʏ ᴀғᴛᴇʀ 5 ᴍɪɴᴜᴛᴇs ᴛᴏ ᴀᴠᴏɪᴅ ᴄᴏᴘʏʀɪɢʜᴛ 📢</b>")
             return
-        except:
-            pass
-        return await message.reply('Nᴏ sᴜᴄʜ ғɪʟᴇ ᴇxɪsᴛ.')
-    files = files_[0]
-    title = ' '.join(filter(lambda x: not x.startswith('[') and not x.startswith('Linkz') and not x.startswith('{') and not x.startswith('Links') and not x.startswith('boxoffice') and not x.startswith('Original') and not x.startswith('Villa') and not x.startswith('@') and not x.startswith('www'), files.file_name.split()))
-    size=get_size(files.file_size)
-    f_caption=files.caption
-    if CUSTOM_FILE_CAPTION:
-        try:
-            f_caption=CUSTOM_FILE_CAPTION.format(file_name= '' if title is None else title, file_size='' if size is None else size, file_caption='' if f_caption is None else f_caption)
-        except Exception as e:
-            logger.exception(e)
-            f_caption=f_caption
-    if f_caption is None:
-        f_caption = f"{' '.join(filter(lambda x: not x.startswith('[') and not x.startswith('Linkz') and not x.startswith('{') and not x.startswith('Links')and not x.startswith('boxoffice') and not x.startswith('Original') and not x.startswith('Villa') and not x.startswith('@') and not x.startswith('www'), files.file_name.split()))}"
-    if await db.has_premium_access(message.from_user.id):
-        await client.send_cached_media(
+        elif IS_VERIFY and not await check_verification(client, message.from_user.id):
+            btn = [[
+                InlineKeyboardButton("♻️ Vᴇʀɪғʏ ♻️", url=await get_token(client, message.from_user.id, f"https://telegram.me/{temp.U_NAME}?start=", file_id)),
+                InlineKeyboardButton("⚠️ Hᴏᴡ Tᴏ Vᴇʀɪғʏ ⚠️", url=HOW_TO_VERIFY)
+                ],[
+                InlineKeyboardButton("📚 Buy Premium 📚", callback_data='seeplans')
+            ]]
+            await message.reply_text(
+                text="You Are Not Verifird Today...",
+                protect_content=True if PROTECT_CONTENT else False,
+                reply_markup=InlineKeyboardMarkup(btn)
+            )
+            return
+        msg=await client.send_cached_media(
             chat_id=message.from_user.id,
             file_id=file_id,
             caption=f_caption,
@@ -581,50 +612,24 @@ async def start(client, message):
             reply_markup=InlineKeyboardMarkup(
                 [
                  [
-                  InlineKeyboardButton("🖥️ ᴡᴀᴛᴄʜ / ᴅᴏᴡɴʟᴏᴀᴅ 📥", callback_data=f"streaming#{file_id}")
-              
+                 InlineKeyboardButton("🖥️ ᴡᴀᴛᴄʜ & ᴅᴏᴡɴʟᴏᴀᴅ 📥", callback_data=f"streaming#{file_id}")
+                  
                ],[
                   InlineKeyboardButton('🍁 ꜱᴇʟᴇᴄᴛ ᴄʜᴀᴛ & ꜱʜᴀʀᴇ ʙᴏᴛ 🍁', url='https://t.me/share/url?url=%F0%9F%91%89%20%C9%AA%EA%9C%B0%20%CA%8F%E1%B4%8F%E1%B4%9C%20%C9%B4%E1%B4%87%E1%B4%87%E1%B4%85%20%E1%B4%80%C9%B4%CA%8F%20%E1%B4%8D%E1%B4%8F%E1%B4%A0%C9%AA%E1%B4%87%2C%20%EA%9C%B1%E1%B4%87%CA%80%C9%AA%E1%B4%87%EA%9C%B1%20%26%20%0A%E1%B4%80%C9%B4%C9%AA%E1%B4%8D%E1%B4%87%20-%20%E1%B4%8A%E1%B4%9C%EA%9C%B1%E1%B4%9B%20%E1%B4%9B%CA%8F%E1%B4%98%E1%B4%87%20%C9%B4%E1%B4%80%E1%B4%8D%E1%B4%87%20%26%20%C9%A2%E1%B4%87%E1%B4%9B%20%C9%AA%C9%B4%203%20%EA%9C%B1%E1%B4%87%E1%B4%84%E1%B4%8F%C9%B4%E1%B4%85%20%E2%9C%85%0A%0A%E1%B4%8A%E1%B4%8F%C9%AA%C9%B4%20%E1%B4%8F%E1%B4%9C%CA%80%20%E1%B4%8D%E1%B4%8F%E1%B4%A0%C9%AA%E1%B4%87%20%CA%80%E1%B4%87%C7%AB%E1%B4%9C%E1%B4%87%EA%9C%B1%E1%B4%9B%20%C9%A2%CA%80%E1%B4%8F%E1%B4%9C%E1%B4%98%20%E2%9C%85%0A%F0%9F%91%89%20%40ThappyHour%20%0A%F0%9F%91%89%20%40ThappyHour%0A%0A%E1%B4%8A%E1%B4%8F%C9%AA%C9%B4%20%EA%9C%B0%E1%B4%8F%CA%80%20%C9%B4%E1%B4%87%E1%B4%A1%20%CA%80%E1%B4%87%CA%9F%E1%B4%87%E1%B4%80%EA%9C%B1%E1%B4%87%20%E1%B4%8D%E1%B4%8F%E1%B4%A0%C9%AA%E1%B4%87%20%E2%9C%85%0A%F0%9F%91%89%20%40The_Happy_Hour_Hindi%0A%F0%9F%91%89%20%40The_Happy_Hour_Hindi%0A%0A%F0%9F%91%89%20%E1%B4%9B%CA%9C%E1%B4%87%20%CA%9C%E1%B4%80%E1%B4%98%E1%B4%98%CA%8F%20%CA%9C%E1%B4%8F%E1%B4%9C%CA%80%E2%84%A2%20%E2%9C%85')
                  ]
                 ]
             )
         )
-        return
-    elif IS_VERIFY and not await check_verification(client, message.from_user.id):
-        btn = [[
-            InlineKeyboardButton("♻️ Vᴇʀɪғʏ ♻️", url=await get_token(client, message.from_user.id, f"https://telegram.me/{temp.U_NAME}?start=", file_id)),
-            InlineKeyboardButton("⚠️ Hᴏᴡ Tᴏ Vᴇʀɪғʏ ⚠️", url=HOW_TO_VERIFY)
-            ],[
-            InlineKeyboardButton("📚 Buy Premium 📚", callback_data='seeplans')
-        ]]
-        await message.reply_text(
-            text="You Are Not Verifird Today...",
-            protect_content=True if PROTECT_CONTENT else False,
-            reply_markup=InlineKeyboardMarkup(btn)
-        )
-        return
-    msg=await client.send_cached_media(
-        chat_id=message.from_user.id,
-        file_id=file_id,
-        caption=f_caption,
-        protect_content=True if pre == 'filep' else False,
-        reply_markup=InlineKeyboardMarkup(
-            [
-             [
-             InlineKeyboardButton("🖥️ ᴡᴀᴛᴄʜ & ᴅᴏᴡɴʟᴏᴀᴅ 📥", callback_data=f"streaming#{file_id}")
-              
-           ],[
-              InlineKeyboardButton('🍁 ꜱᴇʟᴇᴄᴛ ᴄʜᴀᴛ & ꜱʜᴀʀᴇ ʙᴏᴛ 🍁', url='https://t.me/share/url?url=%F0%9F%91%89%20%C9%AA%EA%9C%B0%20%CA%8F%E1%B4%8F%E1%B4%9C%20%C9%B4%E1%B4%87%E1%B4%87%E1%B4%85%20%E1%B4%80%C9%B4%CA%8F%20%E1%B4%8D%E1%B4%8F%E1%B4%A0%C9%AA%E1%B4%87%2C%20%EA%9C%B1%E1%B4%87%CA%80%C9%AA%E1%B4%87%EA%9C%B1%20%26%20%0A%E1%B4%80%C9%B4%C9%AA%E1%B4%8D%E1%B4%87%20-%20%E1%B4%8A%E1%B4%9C%EA%9C%B1%E1%B4%9B%20%E1%B4%9B%CA%8F%E1%B4%98%E1%B4%87%20%C9%B4%E1%B4%80%E1%B4%8D%E1%B4%87%20%26%20%C9%A2%E1%B4%87%E1%B4%9B%20%C9%AA%C9%B4%203%20%EA%9C%B1%E1%B4%87%E1%B4%84%E1%B4%8F%C9%B4%E1%B4%85%20%E2%9C%85%0A%0A%E1%B4%8A%E1%B4%8F%C9%AA%C9%B4%20%E1%B4%8F%E1%B4%9C%CA%80%20%E1%B4%8D%E1%B4%8F%E1%B4%A0%C9%AA%E1%B4%87%20%CA%80%E1%B4%87%C7%AB%E1%B4%9C%E1%B4%87%EA%9C%B1%E1%B4%9B%20%C9%A2%CA%80%E1%B4%8F%E1%B4%9C%E1%B4%98%20%E2%9C%85%0A%F0%9F%91%89%20%40ThappyHour%20%0A%F0%9F%91%89%20%40ThappyHour%0A%0A%E1%B4%8A%E1%B4%8F%C9%AA%C9%B4%20%EA%9C%B0%E1%B4%8F%CA%80%20%C9%B4%E1%B4%87%E1%B4%A1%20%CA%80%E1%B4%87%CA%9F%E1%B4%87%E1%B4%80%EA%9C%B1%E1%B4%87%20%E1%B4%8D%E1%B4%8F%E1%B4%A0%C9%AA%E1%B4%87%20%E2%9C%85%0A%F0%9F%91%89%20%40The_Happy_Hour_Hindi%0A%F0%9F%91%89%20%40The_Happy_Hour_Hindi%0A%0A%F0%9F%91%89%20%E1%B4%9B%CA%9C%E1%B4%87%20%CA%9C%E1%B4%80%E1%B4%98%E1%B4%98%CA%8F%20%CA%9C%E1%B4%8F%E1%B4%9C%CA%80%E2%84%A2%20%E2%9C%85')
-             ]
-            ]
-        )
-    )
-    # del_msg = await message.reply_text("<b>⚠️ᴛʜɪs ғɪʟᴇ ᴡɪʟʟ ʙᴇ ᴅᴇʟᴇᴛᴇᴅ ᴀғᴛᴇʀ 5 ᴍɪɴᴜᴛᴇs\n\nᴘʟᴇᴀsᴇ ғᴏʀᴡᴀʀᴅ ᴛʜᴇ ғɪʟᴇ sᴏᴍᴇᴡʜᴇʀᴇ ʙᴇғᴏʀᴇ ᴅᴏᴡɴʟᴏᴀᴅɪɴɢ..</b>")
-    # safari = msg
-    # await asyncio.sleep(300)
-    # await safari.delete()
-    # await del_msg.edit_text("<b>ʏᴏᴜʀ ғɪʟᴇ ᴡᴀs ᴅᴇʟᴇᴛᴇᴅ sᴜᴄᴄᴇssғᴜʟʟʏ ᴀғᴛᴇʀ 5 ᴍɪɴᴜᴛᴇs ᴛᴏ ᴀᴠᴏɪᴅ ᴄᴏᴘʏʀɪɢʜᴛ 📢</b>")
-    return   
+        # del_msg = await message.reply_text("<b>⚠️ᴛʜɪs ғɪʟᴇ ᴡɪʟʟ ʙᴇ ᴅᴇʟᴇᴛᴇᴅ ᴀғᴛᴇʀ 5 ᴍɪɴᴜᴛᴇs\n\nᴘʟᴇᴀsᴇ ғᴏʀᴡᴀʀᴅ ᴛʜᴇ ғɪʟᴇ sᴏᴍᴇᴡʜᴇʀᴇ ʙᴇғᴏʀᴇ ᴅᴏᴡɴʟᴏᴀᴅɪɴɢ..</b>")
+        # safari = msg
+        # await asyncio.sleep(300)
+        # await safari.delete()
+        # await del_msg.edit_text("<b>ʏᴏᴜʀ ғɪʟᴇ ᴡᴀs ᴅᴇʟᴇᴛᴇᴅ sᴜᴄᴄᴇssғᴜʟʟʏ ᴀғᴛᴇʀ 5 ᴍɪɴᴜᴛᴇs ᴛᴏ ᴀᴠᴏɪᴅ ᴄᴏᴘʏʀɪɢʜᴛ 📢</b>")
+        return   
+    except Exception as e:
+        print {e}
+        await message.reply(f"error found {e}") 
+        
 @Client.on_message(filters.command('channel') & filters.user(ADMINS))
 async def channel_info(bot, message):
            
