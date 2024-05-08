@@ -1335,7 +1335,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
                     ]]
             reply_markup = InlineKeyboardMarkup(safari)
             await client.send_message(int(user_id), f'━━━━━━━━━━━━━━━━━━\n\nआपने "<b>{movie}</b>" का report भेजा है वो\nमूवी हमें नई मिला...🤒\n\n━━━━━━━━━━━━━━━━━━\n\nʏᴏᴜʀ ʀᴇǫᴜɪʀᴇᴅ ᴍᴏᴠɪᴇ ɪꜱ\nɴᴏᴛ ᴀᴠᴀɪʟᴀʙʟᴇ....\n\n━━━━━━━━━━━━━━━━━━')
-            msg=await query.edit_message_text(text=f"Mᴇꜱꜱᴀɢᴇ Sᴇɴᴅ Sᴜᴄᴄᴇꜱꜱғᴜʟʟʏ ✅\n\n⏳ꜱᴛᴀᴛᴜꜱ : Nᴏᴛ Aᴠᴀɪʟᴀʙʟᴇ 😒.\n🪪ᴜꜱᴇʀɪᴅ : `{user_id}`\n🎞ᴄᴏɴᴛᴇɴᴛ : `{movie}`", reply_markup=InlineKeyboardMarkup(safari))
+            msg=await query.edit_message_text(text=f"Mᴇꜱꜱᴀɢᴇ Sᴇɴᴅ Sᴜᴄᴄᴇꜱꜱғᴜʟʟʏ ✅\n\n⏳ꜱᴛᴀᴛᴜꜱ : Nᴏᴛ Aᴠᴀɪʟᴀʙʟᴇ 😒.\n🪪ᴜꜱᴇʀɪᴅ : {message.from_user.mention}\n🎞ᴄᴏɴᴛᴇɴᴛ : `{movie}`", reply_markup=InlineKeyboardMarkup(safari))
             # await asyncio.sleep(10)
             # await msg.delete()
         except Exception as e:
