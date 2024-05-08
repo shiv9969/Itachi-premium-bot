@@ -64,13 +64,13 @@ async def start(client, message):
         buttons = [[
                     InlineKeyboardButton('☆ ᴀᴅᴅ ᴍᴇ ᴛᴏ ʏᴏᴜʀ ɢʀᴏᴜᴘ ☆', url=f'http://telegram.me/{temp.U_NAME}?startgroup=true')
                 ],[
-                    InlineKeyboardButton('📚 ʙᴀᴄᴋᴜᴘ 📚', url=CHNL_LNK),
-                    InlineKeyboardButton('🌿 ɢʀᴏᴜᴘ 🌿', url=GRP_LNK),
-                    InlineKeyboardButton('🌈 ᴄʜᴀɴɴᴇʟ 🌈', url=f'http://t.me/The_Happy_Hour_Hindi')
+                    InlineKeyboardButton('📚 ʙᴀᴄᴋᴜᴘ', url=CHNL_LNK),
+                    InlineKeyboardButton('🌿 ɢʀᴏᴜᴘ', url=GRP_LNK),
+                    InlineKeyboardButton('🌈 ᴄʜᴀɴɴᴇʟ', url=f'http://t.me/The_Happy_Hour_Hindi')
                 ],[
-                    InlineKeyboardButton('🏕️ ᴀʙᴏᴜᴛ 🏕️', callback_data='about'),
-                    InlineKeyboardButton('🍾 ᴄᴏᴍᴍᴀɴᴅꜱ 🍾', callback_data='seeplans'),
-                    InlineKeyboardButton('🌹 ʀᴇғғᴇʀ 🌹', callback_data='subscription')
+                    InlineKeyboardButton('🏕️ ᴀʙᴏᴜᴛ', callback_data='about'),
+                    InlineKeyboardButton('🍾 ᴄᴏᴍᴍᴀɴᴅꜱ', callback_data='seeplans'),
+                    InlineKeyboardButton('🌹 ʀᴇғғᴇʀ', callback_data='subscription')
                 ],[
                     InlineKeyboardButton('🍁 ꜱᴇʟᴇᴄᴛ ᴄʜᴀᴛ & ꜱʜᴀʀᴇ ʙᴏᴛ 🍁', url='https://t.me/share/url?url=%F0%9F%91%89%20%C9%AA%EA%9C%B0%20%CA%8F%E1%B4%8F%E1%B4%9C%20%C9%B4%E1%B4%87%E1%B4%87%E1%B4%85%20%E1%B4%80%C9%B4%CA%8F%20%E1%B4%8D%E1%B4%8F%E1%B4%A0%C9%AA%E1%B4%87%2C%20%EA%9C%B1%E1%B4%87%CA%80%C9%AA%E1%B4%87%EA%9C%B1%20%26%20%0A%E1%B4%80%C9%B4%C9%AA%E1%B4%8D%E1%B4%87%20-%20%E1%B4%8A%E1%B4%9C%EA%9C%B1%E1%B4%9B%20%E1%B4%9B%CA%8F%E1%B4%98%E1%B4%87%20%C9%B4%E1%B4%80%E1%B4%8D%E1%B4%87%20%26%20%C9%A2%E1%B4%87%E1%B4%9B%20%C9%AA%C9%B4%203%20%EA%9C%B1%E1%B4%87%E1%B4%84%E1%B4%8F%C9%B4%E1%B4%85%20%E2%9C%85%0A%0A%E1%B4%8A%E1%B4%8F%C9%AA%C9%B4%20%E1%B4%8F%E1%B4%9C%CA%80%20%E1%B4%8D%E1%B4%8F%E1%B4%A0%C9%AA%E1%B4%87%20%CA%80%E1%B4%87%C7%AB%E1%B4%9C%E1%B4%87%EA%9C%B1%E1%B4%9B%20%C9%A2%CA%80%E1%B4%8F%E1%B4%9C%E1%B4%98%20%E2%9C%85%0A%F0%9F%91%89%20%40ThappyHour%20%0A%F0%9F%91%89%20%40ThappyHour%0A%0A%E1%B4%8A%E1%B4%8F%C9%AA%C9%B4%20%EA%9C%B0%E1%B4%8F%CA%80%20%C9%B4%E1%B4%87%E1%B4%A1%20%CA%80%E1%B4%87%CA%9F%E1%B4%87%E1%B4%80%EA%9C%B1%E1%B4%87%20%E1%B4%8D%E1%B4%8F%E1%B4%A0%C9%AA%E1%B4%87%20%E2%9C%85%0A%F0%9F%91%89%20%40The_Happy_Hour_Hindi%0A%F0%9F%91%89%20%40The_Happy_Hour_Hindi%0A%0A%F0%9F%91%89%20%E1%B4%9B%CA%9C%E1%B4%87%20%CA%9C%E1%B4%80%E1%B4%98%E1%B4%98%CA%8F%20%CA%9C%E1%B4%8F%E1%B4%9C%CA%80%E2%84%A2%20%E2%9C%85')
                     ]]
@@ -133,13 +133,13 @@ async def start(client, message):
         buttons = [[
                     InlineKeyboardButton('☆ ᴀᴅᴅ ᴍᴇ ᴛᴏ ʏᴏᴜʀ ɢʀᴏᴜᴘ ☆', url=f'http://telegram.me/{temp.U_NAME}?startgroup=true')
                 ],[
-                    InlineKeyboardButton('📚 ʙᴀᴄᴋᴜᴘ 📚', url=CHNL_LNK),
-                    InlineKeyboardButton('🌿 ɢʀᴏᴜᴘ 🌿', url=GRP_LNK),
-                    InlineKeyboardButton('🌈 ᴄʜᴀɴɴᴇʟ 🌈', url=f'http://t.me/The_Happy_Hour_Hindi')
+                    InlineKeyboardButton('📚 ʙᴀᴄᴋᴜᴘ', url=CHNL_LNK),
+                    InlineKeyboardButton('🌿 ɢʀᴏᴜᴘ', url=GRP_LNK),
+                    InlineKeyboardButton('🌈 ᴄʜᴀɴɴᴇʟ', url=f'http://t.me/The_Happy_Hour_Hindi')
                 ],[
-                    InlineKeyboardButton('🏕️ ᴀʙᴏᴜᴛ 🏕️', callback_data='about'),
-                    InlineKeyboardButton('🍾 ᴄᴏᴍᴍᴀɴᴅꜱ 🍾', callback_data='seeplans'),
-                    InlineKeyboardButton('🌹 ʀᴇғғᴇʀ 🌹', callback_data='subscription')
+                    InlineKeyboardButton('🏕️ ᴀʙᴏᴜᴛ', callback_data='about'),
+                    InlineKeyboardButton('🍾 ᴄᴏᴍᴍᴀɴᴅꜱ', callback_data='seeplans'),
+                    InlineKeyboardButton('🌹 ʀᴇғғᴇʀ', callback_data='subscription')
                 ],[
                     InlineKeyboardButton('🍁 ꜱᴇʟᴇᴄᴛ ᴄʜᴀᴛ & ꜱʜᴀʀᴇ ʙᴏᴛ 🍁', url='https://t.me/share/url?url=%F0%9F%91%89%20%C9%AA%EA%9C%B0%20%CA%8F%E1%B4%8F%E1%B4%9C%20%C9%B4%E1%B4%87%E1%B4%87%E1%B4%85%20%E1%B4%80%C9%B4%CA%8F%20%E1%B4%8D%E1%B4%8F%E1%B4%A0%C9%AA%E1%B4%87%2C%20%EA%9C%B1%E1%B4%87%CA%80%C9%AA%E1%B4%87%EA%9C%B1%20%26%20%0A%E1%B4%80%C9%B4%C9%AA%E1%B4%8D%E1%B4%87%20-%20%E1%B4%8A%E1%B4%9C%EA%9C%B1%E1%B4%9B%20%E1%B4%9B%CA%8F%E1%B4%98%E1%B4%87%20%C9%B4%E1%B4%80%E1%B4%8D%E1%B4%87%20%26%20%C9%A2%E1%B4%87%E1%B4%9B%20%C9%AA%C9%B4%203%20%EA%9C%B1%E1%B4%87%E1%B4%84%E1%B4%8F%C9%B4%E1%B4%85%20%E2%9C%85%0A%0A%E1%B4%8A%E1%B4%8F%C9%AA%C9%B4%20%E1%B4%8F%E1%B4%9C%CA%80%20%E1%B4%8D%E1%B4%8F%E1%B4%A0%C9%AA%E1%B4%87%20%CA%80%E1%B4%87%C7%AB%E1%B4%9C%E1%B4%87%EA%9C%B1%E1%B4%9B%20%C9%A2%CA%80%E1%B4%8F%E1%B4%9C%E1%B4%98%20%E2%9C%85%0A%F0%9F%91%89%20%40ThappyHour%20%0A%F0%9F%91%89%20%40ThappyHour%0A%0A%E1%B4%8A%E1%B4%8F%C9%AA%C9%B4%20%EA%9C%B0%E1%B4%8F%CA%80%20%C9%B4%E1%B4%87%E1%B4%A1%20%CA%80%E1%B4%87%CA%9F%E1%B4%87%E1%B4%80%EA%9C%B1%E1%B4%87%20%E1%B4%8D%E1%B4%8F%E1%B4%A0%C9%AA%E1%B4%87%20%E2%9C%85%0A%F0%9F%91%89%20%40The_Happy_Hour_Hindi%0A%F0%9F%91%89%20%40The_Happy_Hour_Hindi%0A%0A%F0%9F%91%89%20%E1%B4%9B%CA%9C%E1%B4%87%20%CA%9C%E1%B4%80%E1%B4%98%E1%B4%98%CA%8F%20%CA%9C%E1%B4%8F%E1%B4%9C%CA%80%E2%84%A2%20%E2%9C%85')
                     ]]
@@ -971,11 +971,11 @@ async def requests(client, message):
     user_id = message.from_user.id
     if not requested_movie:
         m=await message.reply_text("━━━━━━━━━━━━━━━━━━\n\nअगर कोई मूवी ना मिले तो.....🤒\nआप Admin को रिर्पोट भेज सकते हो...📚\nइस तरह से रिपोर्ट भेजे....👇\n\n/report Pushpa 2021\n/report Chhichhore 2019\n/report Vikings S01 E03\n/report Money Heist S03 E05\n\n👉 मूवी का year भी लिखे... 👀\n\n━━━━━━━━━━━━━━━━━━\n\nɪꜰ ᴍᴏᴠɪᴇ ɴᴏᴛ ᴀᴠᴀɪʟᴀʙʟᴇ ɪɴ ʙᴏᴛ...🤒\nᴛʜᴇɴ ꜱᴇɴᴅ ʀᴇᴘᴏʀᴛ ᴛᴏ ᴀᴅᴍɪɴ...📚\nʜᴏᴡ ᴛᴏ ꜱᴇɴᴅ ʀᴇᴘᴏʀᴛ...👇\n\n/report Pushpa 2021\n/report Chhichhore 2019\n/report Vikings S01 E03\n/report Money Heist S03 E05\n\n👉 ᴅᴏɴ'ᴛ ꜰᴏʀɢᴇᴛ ʀᴇʟᴇᴀꜱᴇ ʏᴇᴀʀ 👀\n\n━━━━━━━━━━━━━━━━━━")
-        await asyncio.sleep(60)
+        await asyncio.sleep(30)
         await m.delete()
         return
-    a=await message.reply_text(text=f"ʏᴏᴜʀ ʀᴇᴘᴏʀᴛ ɪꜱ ꜱᴜᴄᴄᴇꜱꜱꜰᴜʟʟʏ\nꜱᴇɴᴅᴇᴅ ᴛᴏ ᴀᴅᴍɪɴ...✅\n\nꜱᴜʙᴊᴇᴄᴛ - {requested_movie}\n\nᴘʟᴢᴢᴢ ᴡᴀɪᴛ ꜰᴏʀ ᴍʏ ʀᴇᴘʟʏ....😘")
-    await asyncio.sleep(7)
+    a=await message.reply_text(text=f"ʏᴏᴜʀ ʀᴇᴘᴏʀᴛ ɪꜱ ꜱᴜᴄᴄᴇꜱꜱꜰᴜʟʟʏ\nꜱᴇɴᴅᴇᴅ ᴛᴏ ᴀᴅᴍɪɴ...✅")
+    await asyncio.sleep(3)
     await a.delete()
     await client.send_message(REQST_CHANNEL,f"📝 #REQUESTED_CONTENT 📝\n\nʙᴏᴛ - {temp.B_NAME}\nɴᴀᴍᴇ - {message.from_user.mention} (<code>{message.from_user.id}</code>)\nRᴇǫᴜᴇꜱᴛ - <code>{requested_movie}</code>",
     reply_markup=InlineKeyboardMarkup(
