@@ -627,7 +627,7 @@ async def start(client, message):
         # await del_msg.edit_text("<b>ʏᴏᴜʀ ғɪʟᴇ ᴡᴀs ᴅᴇʟᴇᴛᴇᴅ sᴜᴄᴄᴇssғᴜʟʟʏ ᴀғᴛᴇʀ 5 ᴍɪɴᴜᴛᴇs ᴛᴏ ᴀᴠᴏɪᴅ ᴄᴏᴘʏʀɪɢʜᴛ 📢</b>")
         return   
     except Exception as e:
-        print {e}
+        print (e) 
         await message.reply(f"error found {e}") 
         
 @Client.on_message(filters.command('channel') & filters.user(ADMINS))
