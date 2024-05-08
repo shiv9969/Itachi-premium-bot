@@ -25,7 +25,7 @@ PICS = (environ.get('PICS', 'https://i2f9m2t2.rocketcdn.me/wp-content/uploads/20
 NOR_IMG = environ.get("NOR_IMG", "https://i2f9m2t2.rocketcdn.me/wp-content/uploads/2014/04/shutterstock_175386392.jpg")
 MELCOW_VID = environ.get("MELCOW_VID", "https://i2f9m2t2.rocketcdn.me/wp-content/uploads/2014/04/shutterstock_175386392.jpg")
 SPELL_IMG = environ.get("SPELL_IMG", "https://i2f9m2t2.rocketcdn.me/wp-content/uploads/2014/04/shutterstock_175386392.jpg")
-SUBSCRIPTION = (environ.get('SUBSCRIPTION', 'https://i2f9m2t2.rocketcdn.me/wp-content/uploads/2014/04/shutterstock_175386392.jpg'))
+SUBSCRIPTION = (environ.get('SUBSCRIPTION', 'https://graph.org/file/74f4c5747cbe37940743f.jpg'))
 CODE = (environ.get('CODE', 'https://graph.org/file/74f4c5747cbe37940743f.jpg')) # Scanner Code image 
 
 # Admins, Channels & Users
