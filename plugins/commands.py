@@ -520,10 +520,10 @@ async def start(client, message):
                         InlineKeyboardButton("♻️ Vᴇʀɪғʏ ♻️", url=await get_token(client, message.from_user.id, f"https://telegram.me/{temp.U_NAME}?start=", file_id)),
                         InlineKeyboardButton("⚠️ Hᴏᴡ Tᴏ Vᴇʀɪғʏ ⚠️", url=HOW_TO_VERIFY)
                         ],[
-                        InlineKeyboardButton("📚 Buy Premium 📚", callback_data='seeplans')
+                        InlineKeyboardButton("🏕️ ʀᴇᴍᴏᴠᴇ ᴠᴇʀɪꜰɪᴄᴀᴛɪᴏɴ 🏕️", callback_data='seeplans')
                     ]]
                     await message.reply_text(
-                        text="You Are Not Verified Today...",
+                        text="You Are Not Verified Today...Plzz Verifiy And Get Movie...",
                         protect_content=True if PROTECT_CONTENT else False,
                         reply_markup=InlineKeyboardMarkup(btn)
                     )
@@ -598,10 +598,10 @@ async def start(client, message):
                 InlineKeyboardButton("♻️ Vᴇʀɪғʏ ♻️", url=await get_token(client, message.from_user.id, f"https://telegram.me/{temp.U_NAME}?start=", file_id)),
                 InlineKeyboardButton("⚠️ Hᴏᴡ Tᴏ Vᴇʀɪғʏ ⚠️", url=HOW_TO_VERIFY)
                 ],[
-                InlineKeyboardButton("📚 Buy Premium 📚", callback_data='seeplans')
+                InlineKeyboardButton("🏕️ ʀᴇᴍᴏᴠᴇ ᴠᴇʀɪꜰɪᴄᴀᴛɪᴏɴ 🏕️", callback_data='seeplans')
             ]]
             await message.reply_text(
-                text="You Are Not Verifird Today...",
+                text="You Are Not Verifird Today...Plzz Veifiy And Get Movie...",
                 protect_content=True if PROTECT_CONTENT else False,
                 reply_markup=InlineKeyboardMarkup(btn)
             )
