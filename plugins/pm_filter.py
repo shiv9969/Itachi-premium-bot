@@ -60,7 +60,7 @@ async def stream_download(bot, query):
             reply_markup=InlineKeyboardMarkup([[
                     InlineKeyboardButton("📥 ᴅᴏᴡɴʟᴏᴀᴅ 📥", url=non_download),
                     InlineKeyboardButton("🖥️ ꜱᴛʀᴇᴇᴍ 🖥️", url=non_online)]]))
-        await query.answer("𝐍𝐨𝐭𝐞:\n𝐓𝐡𝐞 𝐀𝐝𝐬-𝐅𝐫𝐞𝐞 𝐒𝐞𝐫𝐯𝐢𝐜𝐞𝐬 𝐎𝐧𝐥𝐲 𝐅𝐨𝐫 𝐏𝐫𝐞𝐦𝐢𝐮𝐦 𝐔𝐬𝐞𝐫𝐬\n\n‼️Tᴏ ᴋɴᴏᴡ ᴍᴏʀᴇ, ᴄʜᴇᴀᴋ ʙᴇʟᴏᴡ..!!!", show_alert=True)
+        await query.answer("Streem Link Genereted ✅", show_alert=True)
         await query.edit_message_reply_markup(
             reply_markup=InlineKeyboardMarkup([[
                     InlineKeyboardButton("📥 ᴅᴏᴡɴʟᴏᴀᴅ 📥", url=non_download),
@@ -113,7 +113,7 @@ async def reply_stream(client, message):
                   ],[
                   InlineKeyboardButton('🔒 Hᴏᴡ Tᴏ Dᴏᴡɴʟᴏᴀᴅ 🔒', url=STREAMHTO)
                 ],[
-                 InlineKeyboardButton('✨ ʙᴜʏ ꜱᴜʙꜱᴄʀɪᴘᴛɪᴏɴ : ʀᴇᴍᴏᴠᴇ ᴀᴅꜱ ✨', callback_data="seeplans")
+                 InlineKeyboardButton('📚 ʙᴜʏ ꜱᴜʙꜱᴄʀɪᴘᴛɪᴏɴ 📚', callback_data='seeplans')
                 ]]),
                 disable_web_page_preview=True
         )
