@@ -145,9 +145,11 @@ async def plan(client, message):
     user_id = message.from_user.id 
     users = message.from_user.mention 
     btn = [[
-	
-        InlineKeyboardButton("🎁 ᴄʜᴇᴄᴋ ᴘʟᴀɴ 🎁", callback_data='seeplans')],[InlineKeyboardButton("ᴄʟᴏꜱᴇ", callback_data="close_data")
-    ]]
+                InlineKeyboardButton('📸 sᴇɴᴅ sᴄʀᴇᴇɴsʜᴏᴛ 📸', url="https://t.me/Master_Jiraya_Bot")
+            ],[
+                InlineKeyboardButton('☘️ ꜰᴜᴛᴜʀᴇ ☘️', url="https://graph.org/The-Happy-Hour-12-22-2"),
+                InlineKeyboardButton('❌ ᴄʟᴏꜱᴇ ❌', callback_data='close_data')
+            ]]
     await message.reply_photo(photo=(SUBSCRIPTION), caption=script.PREMIUM_TEXT.format(message.from_user.mention), reply_markup=InlineKeyboardMarkup(btn))
     
 # SPECIAL THANKS TO @JK_DEV FOR MODIFYING THESE AMAZING CODES 
