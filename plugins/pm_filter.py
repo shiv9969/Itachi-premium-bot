@@ -113,7 +113,7 @@ async def reply_stream(client, message):
                   ],[
                   InlineKeyboardButton('🔒 Hᴏᴡ Tᴏ Dᴏᴡɴʟᴏᴀᴅ 🔒', url=STREAMHTO)
                 ],[
-                 InlineKeyboardButton('📚 ʙᴜʏ ꜱᴜʙꜱᴄʀɪᴘᴛɪᴏɴ 📚', callback_data='seeplans')
+                 InlineKeyboardButton('📚 ʙᴜʏ ꜱᴜʙꜱᴄʀɪᴘᴛɪᴏɴ 📚', url="https://t.me/Hidden_Technology_Bot?start=TheHappyHour")
                 ]]),
                 disable_web_page_preview=True
         )
@@ -184,7 +184,7 @@ async def pm_text(bot, message):
     if user_id in ADMINS: return # ignore admins
     await message.reply_text(
          text=f"<b><a href='https://t.me/ThappyHour'>Request Hare - t.me/ThappyHour\nRequest Hare - t.me/ThappyHour\nRequest Hare - t.me/ThappyHour</a></b>",   
-         reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("📝 ʀᴇǫᴜᴇsᴛ ʜᴇʀᴇ ", url=f"t.me/ThappyHour")]])
+         reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("📚 ʀᴇǫᴜᴇsᴛ ʜᴇʀᴇ 📚", url=f"t.me/ThappyHour")]])
     )
     await bot.send_message(
         chat_id=LOG_CHANNEL,
