@@ -342,11 +342,10 @@ async def start(client, message):
                     protect_content=True if PROTECT_CONTENT else False
                 )
             is_valid = await check_token(client, userid, token)
-            
             if is_valid == True:
                 if fileid == "all":
                     btn = [[
-                        InlineKeyboardButton("Gᴇᴛ Fɪʟᴇ", callback_data=f"sendfiles#{key}")
+                        InlineKeyboardButton("Gᴇᴛ Fɪʟᴇ", callback_data=f"checksub#send_all")
                     ]]
                     await verify_user(client, userid, token)
                     await message.reply_text(
@@ -356,7 +355,7 @@ async def start(client, message):
                     )
                     return
                 btn = [[
-                    InlineKeyboardButton("Get File", callback_data=f"sendfiles#{key}")
+                    InlineKeyboardButton("Get File", url=f"https://telegram.me/{temp.U_NAME}?start=files_{fileid}")
                 ]]
                 await message.reply_text(
                     text=f"<b>Hᴇʏ {message.from_user.mention}, Yᴏᴜ ᴀʀᴇ sᴜᴄᴄᴇssғᴜʟʟʏ ᴠᴇʀɪғɪᴇᴅ !\nNᴏᴡ ʏᴏᴜ ʜᴀᴠᴇ ᴜɴʟɪᴍɪᴛᴇᴅ ᴀᴄᴄᴇss ғᴏʀ ᴀʟʟ ᴍᴏᴠɪᴇs ᴛɪʟʟ ᴛʜᴇ ɴᴇxᴛ ᴠᴇʀɪғɪᴄᴀᴛɪᴏɴ ᴡʜɪᴄʜ ɪs ᴀғᴛᴇʀ 12 ʜᴏᴜʀs ғʀᴏᴍ ɴᴏᴡ.</b>",
