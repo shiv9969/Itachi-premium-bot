@@ -76,7 +76,7 @@ async def save_group(bot, message):
 
 
 
-@Client.on_message(filters.command('leave') & filters.user(ADMINS))
+@Client.on_message(filters.command('leave_group') & filters.user(ADMINS))
 async def leave_a_chat(bot, message):
     if len(message.command) == 1:
         return await message.reply('Give me a chat id')
@@ -101,7 +101,7 @@ async def leave_a_chat(bot, message):
     except Exception as e:
         await message.reply(f'Error - {e}')
 
-@Client.on_message(filters.command('disable') & filters.user(ADMINS))
+@Client.on_message(filters.command('ban_group') & filters.user(ADMINS))
 async def disable_chat(bot, message):
     if len(message.command) == 1:
         return await message.reply('Give me a chat id')
@@ -138,7 +138,7 @@ async def disable_chat(bot, message):
         await message.reply(f"Error - {e}")
 
 
-@Client.on_message(filters.command('enable') & filters.user(ADMINS))
+@Client.on_message(filters.command('unban_group') & filters.user(ADMINS))
 async def re_enable_chat(bot, message):
     if len(message.command) == 1:
         return await message.reply('Give me a chat id')
@@ -170,7 +170,7 @@ async def get_ststs(bot, message):
     await rju.edit(script.STATUS_TXT.format(files, total_users, totl_chats, size, free))
 
 
-@Client.on_message(filters.command('invite') & filters.user(ADMINS))
+@Client.on_message(filters.command('make_grp_invit_link') & filters.user(ADMINS))
 async def gen_invite(bot, message):
     if len(message.command) == 1:
         return await message.reply('Give me a chat id')
