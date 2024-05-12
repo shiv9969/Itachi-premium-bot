@@ -70,7 +70,7 @@ SHORTLINK_API = environ.get('SHORTLINK_API', 'f4462cdd84d7ee8863228f2e40fac761bc
 IS_SHORTLINK = is_enabled((environ.get('IS_SHORTLINK', 'False')), False)
 
 # verify link shortner
-IS_VERIFY = is_enabled((environ.get('IS_VERIFY', 'True')), False)
+IS_VERIFY = is_enabled((environ.get('IS_VERIFY', 'False')), False)
 HOW_TO_VERIFY = environ.get('HOW_TO_VERIFY', "https://t.me/ThappyHour")
 VERIFY2_URL = environ.get('VERIFY2_URL', "goo.aslink.in")
 VERIFY2_API = environ.get('VERIFY2_API', "f4462cdd84d7ee8863228f2e40fac761bc56e707")
