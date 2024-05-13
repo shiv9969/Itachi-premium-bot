@@ -44,9 +44,9 @@ async def start(client, message):
                 gtxt = "ɢᴏᴏᴅ ᴇᴠᴇɴɪɴɢ 👋"
             else:
                 gtxt = "ɢᴏᴏᴅ ɴɪɢʜᴛ 👋"
-            m=await message.reply_sticker("CAACAgUAAxkBAAEkohxmOzL_8-HJRwudONzAED-tMt27LQACRwADJpleD38508ect3TIHgQ") 
-            await asyncio.sleep(2)
-            await m.delete()
+            # m=await message.reply_sticker("CAACAgUAAxkBAAEkohxmOzL_8-HJRwudONzAED-tMt27LQACRwADJpleD38508ect3TIHgQ") 
+            # await asyncio.sleep(2)
+            # await m.delete()
             await message.reply_photo(
                 photo=(PICS),
                 caption=script.START_TXT.format(message.from_user.mention, gtxt, temp.U_NAME, temp.B_NAME),
@@ -91,9 +91,9 @@ async def start(client, message):
                 gtxt = "ɢᴏᴏᴅ ᴇᴠᴇɴɪɴɢ 👋"
             else:
                 gtxt = "ɢᴏᴏᴅ ɴɪɢʜᴛ 👋"
-            m=await message.reply_sticker("CAACAgUAAxkBAAEkohxmOzL_8-HJRwudONzAED-tMt27LQACRwADJpleD38508ect3TIHgQ") 
-            await asyncio.sleep(2)
-            await m.delete()
+            # m=await message.reply_sticker("CAACAgUAAxkBAAEkohxmOzL_8-HJRwudONzAED-tMt27LQACRwADJpleD38508ect3TIHgQ") 
+            # await asyncio.sleep(2)
+            # await m.delete()
             await message.reply_photo(
                 photo=random.choice(PICS),
                 caption=script.START_TXT.format(message.from_user.mention, gtxt, temp.U_NAME, temp.B_NAME),
