@@ -44,9 +44,9 @@ async def start(client, message):
                 gtxt = "ɢᴏᴏᴅ ᴇᴠᴇɴɪɴɢ 👋"
             else:
                 gtxt = "ɢᴏᴏᴅ ɴɪɢʜᴛ 👋"
-            m=await message.reply_sticker("CAACAgUAAxkBAAEkohxmOzL_8-HJRwudONzAED-tMt27LQACRwADJpleD38508ect3TIHgQ") 
-            await asyncio.sleep(2)
-            await m.delete()
+            # m=await message.reply_sticker("CAACAgUAAxkBAAEkohxmOzL_8-HJRwudONzAED-tMt27LQACRwADJpleD38508ect3TIHgQ") 
+            # await asyncio.sleep(2)
+            # await m.delete()
             await message.reply_photo(
                 photo=(PICS),
                 caption=script.START_TXT.format(message.from_user.mention, gtxt, temp.U_NAME, temp.B_NAME),
@@ -91,9 +91,9 @@ async def start(client, message):
                 gtxt = "ɢᴏᴏᴅ ᴇᴠᴇɴɪɴɢ 👋"
             else:
                 gtxt = "ɢᴏᴏᴅ ɴɪɢʜᴛ 👋"
-            m=await message.reply_sticker("CAACAgUAAxkBAAEkohxmOzL_8-HJRwudONzAED-tMt27LQACRwADJpleD38508ect3TIHgQ") 
-            await asyncio.sleep(2)
-            await m.delete()
+            # m=await message.reply_sticker("CAACAgUAAxkBAAEkohxmOzL_8-HJRwudONzAED-tMt27LQACRwADJpleD38508ect3TIHgQ") 
+            # await asyncio.sleep(2)
+            # await m.delete()
             await message.reply_photo(
                 photo=random.choice(PICS),
                 caption=script.START_TXT.format(message.from_user.mention, gtxt, temp.U_NAME, temp.B_NAME),
@@ -158,9 +158,9 @@ async def start(client, message):
                 gtxt = "ɢᴏᴏᴅ ᴇᴠᴇɴɪɴɢ 👋"
             else:
                 gtxt = "ɢᴏᴏᴅ ɴɪɢʜᴛ 👋"
-            m=await message.reply_sticker("CAACAgUAAxkBAAEkohxmOzL_8-HJRwudONzAED-tMt27LQACRwADJpleD38508ect3TIHgQ") 
-            await asyncio.sleep(2)
-            await m.delete()
+            # m=await message.reply_sticker("CAACAgUAAxkBAAEkohxmOzL_8-HJRwudONzAED-tMt27LQACRwADJpleD38508ect3TIHgQ") 
+            # await asyncio.sleep(2)
+            # await m.delete()
             await message.reply_photo(
                 photo=random.choice(PICS),
                 caption=script.START_TXT.format(message.from_user.mention, gtxt, temp.U_NAME, temp.B_NAME),
@@ -1269,6 +1269,13 @@ async def removetutorial(bot, message):
     await save_group_settings(grpid, 'is_tutorial', False)
     await reply.edit_text(f"<b>ꜱᴜᴄᴄᴇꜱꜱꜰᴜʟʟʏ ʀᴇᴍᴏᴠᴇᴅ ᴛᴜᴛᴏʀɪᴀʟ ʟɪɴᴋ ✅</b>")
 
+@Client.on_message(filters.command("refresh_argv") & filters.user(ADMINS))
+async def stop_button(bot, message):
+    msg = await bot.send_message(text="<b><i>ʙᴏᴛ ɪꜱ ʀᴇꜱᴛᴀʀᴛɪɴɢ</i></b>", chat_id=message.chat.id)       
+    await asyncio.sleep(3)
+    await msg.edit("<b><i><u>ʙᴏᴛ ɪꜱ ʀᴇꜱᴛᴀʀᴛᴇᴅ</u> ✅</i></b>")
+    os.execl(sys.executable, sys.executable, *sys.argv)
+
 @Client.on_message(filters.command('chack_reffer') & filters.user(ADMINS))
 async def remove_user(bot, message):
     if len(message.command) == 1:
@@ -1289,10 +1296,3 @@ async def remove_user(bot, message):
             )
     except Exception as e:
         await message.reply(f'Error - {e}')
-
-@Client.on_message(filters.command("refresh_argv") & filters.user(ADMINS))
-async def stop_button(bot, message):
-    msg = await bot.send_message(text="<b><i>ʙᴏᴛ ɪꜱ ʀᴇꜱᴛᴀʀᴛɪɴɢ</i></b>", chat_id=message.chat.id)       
-    await asyncio.sleep(3)
-    await msg.edit("<b><i><u>ʙᴏᴛ ɪꜱ ʀᴇꜱᴛᴀʀᴛᴇᴅ</u> ✅</i></b>")
-    os.execl(sys.executable, sys.executable, *sys.argv)
