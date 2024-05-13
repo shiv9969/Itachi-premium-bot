@@ -18,7 +18,8 @@ from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton, CallbackQ
 from pyrogram import Client, filters, enums
 from pyrogram.errors import FloodWait, UserIsBlocked, MessageNotModified, PeerIdInvalid
 from utils import get_size, is_subscribed, get_poster, search_gagala, temp, get_settings, save_group_settings, get_shortlink, check_verification, get_token, stream_site, get_tutorial
-from database.users_chats_db import db, get_referal_users_count
+from database.users_chats_db import db
+from database.safaridev import db2
 from database.ia_filterdb import Media, get_file_details, get_search_results, get_bad_files
 from database.filters_mdb import (
     del_all,
@@ -1276,7 +1277,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
                         ]]
         if IS_VERIFY or IS_SHORTLINK is True:
             # buttons.append([
-            #     InlineKeyboardButton('ʀᴇғғᴇʀ 💖', callback_data='subscription')
+            #     InlineKeyboardButton('ʀᴇғғᴇʀ 💖', callback_data='reffer')
             # ]) 
             buttons.append([
                     InlineKeyboardButton('📚 ʙᴜʏ ꜱᴜʙꜱᴄʀɪᴘᴛɪᴏɴ 📚', callback_data='seeplans')
@@ -1306,12 +1307,12 @@ async def cb_handler(client: Client, query: CallbackQuery):
         
     elif query.data == "show_reff":
         user_id = query.from_user.id
-        total_referrals = await get_referal_users_count(user_id)
+        total_referrals = db2.get_refer_points(user_id)
         await query.answer(text=f'You Have: {total_referrals} Refferal Points', show_alert=True)
         
-    elif query.data == "subscription":
+    elif query.data == "reffer":
         user_id = query.from_user.id
-        total_referrals = await get_referal_users_count(user_id)
+        total_referrals = db2.get_refer_points(user_id)
         buttons = [[
             InlineKeyboardButton('Invite 🔗', url=f'https://telegram.me/share/url?url=https://t.me/{temp.U_NAME}?start=reff-{user_id}'), 
             InlineKeyboardButton(text=f'⏳{total_referrals}', callback_data=f"show_reff"), 
@@ -1324,7 +1325,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
             InputMediaPhoto(random.choice(PICS))
         )
         await query.message.edit_text(
-            text=script.SUBSCRIPTION_TXT.format(temp.U_NAME, query.from_user.id),
+            text=script.REFFER_TXT.format(temp.U_NAME, query.from_user.id),
             reply_markup=reply_markup,
             parse_mode=enums.ParseMode.HTML
         )
