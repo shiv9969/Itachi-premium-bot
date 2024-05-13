@@ -256,15 +256,21 @@ async def save_group_settings(group_id, key, value):
     await db.update_settings(group_id, current)
     
 def get_size(size):
-    """Get size in readable format"""
+    """Get size in readable format (converted to MB if originally in GB)"""
 
     units = ["Bytes", "KB", "MB", "GB", "TB", "PB", "EB"]
     size = float(size)
     i = 0
-    while size >= 1024.0 and i < len(units):
+    while size >= 1024.0 and i < len(units) - 1:
         i += 1
         size /= 1024.0
-    return "%.2f %s" % (size, units[i])
+    if units[i] == "GB":
+        size *= 1024.0
+        i -= 1
+    if units[i] == "Bytes":
+        size /= 1024.0
+        i += 1
+    return f"{int(size)} {units[i]}"
 
 def list_to_str(k):
     if not k:
@@ -687,13 +693,13 @@ async def send_all(bot, userid, files, ident):
         else:
             pre = 'checksub' 
         btn = [[
-                InlineKeyboardButton("❆ Jᴏɪɴ Oᴜʀ Bᴀᴄᴋ-Uᴘ Cʜᴀɴɴᴇʟ ❆", url=invite_link.invite_link)
+                InlineKeyboardButton("Bᴀᴄᴋuᴘ Cʜᴀɴɴᴇʟ", url=invite_link.invite_link)
             ],[
-                InlineKeyboardButton("↻ Tʀʏ Aɢᴀɪɴ", callback_data=f"{pre}#send_all")
+                InlineKeyboardButton("Tʀʏ Aɢᴀɪɴ", callback_data=f"{pre}#send_all")
             ]]
         await bot.send_message(
             chat_id=userid,
-            text="**Yᴏᴜ ᴀʀᴇ ɴᴏᴛ ɪɴ ᴏᴜʀ Bᴀᴄᴋ-ᴜᴘ ᴄʜᴀɴɴᴇʟ ɢɪᴠᴇɴ ʙᴇʟᴏᴡ sᴏ ʏᴏᴜ ᴅᴏɴ'ᴛ ɢᴇᴛ ᴛʜᴇ ᴍᴏᴠɪᴇ ғɪʟᴇ...\n\nIғ ʏᴏᴜ ᴡᴀɴᴛ ᴛʜᴇ ᴍᴏᴠɪᴇ ғɪʟᴇ, ᴄʟɪᴄᴋ ᴏɴ ᴛʜᴇ '❆ Jᴏɪɴ Oᴜʀ Bᴀᴄᴋ-Uᴘ Cʜᴀɴɴᴇʟ ❆' ʙᴜᴛᴛᴏɴ ʙᴇʟᴏᴡ ᴀɴᴅ ᴊᴏɪɴ ᴏᴜʀ ʙᴀᴄᴋ-ᴜᴘ ᴄʜᴀɴɴᴇʟ, ᴛʜᴇɴ ᴄʟɪᴄᴋ ᴏɴ ᴛʜᴇ '↻ Tʀʏ Aɢᴀɪɴ' ʙᴜᴛᴛᴏɴ ʙᴇʟᴏᴡ...\n\nTʜᴇɴ ʏᴏᴜ ᴡɪʟʟ ɢᴇᴛ ᴛʜᴇ ᴍᴏᴠɪᴇ ғɪʟᴇs...**",
+            text="**Yᴏᴜ ᴀʀᴇ ɴᴏᴛ ɪɴ ᴏᴜʀ Bᴀᴄᴋ-ᴜᴘ ᴄʜᴀɴɴᴇʟ ɢɪᴠᴇɴ ʙᴇʟᴏᴡ sᴏ ʏᴏᴜ ᴅᴏɴ'ᴛ ɢᴇᴛ ᴛʜᴇ ᴍᴏᴠɪᴇ ғɪʟᴇ, ᴘʟᴇᴀꜱᴇ ᴊᴏɪɴ ᴀɴᴅ ᴍᴏᴠɪᴇ ғɪʟᴇ...✅**",
             reply_markup=InlineKeyboardMarkup(btn),
             parse_mode=enums.ParseMode.MARKDOWN
             )
