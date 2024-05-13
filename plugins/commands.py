@@ -77,11 +77,8 @@ async def start(client, message):
                         InlineKeyboardButton('🌹 ʀᴇғғᴇʀ 🌹', callback_data='reffer')
                         ]]
             if IS_VERIFY or IS_SHORTLINK is True:
-                # buttons.append([
-                #     InlineKeyboardButton('🌹 ʀᴇғғᴇʀ 🌹', callback_data='reffer')
-                # ]) 
                 buttons.append([
-                    InlineKeyboardButton('📚 ʙᴜʏ ꜱᴜʙꜱᴄʀɪᴘᴛɪᴏɴ 📚', callback_data='seeplans')
+                    InlineKeyboardButton('🏡 ʙᴜʏ ᴘʀᴇᴍɪᴜᴍ 🏡', callback_data='seeplans')
                 ])
             reply_markup = InlineKeyboardMarkup(buttons)
             current_time = datetime.now(pytz.timezone(TIMEZONE))
@@ -147,11 +144,8 @@ async def start(client, message):
                         InlineKeyboardButton('🌹 ʀᴇғғᴇʀ 🌹', callback_data='reffer')
                         ]]
             if IS_VERIFY or IS_SHORTLINK is True:
-                # buttons.append([
-                #     InlineKeyboardButton('🌹 ʀᴇғғᴇʀ 🌹', callback_data='reffer')
-                # ]) 
                 buttons.append([
-                    InlineKeyboardButton('📚 ʙᴜʏ ꜱᴜʙꜱᴄʀɪᴘᴛɪᴏɴ 📚', callback_data='seeplans')
+                    InlineKeyboardButton('🏡 ʙᴜʏ ᴘʀᴇᴍɪᴜᴍ 🏡', callback_data='seeplans')
                 ])
             reply_markup = InlineKeyboardMarkup(buttons)
             current_time = datetime.now(pytz.timezone(TIMEZONE))
