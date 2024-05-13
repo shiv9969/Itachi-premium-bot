@@ -207,7 +207,7 @@ async def start(client, message):
             db2.add_user(message.from_user.id)
             fromuse = db2.get_refer_points(user_id) + 10
             db2.add_refer_points(user_id, fromuse)
-            await message.reply_text(f"<b>My Name Is Minato⚡.\n\nI am provide Movie & Series 🥲, Just Send Me Movie Name And Get in Two Seconds 🌿.\n\ninvited by {uss.mention}</b>")
+            await message.reply_text(f"<b>My Name Is Minato⚡.\n\nI am provide Movie & Series 🥲, Just Send Movie Name & Get in Two Seconds 🌿.\n\ninvited by {uss.mention}</b>")
             await client.send_message(user_id, f"<b>Congratulations 🥳 You won 10 Referral point because You Invited {message.from_user.mention}</b>") 
             if fromuse == USER_POINT:
                 await db.give_referal(user_id)
