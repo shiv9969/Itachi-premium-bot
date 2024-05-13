@@ -195,10 +195,10 @@ async def start(client, message):
                 await message.reply_text("Invalid refer!")
                 return
             if user_id == message.from_user.id:
-                await message.reply_text("Hᴇʏ Dᴜᴅᴇ, Yᴏᴜ Cᴀɴ'ᴛ Rᴇғᴇʀ Yᴏᴜʀsᴇʟғ 🤣!\n\nsʜᴀʀᴇ ʟɪɴᴋ ʏᴏᴜʀ ғʀɪᴇɴᴅ ᴀɴᴅ ɢᴇᴛ 10 ʀᴇғᴇʀʀᴀʟ ᴘᴏɪɴᴛ ɪғ ʏᴏᴜ ᴀʀᴇ ᴄᴏʟʟᴇᴄᴛɪɴɢ 100 ʀᴇғᴇʀʀᴀʟ ᴘᴏɪɴᴛs ᴛʜᴇɴ ʏᴏᴜ ᴄᴀɴ ɢᴇᴛ 1 ᴍᴏɴᴛʜ ғʀᴇᴇ ᴘʀᴇᴍɪᴜᴍ ᴍᴇᴍʙᴇʀsʜɪᴘ.")
+                await message.reply_text("Yᴏᴜ Cᴀɴ'ᴛ Rᴇғᴇʀ Yᴏᴜʀsᴇʟғ 🤣!\n\nवो लिंक किसी और को भेजे....!!\n\nकोई भी 10 लोग आपके लिंक पे क्लिक करेंगे तो आपको 1 month फ्री प्रीमियम मिलेगा...✅")
                 return
             if db2.is_user_in_list(message.from_user.id):
-                await message.reply_text("Yᴏᴜ ʜᴀᴠᴇ ʙᴇᴇɴ ᴀʟʀᴇᴀᴅʏ ɪɴᴠɪᴛᴇᴅ ❗")
+                await message.reply_text("आप पहले भी इस bot का use कर चुके है....🫠")
                 return
             try:
                 uss = await client.get_users(user_id)
@@ -207,16 +207,16 @@ async def start(client, message):
             db2.add_user(message.from_user.id)
             fromuse = db2.get_refer_points(user_id) + 10
             db2.add_refer_points(user_id, fromuse)
-            await message.reply_text(f"You have been successfully invited by {uss.mention}!")
-            await client.send_message(user_id, f"𝗖𝗼𝗻𝗴𝗿𝗮𝘁𝘂𝗹𝗮𝘁𝗶𝗼𝗻𝘀! 𝗬𝗼𝘂 𝘄𝗼𝗻 𝟭𝟬 𝗥𝗲𝗳𝗲𝗿𝗿𝗮𝗹 𝗽𝗼𝗶𝗻𝘁 𝗯𝗲𝗰𝗮𝘂𝘀𝗲 𝗬𝗼𝘂 𝗵𝗮𝘃𝗲 𝗯𝗲𝗲𝗻 𝗦𝘂𝗰𝗰𝗲𝘀𝘀𝗳𝘂𝗹𝗹𝘆 𝗜𝗻𝘃𝗶𝘁𝗲𝗱 ☞{message.from_user.mention}!") 
+            await message.reply_text(f"<b>My Name Is Minato⚡.\n\nI am provide Movie & Series 🥲, Just Send Me Movie Name And Get in Two Seconds 🌿.\n\ninvited by {uss.mention}</b>")
+            await client.send_message(user_id, f"<b>Congratulations 🥳 You won 10 Referral point because You Invited {message.from_user.mention}</b>") 
             if fromuse == USER_POINT:
                 await db.give_referal(user_id)
                 db2.add_refer_points(user_id, 0) 
                 await client.send_message(chat_id=user_id,
-                    text=f"<b>Hᴇʏ {uss.mention}\n\nYᴏᴜ ɢᴏᴛ 1 ᴍᴏɴᴛʜ ᴘʀᴇᴍɪᴜᴍ sᴜʙsᴄʀɪᴘᴛɪᴏɴ ʙʏ ɪɴᴠɪᴛɪɴɢ 10 ᴜsᴇʀs ❗", disable_web_page_preview=True              
+                    text=f"<b>ᴄᴏɴɢʀᴀᴛᴜʟᴀᴛɪᴏɴꜱ {uss.mention} 🥳\n\nʏᴏᴜ ɢᴏᴛ 1 ᴍᴏɴᴛʜ ᴘʀᴇᴍɪᴜᴍ....🌿\nʙᴇᴄᴀᴜꜱᴇ ʏᴏᴜ ɪɴᴠᴀʟɪᴅ 10 ᴜꜱᴇʀꜱ....😘\n\nYour Premium Ditels --> /myplan </b>", disable_web_page_preview=True              
                     )
                 for admin in ADMINS:
-                    await client.send_message(chat_id=admin, text=f"Sᴜᴄᴄᴇss ғᴜʟʟʏ ᴛᴀsᴋ ᴄᴏᴍᴘʟᴇᴛᴇᴅ ʙʏ ᴛʜɪs ᴜsᴇʀ:\n\nuser Nᴀᴍᴇ: {uss.mention}\n\nUsᴇʀ ɪᴅ: {uss.id}!")	
+                    await client.send_message(chat_id=PREMIUM_LOGS, text=f"Sᴜᴄᴄᴇss ғᴜʟʟʏ reffral ᴛᴀsᴋ ᴄᴏᴍᴘʟᴇᴛᴇᴅ ʙʏ ᴛʜɪs ᴜsᴇʀ:\n\nuser Nᴀᴍᴇ: {uss.mention}\n\nUsᴇʀ ɪᴅ: {uss.id}!")	
                 return
         data = message.command[1]
         try:
