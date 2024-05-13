@@ -153,7 +153,7 @@ async def plan(client, message):
     await message.reply_photo(photo=(SUBSCRIPTION), caption=script.PREMIUM_TEXT.format(message.from_user.mention), reply_markup=InlineKeyboardMarkup(btn))
 
 @Client.on_message(filters.command("reffer"))
-async def plan(client, message):
+async def reffer(client, message):
     user_id = message.from_user.id 
     users = message.from_user.mention 
     buttons = [[
