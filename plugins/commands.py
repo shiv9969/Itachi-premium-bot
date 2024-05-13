@@ -1269,6 +1269,27 @@ async def removetutorial(bot, message):
     await save_group_settings(grpid, 'is_tutorial', False)
     await reply.edit_text(f"<b>ꜱᴜᴄᴄᴇꜱꜱꜰᴜʟʟʏ ʀᴇᴍᴏᴠᴇᴅ ᴛᴜᴛᴏʀɪᴀʟ ʟɪɴᴋ ✅</b>")
 
+@Client.on_message(filters.command('chack_reffer') & filters.user(ADMINS))
+async def remove_user(bot, message):
+    if len(message.command) == 1:
+        return await message.reply('give me  user id')
+    user_id = message.command[1]
+    try:
+        user_id = int(user_id)
+    except:
+        user_id = user_id
+    try:
+        user_exit = db2.is_user_in_list(user_id)   
+        db2.remove_user(user_id)
+        if not user_exit:
+            await message.reply("oops invalid user id") 
+        else:
+            await message.reply(
+                text='user removed in refferal list'
+            )
+    except Exception as e:
+        await message.reply(f'Error - {e}')
+
 @Client.on_message(filters.command("refresh_argv") & filters.user(ADMINS))
 async def stop_button(bot, message):
     msg = await bot.send_message(text="<b><i>ʙᴏᴛ ɪꜱ ʀᴇꜱᴛᴀʀᴛɪɴɢ</i></b>", chat_id=message.chat.id)       
