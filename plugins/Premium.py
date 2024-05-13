@@ -151,5 +151,14 @@ async def plan(client, message):
                 InlineKeyboardButton('❌ ᴄʟᴏꜱᴇ ❌', callback_data='close_data')
             ]]
     await message.reply_photo(photo=(SUBSCRIPTION), caption=script.PREMIUM_TEXT.format(message.from_user.mention), reply_markup=InlineKeyboardMarkup(btn))
-    
-# SPECIAL THANKS TO @JK_DEV FOR MODIFYING THESE AMAZING CODES 
+
+@Client.on_message(filters.command("reffer"))
+async def plan(client, message):
+    user_id = message.from_user.id 
+    users = message.from_user.mention 
+    buttons = [[
+            InlineKeyboardButton('Invite 🔗', url=f'https://telegram.me/share/url?url=https://t.me/{temp.U_NAME}?start=reff-{user_id}'), 
+            InlineKeyboardButton(text=f'⏳{total_referrals}', callback_data=f"show_reff"), 
+            InlineKeyboardButton('⇚Back', callback_data='start')
+        ]]
+    await message.reply_photo(photo=(PICS), caption=script.REFFER_TXT.format(message.from_user.mention), reply_markup=InlineKeyboardMarkup(btn))
