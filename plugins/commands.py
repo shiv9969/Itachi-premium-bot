@@ -78,7 +78,7 @@ async def start(client, message):
                         ]]
             if IS_VERIFY or IS_SHORTLINK is True:
                 # buttons.append([
-                #     InlineKeyboardButton('🌹 ʀᴇғғᴇʀ 🌹', callback_data='subscription')
+                #     InlineKeyboardButton('🌹 ʀᴇғғᴇʀ 🌹', callback_data='reffer')
                 # ]) 
                 buttons.append([
                     InlineKeyboardButton('📚 ʙᴜʏ ꜱᴜʙꜱᴄʀɪᴘᴛɪᴏɴ 📚', callback_data='seeplans')
@@ -148,7 +148,7 @@ async def start(client, message):
                         ]]
             if IS_VERIFY or IS_SHORTLINK is True:
                 # buttons.append([
-                #     InlineKeyboardButton('🌹 ʀᴇғғᴇʀ 🌹', callback_data='subscription')
+                #     InlineKeyboardButton('🌹 ʀᴇғғᴇʀ 🌹', callback_data='reffer')
                 # ]) 
                 buttons.append([
                     InlineKeyboardButton('📚 ʙᴜʏ ꜱᴜʙꜱᴄʀɪᴘᴛɪᴏɴ 📚', callback_data='seeplans')
