@@ -1307,7 +1307,17 @@ async def refer(bot, message):
                 InlineKeyboardButton(f"⏳{total}", callback_data=f"show_reff"),
                 InlineKeyboardButton('❌ ᴄʟᴏꜱᴇ ❌', callback_data='close_data')
             ]]
-        await message.reply_photo(photo=(PICS), text=script.REFFER_TXT.format(temp.U_NAME, user_id, USER_POINT), reply_markup=InlineKeyboardMarkup(btn)),
+        await message.reply_photo(
+            photo="https://i2f9m2t2.rocketcdn.me/wp-content/uploads/2014/04/shutterstock_175386392.jpg",
+            caption="""<b>ʀᴇғᴇʀʀᴇ ʏᴏᴜʀ ʟɪɴᴋ ᴛᴏ ʏᴏᴜʀ ғʀɪᴇɴᴅs, ғᴀᴍɪʟʏ, ᴄʜᴀɴɴᴇʟ ᴀɴᴅ ɢʀᴏᴜᴘ ᴛᴏ ɢᴇᴛ ғʀᴇᴇ ᴘʀᴇᴍɪᴜᴍ ғᴏʀ 1 ᴍᴏɴᴛʜ
+
+ʀᴇғᴇʀᴀʟ ʟɪɴᴋ - https://telegram.me/{}?start=reff_{}
+
+sʜᴀʀᴇ ᴛʜɪs ʟɪɴᴋ ᴡɪᴛʜ ʏᴏᴜʀ ғʀɪᴇɴᴅs, ᴇᴀᴄʜ ᴛɪᴍᴇ ᴛʜᴇʏ ᴊᴏɪɴ,  ʏᴏᴜ ᴡɪʟʟ ɢᴇᴛ 10 ʀᴇғғᴇʀᴀʟ ᴘᴏɪɴᴛs ᴀɴᴅ ᴀғᴛᴇʀ {} ᴘᴏɪɴᴛs ʏᴏᴜ ᴡɪʟʟ ɢᴇᴛ 1 ᴍᴏɴᴛʜ ᴘʀᴇᴍɪᴜᴍ sᴜʙsᴄʀɪᴘᴛɪᴏɴ.
+
+ʙᴜʏ ᴘᴀɪᴅ ᴘʟᴀɴ ʙʏ - /premium</b>""",
+            reply_markup=reply_markup
+        ),
     except Exception as e:
         print (e) 
         await message.reply(f"error found \n\n{e}") 
