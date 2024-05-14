@@ -1276,7 +1276,7 @@ async def stop_button(bot, message):
     await msg.edit("<b><i><u>ʙᴏᴛ ɪꜱ ʀᴇꜱᴛᴀʀᴛᴇᴅ</u> ✅</i></b>")
     os.execl(sys.executable, sys.executable, *sys.argv)
 
-@Client.on_message(filters.command('chack_reffer') & filters.user(ADMINS))
+@Client.on_message(filters.command('delete_reffer') & filters.user(ADMINS))
 async def remove_user(bot, message):
     if len(message.command) == 1:
         return await message.reply('give me  user id')
