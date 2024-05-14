@@ -1923,8 +1923,8 @@ async def auto_filter(client, msg, spoll=False):
             return
         if len(message.text) < 100:
             search = message.text
-            m=await message.reply_sticker(sticker="CAACAgIAAxkBAAEqmBFmOgFHqMIU2aIv1tlIgJO5V1RcZwACnFwBAAFji0YM2veI_Lsd8FIeBA",
-            reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("Plzz Wait", url=CHNL_LNK)]]))
+            # m=await message.reply_sticker(sticker="CAACAgIAAxkBAAEqmBFmOgFHqMIU2aIv1tlIgJO5V1RcZwACnFwBAAFji0YM2veI_Lsd8FIeBA",
+            # reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("Plzz Wait", url=CHNL_LNK)]]))
             search = search.lower()
             find = search.split(" ")
             search = ""
@@ -1954,8 +1954,8 @@ async def auto_filter(client, msg, spoll=False):
     else:
         message = msg.message.reply_to_message  # msg will be callback query
         search, files, offset, total_results = spoll
-        m=await message.reply_sticker(sticker="CAACAgIAAxkBAAEqmBFmOgFHqMIU2aIv1tlIgJO5V1RcZwACnFwBAAFji0YM2veI_Lsd8FIeBA",
-        reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("Plzz Wait", url=CHNL_LNK)]]))
+        # m=await message.reply_sticker(sticker="CAACAgIAAxkBAAEqmBFmOgFHqMIU2aIv1tlIgJO5V1RcZwACnFwBAAFji0YM2veI_Lsd8FIeBA",
+        # reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("Plzz Wait", url=CHNL_LNK)]]))
         settings = await get_settings(message.chat.id)
     key = f"{message.chat.id}-{message.id}"
     temp.GETALL[key] = files
