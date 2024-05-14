@@ -1302,11 +1302,12 @@ async def refer(bot, message):
     try:
         user_id = message.from_user.id
         total = db2.get_refer_points(user_id)
-        await message.reply_text(script.REFFER_TXT.format(temp.U_NAME, user_id, USER_POINT)),
-        replymarkup=InlineKeyboardMarkup([
-                    [InlineKeyboardButton("invite 🔗", url=f"https://telegram.me/share/url?url=https://t.me/{temp.U_NAME}=reff_{user_id}")],
-                    [InlineKeyboardButton(f"⏳{total}", callback_data=f"show_reff")],
-                    [InlineKeyboardButton("Close 🚫", callback_data=f"close_data")]])
+        btn = [[
+                InlineKeyboardButton("invite 🔗", url=f"https://telegram.me/share/url?url=https://t.me/{temp.U_NAME}=reff_{user_id}"),
+                InlineKeyboardButton(f"⏳{total}", callback_data=f"show_reff"),
+                InlineKeyboardButton('❌ ᴄʟᴏꜱᴇ ❌', callback_data='close_data')
+            ]]
+        await message.reply_photo(photo=(PICS), caption=script.REFFER_TXT.format(temp.U_NAME, user_id, USER_POINT), reply_markup=InlineKeyboardMarkup(btn)),
     except Exception as e:
         print (e) 
         await message.reply(f"error found \n\n{e}") 
