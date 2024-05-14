@@ -1296,23 +1296,3 @@ async def remove_user(bot, message):
             )
     except Exception as e:
         await message.reply(f'Error - {e}')
-
-@Client.on_message(filters.command('reffer') )
-async def refer(bot, message):
-    try:
-        user_id = message.from_user.id
-        total = db2.get_refer_points(user_id)
-        btn = [[
-                InlineKeyboardButton(f"invite 🔗", url=f"https://telegram.me/share/url?url=https://t.me/{temp.U_NAME}=reff_{user_id}"),
-                InlineKeyboardButton(f"⏳{total}", callback_data=f"show_reff"),
-                InlineKeyboardButton('❌ ᴄʟᴏꜱᴇ ❌', callback_data='close_data')
-            ]]
-        reply_markup = InlineKeyboardMarkup(btn)
-        await message.reply_photo(
-            photo="https://i2f9m2t2.rocketcdn.me/wp-content/uploads/2014/04/shutterstock_175386392.jpg",
-            caption=f"<b>ʀᴇғᴇʀʀᴇ ʏᴏᴜʀ ʟɪɴᴋ ᴛᴏ ʏᴏᴜʀ ғʀɪᴇɴᴅs, ғᴀᴍɪʟʏ, ᴄʜᴀɴɴᴇʟ ᴀɴᴅ ɢʀᴏᴜᴘ ᴛᴏ ɢᴇᴛ ғʀᴇᴇ ᴘʀᴇᴍɪᴜᴍ ғᴏʀ 1 ᴍᴏɴᴛʜ\n\nʀᴇғᴇʀᴀʟ ʟɪɴᴋ - https://telegram.me/{temp.U_NAME}?start=reff_{user_id}\n\nsʜᴀʀᴇ ᴛʜɪs ʟɪɴᴋ ᴡɪᴛʜ ʏᴏᴜʀ ғʀɪᴇɴᴅs, ᴇᴀᴄʜ ᴛɪᴍᴇ ᴛʜᴇʏ ᴊᴏɪɴ,  ʏᴏᴜ ᴡɪʟʟ ɢᴇᴛ 10 ʀᴇғғᴇʀᴀʟ ᴘᴏɪɴᴛs ᴀɴᴅ ᴀғᴛᴇʀ {USER_POINT} ᴘᴏɪɴᴛs ʏᴏᴜ ᴡɪʟʟ ɢᴇᴛ 1 ᴍᴏɴᴛʜ ᴘʀᴇᴍɪᴜᴍ sᴜʙsᴄʀɪᴘᴛɪᴏɴ.\n\nʙᴜʏ ᴘᴀɪᴅ ᴘʟᴀɴ ʙʏ - /premium</b>",
-            reply_markup=reply_markup
-        ),
-    except Exception as e:
-        print (e) 
-        await message.reply(f"error found \n\n{e}") 
