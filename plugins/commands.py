@@ -1306,7 +1306,7 @@ async def refer(bot, message):
         replymarkup=InlineKeyboardMarkup([
                     [InlineKeyboardButton("invite 🔗", url=f"https://telegram.me/share/url?url=https://t.me/{temp.U_NAME}=reff_{user_id}")],
                     [InlineKeyboardButton(f"⏳{total}", callback_data=f"show_reff")],
-                    [InlineKeyboardButton("Close 🚫", callback_data=f"close_data")]]
+                    [InlineKeyboardButton("Close 🚫", callback_data=f"close_data")]])
     except Exception as e:
         print (e) 
         await message.reply(f"error found \n\n{e}") 
