@@ -1296,3 +1296,23 @@ async def remove_user(bot, message):
             )
     except Exception as e:
         await message.reply(f'Error - {e}')
+
+@Client.on_message(filters.command('reffer') )
+async def refer(bot, message):
+    try:
+        user_id = message.from_user.id
+        total = db2.get_refer_points(user_id)
+        await message.reply(f"<b>ʀᴇғᴇʀʀᴇ ʏᴏᴜʀ ʟɪɴᴋ ᴛᴏ ʏᴏᴜʀ ғʀɪᴇɴᴅs, ғᴀᴍɪʟʏ, ᴄʜᴀɴɴᴇʟ ᴀɴᴅ ɢʀᴏᴜᴘ ᴛᴏ ɢᴇᴛ ғʀᴇᴇ ᴘʀᴇᴍɪᴜᴍ ғᴏʀ 1 ᴍᴏɴᴛʜ \n\n
+    
+ʀᴇғᴇʀᴀʟ ʟɪɴᴋ - https://t.me/{temp.U_NAME}?start=reff_{user_id}\n\n
+
+sʜᴀʀᴇ ᴛʜɪs ʟɪɴᴋ ᴡɪᴛʜ ʏᴏᴜʀ ғʀɪᴇɴᴅs, ᴇᴀᴄʜ ᴛɪᴍᴇ ᴛʜᴇʏ ᴊᴏɪɴ,  ʏᴏᴜ ᴡɪʟʟ ɢᴇᴛ 10 ʀᴇғғᴇʀᴀʟ ᴘᴏɪɴᴛs ᴀɴᴅ ᴀғᴛᴇʀ {USER_POINT} ᴘᴏɪɴᴛs ʏᴏᴜ ᴡɪʟʟ ɢᴇᴛ 1 ᴍᴏɴᴛʜ ᴘʀᴇᴍɪᴜᴍ sᴜʙsᴄʀɪᴘᴛɪᴏɴ.\n\n
+
+ʙᴜʏ ᴘᴀɪᴅ ᴘʟᴀɴ ʙʏ - /premium</b>",
+        replymarkup=InlineKeyboardMarkup([
+                    [InlineKeyboardButton("invite 🔗", url=f"https://telegram.me/share/url?url=https://t.me/{temp.U_NAME}=reff_{user_id}&text=Hᴇʟʟᴏ%21%20ᴇxᴘᴇʀɪᴇɴᴄᴇ%20ᴀ%20ʙᴏᴛ%20ᴛʜᴀᴛ%20ᴏғғᴇʀs%20ᴀ%20ᴠᴀsᴛ%20ʟɪʙʀᴀʀʏ%20ᴏғ%20ᴜɴʟɪᴍɪᴛᴇᴅ%20ᴍᴏᴠɪᴇs%20ᴀɴᴅ%20sᴇʀɪᴇs.%20%F0%9F%98%83")],
+                    [InlineKeyboardButton(f"⏳{total}", callback_data=f"show_reff")],
+                    [InlineKeyboardButton("Close 🚫", callback_data=f"close_data")
+    except Exception as e:
+        print (e) 
+        await message.reply(f"error found \n\n{e}") 
