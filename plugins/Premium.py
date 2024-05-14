@@ -154,13 +154,12 @@ async def plan(client, message):
 
 @Client.on_message(filters.command('reffer') )
 async def refer(bot, message):
-    try:
         user_id = message.from_user.id
-        total = db2.get_refer_points(user_id)
+        users = message.from_user.mention 
         btn = [[
                 InlineKeyboardButton(f"invite 🔗", url=f"https://telegram.me/share/url?url=https://t.me/{temp.U_NAME}=reff_{user_id}"),
                 InlineKeyboardButton(f"⏳{total}", callback_data=f"show_reff"),
-                InlineKeyboardButton('❌ ᴄʟᴏꜱᴇ ❌', callback_data='close_data')
+                InlineKeyboardButton('ᴄʟᴏꜱᴇ', callback_data='close_data')
             ]]
         reply_markup = InlineKeyboardMarkup(btn)
         await message.reply_photo(
