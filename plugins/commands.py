@@ -1310,7 +1310,7 @@ async def refer(bot, message):
         reply_markup = InlineKeyboardMarkup(btn)
         await message.reply_photo(
             photo="https://i2f9m2t2.rocketcdn.me/wp-content/uploads/2014/04/shutterstock_175386392.jpg",
-            text=f"script.REFFER_TXT.format(temp.U_NAME, user_id, USER_POINT)",
+            caption=f"(script.REFFER_TXT.format(temp.U_NAME, user_id, USER_POINT))",
             reply_markup=reply_markup
         ),
     except Exception as e:
