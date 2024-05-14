@@ -391,7 +391,7 @@ async def start(client, message):
             )
             return
 
-        if data.startswith("reffer"):
+        if data.startswith("thh_reffer"):
             user_id = message.from_user.id
             total = db2.get_refer_points(user_id)
 
