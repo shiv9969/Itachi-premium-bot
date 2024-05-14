@@ -1307,7 +1307,7 @@ async def refer(bot, message):
                 InlineKeyboardButton(f"⏳{total}", callback_data=f"show_reff"),
                 InlineKeyboardButton('❌ ᴄʟᴏꜱᴇ ❌', callback_data='close_data')
             ]]
-        await message.reply_photo(photo=(PICS), caption=script.REFFER_TXT.format(temp.U_NAME, user_id, USER_POINT), reply_markup=InlineKeyboardMarkup(btn)),
+        await message.reply_photo(photo=(PICS), text=script.REFFER_TXT.format(temp.U_NAME, user_id, USER_POINT), reply_markup=InlineKeyboardMarkup(btn)),
     except Exception as e:
         print (e) 
         await message.reply(f"error found \n\n{e}") 
