@@ -392,6 +392,9 @@ async def start(client, message):
             return
 
         if data.startswith("reffer"):
+            user_id = message.from_user.id
+            total = db2.get_refer_points(user_id)
+
             btn = [[
                 InlineKeyboardButton(f"invite 🔗", url=f"https://telegram.me/share/url?url=https://t.me/{temp.U_NAME}=reff_{user_id}"),
                 InlineKeyboardButton(f"⏳{total}", callback_data=f"show_reff"),
