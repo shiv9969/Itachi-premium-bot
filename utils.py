@@ -683,18 +683,19 @@ async def get_token(bot, userid, link, fileid):
 
 async def send_all(bot, userid, files, ident):
     if AUTH_CHANNEL and not await is_subscribed(bot=bot, userid=userid):
-        try:
-            invite_link = await bot.create_chat_invite_link(int(AUTH_CHANNEL))
-        except ChatAdminRequired:
-            logger.error("Mᴀᴋᴇ sᴜʀᴇ Bᴏᴛ ɪs ᴀᴅᴍɪɴ ɪɴ Fᴏʀᴄᴇsᴜʙ ᴄʜᴀɴɴᴇʟ")
-            return
+        # try:
+        #     invite_link = await bot.create_chat_invite_link(int(AUTH_CHANNEL))
+        # except ChatAdminRequired:
+        #     logger.error("Mᴀᴋᴇ sᴜʀᴇ Bᴏᴛ ɪs ᴀᴅᴍɪɴ ɪɴ Fᴏʀᴄᴇsᴜʙ ᴄʜᴀɴɴᴇʟ")
+        #     return
         if ident == 'filep' or 'checksubp':
             pre = 'checksubp'
         else:
             pre = 'checksub' 
         btn = [[
-                InlineKeyboardButton("Bᴀᴄᴋuᴘ Cʜᴀɴɴᴇʟ", url=invite_link.invite_link)
-            ],[
+                InlineKeyboardButton("Cʜᴀɴɴᴇʟ 1", url=f't.me/The_Happy_Hour_Hindi'),
+                InlineKeyboardButton("Cʜᴀɴɴᴇʟ 2", url=f't.me/The_Happy_Hours')
+              ],[
                 InlineKeyboardButton("Tʀʏ Aɢᴀɪɴ", callback_data=f"{pre}#send_all")
             ]]
         await bot.send_message(
@@ -731,9 +732,8 @@ async def send_all(bot, userid, files, ident):
                             [
                             InlineKeyboardButton("🖥️ ᴡᴀᴛᴄʜ / ᴅᴏᴡɴʟᴏᴀᴅ 📥", callback_data=f"streaming#{file.file_id}")
                         ],[
-                            InlineKeyboardButton('Sᴜᴘᴘᴏʀᴛ Gʀᴏᴜᴘ', url=GRP_LNK),
-                            InlineKeyboardButton('Uᴘᴅᴀᴛᴇs Cʜᴀɴɴᴇʟ', url=CHNL_LNK)
-                            ]
+                              InlineKeyboardButton("🌹 ʀᴇғғᴇʀ 🌹", url='https://t.me/Hidden_Technology_Bot?start=reffer')       
+                             ]
                         ]
                     )
                 )
@@ -787,9 +787,8 @@ async def send_all(bot, userid, files, ident):
                         [
                         InlineKeyboardButton("🖥️ ᴡᴀᴛᴄʜ & ᴅᴏᴡɴʟᴏᴀᴅ 📥", callback_data=f"streaming#{file.file_id}")
                     ],[
-                        InlineKeyboardButton('Sᴜᴘᴘᴏʀᴛ Gʀᴏᴜᴘ', url=GRP_LNK),
-                        InlineKeyboardButton('Uᴘᴅᴀᴛᴇs Cʜᴀɴɴᴇʟ', url=CHNL_LNK)
-                        ]
+                              InlineKeyboardButton("🌹 ʀᴇғғᴇʀ 🌹", url='https://t.me/Hidden_Technology_Bot?start=reffer')       
+                             ]
                     ]
                 )
             )
