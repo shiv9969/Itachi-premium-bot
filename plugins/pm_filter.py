@@ -133,12 +133,12 @@ async def reply_stream(client, message):
 async def force_sub(client, message):
     if AUTH_CHANNEL and not await is_subscribed(client, message):
         user = message.from_user.first_name
-        invite_link = await client.create_chat_invite_link(int(AUTH_CHANNEL))
+        # invite_link = await client.create_chat_invite_link(int(AUTH_CHANNEL))
         btn = [[
-                InlineKeyboardButton("❆ Jᴏɪɴ Oᴜʀ Cʜᴀɴɴᴇʟ ❆", url=f't.me/The_Happy_Hours')
+                InlineKeyboardButton("Jᴏɪɴ Cʜᴀɴɴᴇʟ", url=f't.me/The_Happy_Hours')
               ]]
         msg=await message.reply_photo(photo='https://i2f9m2t2.rocketcdn.me/wp-content/uploads/2014/04/shutterstock_175386392.jpg',
-            caption=f"🌺𝐃𝐞𝐚𝐫 𝐮𝐬𝐞𝐫 {user}\n\n<b>𝘍𝘪𝘳𝘴𝘵 𝘺𝘰𝘶 𝘫𝘰𝘪𝘯 𝘰𝘶𝘳 𝘤𝘩𝘢𝘯𝘯𝘦𝘭 𝘵𝘩𝘦𝘯 𝘤𝘰𝘮𝘦 𝘣𝘢𝘤𝘬 𝘢𝘯𝘥 𝘴𝘦𝘢𝘳𝘤𝘩 𝘢𝘨𝘢𝘪𝘯\n\n<i>पहले आप हमारे चैनल को ज्वाइन करे फिर वापस सर्च करें</i></b>",
+            caption=f"ꜰɪʀꜱᴛ ᴊᴏɪɴ ᴏᴜʀ ᴄʜᴀɴɴᴇʟ ᴀꜰᴛᴇʀ ꜱᴇᴀʀᴄʜ ᴀɢᴀɪɴ....✅\n\n<i>पहले आप हमारे चैनल को ज्वाइन करे फिर वापस सर्च करें</i></b>",
             reply_markup=InlineKeyboardMarkup(btn),
         )
         await message.delete()
@@ -2042,7 +2042,7 @@ async def auto_filter(client, msg, spoll=False):
             **locals()
         )
     else:
-        cap = f"<b>Hᴇʏ {message.from_user.mention}, Hᴇʀᴇ ɪs Wʜᴀᴛ I Fᴏᴜɴᴅ Iɴ Mʏ Dᴀᴛᴀʙᴀsᴇ Fᴏʀ Yᴏᴜʀ Qᴜᴇʀʏ {search}.</b>"
+        cap = f"<b>{message.from_user.mention} ʜᴇʀᴇ ʟɪꜱᴛ ᴏꜰ ꜰɪʟᴇꜱ {search} 👇</b>"
     CAP[search] = cap
     if imdb and imdb.get('poster'):
         try:
@@ -2075,7 +2075,7 @@ async def auto_filter(client, msg, spoll=False):
                 await message.delete()
         except Exception as e:
             logger.exception(e)
-            fek = await message.reply_photo(photo=NOR_IMG, caption=cap + files_link, reply_markup=InlineKeyboardMarkup(btn))
+            fek = await message.reply_text(photo=NOR_IMG, caption=cap + files_link, reply_markup=InlineKeyboardMarkup(btn))
             try:
                 if settings['auto_delete']:
                     await asyncio.sleep(300)
@@ -2087,7 +2087,7 @@ async def auto_filter(client, msg, spoll=False):
                 await fek.delete()
                 await message.delete()
     else:
-        fuk = await message.reply_photo(photo=NOR_IMG, caption=cap + files_link, reply_markup=InlineKeyboardMarkup(btn))
+        fuk = await message.reply_text(photo=NOR_IMG, caption=cap + files_link, reply_markup=InlineKeyboardMarkup(btn))
         await message.delete()
         await m.delete()
         try:
