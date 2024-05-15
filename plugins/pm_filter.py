@@ -2269,7 +2269,7 @@ async def advantage_spell_chok(client, msg):
                         await spell_check_del.delete()
     except Exception as e:
         print(e)
-        await message.reply("error found\n\n{e}")
+        await message.reply(f"error found\n\n{e}")
         
 
 async def manual_filters(client, message, text=False):
