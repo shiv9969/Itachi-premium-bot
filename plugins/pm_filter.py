@@ -2107,6 +2107,8 @@ async def auto_filter(client, msg, spoll=False):
 async def advantage_spell_chok(client, msg):
     mv_id = msg.id
     mv_rqst = msg.text
+    message = msg
+    total=await bot.get_chat_members_count(msg.chat.id)
     reqstr1 = msg.from_user.id if msg.from_user else 0
     reqstr = await client.get_users(reqstr1)
     settings = await get_settings(msg.chat.id)
@@ -2130,7 +2132,6 @@ async def advantage_spell_chok(client, msg):
                        InlineKeyboardButton("Gᴏᴏɢʟᴇ", url=f"https://www.google.com/search?q={reqst_gle}")
             ]]
             if NO_RESULTS_MSG:
-                total=await client.get_chat_members_count(message.chat.id)
                 await client.send_message(chat_id=LOG_CHANNEL, text=(script.NORSLTS.format(message.chat.title, message.chat.id, total, temp.B_NAME, reqstr.mention, mv_rqst)))
             k = await msg.reply_photo(
                 photo=(SPELL_IMG), 
@@ -2169,7 +2170,6 @@ async def advantage_spell_chok(client, msg):
                        InlineKeyboardButton("Gᴏᴏɢʟᴇ", url=f"https://www.google.com/search?q={reqst_gle}")
             ]]
             if NO_RESULTS_MSG:
-                total=await client.get_chat_members_count(message.chat.id)
                 await client.send_message(chat_id=LOG_CHANNEL, text=(script.NORSLTS.format(message.chat.title, message.chat.id, total, temp.B_NAME, reqstr.mention, mv_rqst)))
             k = await msg.reply_photo(
                 photo=(SPELL_IMG), 
@@ -2213,7 +2213,6 @@ async def advantage_spell_chok(client, msg):
                        InlineKeyboardButton("Gᴏᴏɢʟᴇ", url=f"https://www.google.com/search?q={reqst_gle}")
             ]]
             if NO_RESULTS_MSG:
-                total=await client.get_chat_members_count(message.chat.id)
                 await client.send_message(chat_id=LOG_CHANNEL, text=(script.NORSLTS.format(message.chat.title, message.chat.id, total, temp.B_NAME, reqstr.mention, mv_rqst)))
             k = await msg.reply_photo(
                 photo=(SPELL_IMG), 
@@ -2230,7 +2229,6 @@ async def advantage_spell_chok(client, msg):
                        InlineKeyboardButton("Gᴏᴏɢʟᴇ", url=f"https://www.google.com/search?q={reqst_gle}")
             ]]
             if NO_RESULTS_MSG:
-                total=await client.get_chat_members_count(message.chat.id)
                 await client.send_message(chat_id=LOG_CHANNEL, text=(script.NORSLTS.format(message.chat.title, message.chat.id, total, temp.B_NAME, reqstr.mention, mv_rqst)))
             k = await msg.reply_photo(
                 photo=(SPELL_IMG), 
