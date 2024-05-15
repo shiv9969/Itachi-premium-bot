@@ -129,25 +129,25 @@ async def reply_stream(client, message):
                 disable_web_page_preview=True
         )
 
-@Client.on_message(filters.group & filters.text & filters.incoming)
-async def force_sub(client, message):
-    if AUTH_CHANNEL and not await is_subscribed(client, message):
-        user = message.from_user.first_name
-        # invite_link = await client.create_chat_invite_link(int(AUTH_CHANNEL))
-        btn = [[
-                InlineKeyboardButton("Cʜᴀɴɴᴇʟ 1", url=f't.me/The_Happy_Hours'),
-                InlineKeyboardButton("Cʜᴀɴɴᴇʟ 2", url=f't.me/The_Happy_Hour_Hindi')
-              ]]
-        msg=await message.reply_photo(photo='https://i2f9m2t2.rocketcdn.me/wp-content/uploads/2014/04/shutterstock_175386392.jpg',
-            caption=f"ꜰɪʀꜱᴛ ᴊᴏɪɴ ᴏᴜʀ ᴄʜᴀɴɴᴇʟ ᴀꜰᴛᴇʀ ꜱᴇᴀʀᴄʜ ᴀɢᴀɪɴ....✅\n\n<i>पहले आप हमारे चैनल को ज्वाइन करे फिर वापस सर्च करें</i></b>",
-            reply_markup=InlineKeyboardMarkup(btn),
-        )
-        await message.delete()
-        await asyncio.sleep(600)
-        await msg.delete()
-        return
-    else:
-        await auto_filter(client, message)
+# @Client.on_message(filters.group & filters.text & filters.incoming)
+# async def force_sub(client, message):
+#     if AUTH_CHANNEL and not await is_subscribed(client, message):
+#         user = message.from_user.first_name
+#         # invite_link = await client.create_chat_invite_link(int(AUTH_CHANNEL))
+#         btn = [[
+#                 InlineKeyboardButton("Cʜᴀɴɴᴇʟ 1", url=f't.me/The_Happy_Hours'),
+#                 InlineKeyboardButton("Cʜᴀɴɴᴇʟ 2", url=f't.me/The_Happy_Hour_Hindi')
+#               ]]
+#         msg=await message.reply_photo(photo='https://i2f9m2t2.rocketcdn.me/wp-content/uploads/2014/04/shutterstock_175386392.jpg',
+#             caption=f"ꜰɪʀꜱᴛ ᴊᴏɪɴ ᴏᴜʀ ᴄʜᴀɴɴᴇʟ ᴀꜰᴛᴇʀ ꜱᴇᴀʀᴄʜ ᴀɢᴀɪɴ....✅\n\n<i>पहले आप हमारे चैनल को ज्वाइन करे फिर वापस सर्च करें</i></b>",
+#             reply_markup=InlineKeyboardMarkup(btn),
+#         )
+#         await message.delete()
+#         await asyncio.sleep(600)
+#         await msg.delete()
+#         return
+#     else:
+#         await auto_filter(client, message)
 
 
 @Client.on_message(filters.group & filters.text & filters.incoming)
