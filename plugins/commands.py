@@ -670,7 +670,7 @@ async def start(client, message):
         return   
     except Exception as e:
         print (e) 
-        await message.reply(f"error found {e}") 
+        # await message.reply(f"error found {e}") 
         
 @Client.on_message(filters.command('channel') & filters.user(ADMINS))
 async def channel_info(bot, message):
