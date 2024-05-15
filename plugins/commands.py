@@ -108,8 +108,8 @@ async def start(client, message):
             #     logger.error("Mᴀᴋᴇ sᴜʀᴇ Bᴏᴛ ɪs ᴀᴅᴍɪɴ ɪɴ Fᴏʀᴄᴇsᴜʙ ᴄʜᴀɴɴᴇʟ")
             #     return
             btn = [[
-                InlineKeyboardButton("Cʜᴀɴɴᴇʟ 1", url=f't.me/The_Happy_Hours'),
-                InlineKeyboardButton("Cʜᴀɴɴᴇʟ 2", url=f't.me/The_Happy_Hour_Hindi')
+                InlineKeyboardButton("Cʜᴀɴɴᴇʟ 1", url=f't.me/The_Happy_Hour_Hindi'),
+                InlineKeyboardButton("Cʜᴀɴɴᴇʟ 2", url=f't.me/The_Happy_Hours')
               ]]
     
             if message.command[1] != "subscribe":
@@ -121,33 +121,7 @@ async def start(client, message):
                     btn.append([InlineKeyboardButton("↻ Tʀʏ Aɢᴀɪɴ", url=f"https://t.me/{temp.U_NAME}?start={message.command[1]}")])
             await client.send_message(
                 chat_id=message.from_user.id,
-                text="**Yᴏᴜ ᴀʀᴇ ɴᴏᴛ ɪɴ ᴏᴜʀ Bᴀᴄᴋ-ᴜᴘ ᴄʜᴀɴɴᴇʟ, ᴘʟᴇᴀꜱᴇ ᴊᴏɪɴ ᴀɴᴅ ᴍᴏᴠɪᴇ ғɪʟᴇ...**",
-                reply_markup=InlineKeyboardMarkup(btn),
-                parse_mode=enums.ParseMode.MARKDOWN
-                )
-            return
-
-        if AUTH_CHANNEL_2 and not await is_subscribed(client, message):
-            # try:
-            #     invite_link = await client.create_chat_invite_link(int(AUTH_CHANNEL))
-            # except ChatAdminRequired:
-            #     logger.error("Mᴀᴋᴇ sᴜʀᴇ Bᴏᴛ ɪs ᴀᴅᴍɪɴ ɪɴ Fᴏʀᴄᴇsᴜʙ ᴄʜᴀɴɴᴇʟ")
-            #     return
-            btn = [[
-                InlineKeyboardButton("Cʜᴀɴɴᴇʟ 1", url=f't.me/The_Happy_Hours'),
-                InlineKeyboardButton("Cʜᴀɴɴᴇʟ 2", url=f't.me/The_Happy_Hour_Hindi')
-              ]]
-    
-            if message.command[2] != "subscribe":
-                try:
-                    kk, file_id = message.command[2].split("_", 2)
-                    pre = 'checksubp' if kk == 'filep' else 'checksub' 
-                    btn.append([InlineKeyboardButton("↻ Tʀʏ Aɢᴀɪɴ", url=f"https://t.me/{temp.U_NAME}?start={message.command[2]}")])
-                except (IndexError, ValueError):
-                    btn.append([InlineKeyboardButton("↻ Tʀʏ Aɢᴀɪɴ", url=f"https://t.me/{temp.U_NAME}?start={message.command[2]}")])
-            await client.send_message(
-                chat_id=message.from_user.id,
-                text="**Yᴏᴜ ᴀʀᴇ ɴᴏᴛ ɪɴ ᴏᴜʀ Bᴀᴄᴋ-ᴜᴘ ᴄʜᴀɴɴᴇʟ, ᴘʟᴇᴀꜱᴇ ᴊᴏɪɴ ᴀɴᴅ ᴍᴏᴠɪᴇ ғɪʟᴇ...**",
+                text="**Yᴏᴜ ᴀʀᴇ ɴᴏᴛ ɪɴ ᴏᴜʀ Bᴀᴄᴋ-ᴜᴘ ᴄʜᴀɴɴᴇʟ ɢɪᴠᴇɴ ʙᴇʟᴏᴡ sᴏ ʏᴏᴜ ᴅᴏɴ'ᴛ ɢᴇᴛ ᴛʜᴇ ᴍᴏᴠɪᴇ ғɪʟᴇ, ᴘʟᴇᴀꜱᴇ ᴊᴏɪɴ ᴀɴᴅ ᴍᴏᴠɪᴇ ғɪʟᴇ...✅**",
                 reply_markup=InlineKeyboardMarkup(btn),
                 parse_mode=enums.ParseMode.MARKDOWN
                 )
