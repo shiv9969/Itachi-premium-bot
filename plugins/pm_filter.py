@@ -1945,7 +1945,10 @@ async def auto_filter(client, msg, spoll=False):
                 if settings["spell_check"]:
                     return await advantage_spell_chok(client, msg)
                 else:
-                    if NO_RESULTS_MSG:
+                    if PM_FILTER:
+                        await client.send_message(chat_id=LOG_CHANNEL, text=(script.PMNORSLTS.format(temp.B_NAME, reqstr.mention, search)))
+                        return
+                    elif not PM_FILTER and NO_RESULTS_MSG:
                         total=await client.get_chat_members_count(message.chat.id)
                         await client.send_message(chat_id=LOG_CHANNEL, text=(script.NORSLTS.format(message.chat.title, message.chat.id, total, temp.B_NAME, reqstr.mention, search)))
                     return
