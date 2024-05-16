@@ -2181,24 +2181,24 @@ async def advantage_spell_chok(client, msg):
                 ]]
                 if PM_FILTER == True:
                     await client.send_message(chat_id=LOG_CHANNEL, text=(script.PMNORSLTS.format(temp.B_NAME, reqstr.mention, mv_rqst)))
-                k = await msg.reply_photo(
-                    photo=(SPELL_IMG), 
+                    k = await msg.reply_photo(
+                        photo=(SPELL_IMG), 
                     caption=script.I_CUDNT.format(mv_rqst),
                     reply_markup=InlineKeyboardMarkup(button)
-                )
-                await asyncio.sleep(30)
-                await k.delete()
-                return
+                    )
+                    await asyncio.sleep(30)
+                    await k.delete()
+                    return
                 elif not PM_FILTER and NO_RESULTS_MSG:
                     await client.send_message(chat_id=LOG_CHANNEL, text=(script.NORSLTS.format(message.chat.title, message.chat.id, total, temp.B_NAME, reqstr.mention, mv_rqst)))
-                k = await msg.reply_photo(
-                    photo=(SPELL_IMG), 
+                    k = await msg.reply_photo(
+                        photo=(SPELL_IMG), 
                     caption=script.I_CUDNT.format(mv_rqst),
                     reply_markup=InlineKeyboardMarkup(button)
-                )
-                await asyncio.sleep(30)
-                await k.delete()
-                return
+                    )
+                    await asyncio.sleep(30)
+                    await k.delete()
+                    return
             SPELL_CHECK[mv_id] = movielist
             btn = [[
                 InlineKeyboardButton(
@@ -2234,24 +2234,24 @@ async def advantage_spell_chok(client, msg):
                 ]]
                 if PM_FILTER == True:
                     await client.send_message(chat_id=LOG_CHANNEL, text=(script.PMNORSLTS.format(temp.B_NAME, reqstr.mention, mv_rqst)))
-                k = await msg.reply_photo(
-                    photo=(SPELL_IMG), 
+                    k = await msg.reply_photo(
+                        photo=(SPELL_IMG), 
                     caption=script.I_CUDNT.format(mv_rqst),
                     reply_markup=InlineKeyboardMarkup(button)
-                )
-                await asyncio.sleep(30)
-                await k.delete()
-                return
+                    )
+                    await asyncio.sleep(30)
+                    await k.delete()
+                    return
                 elif not PM_FILTER and NO_RESULTS_MSG:
                     await client.send_message(chat_id=LOG_CHANNEL, text=(script.NORSLTS.format(message.chat.title, message.chat.id, total, temp.B_NAME, reqstr.mention, mv_rqst)))
-                k = await msg.reply_photo(
-                    photo=(SPELL_IMG), 
+                    k = await msg.reply_photo(
+                        photo=(SPELL_IMG), 
                     caption=script.I_CUDNT.format(mv_rqst),
                     reply_markup=InlineKeyboardMarkup(button)
-                )
-                await asyncio.sleep(30)
-                await k.delete()
-                return
+                    )
+                    await asyncio.sleep(30)
+                    await k.delete()
+                    return
             movielist = []
             if not movies:
                 reqst_gle = mv_rqst.replace(" ", "+")
@@ -2259,15 +2259,25 @@ async def advantage_spell_chok(client, msg):
                            InlineKeyboardButton("Gᴏᴏɢʟᴇ", url=f"https://www.google.com/search?q={reqst_gle}")
                 ]]
                 if NO_RESULTS_MSG:
-                    await client.send_message(chat_id=LOG_CHANNEL, text=(script.NORSLTS.format(message.chat.title, message.chat.id, total, temp.B_NAME, reqstr.mention, mv_rqst)))
-                k = await msg.reply_photo(
-                    photo=(SPELL_IMG), 
+                    await client.send_message(chat_id=LOG_CHANNEL, text=(script.PMNORSLTS.format(temp.B_NAME, reqstr.mention, mv_rqst)))
+                    k = await msg.reply_photo(
+                        photo=(SPELL_IMG),
                     caption=script.I_CUDNT.format(mv_rqst),
                     reply_markup=InlineKeyboardMarkup(button)
-                )
-                await asyncio.sleep(30)
-                await k.delete()
-                return
+                    )
+                    await asyncio.sleep(30)
+                    await k.delete()
+                    return
+                elif not PM_FILTER and NO_RESULTS_MSG:
+                    await client.send_message(chat_id=LOG_CHANNEL, text=(script.NORSLTS.format(message.chat.title, message.chat.id, total, total, temp.B_NAME, reqstr.mention, mv_rqst)))
+                    k = await msg.reply_photo(
+                        photo=(SPELL_IMG), 
+                    caption=script.I_CUDNT.format(mv_rqst),
+                    reply_markup=InlineKeyboardMarkup(button)
+                    )
+                    await asyncio.sleep(30)
+                    await k.delete()
+                    return
             movielist += [movie.get('title') for movie in movies]
             movielist += [f"{movie.get('title')} {movie.get('year')}" for movie in movies]
             SPELL_CHECK[mv_id] = movielist
