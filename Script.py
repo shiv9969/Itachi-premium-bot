@@ -138,6 +138,13 @@ Sᴇᴀʀᴄʜ Wᴇʙ Sᴇʀɪᴇs Iɴ ᴛʜɪs Fᴏʀᴍᴀᴛᴇ :
 
 ★ Message <code>{}</code>"""
 
+    PMNORSLTS = """
+#PM❌NoResult
+★ BOT {}
+★ User <b>: {}</b>
+
+★ Message <code>{}</code>"""
+
     CAPTION = """<b><a href="https://t.me/ThappyHour">{file_name}</a></b>"""
 
     IMDB_TEMPLATE_TXT = """<b>
