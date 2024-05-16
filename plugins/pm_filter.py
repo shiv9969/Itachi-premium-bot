@@ -2131,7 +2131,17 @@ async def advantage_spell_chok(client, msg):
                 button = [[
                            InlineKeyboardButton("Gᴏᴏɢʟᴇ", url=f"https://www.google.com/search?q={reqst_gle}")
                 ]]
-                if NO_RESULTS_MSG:
+                if PM_FILTER == True:
+                    await client.send_message(chat_id=LOG_CHANNEL, text=(script.PMNORSLTS.format(temp.B_NAME, reqstr.mention, mv_rqst)))
+                k = await msg.reply_photo(
+                    photo=(SPELL_IMG), 
+                    caption=script.I_CUDNT.format(mv_rqst),
+                    reply_markup=InlineKeyboardMarkup(button)
+                )
+                await asyncio.sleep(30)
+                await k.delete()
+                return
+                elif not PM_FILTER and NO_RESULTS_MSG:
                     await client.send_message(chat_id=LOG_CHANNEL, text=(script.NORSLTS.format(message.chat.title, message.chat.id, total, temp.B_NAME, reqstr.mention, mv_rqst)))
                 k = await msg.reply_photo(
                     photo=(SPELL_IMG), 
@@ -2169,7 +2179,17 @@ async def advantage_spell_chok(client, msg):
                 button = [[
                            InlineKeyboardButton("Gᴏᴏɢʟᴇ", url=f"https://www.google.com/search?q={reqst_gle}")
                 ]]
-                if NO_RESULTS_MSG:
+                if PM_FILTER == True:
+                    await client.send_message(chat_id=LOG_CHANNEL, text=(script.PMNORSLTS.format(temp.B_NAME, reqstr.mention, mv_rqst)))
+                k = await msg.reply_photo(
+                    photo=(SPELL_IMG), 
+                    caption=script.I_CUDNT.format(mv_rqst),
+                    reply_markup=InlineKeyboardMarkup(button)
+                )
+                await asyncio.sleep(30)
+                await k.delete()
+                return
+                if not PM_FILTER and NO_RESULTS_MSG:
                     await client.send_message(chat_id=LOG_CHANNEL, text=(script.NORSLTS.format(message.chat.title, message.chat.id, total, temp.B_NAME, reqstr.mention, mv_rqst)))
                 k = await msg.reply_photo(
                     photo=(SPELL_IMG), 
@@ -2212,7 +2232,17 @@ async def advantage_spell_chok(client, msg):
                 button = [[
                            InlineKeyboardButton("Gᴏᴏɢʟᴇ", url=f"https://www.google.com/search?q={reqst_gle}")
                 ]]
-                if NO_RESULTS_MSG:
+                if PM_FILTER == True:
+                    await client.send_message(chat_id=LOG_CHANNEL, text=(script.PMNORSLTS.format(temp.B_NAME, reqstr.mention, mv_rqst)))
+                k = await msg.reply_photo(
+                    photo=(SPELL_IMG), 
+                    caption=script.I_CUDNT.format(mv_rqst),
+                    reply_markup=InlineKeyboardMarkup(button)
+                )
+                await asyncio.sleep(30)
+                await k.delete()
+                return
+                elif not PM_FILTER and NO_RESULTS_MSG:
                     await client.send_message(chat_id=LOG_CHANNEL, text=(script.NORSLTS.format(message.chat.title, message.chat.id, total, temp.B_NAME, reqstr.mention, mv_rqst)))
                 k = await msg.reply_photo(
                     photo=(SPELL_IMG), 
