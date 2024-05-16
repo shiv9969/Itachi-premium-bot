@@ -2189,7 +2189,7 @@ async def advantage_spell_chok(client, msg):
                 await asyncio.sleep(30)
                 await k.delete()
                 return
-                if not PM_FILTER and NO_RESULTS_MSG:
+                elif not PM_FILTER and NO_RESULTS_MSG:
                     await client.send_message(chat_id=LOG_CHANNEL, text=(script.NORSLTS.format(message.chat.title, message.chat.id, total, temp.B_NAME, reqstr.mention, mv_rqst)))
                 k = await msg.reply_photo(
                     photo=(SPELL_IMG), 
