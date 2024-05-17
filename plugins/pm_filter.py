@@ -176,7 +176,7 @@ async def give_filter(client, message):
 
 @Client.on_message(filters.private & filters.text & filters.incoming)
 async def pm_text(bot, message):
-    if PM_FILTER == True:  
+    if PM_FILTER == False:  
         await auto_filter(bot, message) 
     else:
         content = message.text
