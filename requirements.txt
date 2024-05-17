@@ -24,7 +24,6 @@ openai
 wget
 aiofiles
 youtube_search
-youtubesearchpython
 yt_dlp
 youtube_dl
 
