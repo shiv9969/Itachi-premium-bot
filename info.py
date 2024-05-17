@@ -45,7 +45,7 @@ SUPPORT_CHAT_ID = int(support_chat_id) if support_chat_id and id_pattern.search(
 NO_RESULTS_MSG = is_enabled((environ.get("NO_RESULTS_MSG", 'True')), False)
 
 # MongoDB information
-DATABASE_URI = environ.get('DATABASE_URI', "mongodb+srv://heroku01:heroku01@cluster0.0mzhmjb.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0")
+DATABASE_URI = environ.get('DATABASE_URI', "mongodb+srv://heroku02:heroku02@cluster0.1o1gniu.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0")
 DATABASE_NAME = environ.get('DATABASE_NAME', "MINATO")
 COLLECTION_NAME = environ.get('COLLECTION_NAME', 'Telegram_files')
 
@@ -56,7 +56,7 @@ INVITED_USER_TRAIL = int(environ.get('INVITED_USER_TRAIL', "3600")) #set in seco
 
 #stream link shortner
 STREAM_SITE = (environ.get('STREAM_SITE', 'goo.aslink.in'))
-STREAM_API = (environ.get('STREAM_API', 'f4462cdd84d7ee8863228f2e40fac761bc56e707'))
+STREAM_API = (environ.get('STREAM_API', 'f3d4fd7dae6de26195974daabb27252176d86cfe'))
 STREAMHTO = (environ.get('STREAMHTO', 'https://t.me/ThappyHour'))
 STREAM_LINK_MODE = is_enabled((environ.get('STREAM_LINK_MODE', "True")), False)
 
@@ -66,29 +66,32 @@ PREMIUM_LOGS = int(premium) if premium and id_pattern.search(premium) else None
 
 #files link shortnet
 SHORTLINK_URL = environ.get('SHORTLINK_URL', 'goo.aslink.in')
-SHORTLINK_API = environ.get('SHORTLINK_API', 'f4462cdd84d7ee8863228f2e40fac761bc56e707')
+SHORTLINK_API = environ.get('SHORTLINK_API', 'f3d4fd7dae6de26195974daabb27252176d86cfe')
 IS_SHORTLINK = is_enabled((environ.get('IS_SHORTLINK', 'False')), False)
 
 # verify link shortner
 IS_VERIFY = is_enabled((environ.get('IS_VERIFY', 'False')), False)
 HOW_TO_VERIFY = environ.get('HOW_TO_VERIFY', "https://t.me/ThappyHour")
 VERIFY2_URL = environ.get('VERIFY2_URL', "goo.aslink.in")
-VERIFY2_API = environ.get('VERIFY2_API', "f4462cdd84d7ee8863228f2e40fac761bc56e707")
+VERIFY2_API = environ.get('VERIFY2_API', "f3d4fd7dae6de26195974daabb27252176d86cfe")
 
 DELETE_CHANNELS = [int(dch) if id_pattern.search(dch) else dch for dch in environ.get('DELETE_CHANNELS', '-1002111303673').split()]
-MAX_B_TN = environ.get("MAX_B_TN", "7")
+MAX_B_TN = environ.get("MAX_B_TN", "8")
 MAX_BTN = is_enabled((environ.get('MAX_BTN', "True")), True)
 PORT = environ.get("PORT", "8080")
 GRP_LNK = environ.get('GRP_LNK', 'https://t.me/ThappyHour')
 CHNL_LNK = environ.get('CHNL_LNK', 'https://t.me/The_Happy_Hours')
-MSG_ALRT = environ.get('MSG_ALRT', 'The Happy Hour')
+MSG_ALRT = environ.get('MSG_ALRT', 'Created By : The Happy Hour ❤️')
 LOG_CHANNEL = int(environ.get('LOG_CHANNEL', -1002106576609))
 SUPPORT_CHAT = environ.get('SUPPORT_CHAT', 'Thappyhour')
-P_TTI_SHOW_OFF = is_enabled((environ.get('P_TTI_SHOW_OFF', "False")), False)
+P_TTI_SHOW_OFF = is_enabled((environ.get('P_TTI_SHOW_OFF', "True")), False)
 IMDB = is_enabled((environ.get('IMDB', "False")), True)
 AUTO_FFILTER = is_enabled((environ.get('AUTO_FFILTER', "True")), True)
 AUTO_DELETE = is_enabled((environ.get('AUTO_DELETE', "True")), True)
-PM_FILTER = is_enabled((environ.get('PM_FILTER', "True")), True)
+
+
+PM_FILTER = is_enabled((environ.get('PM_FILTER', "False")), True)
+
 TUTORIAL = environ.get('TUTORIAL', 'https://t.me/ThappyHour')
 IS_TUTORIAL = bool(environ.get('IS_TUTORIAL', True))
 SINGLE_BUTTON = is_enabled((environ.get('SINGLE_BUTTON', "True")), True)
