@@ -21,7 +21,7 @@ pyromod==1.5
 
 telegraph
 openai
-yt-dlp
+yt_dlp
 
 jinja2
 apscheduler
