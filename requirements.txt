@@ -21,7 +21,12 @@ pyromod==1.5
 
 telegraph
 openai
+wget
+aiofiles
+youtube_search
+youtubesearchpython
 yt_dlp
+youtube_dl
 
 jinja2
 apscheduler
