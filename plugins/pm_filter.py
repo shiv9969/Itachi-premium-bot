@@ -671,7 +671,7 @@ async def advantage_spoll_choker(bot, query):
                     ]]
                     reply_markup = InlineKeyboardMarkup(safari)
                     total=await bot.get_chat_members_count(query.message.chat.id)
-                    await bot.send_message(chat_id=REQST_CHANNEL, text=(script.NORSLTS.format(query.message.chat.title, query.message.chat.id, total, temp.B_NAME, reqstr.mention, movie)), reply_markup=InlineKeyboardMarkup(safari))
+                    await bot.send_message(chat_id=GRP_REPORT_CHANNEL, text=(script.NORSLTS.format(query.message.chat.title, query.message.chat.id, total, temp.B_NAME, reqstr.mention, movie)), reply_markup=InlineKeyboardMarkup(safari))
                 k = await query.message.edit(script.MVE_NT_FND)
                 await asyncio.sleep(60)
                 await k.delete()
@@ -1330,13 +1330,13 @@ async def cb_handler(client: Client, query: CallbackQuery):
         _, user_id, movie = data.split(":")
         try:
             safari = [[
-                    InlineKeyboardButton(text=f"🗑 Delete Log ❌", callback_data = "close_data")
+                    InlineKeyboardButton(text=f"❌ close ❌", callback_data = "close_data")
                     ]]
             reply_markup = InlineKeyboardMarkup(safari)
-            await client.send_message(int(user_id), f'━━━━━━━━━━━━━━━━━━\n\nआपने "<b>{movie}</b>" का report भेजा है वो\nमूवी हमें नई मिला...🤒\n\n━━━━━━━━━━━━━━━━━━\n\nʏᴏᴜʀ ʀᴇǫᴜɪʀᴇᴅ ᴍᴏᴠɪᴇ ɪꜱ\nɴᴏᴛ ᴀᴠᴀɪʟᴀʙʟᴇ....\n\n━━━━━━━━━━━━━━━━━━')
+            await client.send_message(int(user_id), f'<b>आपने " {movie} " का report भेजा है वो\nमूवी हमें नई मिला...🤒\n━━━━━━━━━━━━━━━━━━\nʏᴏᴜʀ ʀᴇǫᴜɪʀᴇᴅ " {movie} " ɪꜱ\nɴᴏᴛ ᴀᴠᴀɪʟᴀʙʟᴇ....</b>')
             msg=await query.edit_message_text(text=f"Mᴇꜱꜱᴀɢᴇ Sᴇɴᴅ Sᴜᴄᴄᴇꜱꜱғᴜʟʟʏ ✅\n\n⏳ꜱᴛᴀᴛᴜꜱ : Nᴏᴛ Aᴠᴀɪʟᴀʙʟᴇ 😒.\n🪪ᴜꜱᴇʀɪᴅ : tg://openmessage?user_id={user_id}\n🎞ᴄᴏɴᴛᴇɴᴛ : `{movie}`", reply_markup=InlineKeyboardMarkup(safari))
-            # await asyncio.sleep(10)
-            # await msg.delete()
+            await asyncio.sleep(7)
+            await msg.delete()
         except Exception as e:
             print(e)  # print the error message
             await query.answer(f"☣something went wrong\n\n{e}", show_alert=True)
@@ -1345,13 +1345,13 @@ async def cb_handler(client: Client, query: CallbackQuery):
         _, user_id, movie = data.split(":")
         try:
             safari = [[
-                    InlineKeyboardButton(text=f"🗑 Delete Log ❌", callback_data = "close_data")
+                    InlineKeyboardButton(text=f"❌ close ❌", callback_data = "close_data")
                     ]]
             reply_markup = InlineKeyboardMarkup(safari)
-            await client.send_message(int(user_id), f'━━━━━━━━━━━━━━━━━━\n\nआपने जो "<b>{movie}</b>" का रिपोर्ट भेजा है\nवो मूवी पहले से ही ग्रुप में हे...✅\n\nअगर नई मिल रहा है तो मूवी का\nरिलीस year भी लिखे....😘\n\nPushpa 2021\nChhichhore 2019\nSaalar 2024\n\n━━━━━━━━━━━━━━━━━━\n\nʏᴏᴜʀ ʀᴇǫᴜᴇꜱᴛᴇᴅ "<b>{movie}</b>" ɪꜱ ᴀʟʀᴇᴀᴅʏ\nᴀᴠᴀɪʟᴀʙʟᴇ ɪɴ ᴏᴜʀ ɢʀᴏᴜᴘ....✅\nɪꜰ ʙᴏᴛ ɪꜱ ɴᴏᴛ ꜱᴇɴᴅɪɴɢ....🫠\nᴛʜᴇɴ ᴛʏᴘᴇ ᴀꜱʟᴏ ᴍᴏᴠɪᴇ\nʀᴇʟᴇᴀꜱᴇ ʏᴇᴀʀ....😘\n\nPushpa 2021\nChhichhore 2019\nSaalar 2024\n\n━━━━━━━━━━━━━━━━━━\n\n<a href={GRP_LNK}><b>ʀᴇǫᴜᴇꜱᴛ ʜᴇʀᴇ - ᴛʜᴇ ʜᴀᴘᴘʏ ʜᴏᴜʀ\nʀᴇǫᴜᴇꜱᴛ ʜᴀʀᴇ - ᴛʜᴇ ʜᴀᴘᴘʏ ʜᴏᴜʀ</b></a>\n\n━━━━━━━━━━━━━━━━━━')
+            await client.send_message(int(user_id), f'<b>आपने जो " {movie} " का रिपोर्ट भेजा है\nवो मूवी पहले से ही ग्रुप में हे...✅\n\nअगर नई मिल रहा है तो मूवी का\nरिलीस year भी लिखे....😘\n\nPushpa 2021\nChhichhore 2019\nSaalar 2024\n━━━━━━━━━━━━━━━━━━\nʏᴏᴜʀ ʀᴇǫᴜᴇꜱᴛᴇᴅ " {movie} " ɪꜱ ᴀʟʀᴇᴀᴅʏ\nᴀᴠᴀɪʟᴀʙʟᴇ ɪɴ ᴏᴜʀ ɢʀᴏᴜᴘ....✅\nɪꜰ ʙᴏᴛ ɪꜱ ɴᴏᴛ ꜱᴇɴᴅɪɴɢ....🫠\nᴛʜᴇɴ ᴛʏᴘᴇ ᴀꜱʟᴏ ᴍᴏᴠɪᴇ\nʀᴇʟᴇᴀꜱᴇ ʏᴇᴀʀ....😘\n\nPushpa 2021\nChhichhore 2019\nSaalar 2024</b>')
             msg=await query.edit_message_text(text=f"Mᴇꜱꜱᴀɢᴇ Sᴇɴᴅ Sᴜᴄᴄᴇꜱꜱғᴜʟʟʏ ✅\n\n⏳ꜱᴛᴀᴛᴜꜱ : Already Aᴠᴀɪʟᴀʙʟᴇ 🤩.\n🪪ᴜꜱᴇʀɪᴅ : tg://openmessage?user_id={user_id}\n🎞ᴄᴏɴᴛᴇɴᴛ : `{movie}`", reply_markup=InlineKeyboardMarkup(safari))
-            # await asyncio.sleep(10)
-            # await msg.delete()
+            await asyncio.sleep(7)
+            await msg.delete()
         except Exception as e:
             print(e)  # print the error message
             await query.answer(f"☣something went wrong\n\n{e}", show_alert=True)
@@ -1360,13 +1360,13 @@ async def cb_handler(client: Client, query: CallbackQuery):
         _, user_id, movie = data.split(":")
         try:
             safari = [[
-                    InlineKeyboardButton(text=f"🗑 Delete Log ❌", callback_data = "close_data")
+                    InlineKeyboardButton(text=f"❌ close ❌", callback_data = "close_data")
                     ]]
             reply_markup = InlineKeyboardMarkup(safari)
-            await client.send_message(int(user_id), f'━━━━━━━━━━━━━━━━━━\n\nआपने "<b>{movie}</b>" का रिपोर्ट भेजा था वो\nमूवी हमने ग्रुप में डाल दिया है....✅\n\nग्रुप में वापस नाम लिखने पर आपको\nमूवी मिल जाएगा....🎉\n\n━━━━━━━━━━━━━━━━━━\n\nʏᴏᴜʀ "<b>{movie}</b>" ʜᴀꜱ ʙᴇᴇɴ ᴀᴅᴅᴇᴅ\nɪɴ ᴏᴜʀ ɢʀᴏᴜᴘ ....🎉\n\n━━━━━━━━━━━━━━━━━━\n\n<b>ᴘzzzz ʀᴇǫᴜᴇꜱᴛ ᴀɢᴀɪɴ & ɢᴇᴛ....✅</b>\n\n<a href={GRP_LNK}><b>ʀᴇǫᴜᴇꜱᴛ ʜᴇʀᴇ - ᴛʜᴇ ʜᴀᴘᴘʏ ʜᴏᴜʀ\nʀᴇǫᴜᴇꜱᴛ ʜᴀʀᴇ - ᴛʜᴇ ʜᴀᴘᴘʏ ʜᴏᴜʀ</b></a>\n\n━━━━━━━━━━━━━━━━━━\n\nᴛʜᴀɴᴋꜱ ꜰᴏʀ ʀᴇᴘᴏʀᴛɪɴɢ....😘\n\n━━━━━━━━━━━━━━━━━━')
+            await client.send_message(int(user_id), f'<b>आपने " {movie} " का रिपोर्ट भेजा था वो\nमूवी हमने ग्रुप में डाल दिया है....✅\n\nग्रुप में वापस नाम लिखने पर आपको\nमूवी मिल जाएगा....🎉\n━━━━━━━━━━━━━━━━━━\nʏᴏᴜʀ " {movie} " ʜᴀꜱ ʙᴇᴇɴ ᴀᴅᴅᴇᴅ\nɪɴ ᴏᴜʀ ɢʀᴏᴜᴘ ....🎉\n\nᴘzzzz ʀᴇǫᴜᴇꜱᴛ ᴀɢᴀɪɴ & ɢᴇᴛ....✅</b>')
             msg=await query.edit_message_text(text=f"Mᴇꜱꜱᴀɢᴇ Sᴇɴᴅ Sᴜᴄᴄᴇꜱꜱғᴜʟʟʏ ✅\n\n⏳ꜱᴛᴀᴛᴜꜱ : Uᴘʟᴏᴀᴅᴇᴅ 🎊.\n🪪ᴜꜱᴇʀɪᴅ : tg://openmessage?user_id={user_id}\n🎞ᴄᴏɴᴛᴇɴᴛ : `{movie}`", reply_markup=InlineKeyboardMarkup(safari))
-            # await asyncio.sleep(10)
-            # await msg.delete()
+            await asyncio.sleep(7)
+            await msg.delete()
         except Exception as e:
             print(e)  # print the error message
             await query.answer(f"☣something went wrong\n\n{e}", show_alert=True)
@@ -1375,13 +1375,13 @@ async def cb_handler(client: Client, query: CallbackQuery):
         _, user_id, movie = data.split(":")
         try:
             safari = [[
-                    InlineKeyboardButton(text=f"🗑 Delete Log ❌", callback_data = "close_data")
+                    InlineKeyboardButton(text=f"❌ close ❌", callback_data = "close_data")
                     ]]
             reply_markup = InlineKeyboardMarkup(safari)
-            await client.send_message(int(user_id), f'━━━━━━━━━━━━━━━━━━\n\nआपने जो "<b>{movie}</b>" का रिपोर्ट भेजा है\nवो अभी रिलीस नई हुआ है...📅\n\nजब रिलीस होगा तब ग्रुप में\nमिल जाएगा....✅\n\n━━━━━━━━━━━━━━━━━━\n\nʏᴏᴜʀ ʀᴇǫᴜɪʀᴇᴅ "<b>{movie}</b>"\nɪꜱ ɴᴏᴛ ʀᴇʟᴇᴀꜱᴇᴅ....😅\n\nᴡʜᴇɴ ʀᴇʟᴇᴀꜱᴇ ᴛʜᴇɴ ᴡᴇ ᴡɪʟʟ\nᴀʟꜱᴏ ᴜᴘʟᴏᴅ ɪɴ ᴏᴜʀ ɢʀᴏᴜᴘ.....🎉\n\n━━━━━━━━━━━━━━━━━━')
+            await client.send_message(int(user_id), f'<b>आपने जो " {movie} " का रिपोर्ट भेजा है\nवो अभी रिलीस नई हुआ है...📅\n\nजब रिलीस होगा तब ग्रुप में\nमिल जाएगा....✅\n━━━━━━━━━━━━━━━━━━\nʏᴏᴜʀ ʀᴇǫᴜɪʀᴇᴅ " {movie} "\nɪꜱ ɴᴏᴛ ʀᴇʟᴇᴀꜱᴇᴅ....😅\n\nᴡʜᴇɴ ʀᴇʟᴇᴀꜱᴇ ᴛʜᴇɴ ᴡᴇ ᴡɪʟʟ\nᴀʟꜱᴏ ᴜᴘʟᴏᴅ ɪɴ ᴏᴜʀ ɢʀᴏᴜᴘ.....🎉</b>')
             msg=await query.edit_message_text(text=f"Mᴇꜱꜱᴀɢᴇ Sᴇɴᴅ Sᴜᴄᴄᴇꜱꜱғᴜʟʟʏ ✅\n\n⏳ꜱᴛᴀᴛᴜꜱ : Not Release 🙅.\n🪪ᴜꜱᴇʀɪᴅ : tg://openmessage?user_id={user_id}\n🎞ᴄᴏɴᴛᴇɴᴛ : `{movie}`", reply_markup=InlineKeyboardMarkup(safari))
-            # await asyncio.sleep(10)
-            # await msg.delete()
+            await asyncio.sleep(7)
+            await msg.delete()
         except Exception as e:
             print(e)  # print the error message
             await query.answer(f"☣something went wrong\n\n{e}", show_alert=True)
@@ -1390,13 +1390,13 @@ async def cb_handler(client: Client, query: CallbackQuery):
         _, user_id, movie = data.split(":")
         try:
             safari = [[
-                    InlineKeyboardButton(text=f"🗑 Delete Log ❌", callback_data = "close_data")
+                    InlineKeyboardButton(text=f"❌ close ❌", callback_data = "close_data")
                     ]]
             reply_markup = InlineKeyboardMarkup(safari)
-            await client.send_message(int(user_id), f'━━━━━━━━━━━━━━━━━━\n\nआपने जो "<b>{movie}</b>" का रिपोर्ट भेजा है\nउस में स्प्रेलिंग गलत है....😅\n\nकृपया गूगल से स्पेलिंग कॉपी\nकर के लिखे....🙏\n\n━━━━━━━━━━━━━━━━━━\n\nᴄʜᴀᴄᴋ ʏᴏᴜʀ ꜱᴘᴇʟʟɪɴɢ....👀\n\nᴘʟᴢᴢᴢ ᴄᴏᴘʏ ꜱᴘᴇʟʟɪɴɢ ꜰʀᴏᴍ\nɢᴏᴏɢʟᴇ & ᴡʀɪᴛᴇ....👀\n\n━━━━━━━━━━━━━━━━━━\n\n<b>ᴘzzzz ʀᴇǫᴜᴇꜱᴛ ᴀɢᴀɪɴ & ɢᴇᴛ....✅\n\n<a href={GRP_LNK}>ʀᴇǫᴜᴇꜱᴛ ʜᴇʀᴇ - ᴛʜᴇ ʜᴀᴘᴘʏ ʜᴏᴜʀ\nʀᴇǫᴜᴇꜱᴛ ʜᴀʀᴇ - ᴛʜᴇ ʜᴀᴘᴘʏ ʜᴏᴜʀ</a></b>\n\n━━━━━━━━━━━━━━━━━━')
+            await client.send_message(int(user_id), f'<b>आपने जो " {movie} " का रिपोर्ट भेजा है\nउस में स्प्रेलिंग गलत है....😅\n\nकृपया गूगल से स्पेलिंग कॉपी\nकर के लिखे....🙏\n━━━━━━━━━━━━━━━━━━\nᴄʜᴀᴄᴋ ʏᴏᴜʀ ꜱᴘᴇʟʟɪɴɢ....👀\n\nᴘʟᴢᴢᴢ ᴄᴏᴘʏ ꜱᴘᴇʟʟɪɴɢ ꜰʀᴏᴍ\nɢᴏᴏɢʟᴇ & ᴡʀɪᴛᴇ....👀</b>')
             msg=await query.edit_message_text(text=f"Mᴇꜱꜱᴀɢᴇ Sᴇɴᴅ Sᴜᴄᴄᴇꜱꜱғᴜʟʟʏ ✅\n\n⏳ꜱᴛᴀᴛᴜꜱ : Sᴘᴇʟʟɪɴɢ Eʀʀᴏʀ 🕵️.\n🪪ᴜꜱᴇʀɪᴅ : tg://openmessage?user_id={user_id}\n🎞ᴄᴏɴᴛᴇɴᴛ : `{movie}`", reply_markup=InlineKeyboardMarkup(safari))
-            # await asyncio.sleep(10)
-            # await msg.delete()
+            await asyncio.sleep(7)
+            await msg.delete()
         except Exception as e:
             print(e)  # print the error message
             await query.answer(f"☣something went wrong\n\n{e}", show_alert=True)
@@ -1405,62 +1405,17 @@ async def cb_handler(client: Client, query: CallbackQuery):
         _, user_id, movie = data.split(":")
         try:
             safari = [[
-                    InlineKeyboardButton(text=f"🗑 Delete Log ❌", callback_data = "close_data")
+                    InlineKeyboardButton(text=f"❌ close ❌", callback_data = "close_data")
                     ]]
             reply_markup = InlineKeyboardMarkup(safari)
-            await client.send_message(int(user_id), f"━━━━━━━━━━━━━━━━━━\n\nआपने जो {movie} सीरीज का रिपोर्ट\nकिया है उस का नाम आपने गलत\nतरीके से लिखा है....🥱\nइस तरह से लिखे....👇\n\nMoney Heist S01\nKota Factory S01E05\nMoney Heist S03E04\n\n━━━━━━━━━━━━━━━━━━\n\nʏᴏᴜ ʜᴀᴠᴇ ᴡʀɪᴛᴛᴇɴ ɴᴀᴍᴇ\nᴏꜰ {movie} ꜱᴇʀɪᴇꜱ.....👀\nʏᴏᴜ ʜᴀᴠᴇ ʀᴇǫᴜɪʀᴇᴅ ᴡʀᴏɴɢʟʏ...🥱\nMoney Heist S01\nKota Factory S01E05\nMoney Heist S03E04\n\n━━━━━━━━━━━━━━━━━━\n\n<b>ᴘzzzz ʀᴇǫᴜᴇꜱᴛ ᴀɢᴀɪɴ & ɢᴇᴛ....✅\n\n<a href={GRP_LNK}>ʀᴇǫᴜᴇꜱᴛ ʜᴇʀᴇ - ᴛʜᴇ ʜᴀᴘᴘʏ ʜᴏᴜʀ\nʀᴇǫᴜᴇꜱᴛ ʜᴀʀᴇ - ᴛʜᴇ ʜᴀᴘᴘʏ ʜᴏᴜʀ</a></b>\n\n━━━━━━━━━━━━━━━━━━")
+            await client.send_message(int(user_id), f'<b>आपने जो " {movie} " सीरीज का रिपोर्ट\nकिया है उस का नाम आपने गलत\nतरीके से लिखा है....🥱\nइस तरह से लिखे....👇\n\nMoney Heist S01\nKota Factory S01E05\nMoney Heist S03E04\n━━━━━━━━━━━━━━━━━━\nʏᴏᴜ ʜᴀᴠᴇ ᴡʀɪᴛᴛᴇɴ ɴᴀᴍᴇ\nᴏꜰ " {movie} " ꜱᴇʀɪᴇꜱ.....👀\nʏᴏᴜ ʜᴀᴠᴇ ʀᴇǫᴜɪʀᴇᴅ ᴡʀᴏɴɢʟʏ...🥱\nMoney Heist S01\nKota Factory S01E05\nMoney Heist S03E04</b>')
             msg=await query.edit_message_text(text=f"Mᴇꜱꜱᴀɢᴇ Sᴇɴᴅ Sᴜᴄᴄᴇꜱꜱғᴜʟʟʏ ✅\n\n⏳ꜱᴛᴀᴛᴜꜱ : Series Eʀʀᴏʀ 🕵️.\n🪪ᴜꜱᴇʀɪᴅ : tg://openmessage?user_id={user_id}\n🎞ᴄᴏɴᴛᴇɴᴛ : `{movie}`", reply_markup=InlineKeyboardMarkup(safari))
-            # await asyncio.sleep(10)
-            # await msg.delete()
+            await asyncio.sleep(7)
+            await msg.delete()
         except Exception as e:
             print(e)  # print the error message
             await query.answer(f"☣something went wrong\n\n{e}", show_alert=True)
             return
-    elif query.data == "purchase":
-        buttons = [[
-            InlineKeyboardButton('💵 ᴘᴀʏ ᴠɪᴀ ᴜᴘɪ ɪᴅ 💵', callback_data='upi_info')
-        ],[
-            InlineKeyboardButton('📸 ꜱᴄᴀɴ ǫʀ ᴄᴏᴅᴇ 📸', callback_data='qr_info')
-        ],[
-            InlineKeyboardButton('⇋ ʙᴀᴄᴋ ⇋', callback_data='premium_info')
-        ]]
-        reply_markup = InlineKeyboardMarkup(buttons)
-        await query.message.edit_text(
-            text=script.PURCHASE_TXT.format(query.from_user.mention),
-            reply_markup=reply_markup,
-            parse_mode=enums.ParseMode.HTML
-        )
-
-    elif query.data == "upi_info":
-        buttons = [[
-            InlineKeyboardButton('📲 ꜱᴇɴᴅ ᴘᴀʏᴍᴇɴᴛ ꜱᴄʀᴇᴇɴꜱʜᴏᴛ ʜᴇʀᴇ', url=f"https://t.me/Master_Jiraya_Bot")
-        ],[
-            InlineKeyboardButton('⇋ ʙᴀᴄᴋ ⇋', callback_data='purchase')
-        ]]
-        reply_markup = InlineKeyboardMarkup(buttons)
-        await query.message.edit_text(
-            text=script.UPI_TXT.format(query.from_user.mention),
-            reply_markup=reply_markup,
-            parse_mode=enums.ParseMode.HTML
-        )
-
-    elif query.data == "qr_info":
-        buttons = [[
-            InlineKeyboardButton('📲 ꜱᴇɴᴅ ᴘᴀʏᴍᴇɴᴛ ꜱᴄʀᴇᴇɴꜱʜᴏᴛ ʜᴇʀᴇ', url=f"https://t.me/Master_Jiraya_Bot")
-        ],[
-            InlineKeyboardButton('⇋ ʙᴀᴄᴋ ⇋', callback_data='purchase')
-        ]]
-        reply_markup = InlineKeyboardMarkup(buttons)
-        await client.edit_message_media(
-            query.message.chat.id, 
-            query.message.id, 
-            InputMediaPhoto(CODE)
-            )
-        await query.message.edit_text(
-            text=script.QR_TXT.format(query.from_user.mention),
-            reply_markup=reply_markup,
-            parse_mode=enums.ParseMode.HTML
-        )       
     
     elif query.data == "seeplans":
         if await db.has_premium_access(query.from_user.id):
