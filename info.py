@@ -39,8 +39,13 @@ auth_grp = environ.get('AUTH_GROUP')
 AUTH_CHANNEL = int(auth_channel) if auth_channel and id_pattern.search(auth_channel) else None
 AUTH_GROUPS = [int(ch) for ch in auth_grp.split()] if auth_grp else None
 support_chat_id = environ.get('SUPPORT_CHAT_ID')
+
+#reporting...
+
 reqst_channel = environ.get('REQST_CHANNEL_ID', "-1002120195961")
 REQST_CHANNEL = int(reqst_channel) if reqst_channel and id_pattern.search(reqst_channel) else None
+grp_report_channel = environ.get('GRP_REPORT_CHANNEL', "-1002127267005")
+GRP_REPORT_CHANNEL = int(grp_report_channel) if grp_report_channel and id_pattern.search(grp_report_channel) else None
 SUPPORT_CHAT_ID = int(support_chat_id) if support_chat_id and id_pattern.search(support_chat_id) else None
 NO_RESULTS_MSG = is_enabled((environ.get("NO_RESULTS_MSG", 'True')), False)
 
