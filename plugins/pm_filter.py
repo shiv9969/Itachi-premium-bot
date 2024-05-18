@@ -1311,7 +1311,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
         user_id = query.from_user.id
         total_referrals = db2.get_refer_points(user_id)
         buttons = [[
-            InlineKeyboardButton('Invite 🔗', url=f'https://telegram.me/share/url?url=https://t.me/{temp.U_NAME}?start=reff-{user_id}'), 
+            InlineKeyboardButton('Invite 🔗', url=f'https://telegram.me/share/url?url=https://telegram.me/{temp.U_NAME}?start=reff-{user_id}'), 
             InlineKeyboardButton(text=f'⏳{total_referrals}', callback_data=f"show_reff"), 
             InlineKeyboardButton('⇚Back', callback_data='start')
         ]]
