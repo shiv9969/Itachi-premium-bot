@@ -393,7 +393,7 @@ async def start(client, message):
             total = db2.get_refer_points(user_id)
 
             btn = [[
-                InlineKeyboardButton(f"invite 🔗", url=f"https://telegram.me/share/url?url=https://t.me/{temp.U_NAME}=reff_{user_id}"),
+                InlineKeyboardButton(f"invite 🔗", url=f"https://telegram.me/share/url?url=https://telegram.me/{temp.U_NAME}=reff_{user_id}"),
                 InlineKeyboardButton(f"⏳{total}", callback_data=f"show_reff"),
                 InlineKeyboardButton('ᴄʟᴏꜱᴇ', callback_data='close_data')
             ]]
@@ -1317,7 +1317,7 @@ async def refer(bot, message):
         user_id = message.from_user.id
         total = db2.get_refer_points(user_id)
         btn = [[
-                InlineKeyboardButton(f"invite 🔗", url=f"https://telegram.me/share/url?url=https://t.me/{temp.U_NAME}=reff_{user_id}"),
+                InlineKeyboardButton(f"invite 🔗", url=f"https://telegram.me/share/url?url=https://telegram.me/{temp.U_NAME}?start=reff_{user_id}"),
                 InlineKeyboardButton(f"⏳{total}", callback_data=f"show_reff"),
                 InlineKeyboardButton('ᴄʟᴏꜱᴇ', callback_data='close_data')
             ]]
