@@ -44,7 +44,7 @@ support_chat_id = environ.get('SUPPORT_CHAT_ID')
 
 reqst_channel = environ.get('REQST_CHANNEL_ID', "-1002120195961")
 REQST_CHANNEL = int(reqst_channel) if reqst_channel and id_pattern.search(reqst_channel) else None
-GRP_REPORT_CHANNEL = environ.get('GRP_REPORT_CHANNEL', "-1002127267005")
+GRP_REPORT_CHANNEL = int(environ.get('GRP_REPORT_CHANNEL', "-1002127267005"))
 SUPPORT_CHAT_ID = int(support_chat_id) if support_chat_id and id_pattern.search(support_chat_id) else None
 NO_RESULTS_MSG = is_enabled((environ.get("NO_RESULTS_MSG", 'True')), False)
 
