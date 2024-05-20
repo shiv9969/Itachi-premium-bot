@@ -170,7 +170,7 @@ async def get_ststs(bot, message):
     await rju.edit(script.STATUS_TXT.format(files, total_users, totl_chats, size, free))
 
 
-@Client.on_message(filters.command('make_grp_invite_link') & filters.user(ADMINS))
+@Client.on_message(filters.command('gen_grp_link') & filters.user(ADMINS))
 async def gen_invite(bot, message):
     if len(message.command) == 1:
         return await message.reply('Give me a chat id')
