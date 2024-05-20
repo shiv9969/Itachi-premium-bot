@@ -80,7 +80,7 @@ async def stream_download(bot, query):
                 ],[
                               InlineKeyboardButton("🌹 ʀᴇғғᴇʀ 🌹", url='https://t.me/Hidden_Technology_Bot?start=reffer'),
                             InlineKeyboardButton('❌ ᴄʟᴏꜱᴇ ❌', callback_data='close_data')
-                             ]]]))
+                             ]]))
                         
 @Client.on_message(filters.private & filters.command("streem"))
 async def reply_stream(client, message):
