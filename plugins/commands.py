@@ -139,7 +139,8 @@ async def start(client, message):
                         InlineKeyboardButton('🍾 ᴄᴏᴍᴍᴀɴᴅꜱ', callback_data='seeplans'),
                         InlineKeyboardButton('🍁 ꜱᴛᴀᴛꜱ', callback_data='stats')
                     ],[
-                        InlineKeyboardButton('🌹 ʀᴇғғᴇʀ 🌹', callback_data='reffer')
+                        InlineKeyboardButton('🌹 ʀᴇғғᴇʀ 🌹', callback_data='reffer'),
+                        InlineKeyboardButton('❌ ᴄʟᴏꜱᴇ ❌', callback_data='close_data')
                         ]]
             if IS_VERIFY or IS_SHORTLINK is True:
                 buttons.append([
@@ -253,7 +254,8 @@ async def start(client, message):
                              [
                               InlineKeyboardButton("🖥️ ᴡᴀᴛᴄʜ & ᴅᴏᴡɴʟᴏᴀᴅ 📥", callback_data=f"streaming#{file_id}")
                            ],[
-                            InlineKeyboardButton("🌹 ʀᴇғғᴇʀ 🌹", url='https://t.me/Hidden_Technology_Bot?start=reffer')
+                            InlineKeyboardButton("🌹 ʀᴇғғᴇʀ 🌹", url='https://t.me/Hidden_Technology_Bot?start=reffer'),
+                            InlineKeyboardButton('❌ ᴄʟᴏꜱᴇ ❌', callback_data='close_data')
                         ]
                              ]
                         )
@@ -272,7 +274,8 @@ async def start(client, message):
                               InlineKeyboardButton("🖥️ ᴡᴀᴛᴄʜ & ᴅᴏᴡɴʟᴏᴀᴅ 📥", callback_data=f"streaming#{file_id}")
                               
                            ],[
-                              InlineKeyboardButton("🌹 ʀᴇғғᴇʀ 🌹", url='https://t.me/Hidden_Technology_Bot?start=reffer')       
+                              InlineKeyboardButton("🌹 ʀᴇғғᴇʀ 🌹", url='https://t.me/Hidden_Technology_Bot?start=reffer'),
+                            InlineKeyboardButton('❌ ᴄʟᴏꜱᴇ ❌', callback_data='close_data')
                              ]
                             ]
                         )
@@ -396,7 +399,7 @@ async def start(client, message):
             btn = [[
                 InlineKeyboardButton(f"invite 🔗", url=f"https://telegram.me/share/url?url=https://telegram.me/{temp.U_NAME}=reff_{user_id}"),
                 InlineKeyboardButton(f"⏳{total}", callback_data=f"show_reff"),
-                InlineKeyboardButton('ᴄʟᴏꜱᴇ', callback_data='close_data')
+                InlineKeyboardButton('❌ ᴄʟᴏꜱᴇ ❌', callback_data='close_data')
             ]]
             reply_markup = InlineKeyboardMarkup(btn)
             await message.reply_photo(
@@ -514,7 +517,8 @@ async def start(client, message):
                     protect_content=True if pre == 'filep' else False,
                     reply_markup=InlineKeyboardMarkup([[
                           InlineKeyboardButton("🖥️ ᴡᴀᴛᴄʜ / ᴅᴏᴡɴʟᴏᴀᴅ 📥", callback_data=f"streaming#{file_id}")],
-                          [InlineKeyboardButton("🌹 ʀᴇғғᴇʀ 🌹", url='https://t.me/Hidden_Technology_Bot?start=reffer')]]))
+                          [InlineKeyboardButton("🌹 ʀᴇғғᴇʀ 🌹", url='https://t.me/Hidden_Technology_Bot?start=reffer'),
+                          InlineKeyboardButton('❌ ᴄʟᴏꜱᴇ ❌', callback_data='close_data')]]))
                 return 
             else:
                 user = message.from_user.id
@@ -547,7 +551,8 @@ async def start(client, message):
                               InlineKeyboardButton("🖥️ ᴡᴀᴛᴄʜ / ᴅᴏᴡɴʟᴏᴀᴅ 📥", callback_data=f"streaming#{file_id}")
                   
                            ],[
-                              InlineKeyboardButton("🌹 ʀᴇғғᴇʀ 🌹", url='https://t.me/Hidden_Technology_Bot?start=reffer')       
+                              InlineKeyboardButton("🌹 ʀᴇғғᴇʀ 🌹", url='https://t.me/Hidden_Technology_Bot?start=reffer'),
+                                 InlineKeyboardButton('❌ ᴄʟᴏꜱᴇ ❌', callback_data='close_data')
                              ]
                             ]
                         )
@@ -576,7 +581,8 @@ async def start(client, message):
                           InlineKeyboardButton("🖥️ ᴡᴀᴛᴄʜ & ᴅᴏᴡɴʟᴏᴀᴅ 📥", callback_data=f"streaming#{file_id}")
                   
                        ],[
-                              InlineKeyboardButton("🌹 ʀᴇғғᴇʀ 🌹", url='https://t.me/Hidden_Technology_Bot?start=reffer')       
+                              InlineKeyboardButton("🌹 ʀᴇғғᴇʀ 🌹", url='https://t.me/Hidden_Technology_Bot?start=reffer'),
+                             InlineKeyboardButton('❌ ᴄʟᴏꜱᴇ ❌', callback_data='close_data')
                              ]
                         ]
                     )
@@ -625,7 +631,8 @@ async def start(client, message):
                       InlineKeyboardButton("🖥️ ᴡᴀᴛᴄʜ / ᴅᴏᴡɴʟᴏᴀᴅ 📥", callback_data=f"streaming#{file_id}")
                   
                    ],[
-                              InlineKeyboardButton("🌹 ʀᴇғғᴇʀ 🌹", url='https://t.me/Hidden_Technology_Bot?start=reffer')       
+                              InlineKeyboardButton("🌹 ʀᴇғғᴇʀ 🌹", url='https://t.me/Hidden_Technology_Bot?start=reffer'),
+                         InlineKeyboardButton('❌ ᴄʟᴏꜱᴇ ❌', callback_data='close_data')
                              ]
                     ]
                 )
@@ -655,7 +662,8 @@ async def start(client, message):
                  InlineKeyboardButton("🖥️ ᴡᴀᴛᴄʜ & ᴅᴏᴡɴʟᴏᴀᴅ 📥", callback_data=f"streaming#{file_id}")
                   
                ],[
-                              InlineKeyboardButton("🌹 ʀᴇғғᴇʀ 🌹", url='https://t.me/Hidden_Technology_Bot?start=reffer')       
+                              InlineKeyboardButton("🌹 ʀᴇғғᴇʀ 🌹", url='https://t.me/Hidden_Technology_Bot?start=reffer'),
+                     InlineKeyboardButton('❌ ᴄʟᴏꜱᴇ ❌', callback_data='close_data')
                              ]
                 ]
             )
@@ -1035,7 +1043,7 @@ async def requests(client, message):
             InlineKeyboardButton('Series Msg📝', callback_data=f"series:{user_id}:{requested_movie}"),
             InlineKeyboardButton('Spell Msg✍️', callback_data=f"spelling_error:{user_id}:{requested_movie}")
         ],[
-            InlineKeyboardButton('Close', callback_data=f"close_data")]
+            InlineKeyboardButton('❌ ᴄʟᴏꜱᴇ ❌', callback_data='close_data')]
         ]))
         
 @Client.on_message(filters.command("send") & filters.user(ADMINS))
@@ -1320,7 +1328,7 @@ async def refer(bot, message):
         btn = [[
                 InlineKeyboardButton(f"invite 🔗", url=f"https://telegram.me/share/url?url=https://telegram.me/{temp.U_NAME}?start=reff_{user_id}"),
                 InlineKeyboardButton(f"⏳{total}", callback_data=f"show_reff"),
-                InlineKeyboardButton('ᴄʟᴏꜱᴇ', callback_data='close_data')
+                InlineKeyboardButton('❌ ᴄʟᴏꜱᴇ ❌', callback_data='close_data')
             ]]
         reply_markup = InlineKeyboardMarkup(btn)
         await message.reply_photo(
