@@ -78,7 +78,9 @@ async def stream_download(bot, query):
                     InlineKeyboardButton("📥 ᴅᴏᴡɴʟᴏᴀᴅ 📥", url=download),
                     InlineKeyboardButton("🖥️ ꜱᴛʀᴇᴇᴍ 🖥️", url=online)
                 ],[
-                    InlineKeyboardButton('⁉️ ᴄʟᴏsᴇ ⁉️', callback_data='close_data')]]))
+                              InlineKeyboardButton("🌹 ʀᴇғғᴇʀ 🌹", url='https://t.me/Hidden_Technology_Bot?start=reffer'),
+                            InlineKeyboardButton('❌ ᴄʟᴏꜱᴇ ❌', callback_data='close_data')
+                             ]]]))
                         
 @Client.on_message(filters.private & filters.command("streem"))
 async def reply_stream(client, message):
@@ -114,8 +116,9 @@ async def reply_stream(client, message):
                   ],[
                   InlineKeyboardButton('🔒 Hᴏᴡ Tᴏ Dᴏᴡɴʟᴏᴀᴅ 🔒', url=STREAMHTO)
                 ],[
-                 InlineKeyboardButton('📚 ʙᴜʏ ꜱᴜʙꜱᴄʀɪᴘᴛɪᴏɴ 📚', url="https://t.me/Hidden_Technology_Bot?start=TheHappyHour")
-                ]]),
+                              InlineKeyboardButton("🌹 ʀᴇғғᴇʀ 🌹", url='https://t.me/Hidden_Technology_Bot?start=reffer'),
+                            InlineKeyboardButton('❌ ᴄʟᴏꜱᴇ ❌', callback_data='close_data')
+                             ]]),
                 disable_web_page_preview=True
         )
     else:
