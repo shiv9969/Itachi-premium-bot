@@ -207,7 +207,7 @@ async def start(client, message):
                     text=f"<b>ᴄᴏɴɢʀᴀᴛᴜʟᴀᴛɪᴏɴꜱ {uss.mention} 🥳\n\nʏᴏᴜ ɢᴏᴛ 1 ᴍᴏɴᴛʜ ᴘʀᴇᴍɪᴜᴍ....🌿\nʙᴇᴄᴀᴜꜱᴇ ʏᴏᴜ ɪɴᴠᴀʟɪᴅ 10 ᴜꜱᴇʀꜱ....😘\n\nYour Premium Ditels --> /myplan </b>", disable_web_page_preview=True              
                     )
                 for admin in ADMINS:
-                    await client.send_message(chat_id=PREMIUM_LOGS, text=f"Sᴜᴄᴄᴇss ғᴜʟʟʏ reffral ᴛᴀsᴋ ᴄᴏᴍᴘʟᴇᴛᴇᴅ ʙʏ ᴛʜɪs ᴜsᴇʀ:\n\nuser Nᴀᴍᴇ: {uss.mention}\n\nUsᴇʀ ɪᴅ: {uss.id}!")	
+                    await client.send_message(chat_id=REQST_CHANNEL, text=f"Sᴜᴄᴄᴇss ғᴜʟʟʏ reffral ᴛᴀsᴋ ᴄᴏᴍᴘʟᴇᴛᴇᴅ ʙʏ ᴛʜɪs ᴜsᴇʀ:\n\nuser Nᴀᴍᴇ: {uss.mention}\n\nUsᴇʀ ɪᴅ: {uss.id}!")	
                 return
         data = message.command[1]
         try:
