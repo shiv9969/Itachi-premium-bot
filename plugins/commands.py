@@ -947,7 +947,7 @@ async def requests(client, message):
     requested_movie = search.replace("/request", "").replace("/Request", "").replace("/Report", "").replace("/report", "").strip()
     user_id = message.from_user.id
     if not requested_movie:
-        m=await message.reply_text("━━━━━━━━━━━━━━━━━━\n\nअगर कोई मूवी ना मिले तो.....🤒\nआप Admin को रिर्पोट भेज सकते हो...📚\nइस तरह से रिपोर्ट भेजे....👇\n\n/report Pushpa 2021\n/report Chhichhore 2019\n/report Vikings S01 E03\n/report Money Heist S03 E05\n\n👉 मूवी का year भी लिखे... 👀\n\n━━━━━━━━━━━━━━━━━━\n\nɪꜰ ᴍᴏᴠɪᴇ ɴᴏᴛ ᴀᴠᴀɪʟᴀʙʟᴇ ɪɴ ʙᴏᴛ...🤒\nᴛʜᴇɴ ꜱᴇɴᴅ ʀᴇᴘᴏʀᴛ ᴛᴏ ᴀᴅᴍɪɴ...📚\nʜᴏᴡ ᴛᴏ ꜱᴇɴᴅ ʀᴇᴘᴏʀᴛ...👇\n\n/report Pushpa 2021\n/report Chhichhore 2019\n/report Vikings S01 E03\n/report Money Heist S03 E05\n\n👉 ᴅᴏɴ'ᴛ ꜰᴏʀɢᴇᴛ ʀᴇʟᴇᴀꜱᴇ ʏᴇᴀʀ 👀\n\n━━━━━━━━━━━━━━━━━━")
+        m=await message.reply_text("<b>अगर कोई मूवी ना मिले तो.....🤒\nआप Admin को रिर्पोट भेज सकते हो...📚\nइस तरह से रिपोर्ट भेजे....👇\n\n/report Pushpa 2021\n/report Chhichhore 2019\n/report Vikings S01 E03\n/report Money Heist S03 E05\n\n👉 मूवी का year भी लिखे... 👀\n\n━━━━━━━━━━━━━━━━━━\n\nɪꜰ ᴍᴏᴠɪᴇ ɴᴏᴛ ᴀᴠᴀɪʟᴀʙʟᴇ ɪɴ ʙᴏᴛ...🤒\nᴛʜᴇɴ ꜱᴇɴᴅ ʀᴇᴘᴏʀᴛ ᴛᴏ ᴀᴅᴍɪɴ...📚\nʜᴏᴡ ᴛᴏ ꜱᴇɴᴅ ʀᴇᴘᴏʀᴛ...👇\n\n/report Pushpa 2021\n/report Chhichhore 2019\n/report Vikings S01 E03\n/report Money Heist S03 E05\n\n👉 ᴅᴏɴ'ᴛ ꜰᴏʀɢᴇᴛ ʀᴇʟᴇᴀꜱᴇ ʏᴇᴀʀ 👀</b>")
         await asyncio.sleep(30)
         await m.delete()
         return
@@ -970,7 +970,7 @@ async def requests(client, message):
             InlineKeyboardButton('❌ ᴄʟᴏꜱᴇ ❌', callback_data='close_data')]
         ]))
         
-@Client.on_message(filters.command("send") & filters.user(ADMINS))
+@Client.on_message(filters.command("send_msg_usr") & filters.user(ADMINS))
 async def send_msg(bot, message):
     if message.reply_to_message:
         target_id = message.text.split(" ", 1)[1]
@@ -994,8 +994,8 @@ async def send_msg(bot, message):
         except Exception as e:
             await message.reply_text(f"<b>Eʀʀᴏʀ: {e}</b>")
     else:
-        await message.reply_text("<b>Usᴇ ᴛʜɪs ᴄᴏᴍᴍᴀɴᴅ ᴀs ᴀ ʀᴇᴘʟʏ ᴛᴏ ᴀɴʏ ᴍᴇssᴀɢᴇ ᴜsɪɴɢ ᴛʜᴇ ᴛᴀʀɢᴇᴛ ᴄʜᴀᴛ ɪᴅ. Fᴏʀ ᴇɢ: /send ᴜsᴇʀɪᴅ</b>")
-@Client.on_message(filters.command("ucast") & filters.user(5069888600))
+        await message.reply_text("<b>Reply With Your Massage\n\nEx : /send ᴜsᴇʀɪᴅ</b>")
+@Client.on_message(filters.command("ucast") & filters.user(ADMINS))
 async def send_mssg(bot, message):
     if message.reply_to_message:
         target_id = message.text.split(" ", 1)[1]
@@ -1042,7 +1042,7 @@ async def deletemultiplefiles(bot, message):
         parse_mode=enums.ParseMode.HTML
     )
 
-@Client.on_message(filters.command("shortlink"))
+@Client.on_message(filters.command("set_urlshortlink"))
 async def shortlink(bot, message):
     userid = message.from_user.id if message.from_user else None
     if not userid:
@@ -1074,7 +1074,7 @@ async def shortlink(bot, message):
     await save_group_settings(grpid, 'is_shortlink', True)
     await reply.edit_text(f"<b>✅ ꜱᴜᴄᴄᴇꜱꜱꜰᴜʟʟʏ ᴀᴅᴅᴇᴅ ꜱʜᴏʀᴛʟɪɴᴋ ꜰᴏʀ <code>{title}</code>.\n\nꜱʜᴏʀᴛʟɪɴᴋ ᴡᴇʙꜱɪᴛᴇ : <code>{shortlink_url}</code>\nꜱʜᴏʀᴛʟɪɴᴋ ᴀᴘɪ : <code>{api}</code></b>")
  
-@Client.on_message(filters.command("shortlink_off"))
+@Client.on_message(filters.command("urlshortlink_off"))
 async def offshortlink(bot, message):
     userid = message.from_user.id if message.from_user else None
     if not userid:
@@ -1097,7 +1097,7 @@ async def offshortlink(bot, message):
         ENABLE_SHORTLINK = False
         return await message.reply_text("ꜱʜᴏʀᴛʟɪɴᴋ ꜱᴜᴄᴄᴇꜱꜱꜰᴜʟʟʏ ᴅɪꜱᴀʙʟᴇᴅ.")
     
-@Client.on_message(filters.command("shortlink_on"))
+@Client.on_message(filters.command("urlshortlink_on"))
 async def onshortlink(bot, message):
     userid = message.from_user.id if message.from_user else None
     if not userid:
@@ -1120,7 +1120,7 @@ async def onshortlink(bot, message):
         ENABLE_SHORTLINK = True
         return await message.reply_text("ꜱʜᴏʀᴛʟɪɴᴋ ꜱᴜᴄᴄᴇꜱꜱꜰᴜʟʟʏ ᴇɴᴀʙʟᴇᴅ.")
         
-@Client.on_message(filters.command("shortlink_info"))
+@Client.on_message(filters.command("urlshortlink_info"))
 async def ginfo(bot, message):
     chat_type = message.chat.type
     if chat_type == enums.ChatType.PRIVATE:
