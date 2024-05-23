@@ -1341,8 +1341,11 @@ async def cb_handler(client: Client, query: CallbackQuery):
             safari = [[
                     InlineKeyboardButton(text=f"❌ close ❌", callback_data = "close_data")
                     ]]
+            thh = [[
+                    InlineKeyboardButton(text=f"🔥 Support Here 🔥", url=GRP_LNK)
+            ]]
             reply_markup = InlineKeyboardMarkup(safari)
-            await client.send_message(int(user_id), f'<b>आपने " {movie} " का report भेजा है वो\nमूवी हमें नई मिला...🤒\n\n━━━━━━━━━━━━━━━━━━\n\nʏᴏᴜʀ ʀᴇǫᴜɪʀᴇᴅ " {movie} " ɪꜱ\nɴᴏᴛ ᴀᴠᴀɪʟᴀʙʟᴇ....</b>')
+            await client.send_message(int(user_id), f'<b>आपने " {movie} " का report भेजा है वो\nमूवी हमें नई मिला...🤒\n\n━━━━━━━━━━━━━━━━━━\n\nʏᴏᴜʀ ʀᴇǫᴜɪʀᴇᴅ " {movie} " ɪꜱ\nɴᴏᴛ ᴀᴠᴀɪʟᴀʙʟᴇ....</b>', reply_markup=InlineKeyboardMarkup(thh))
             msg=await query.edit_message_text(text=f"Mᴇꜱꜱᴀɢᴇ Sᴇɴᴅ Sᴜᴄᴄᴇꜱꜱғᴜʟʟʏ ✅\n\n⏳ꜱᴛᴀᴛᴜꜱ : Nᴏᴛ Aᴠᴀɪʟᴀʙʟᴇ 😒.\n🪪ᴜꜱᴇʀɪᴅ : tg://openmessage?user_id={user_id}\n🎞ᴄᴏɴᴛᴇɴᴛ : `{movie}`", reply_markup=InlineKeyboardMarkup(safari))
             await asyncio.sleep(7)
             await msg.delete()
@@ -1356,8 +1359,11 @@ async def cb_handler(client: Client, query: CallbackQuery):
             safari = [[
                     InlineKeyboardButton(text=f"❌ close ❌", callback_data = "close_data")
                     ]]
+            thh = [[
+                    InlineKeyboardButton(text=f"🔥 𝐑𝐞𝐪𝐮𝐞𝐬𝐭 𝐇𝐞𝐫𝐞 🔥", url=GRP_LNK)
+            ]]
             reply_markup = InlineKeyboardMarkup(safari)
-            await client.send_message(int(user_id), f'<b>आपने जो " {movie} " का रिपोर्ट भेजा है\nवो मूवी पहले से ही ग्रुप में हे...✅\n\nअगर नई मिल रहा है तो मूवी का\nरिलीस year भी लिखे....😘\n\nPushpa 2021\nChhichhore 2019\nSaalar 2024\n\n━━━━━━━━━━━━━━━━━━\n\nʏᴏᴜʀ ʀᴇǫᴜᴇꜱᴛᴇᴅ " {movie} " ɪꜱ ᴀʟʀᴇᴀᴅʏ\nᴀᴠᴀɪʟᴀʙʟᴇ ɪɴ ᴏᴜʀ ɢʀᴏᴜᴘ....✅\nɪꜰ ʙᴏᴛ ɪꜱ ɴᴏᴛ ꜱᴇɴᴅɪɴɢ....🫠\nᴛʜᴇɴ ᴛʏᴘᴇ ᴀꜱʟᴏ ᴍᴏᴠɪᴇ\nʀᴇʟᴇᴀꜱᴇ ʏᴇᴀʀ....😘\n\nPushpa 2021\nChhichhore 2019\nSaalar 2024</b>')
+            await client.send_message(int(user_id), f'<b>आपने जो " {movie} " का रिपोर्ट भेजा है\nवो मूवी पहले से ही ग्रुप में हे...✅\n\nअगर नई मिल रहा है तो मूवी का\nरिलीस year भी लिखे....😘\n\nPushpa 2021\nChhichhore 2019\nSaalar 2024\n\n━━━━━━━━━━━━━━━━━━\n\nʏᴏᴜʀ ʀᴇǫᴜᴇꜱᴛᴇᴅ " {movie} " ɪꜱ ᴀʟʀᴇᴀᴅʏ\nᴀᴠᴀɪʟᴀʙʟᴇ ɪɴ ᴏᴜʀ ɢʀᴏᴜᴘ....✅\nɪꜰ ʙᴏᴛ ɪꜱ ɴᴏᴛ ꜱᴇɴᴅɪɴɢ....🫠\nᴛʜᴇɴ ᴛʏᴘᴇ ᴀꜱʟᴏ ᴍᴏᴠɪᴇ\nʀᴇʟᴇᴀꜱᴇ ʏᴇᴀʀ....😘\n\nPushpa 2021\nChhichhore 2019\nSaalar 2024</b>', reply_markup=InlineKeyboardMarkup(thh))
             msg=await query.edit_message_text(text=f"Mᴇꜱꜱᴀɢᴇ Sᴇɴᴅ Sᴜᴄᴄᴇꜱꜱғᴜʟʟʏ ✅\n\n⏳ꜱᴛᴀᴛᴜꜱ : Already Aᴠᴀɪʟᴀʙʟᴇ 🤩.\n🪪ᴜꜱᴇʀɪᴅ : tg://openmessage?user_id={user_id}\n🎞ᴄᴏɴᴛᴇɴᴛ : `{movie}`", reply_markup=InlineKeyboardMarkup(safari))
             await asyncio.sleep(7)
             await msg.delete()
@@ -1371,8 +1377,11 @@ async def cb_handler(client: Client, query: CallbackQuery):
             safari = [[
                     InlineKeyboardButton(text=f"❌ close ❌", callback_data = "close_data")
                     ]]
+            thh = [[
+                    InlineKeyboardButton(text=f"🔥 𝐑𝐞𝐪𝐮𝐞𝐬𝐭 𝐇𝐞𝐫𝐞 🔥", url=GRP_LNK)
+            ]]
             reply_markup = InlineKeyboardMarkup(safari)
-            await client.send_message(int(user_id), f'<b>आपने " {movie} " का रिपोर्ट भेजा था वो\nमूवी हमने ग्रुप में डाल दिया है....✅\n\nग्रुप में वापस नाम लिखने पर आपको\nमूवी मिल जाएगा....🎉\n\n━━━━━━━━━━━━━━━━━━\n\nʏᴏᴜʀ " {movie} " ʜᴀꜱ ʙᴇᴇɴ ᴀᴅᴅᴇᴅ\nɪɴ ᴏᴜʀ ɢʀᴏᴜᴘ ....🎉\n\nᴘzzzz ʀᴇǫᴜᴇꜱᴛ ᴀɢᴀɪɴ & ɢᴇᴛ....✅</b>')
+            await client.send_message(int(user_id), f'<b>आपने " {movie} " का रिपोर्ट भेजा था वो\nमूवी हमने ग्रुप में डाल दिया है....✅\n\nग्रुप में वापस नाम लिखने पर आपको\nमूवी मिल जाएगा....🎉\n\n━━━━━━━━━━━━━━━━━━\n\nʏᴏᴜʀ " {movie} " ʜᴀꜱ ʙᴇᴇɴ ᴀᴅᴅᴇᴅ\nɪɴ ᴏᴜʀ ɢʀᴏᴜᴘ ....🎉\n\nᴘzzzz ʀᴇǫᴜᴇꜱᴛ ᴀɢᴀɪɴ & ɢᴇᴛ....✅</b>', reply_markup=InlineKeyboardMarkup(thh))
             msg=await query.edit_message_text(text=f"Mᴇꜱꜱᴀɢᴇ Sᴇɴᴅ Sᴜᴄᴄᴇꜱꜱғᴜʟʟʏ ✅\n\n⏳ꜱᴛᴀᴛᴜꜱ : Uᴘʟᴏᴀᴅᴇᴅ 🎊.\n🪪ᴜꜱᴇʀɪᴅ : tg://openmessage?user_id={user_id}\n🎞ᴄᴏɴᴛᴇɴᴛ : `{movie}`", reply_markup=InlineKeyboardMarkup(safari))
             await asyncio.sleep(7)
             await msg.delete()
@@ -1387,7 +1396,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
                     InlineKeyboardButton(text=f"❌ close ❌", callback_data = "close_data")
                     ]]
             thh = [[
-                    InlineKeyboardButton(text=f"📚 Request Here 📚", url=GRP_LNK)
+                    InlineKeyboardButton(text=f"🔥 𝐑𝐞𝐪𝐮𝐞𝐬𝐭 𝐇𝐞𝐫𝐞 🔥", url=GRP_LNK)
             ]]
             reply_markup = InlineKeyboardMarkup(safari)
             await client.send_message(int(user_id), f'<b>आपने जो " {movie} " का रिपोर्ट भेजा है\nवो अभी रिलीस नई हुआ है...📅\n\nजब रिलीस होगा तब ग्रुप में\nमिल जाएगा....✅\n\n━━━━━━━━━━━━━━━━━━\n\nʏᴏᴜʀ ʀᴇǫᴜɪʀᴇᴅ " {movie} "\nɪꜱ ɴᴏᴛ ʀᴇʟᴇᴀꜱᴇᴅ....😅\n\nᴡʜᴇɴ ʀᴇʟᴇᴀꜱᴇ ᴛʜᴇɴ ᴡᴇ ᴡɪʟʟ\nᴀʟꜱᴏ ᴜᴘʟᴏᴅ ɪɴ ᴏᴜʀ ɢʀᴏᴜᴘ.....🎉</b>', reply_markup=InlineKeyboardMarkup(thh))
@@ -1404,8 +1413,11 @@ async def cb_handler(client: Client, query: CallbackQuery):
             safari = [[
                     InlineKeyboardButton(text=f"❌ close ❌", callback_data = "close_data")
                     ]]
+            thh = [[
+                    InlineKeyboardButton(text=f"🔥 𝐑𝐞𝐪𝐮𝐞𝐬𝐭 𝐇𝐞𝐫𝐞 🔥", url=GRP_LNK)
+            ]]
             reply_markup = InlineKeyboardMarkup(safari)
-            await client.send_message(int(user_id), f'<b>आपने जो " {movie} " का रिपोर्ट भेजा है\nउस में स्प्रेलिंग गलत है....😅\n\nकृपया गूगल से स्पेलिंग कॉपी\nकर के लिखे....🙏\n\n━━━━━━━━━━━━━━━━━━\n\nᴄʜᴀᴄᴋ ʏᴏᴜʀ ꜱᴘᴇʟʟɪɴɢ....👀\n\nᴘʟᴢᴢᴢ ᴄᴏᴘʏ ꜱᴘᴇʟʟɪɴɢ ꜰʀᴏᴍ\nɢᴏᴏɢʟᴇ & ᴡʀɪᴛᴇ....👀</b>')
+            await client.send_message(int(user_id), f'<b>आपने जो " {movie} " का रिपोर्ट भेजा है\nउस में स्प्रेलिंग गलत है....😅\n\nकृपया गूगल से स्पेलिंग कॉपी\nकर के लिखे....🙏\n\n━━━━━━━━━━━━━━━━━━\n\nᴄʜᴀᴄᴋ ʏᴏᴜʀ ꜱᴘᴇʟʟɪɴɢ....👀\n\nᴘʟᴢᴢᴢ ᴄᴏᴘʏ ꜱᴘᴇʟʟɪɴɢ ꜰʀᴏᴍ\nɢᴏᴏɢʟᴇ & ᴡʀɪᴛᴇ....👀</b>', reply_markup=InlineKeyboardMarkup(thh))
             msg=await query.edit_message_text(text=f"Mᴇꜱꜱᴀɢᴇ Sᴇɴᴅ Sᴜᴄᴄᴇꜱꜱғᴜʟʟʏ ✅\n\n⏳ꜱᴛᴀᴛᴜꜱ : Sᴘᴇʟʟɪɴɢ Eʀʀᴏʀ 🕵️.\n🪪ᴜꜱᴇʀɪᴅ : tg://openmessage?user_id={user_id}\n🎞ᴄᴏɴᴛᴇɴᴛ : `{movie}`", reply_markup=InlineKeyboardMarkup(safari))
             await asyncio.sleep(7)
             await msg.delete()
@@ -1419,8 +1431,11 @@ async def cb_handler(client: Client, query: CallbackQuery):
             safari = [[
                     InlineKeyboardButton(text=f"❌ close ❌", callback_data = "close_data")
                     ]]
+            thh = [[
+                    InlineKeyboardButton(text=f"🔥 𝐑𝐞𝐪𝐮𝐞𝐬𝐭 𝐇𝐞𝐫𝐞 🔥", url=GRP_LNK)
+            ]]
             reply_markup = InlineKeyboardMarkup(safari)
-            await client.send_message(int(user_id), f'<b>आपने जो " {movie} " सीरीज का रिपोर्ट\nकिया है उस का नाम आपने गलत\nतरीके से लिखा है....🥱\nइस तरह से लिखे....👇\n\nMoney Heist S01\nKota Factory S01E05\nMoney Heist S03E04\n\n━━━━━━━━━━━━━━━━━━\n\nʏᴏᴜ ʜᴀᴠᴇ ᴡʀɪᴛᴛᴇɴ ɴᴀᴍᴇ\nᴏꜰ " {movie} " ꜱᴇʀɪᴇꜱ.....👀\nʏᴏᴜ ʜᴀᴠᴇ ʀᴇǫᴜɪʀᴇᴅ ᴡʀᴏɴɢʟʏ...🥱\nMoney Heist S01\nKota Factory S01E05\nMoney Heist S03E04</b>')
+            await client.send_message(int(user_id), f'<b>आपने जो " {movie} " सीरीज का रिपोर्ट\nकिया है उस का नाम आपने गलत\nतरीके से लिखा है....🥱\nइस तरह से लिखे....👇\n\nMoney Heist S01\nKota Factory S01E05\nMoney Heist S03E04\n\n━━━━━━━━━━━━━━━━━━\n\nʏᴏᴜ ʜᴀᴠᴇ ᴡʀɪᴛᴛᴇɴ ɴᴀᴍᴇ\nᴏꜰ " {movie} " ꜱᴇʀɪᴇꜱ.....👀\nʏᴏᴜ ʜᴀᴠᴇ ʀᴇǫᴜɪʀᴇᴅ ᴡʀᴏɴɢʟʏ...🥱\nMoney Heist S01\nKota Factory S01E05\nMoney Heist S03E04</b>', reply_markup=InlineKeyboardMarkup(thh))
             msg=await query.edit_message_text(text=f"Mᴇꜱꜱᴀɢᴇ Sᴇɴᴅ Sᴜᴄᴄᴇꜱꜱғᴜʟʟʏ ✅\n\n⏳ꜱᴛᴀᴛᴜꜱ : Series Eʀʀᴏʀ 🕵️.\n🪪ᴜꜱᴇʀɪᴅ : tg://openmessage?user_id={user_id}\n🎞ᴄᴏɴᴛᴇɴᴛ : `{movie}`", reply_markup=InlineKeyboardMarkup(safari))
             await asyncio.sleep(7)
             await msg.delete()
