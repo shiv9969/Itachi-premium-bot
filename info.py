@@ -93,8 +93,11 @@ IMDB = is_enabled((environ.get('IMDB', "False")), True)
 AUTO_FFILTER = is_enabled((environ.get('AUTO_FFILTER', "True")), True)
 AUTO_DELETE = is_enabled((environ.get('AUTO_DELETE', "True")), True)
 
+#############
 
-PM_FILTER = is_enabled((environ.get('PM_FILTER', "False")), True)
+PM_FILTER = is_enabled((environ.get('PM_FILTER', "True")), True)
+
+#################
 
 TUTORIAL = environ.get('TUTORIAL', 'https://t.me/ThappyHour')
 IS_TUTORIAL = bool(environ.get('IS_TUTORIAL', True))
