@@ -199,7 +199,7 @@ async def pm_text(bot, message):
 
 @Client.on_callback_query(filters.regex(r"^next"))
 async def next_page(bot, query):
-    cur_time = datetime.now(pytz.timezone('Asia/Kolkata')).time()
+    curr_time = datetime.now(pytz.timezone('Asia/Kolkata')).time()
     ident, req, key, offset = query.data.split("_")
     if int(req) not in [query.from_user.id, 0]:
         return await query.answer(script.ALRT_TXT.format(query.from_user.first_name), show_alert=True)
@@ -334,7 +334,7 @@ async def next_page(bot, query):
 
 @Client.on_callback_query(filters.regex(r"^lang"))
 async def language_check(bot, query):
-    cur_time = datetime.now(pytz.timezone('Asia/Kolkata')).time()
+    curr_time = datetime.now(pytz.timezone('Asia/Kolkata')).time()
     _, userid, language = query.data.split("#")
     if int(userid) not in [query.from_user.id, 0]:
         return await query.answer(script.ALRT_TXT.format(query.from_user.first_name), show_alert=True)
@@ -454,7 +454,7 @@ async def select_language(bot, query):
 
 @Client.on_callback_query(filters.regex(r"^lusifilms"))
 async def quality_check(bot, query):
-    cur_time = datetime.now(pytz.timezone('Asia/Kolkata')).time()
+    curr_time = datetime.now(pytz.timezone('Asia/Kolkata')).time()
     _, userid, quality = query.data.split("#")
     if int(userid) not in [query.from_user.id, 0]:
         return await query.answer(script.ALRT_TXT.format(query.from_user.first_name), show_alert=True)
@@ -568,7 +568,7 @@ async def select_quality(bot, query):
     
 @Client.on_callback_query(filters.regex(r"^seasons"))
 async def seasons_check(bot, query):
-    cur_time = datetime.now(pytz.timezone('Asia/Kolkata')).time()
+    curr_time = datetime.now(pytz.timezone('Asia/Kolkata')).time()
     _, userid, seasons = query.data.split("#")
     if int(userid) not in [query.from_user.id, 0]:
         return await query.answer(script.ALRT_TXT.format(query.from_user.first_name), show_alert=True)
@@ -1948,7 +1948,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
 
     
 async def auto_filter(client, msg, spoll=False):
-    cur_time = datetime.now(pytz.timezone('Asia/Kolkata')).time()
+    curr_time = datetime.now(pytz.timezone('Asia/Kolkata')).time()
     #reqstr1 = msg.from_user.id
     #reqstr = await client.get_users(reqstr1)
     if not spoll:
