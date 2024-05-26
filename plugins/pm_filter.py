@@ -241,6 +241,7 @@ async def next_page(bot, query):
             InlineKeyboardButton("📥 Send All File 📥", callback_data=f"sendfiles#{key}"),  
         ])
     else:
+        btn = []
         btn.insert(0, [
             InlineKeyboardButton("Lᴀɴɢᴜᴀɢᴇ", callback_data=f"select_lang#{req}"),
             InlineKeyboardButton("Qᴜᴀʟɪᴛʏꜱ", callback_data=f"lusi_films#{req}"),
@@ -370,6 +371,7 @@ async def language_check(bot, query):
                 InlineKeyboardButton("📥 Send All File 📥", callback_data=f"sendfiles#{key}")
             ])
         else:
+            btn = []
             btn.insert(0, [
                 InlineKeyboardButton("Lᴀɴɢᴜᴀɢᴇ", callback_data=f"select_lang#{userid}"),
                 InlineKeyboardButton("Qᴜᴀʟɪᴛʏꜱ", callback_data=f"lusi_films#{userid}"),
@@ -489,6 +491,7 @@ async def quality_check(bot, query):
                 InlineKeyboardButton("📥 Send All File 📥", callback_data=f"sendfiles#{key}")
             ])
         else:
+            btn = []
             btn.insert(0, [
                 InlineKeyboardButton("Lᴀɴɢᴜᴀɢᴇ", callback_data=f"select_lang#{userid}"),
                 InlineKeyboardButton("Qᴜᴀʟɪᴛʏꜱ", callback_data=f"lusi_films#{userid}"),
@@ -602,6 +605,7 @@ async def seasons_check(bot, query):
                 InlineKeyboardButton("📥 Send All File 📥", callback_data=f"sendfiles#{key}")
             ])
         else:
+            btn = []
             btn.insert(0, [
                 InlineKeyboardButton("Lᴀɴɢᴜᴀɢᴇ", callback_data=f"select_lang#{userid}"),
                 InlineKeyboardButton("Qᴜᴀʟɪᴛʏꜱ", callback_data=f"lusi_films#{userid}"),
@@ -2012,6 +2016,7 @@ async def auto_filter(client, msg, spoll=False):
             InlineKeyboardButton("📥 Send All File 📥", callback_data=f"sendfiles#{key}"),
         ])
     else:
+        btn = []
         btn.insert(0, [
             InlineKeyboardButton("Lᴀɴɢᴜᴀɢᴇs", callback_data=f"select_lang#{message.from_user.id}"),
             InlineKeyboardButton("Qᴜᴀʟɪᴛʏꜱ", callback_data=f"lusi_films#{message.from_user.id}"),
