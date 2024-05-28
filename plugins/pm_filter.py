@@ -227,7 +227,7 @@ async def next_page(bot, query):
         btn = [
             [
                 InlineKeyboardButton(
-                    text=f"[{get_size(file.file_size)}] {' '.join(filter(lambda x: not x.startswith('[') and not x.startswith('Original') and not x.startswith('Villa') and not x.startswith('Linkz') and not x.startswith('{') and not x.startswith('boxoffice') and not x.startswith('Links') and not x.startswith('@') and not x.startswith('www'), file.file_name.split()))}", url=f'https://t.me/{temp.U_NAME}?start=files_{file.file_id}'
+                    text=f"[{get_size(file.file_size)}] {' '.join(filter(lambda x: not x.startswith('Original') and not x.startswith('Villa') and not x.startswith('Linkz') and not x.startswith('{') and not x.startswith('boxoffice') and not x.startswith('Links') and not x.startswith('@') and not x.startswith('www'), file.file_name.split()))}", url=f'https://t.me/{temp.U_NAME}?start=files_{file.file_id}'
                 ),
             ]
             for file in files
@@ -356,7 +356,7 @@ async def language_check(bot, query):
             btn = [
             [
                 InlineKeyboardButton(
-                    text=f"[{get_size(file.file_size)}] {' '.join(filter(lambda x: not x.startswith('[') and not x.startswith('Original') and not x.startswith('Villa') and not x.startswith('Linkz') and not x.startswith('{') and not x.startswith('boxoffice') and not x.startswith('Links') and not x.startswith('@') and not x.startswith('www'), file.file_name.split()))}", url=f'https://t.me/{temp.U_NAME}?start=files_{file.file_id}'
+                    text=f"[{get_size(file.file_size)}] {' '.join(filter(lambda x: not x.startswith('Original') and not x.startswith('Villa') and not x.startswith('Linkz') and not x.startswith('{') and not x.startswith('boxoffice') and not x.startswith('Links') and not x.startswith('@') and not x.startswith('www'), file.file_name.split()))}", url=f'https://t.me/{temp.U_NAME}?start=files_{file.file_id}'
                 ),
             ]
             for file in files
@@ -476,7 +476,7 @@ async def quality_check(bot, query):
             btn = [
             [
                 InlineKeyboardButton(
-                    text=f"[{get_size(file.file_size)}] {' '.join(filter(lambda x: not x.startswith('[') and not x.startswith('Original') and not x.startswith('Villa') and not x.startswith('Linkz') and not x.startswith('{') and not x.startswith('boxoffice') and not x.startswith('Links') and not x.startswith('@') and not x.startswith('www'), file.file_name.split()))}", url=f'https://t.me/{temp.U_NAME}?start=files_{file.file_id}'
+                    text=f"[{get_size(file.file_size)}] {' '.join(filter(lambda x: not x.startswith('Original') and not x.startswith('Villa') and not x.startswith('Linkz') and not x.startswith('{') and not x.startswith('boxoffice') and not x.startswith('Links') and not x.startswith('@') and not x.startswith('www'), file.file_name.split()))}", url=f'https://t.me/{temp.U_NAME}?start=files_{file.file_id}'
                 ),
             ]
             for file in files
@@ -590,7 +590,7 @@ async def seasons_check(bot, query):
             btn = [
             [
                 InlineKeyboardButton(
-                    text=f"[{get_size(file.file_size)}] {' '.join(filter(lambda x: not x.startswith('[') and not x.startswith('Original') and not x.startswith('Villa') and not x.startswith('Linkz') and not x.startswith('{') and not x.startswith('boxoffice') and not x.startswith('Links') and not x.startswith('@') and not x.startswith('www'), file.file_name.split()))}", url=f'https://t.me/{temp.U_NAME}?start=files_{file.file_id}'
+                    text=f"[{get_size(file.file_size)}] {' '.join(filter(lambda x: not x.startswith('Original') and not x.startswith('Villa') and not x.startswith('Linkz') and not x.startswith('{') and not x.startswith('boxoffice') and not x.startswith('Links') and not x.startswith('@') and not x.startswith('www'), file.file_name.split()))}", url=f'https://t.me/{temp.U_NAME}?start=files_{file.file_id}'
                 ),
             ]
             for file in files
@@ -2001,7 +2001,7 @@ async def auto_filter(client, msg, spoll=False):
         btn = [
             [
                 InlineKeyboardButton(
-                    text=f"[{get_size(file.file_size)}] {' '.join(filter(lambda x: not x.startswith('[') and not x.startswith('Original') and not x.startswith('Villa') and not x.startswith('Linkz') and not x.startswith('{') and not x.startswith('boxoffice') and not x.startswith('Links') and not x.startswith('@') and not x.startswith('www'), file.file_name.split()))}", url=f'https://t.me/{temp.U_NAME}?start=files_{file.file_id}'
+                    text=f"[{get_size(file.file_size)}] {' '.join(filter(lambda x: not x.startswith('Original') and not x.startswith('Villa') and not x.startswith('Linkz') and not x.startswith('{') and not x.startswith('boxoffice') and not x.startswith('Links') and not x.startswith('@') and not x.startswith('www'), file.file_name.split()))}", url=f'https://t.me/{temp.U_NAME}?start=files_{file.file_id}'
                 ),
             ]
             for file in files
@@ -2085,11 +2085,11 @@ async def auto_filter(client, msg, spoll=False):
         temp.IMDB_CAP[message.from_user.id] = cap
         if not settings["button"] and settings['is_shortlink']:
             for file in files:
-                cap += f"<b>\n\n<a href='https://telegram.me/{temp.U_NAME}?start=short_{file.file_id}'> 📚 {get_size(file.file_size)} ▷ {' '.join(filter(lambda x: not x.startswith('[') and not x.startswith('Original') and not x.startswith('Villa') and not x.startswith('Linkz') and not x.startswith('boxoffice') and not x.startswith('{') and not x.startswith('Links') and not x.startswith('@') and not x.startswith('www'), file.file_name.split()))}</a></b>"
+                cap += f"<b>\n\n<a href='https://telegram.me/{temp.U_NAME}?start=short_{file.file_id}'> 📚 {get_size(file.file_size)} ▷ {' '.join(filter(lambda x: not x.startswith('Original') and not x.startswith('Villa') and not x.startswith('Linkz') and not x.startswith('boxoffice') and not x.startswith('{') and not x.startswith('Links') and not x.startswith('@') and not x.startswith('www'), file.file_name.split()))}</a></b>"
         else:
             if not settings["button"]:
                 for file in files:
-                    cap += f"<b>\n\n<a href='https://telegram.me/{temp.U_NAME}?start=files_{file.file_id}'> 📚 {get_size(file.file_size)} ▷ {' '.join(filter(lambda x: not x.startswith('[') and not x.startswith('Original') and not x.startswith('Villa') and not x.startswith('Linkz') and not x.startswith('boxoffice') and not x.startswith('{') and not x.startswith('Links') and not x.startswith('@') and not x.startswith('www'), file.file_name.split()))}</a></b>"
+                    cap += f"<b>\n\n<a href='https://telegram.me/{temp.U_NAME}?start=files_{file.file_id}'> 📚 {get_size(file.file_size)} ▷ {' '.join(filter(lambda x: not x.startswith('Original') and not x.startswith('Villa') and not x.startswith('Linkz') and not x.startswith('boxoffice') and not x.startswith('{') and not x.startswith('Links') and not x.startswith('@') and not x.startswith('www'), file.file_name.split()))}</a></b>"
     else:
         CAPTION = f"<b>🍿 Titlt : {search}\n🌿 Requested By : {message.from_user.mention}\n📚 Total Files : {total_results}\n⏰ Result In : {remaining_seconds} sᴇᴄᴏɴᴅs\n\n</b>"
         if settings["button"]:
@@ -2098,11 +2098,11 @@ async def auto_filter(client, msg, spoll=False):
             if settings['is_shortlink']:
                 cap = f"{CAPTION}"
                 for file in files:
-                    cap += f"<b><a href='https://telegram.me/{temp.U_NAME}?start=short_{file.file_id}'> 📚 {get_size(file.file_size)} ▷ {' '.join(filter(lambda x: not x.startswith('[') and not x.startswith('Original') and not x.startswith('Villa') and not x.startswith('Linkz') and not x.startswith('boxoffice') and not x.startswith('{') and not x.startswith('Links') and not x.startswith('@') and not x.startswith('www'), file.file_name.split()))}\n\n</a></b>"
+                    cap += f"<b><a href='https://telegram.me/{temp.U_NAME}?start=short_{file.file_id}'> 📚 {get_size(file.file_size)} ▷ {' '.join(filter(lambda x: not x.startswith('Original') and not x.startswith('Villa') and not x.startswith('Linkz') and not x.startswith('boxoffice') and not x.startswith('{') and not x.startswith('Links') and not x.startswith('@') and not x.startswith('www'), file.file_name.split()))}\n\n</a></b>"
             else:
                 cap = f"{CAPTION}"
                 for file in files:
-                    cap += f"<b><a href='https://telegram.me/{temp.U_NAME}?start=files_{file.file_id}'> 📚 {get_size(file.file_size)} ▷ {' '.join(filter(lambda x: not x.startswith('[') and not x.startswith('Original') and not x.startswith('Villa') and not x.startswith('Linkz') and not x.startswith('boxoffice') and not x.startswith('{') and not x.startswith('Links') and not x.startswith('@') and not x.startswith('www'), file.file_name.split()))}\n\n</a></b>"
+                    cap += f"<b><a href='https://telegram.me/{temp.U_NAME}?start=files_{file.file_id}'> 📚 {get_size(file.file_size)} ▷ {' '.join(filter(lambda x: not x.startswith('Original') and not x.startswith('Villa') and not x.startswith('Linkz') and not x.startswith('boxoffice') and not x.startswith('{') and not x.startswith('Links') and not x.startswith('@') and not x.startswith('www'), file.file_name.split()))}\n\n</a></b>"
     if imdb and imdb.get('poster'):
         try:
             hehe = await message.reply_photo(photo=imdb.get('poster'), caption=cap, reply_markup=InlineKeyboardMarkup(btn))
