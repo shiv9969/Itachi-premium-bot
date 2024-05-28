@@ -149,7 +149,7 @@ sᴇɴᴅ ʀᴇᴘᴏʀᴛ ᴏᴜʀ ᴀᴅᴍɪɴ's & ɢᴇᴛ ᴍᴏᴠɪᴇ...
 
 ★ Message <code>{}</code>"""
 
-    CAPTION = """<b>CUSTOM_FILE_CAPTION</b>"""
+    CAPTION = """<b>{CUSTOM_FILE_CAPTION}</b>"""
 
     IMDB_TEMPLATE_TXT = """<b>
 🍿 Title: <a href={url}>{title}</a>
