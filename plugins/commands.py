@@ -561,7 +561,7 @@ async def start(client, message):
                 )
                 filetype = msg.media
                 file = getattr(msg, filetype.value)
-                title = ' '.join(filter(lambda x: not x.startswith('[') and not x.startswith('Linkz') and not x.startswith('boxoffice') and not x.startswith('Original') and not x.startswith('Villa') and not x.startswith('{') and not x.startswith('Links') and not x.startswith('@') and not x.startswith('www'), file.file_name.split()))
+                title = ' '.join(filter(lambda x: not x.startswith('Linkz') and not x.startswith('boxoffice') and not x.startswith('Original') and not x.startswith('Villa') and not x.startswith('{') and not x.startswith('Links') and not x.startswith('@') and not x.startswith('www'), file.file_name.split()))
                 size=get_size(file.file_size)
                 f_caption = f"<code>{title}</code>"
                 if CUSTOM_FILE_CAPTION:
@@ -580,7 +580,7 @@ async def start(client, message):
                 pass
             return await message.reply('Nᴏ sᴜᴄʜ ғɪʟᴇ ᴇxɪsᴛ.')
         files = files_[0]
-        title = ' '.join(filter(lambda x: not x.startswith('[') and not x.startswith('Linkz') and not x.startswith('{') and not x.startswith('Links') and not x.startswith('boxoffice') and not x.startswith('Original') and not x.startswith('Villa') and not x.startswith('@') and not x.startswith('www'), files.file_name.split()))
+        title = ' '.join(filter(lambda x: not x.startswith('Linkz') and not x.startswith('{') and not x.startswith('Links') and not x.startswith('boxoffice') and not x.startswith('Original') and not x.startswith('Villa') and not x.startswith('@') and not x.startswith('www'), files.file_name.split()))
         size=get_size(files.file_size)
         f_caption=files.caption
         if CUSTOM_FILE_CAPTION:
@@ -590,7 +590,7 @@ async def start(client, message):
                 logger.exception(e)
                 f_caption=f_caption
         if f_caption is None:
-            f_caption = f"{' '.join(filter(lambda x: not x.startswith('[') and not x.startswith('Linkz') and not x.startswith('{') and not x.startswith('Links')and not x.startswith('boxoffice') and not x.startswith('Original') and not x.startswith('Villa') and not x.startswith('@') and not x.startswith('www'), files.file_name.split()))}"
+            f_caption = f"{' '.join(filter(lambda x: not x.startswith('Linkz') and not x.startswith('{') and not x.startswith('Links')and not x.startswith('boxoffice') and not x.startswith('Original') and not x.startswith('Villa') and not x.startswith('@') and not x.startswith('www'), files.file_name.split()))}"
         
         if IS_VERIFY and not await check_verification(client, message.from_user.id) and not await db.has_premium_access(message.from_user.id):
             btn = [[
