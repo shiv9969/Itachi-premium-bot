@@ -15,11 +15,10 @@ unban_group - Unban Any Bandded Group 🟢
 ban_group - Ban Any Group Forever 🔴
 ```
 
-<details><summary>Deploy To Heroku</summary>
+<summary>Deploy On Heroku</summary>
 <p>
 <br>
-<a href="https://heroku.com/deploy?template=https://github.com/ItzArtisticDeveloper/JK-DEV-PREMIUM-BoT">
-  <img src="https://www.herokucdn.com/deploy/button.svg" alt="Deploy To Heroku">
+<a href="https://heroku.com/deploy?template=https://github.com/The-Happy-Hour/SAFARI-PREMIUM">
+  <img src="https://www.herokucdn.com/deploy/button.svg" alt="Deploy On Heroku">
 </a>
 </p>
-</details>
