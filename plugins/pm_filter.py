@@ -20,6 +20,7 @@ from pyrogram.errors import FloodWait, UserIsBlocked, MessageNotModified, PeerId
 from utils import get_size, is_subscribed, get_poster, search_gagala, temp, get_settings, save_group_settings, get_shortlink, check_verification, get_token, stream_site, get_tutorial, get_text
 from database.users_chats_db import db
 from database.safaridev import db2
+from database.top_search import db3
 from database.ia_filterdb import Media, get_file_details, get_search_results, get_bad_files
 from database.filters_mdb import (
     del_all,
@@ -132,8 +133,9 @@ async def reply_stream(client, message):
                 disable_web_page_preview=True
         )
 
-# @Client.on_message(filters.group & filters.text & filters.incoming)
-# async def force_sub(client, message):
+@Client.on_message(filters.group & filters.text & filters.incoming)
+async def force_sub(client, message):
+    await db3.update_top_messages(message.from_user.id, message.text)
 #     if AUTH_CHANNEL and not await is_subscribed(client, message):
 #         user = message.from_user.first_name
 #         # invite_link = await client.create_chat_invite_link(int(AUTH_CHANNEL))
@@ -1340,6 +1342,10 @@ async def cb_handler(client: Client, query: CallbackQuery):
             buttons.append([
                     InlineKeyboardButton('🏡 ʙᴜʏ ᴘʀᴇᴍɪᴜᴍ 🏡', callback_data='seeplans')
                 ])
+        if TOP_SEARCH is true:
+            buttons.append([
+                InlineKeyboardButton('ᴛᴏᴘ sᴇᴀʀᴄʜ 🔍', callback_data='topsearch')
+            ])
         reply_markup = InlineKeyboardMarkup(buttons)
         current_time = datetime.now(pytz.timezone(TIMEZONE))
         curr_time = current_time.hour        
@@ -1362,6 +1368,9 @@ async def cb_handler(client: Client, query: CallbackQuery):
             parse_mode=enums.ParseMode.HTML
         )
         await query.answer(MSG_ALRT)
+
+    elif query.data == "topsearch":
+        await query.answer(url=f"https://t.me/{temp.U_NAME}?start=topsearch")
         
     elif query.data == "show_reff":
         user_id = query.from_user.id
