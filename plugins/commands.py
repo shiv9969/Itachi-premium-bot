@@ -9,9 +9,10 @@ from Script import script
 from datetime import datetime
 from pyrogram import Client, filters, enums
 from pyrogram.errors import ChatAdminRequired, FloodWait
-from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
+from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, ReplyKeyboardMarkup
 from database.ia_filterdb import Media, get_file_details, unpack_new_file_id, get_bad_files
 from database.users_chats_db import db
+from database.top_search import db3
 from database.safaridev import db2
 from info import *
 from utils import get_settings, get_size, is_subscribed, save_group_settings, temp, verify_user, check_token, check_verification, get_token, send_all, get_tutorial, get_shortlink, get_seconds
@@ -211,6 +212,31 @@ async def start(client, message):
                 for admin in ADMINS:
                     await client.send_message(chat_id=REQST_CHANNEL, text=f"Sᴜᴄᴄᴇss ғᴜʟʟʏ reffral ᴛᴀsᴋ ᴄᴏᴍᴘʟᴇᴛᴇᴅ ʙʏ ᴛʜɪs ᴜsᴇʀ:\n\nuser Nᴀᴍᴇ: {uss.mention}\n\nUsᴇʀ ɪᴅ: {uss.id}!")	
                 return
+        if message.command[1] == "topsearch":
+            if TOP_SEARCH is True:
+                m = await message.reply_text(f"<b>Please Wait, Fetching Top Searches...</b>")
+                top_messages = await db3.get_top_messages(30)
+
+                truncated_messages = set()  # Use a set instead of a list
+                for msg in top_messages:
+                    if len(msg) > 30:
+                        truncated_messages.add(msg[:30 - 3].lower().title() + "...")  # Convert to lowercase, capitalize and add to set
+                    else:
+                        truncated_messages.add(msg.lower().title())  # Convert to lowercase, capitalize and add to set
+
+                keyboard = []
+                for i in range(0, len(truncated_messages), 2):
+                    row = list(truncated_messages)[i:i+2]  # Convert set to list for indexing
+                    keyboard.append(row)
+    
+                reply_markup = ReplyKeyboardMarkup(keyboard, resize_keyboard=True, one_time_keyboard=True, placeholder="Most searches of the day")
+                sf=await message.reply_text(f"<b>Here Is The Top Searches Of The Day</b>", reply_markup=reply_markup)
+                await m.delete()
+                await asyncio.sleep(60*60) 
+                await sf.delete()
+                return
+            else:
+                await message.reply("ᴛᴏᴘ sᴇᴀʀᴄʜᴇs ᴄᴜʀʀᴇɴᴛʟʏ ᴏғғ")
         data = message.command[1]
         try:
             pre, file_id = data.split('_', 1)
