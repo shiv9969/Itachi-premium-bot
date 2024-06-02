@@ -82,6 +82,10 @@ async def start(client, message):
                 buttons.append([
                     InlineKeyboardButton('🏡 ʙᴜʏ ᴘʀᴇᴍɪᴜᴍ 🏡', callback_data='seeplans')
                 ])
+            if TOP_SEARCH is true:
+                buttons.append([
+                    InlineKeyboardButton('ᴛᴏᴘ sᴇᴀʀᴄʜ 🔍', callback_data='topsearch')
+                ])
             reply_markup = InlineKeyboardMarkup(buttons)
             current_time = datetime.now(pytz.timezone(TIMEZONE))
             curr_time = current_time.hour        
@@ -146,6 +150,10 @@ async def start(client, message):
             if IS_VERIFY or IS_SHORTLINK is True:
                 buttons.append([
                     InlineKeyboardButton('🏡 ʙᴜʏ ᴘʀᴇᴍɪᴜᴍ 🏡', callback_data='seeplans')
+                ])
+            if TOP_SEARCH is true:
+                buttons.append([
+                    InlineKeyboardButton('ᴛᴏᴘ sᴇᴀʀᴄʜ 🔍', callback_data='topsearch')
                 ])
             reply_markup = InlineKeyboardMarkup(buttons)
             current_time = datetime.now(pytz.timezone(TIMEZONE))
