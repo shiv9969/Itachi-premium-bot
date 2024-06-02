@@ -82,7 +82,7 @@ async def start(client, message):
                 buttons.append([
                     InlineKeyboardButton('🏡 ʙᴜʏ ᴘʀᴇᴍɪᴜᴍ 🏡', callback_data='seeplans')
                 ])
-            if TOP_SEARCH is true:
+            if TOP_SEARCH is True:
                 buttons.append([
                     InlineKeyboardButton('ᴛᴏᴘ sᴇᴀʀᴄʜ 🔍', callback_data='topsearch')
                 ])
@@ -151,7 +151,7 @@ async def start(client, message):
                 buttons.append([
                     InlineKeyboardButton('🏡 ʙᴜʏ ᴘʀᴇᴍɪᴜᴍ 🏡', callback_data='seeplans')
                 ])
-            if TOP_SEARCH is true:
+            if TOP_SEARCH is True:
                 buttons.append([
                     InlineKeyboardButton('ᴛᴏᴘ sᴇᴀʀᴄʜ 🔍', callback_data='topsearch')
                 ])
