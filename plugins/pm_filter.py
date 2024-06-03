@@ -136,6 +136,7 @@ async def reply_stream(client, message):
 @Client.on_message(filters.group & filters.text & filters.incoming)
 async def force_subs(client, message):
     await db3.update_top_messages(message.from_user.id, message.text)
+    return
 #     if AUTH_CHANNEL and not await is_subscribed(client, message):
 #         user = message.from_user.first_name
 #         # invite_link = await client.create_chat_invite_link(int(AUTH_CHANNEL))
@@ -157,6 +158,7 @@ async def force_subs(client, message):
 
 @Client.on_message(filters.group & filters.text & filters.incoming)
 async def give_filter(client, message):
+    
     if message.chat.id != SUPPORT_CHAT_ID:
         manual = await manual_filters(client, message)
         if manual == False:
