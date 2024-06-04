@@ -39,7 +39,7 @@ from SAFARI.utils.file_properties import get_name, get_hash, get_media_file_size
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.ERROR)
-
+REACTIONS = ["🔥", "❤️", "😍", "⚡", "👍", "👎", "❤", "🔥", "🥰", "👏", "😁", "🤔", "🤯", "😱", "🤬", "😢", "🎉", "🤩", "🤮", "💩", "🙏", "👌", "🕊", "🤡", "❤‍🔥", "🌚", "🌭", "💯", "🤣", "⚡", "🍌", "🏆", "🍾", "💋", "🖕", "😈", "👨‍💻", "👀", "🎃", "🙈", "😇", "😨", "🤝", "✍", "🤗", "🫡", "🎅", "🎄", "😘", "💊", "🙊", "😎", "👾", "🤷‍♂", "🤷", "🤷‍♀", "😡"]
 BUTTONS = {}
 SPELL_CHECK = {}
 CAP = {}
@@ -133,10 +133,33 @@ async def reply_stream(client, message):
                 disable_web_page_preview=True
         )
 
-#@Client.on_message(filters.group & filters.text & filters.incoming)
-#async def force_subs(client, message):
-    #await db3.update_top_messages(message.from_user.id, message.text)
-    #return
+@Client.on_message(filters.group & filters.text & filters.incoming)
+async def force_subs(client, message):
+    await message.react(emoji=random.choice(REACTIONS))
+    await db3.update_top_messages(message.from_user.id, message.text)
+    if TOP_SEARCH is True:
+        top_messages = await db3.get_top_messages(30)
+
+        truncated_messages = set()  # Use a set instead of a list
+        for msg in top_messages:
+            if len(msg) > 30:
+                truncated_messages.add(msg[:30 - 3].lower().title() + "...")  # Convert to lowercase, capitalize and add to set
+            else:
+                truncated_messages.add(msg.lower().title())  # Convert to lowercase, capitalize and add to set
+
+        keyboard = []
+        for i in range(0, len(truncated_messages), 2):
+            row = list(truncated_messages)[i:i+2]  # Convert set to list for indexing
+            keyboard.append(row)
+    
+        reply_markup = ReplyKeyboardMarkup(keyboard, resize_keyboard=True, one_time_keyboard=True, placeholder="Top Searches of the day")
+        sf=await message.reply_text(f".", reply_markup=reply_markup)
+        await auto_filter(client, message)
+        await asyncio.sleep(30*60) 
+        await sf.delete()
+        return
+    else:
+        pass
 #     if AUTH_CHANNEL and not await is_subscribed(client, message):
 #         user = message.from_user.first_name
 #         # invite_link = await client.create_chat_invite_link(int(AUTH_CHANNEL))
@@ -183,6 +206,7 @@ async def give_filter(client, message):
 
 @Client.on_message(filters.private & filters.text & filters.incoming)
 async def pm_text(bot, message):
+    await message.react(emoji=random.choice(REACTIONS))
     if PM_FILTER == True:  
         await auto_filter(bot, message) 
     else:
