@@ -154,7 +154,7 @@ async def force_subs(client, message):
             keyboard.append(row)
     
         reply_markup = ReplyKeyboardMarkup(keyboard, resize_keyboard=True, one_time_keyboard=True, placeholder="Top Searches of the day")
-        sf=await message.reply_text(f"✌", reply_markup=reply_markup)
+        sf=await message.reply_text(f"View Movie Suggestion", reply_markup=reply_markup)
     else:
         pass
 #     if AUTH_CHANNEL and not await is_subscribed(client, message):
