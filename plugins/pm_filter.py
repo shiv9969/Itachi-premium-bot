@@ -159,6 +159,7 @@ async def force_subs(client, message):
         await sf.delete()
         return
     else:
+        await auto_filter(client, message)
         pass
 #     if AUTH_CHANNEL and not await is_subscribed(client, message):
 #         user = message.from_user.first_name
