@@ -75,8 +75,7 @@ async def start(client, message):
                         InlineKeyboardButton('🍾 ᴄᴏᴍᴍᴀɴᴅꜱ', callback_data='seeplans'),
                         InlineKeyboardButton('🍁 ꜱᴛᴀᴛꜱ', callback_data='stats')
                     ],[
-                        InlineKeyboardButton('🌹 ʀᴇғғᴇʀ 🌹', callback_data='reffer'),
-                        InlineKeyboardButton('❌ ᴄʟᴏꜱᴇ ❌', callback_data='close_data')
+                        InlineKeyboardButton('🌹 ʀᴇғғᴇʀ 🌹', callback_data='reffer')
                         ]]
             if IS_VERIFY or IS_SHORTLINK is True:
                 buttons.append([
@@ -84,7 +83,7 @@ async def start(client, message):
                 ])
             if TOP_SEARCH is True:
                 buttons.append([
-                    InlineKeyboardButton('ᴛᴏᴘ sᴇᴀʀᴄʜ 🔍', callback_data='topsearch')
+                    InlineKeyboardButton("🎁 ᴍᴏᴠɪᴇ sᴜɢɢᴇsᴛɪᴏɴ's 🎁", callback_data='movie_suggestion')
                 ])
             reply_markup = InlineKeyboardMarkup(buttons)
             current_time = datetime.now(pytz.timezone(TIMEZONE))
@@ -145,7 +144,6 @@ async def start(client, message):
                         InlineKeyboardButton('🍁 ꜱᴛᴀᴛꜱ', callback_data='stats')
                     ],[
                         InlineKeyboardButton('🌹 ʀᴇғғᴇʀ 🌹', callback_data='reffer'),
-                        InlineKeyboardButton('❌ ᴄʟᴏꜱᴇ ❌', callback_data='close_data')
                         ]]
             if IS_VERIFY or IS_SHORTLINK is True:
                 buttons.append([
@@ -153,7 +151,7 @@ async def start(client, message):
                 ])
             if TOP_SEARCH is True:
                 buttons.append([
-                    InlineKeyboardButton('ᴛᴏᴘ sᴇᴀʀᴄʜ 🔍', callback_data='topsearch')
+                    InlineKeyboardButton("🎁 ᴍᴏᴠɪᴇ sᴜɢɢᴇsᴛɪᴏɴ's 🎁", callback_data='movie_suggestion')
                 ])
             reply_markup = InlineKeyboardMarkup(buttons)
             current_time = datetime.now(pytz.timezone(TIMEZONE))
