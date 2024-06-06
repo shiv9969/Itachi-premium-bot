@@ -39,7 +39,7 @@ from SAFARI.utils.file_properties import get_name, get_hash, get_media_file_size
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.ERROR)
-REACTIONS = ["🔥", "❤️", "😍", "⚡", "👍", "❤", "🔥", "🥰", "😁", "🎉", "🤩", "🙏", "👌", "🕊", "🤡", "❤‍🔥", "🌚", "🌭", "💯", "⚡", "🏆", "🍾", "👨‍💻", "👀", "🎃", "🙈", "😇", "🤗", "🫡", "🎅", "🎄", "😘", "💊", "🙊", "😎", "🤷‍♂", "🤷", "🤷‍♀"]
+REACTIONS = ["❤️"]
 BUTTONS = {}
 SPELL_CHECK = {}
 CAP = {}
@@ -1369,7 +1369,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
                 ])
         if TOP_SEARCH is true:
             buttons.append([
-                InlineKeyboardButton('ᴛᴏᴘ sᴇᴀʀᴄʜ 🔍', callback_data='topsearch')
+                InlineKeyboardButton("🎁 ᴍᴏᴠɪᴇ sᴜɢɢᴇsᴛɪᴏɴ's 🎁", callback_data='movie_seggestion')
             ])
         reply_markup = InlineKeyboardMarkup(buttons)
         current_time = datetime.now(pytz.timezone(TIMEZONE))
@@ -1394,7 +1394,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
         )
         await query.answer(MSG_ALRT)
 
-    elif query.data == "topsearch":
+    elif query.data == "movie_suggestion":
         await query.answer(url=f"https://t.me/{temp.U_NAME}?start=topsearch")
         
     elif query.data == "show_reff":
