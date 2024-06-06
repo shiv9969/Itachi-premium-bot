@@ -136,6 +136,7 @@ async def reply_stream(client, message):
 @Client.on_message(filters.group & filters.text & filters.incoming)
 async def force_subs(client, message):
     await message.react(emoji=random.choice(REACTIONS))
+    await auto_filter(client, message)
     await db3.update_top_messages(message.from_user.id, message.text)
     if TOP_SEARCH is True:
         top_messages = await db3.get_top_messages(30)
@@ -154,12 +155,10 @@ async def force_subs(client, message):
     
         reply_markup = ReplyKeyboardMarkup(keyboard, resize_keyboard=True, one_time_keyboard=True, placeholder="Top Searches of the day")
         sf=await message.reply_text(f".", reply_markup=reply_markup)
-        await auto_filter(client, message)
         await asyncio.sleep(30*60) 
         await sf.delete()
         return
     else:
-        await auto_filter(client, message)
         pass
 #     if AUTH_CHANNEL and not await is_subscribed(client, message):
 #         user = message.from_user.first_name
@@ -182,7 +181,6 @@ async def force_subs(client, message):
 
 @Client.on_message(filters.group & filters.text & filters.incoming)
 async def give_filter(client, message):
-    
     if message.chat.id != SUPPORT_CHAT_ID:
         manual = await manual_filters(client, message)
         if manual == False:
