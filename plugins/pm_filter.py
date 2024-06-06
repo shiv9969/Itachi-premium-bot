@@ -1395,7 +1395,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
         await query.answer(MSG_ALRT)
 
     elif query.data == "movie_suggestion":
-        await query.answer(url=f"https://t.me/{temp.U_NAME}?start=topsearch")
+        await query.answer(url=f"https://t.me/{temp.U_NAME}?start=movie_suggestion")
         
     elif query.data == "show_reff":
         user_id = query.from_user.id
