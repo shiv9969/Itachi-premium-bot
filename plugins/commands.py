@@ -218,9 +218,9 @@ async def start(client, message):
                 for admin in ADMINS:
                     await client.send_message(chat_id=REQST_CHANNEL, text=f"Sᴜᴄᴄᴇss ғᴜʟʟʏ reffral ᴛᴀsᴋ ᴄᴏᴍᴘʟᴇᴛᴇᴅ ʙʏ ᴛʜɪs ᴜsᴇʀ:\n\nuser Nᴀᴍᴇ: {uss.mention}\n\nUsᴇʀ ɪᴅ: {uss.id}!")	
                 return
-        if message.command[1] == "topsearch":
+        if message.command[1] == "movie_suggestion":
             if TOP_SEARCH is True:
-                m = await message.reply_text(f"<b>Please Wait, Fetching Top Searches...</b>")
+                m = await message.reply_text(f"<b>Finding Movie's List For You...😘</b>")
                 top_messages = await db3.get_top_messages(30)
 
                 truncated_messages = set()  # Use a set instead of a list
@@ -236,7 +236,7 @@ async def start(client, message):
                     keyboard.append(row)
     
                 reply_markup = ReplyKeyboardMarkup(keyboard, resize_keyboard=True, one_time_keyboard=True, placeholder="Most searches of the day")
-                sf=await message.reply_text(f"<b>Here Is The Top Searches Of The Day</b>", reply_markup=reply_markup)
+                sf=await message.reply_text(f"<b>ʜᴇʀᴇ ɪs ᴛʜʀ ʟɪsᴛ ᴏғ ᴍᴏᴠɪᴇ's ɴᴀᴍᴇ 👇👇</b>", reply_markup=reply_markup)
                 await m.delete()
                 await asyncio.sleep(60*60) 
                 await sf.delete()
