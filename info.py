@@ -62,7 +62,7 @@ INVITED_USER_TRAIL = int(environ.get('INVITED_USER_TRAIL', "3600")) #set in seco
 STREAM_SITE = (environ.get('STREAM_SITE', 'url.aslink.in'))
 STREAM_API = (environ.get('STREAM_API', 'ebfaefb6e2a14eefae89a11ff6eeb9a027a7dc06'))
 STREAMHTO = (environ.get('STREAMHTO', 'https://t.me/ThappyHour'))
-STREAM_LINK_MODE = is_enabled((environ.get('STREAM_LINK_MODE', "False")), False)
+STREAM_LINK_MODE = is_enabled((environ.get('STREAM_LINK_MODE', "True")), False)
 
 #premium Users Satuts
 premium = environ.get('PREMIUM_LOGS', '-1002106576609')
@@ -71,7 +71,7 @@ PREMIUM_LOGS = int(premium) if premium and id_pattern.search(premium) else None
 #files link shortnet
 SHORTLINK_URL = environ.get('SHORTLINK_URL', 'goo.aslink.in')
 SHORTLINK_API = environ.get('SHORTLINK_API', 'f3d4fd7dae6de26195974daabb27252176d86cfe')
-IS_SHORTLINK = is_enabled((environ.get('IS_SHORTLINK', 'True')), False)
+IS_SHORTLINK = is_enabled((environ.get('IS_SHORTLINK', 'False')), False)
 
 # verify link shortner
 IS_VERIFY = is_enabled((environ.get('IS_VERIFY', 'False')), False)
