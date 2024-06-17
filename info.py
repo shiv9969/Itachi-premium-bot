@@ -30,7 +30,7 @@ CODE = (environ.get('CODE', 'https://graph.org/file/74f4c5747cbe37940743f.jpg'))
 
 # Admins, Channels & Users
 ADMINS = [int(admin) if id_pattern.search(admin) else admin for admin in environ.get('ADMINS', '1991522624').split()]
-OWNER_USER_NAME = environ.get("OWNER_USER_NAME", "Master_Jiraya") # widout 👉 @
+OWNER_USER_NAME = environ.get("OWNER_USER_NAME", "Master_Jiraya_bot") # widout 👉 @
 CHANNELS = [int(ch) if id_pattern.search(ch) else ch for ch in environ.get('CHANNELS', '-1002127624881').split()]
 auth_users = [int(user) if id_pattern.search(user) else user for user in environ.get('AUTH_USERS', '').split()]
 AUTH_USERS = (auth_users + ADMINS) if auth_users else []
@@ -59,8 +59,8 @@ USER_POINT = int(environ.get('USERS_COUNT', "100")) # Set Referel User Count
 INVITED_USER_TRAIL = int(environ.get('INVITED_USER_TRAIL', "3600")) #set in seconds, free trail invites users in 1 day, 
 
 #stream link shortner
-STREAM_SITE = (environ.get('STREAM_SITE', 'url.aslink.in'))
-STREAM_API = (environ.get('STREAM_API', 'ebfaefb6e2a14eefae89a11ff6eeb9a027a7dc06'))
+STREAM_SITE = (environ.get('STREAM_SITE', 'gooo.aslink.in'))
+STREAM_API = (environ.get('STREAM_API', 'd9864e64f4198e5a2e2b30d00d851bd9b405e3e5'))
 STREAMHTO = (environ.get('STREAMHTO', 'https://t.me/ThappyHour'))
 STREAM_LINK_MODE = is_enabled((environ.get('STREAM_LINK_MODE', "True")), False)
 
@@ -69,15 +69,15 @@ premium = environ.get('PREMIUM_LOGS', '-1002106576609')
 PREMIUM_LOGS = int(premium) if premium and id_pattern.search(premium) else None
 
 #files link shortnet
-SHORTLINK_URL = environ.get('SHORTLINK_URL', 'goo.aslink.in')
-SHORTLINK_API = environ.get('SHORTLINK_API', 'f3d4fd7dae6de26195974daabb27252176d86cfe')
+SHORTLINK_URL = environ.get('SHORTLINK_URL', 'goo0.aslink.in')
+SHORTLINK_API = environ.get('SHORTLINK_API', 'd9864e64f4198e5a2e2b30d00d851bd9b405e3e5')
 IS_SHORTLINK = is_enabled((environ.get('IS_SHORTLINK', 'False')), False)
 
 # verify link shortner
 IS_VERIFY = is_enabled((environ.get('IS_VERIFY', 'False')), False)
 HOW_TO_VERIFY = environ.get('HOW_TO_VERIFY', "https://t.me/ThappyHour")
-VERIFY2_URL = environ.get('VERIFY2_URL', "goo.aslink.in")
-VERIFY2_API = environ.get('VERIFY2_API', "f3d4fd7dae6de26195974daabb27252176d86cfe")
+VERIFY2_URL = environ.get('VERIFY2_URL', "gooo.aslink.in")
+VERIFY2_API = environ.get('VERIFY2_API', "d9864e64f4198e5a2e2b30d00d851bd9b405e3e5")
 
 DELETE_CHANNELS = [int(dch) if id_pattern.search(dch) else dch for dch in environ.get('DELETE_CHANNELS', '-1002111303673').split()]
 MAX_B_TN = environ.get("MAX_B_TN", "8")
