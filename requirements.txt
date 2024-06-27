@@ -1,4 +1,4 @@
-git+https://github.com/safarideveloper/pyrogram
+pyrofork
 umongo
 tgcrypto
 pymongo[srv]==3.12.3
@@ -26,4 +26,3 @@ jinja2
 apscheduler
 pyshorteners
 colorama
-
