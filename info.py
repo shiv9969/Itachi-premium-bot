@@ -13,9 +13,9 @@ def is_enabled(value, default):
 
 # Bot information
 SESSION = environ.get('SESSION', 'Media_search')
-API_ID = int(environ.get('API_ID', '24579842'))
-API_HASH = environ.get('API_HASH', 'ec6105bf1a02c98f837300546dc341d1')
-BOT_TOKEN = environ.get('BOT_TOKEN', "7162641937:AAH5pBS3dAGCHk6EKIPqLKEPT4YtK8OZWRM")
+API_ID = int(environ.get('API_ID', '9301087'))
+API_HASH = environ.get('API_HASH', 'cbabdb3f23de6326352ef3ac26338d9c')
+BOT_TOKEN = environ.get('BOT_TOKEN', "5831896442:AAFA-yrKeb21dZt4nO9CDnD1-o2Pjxz72rg")
 TIMEZONE = environ.get("TIMEZONE", "Asia/Kolkata")
 # Bot settings
 CACHE_TIME = int(environ.get('CACHE_TIME', 300))
@@ -29,12 +29,12 @@ SUBSCRIPTION = (environ.get('SUBSCRIPTION', 'https://graph.org/file/74f4c5747cbe
 CODE = (environ.get('CODE', 'https://graph.org/file/74f4c5747cbe37940743f.jpg')) # Scanner Code image 
 
 # Admins, Channels & Users
-ADMINS = [int(admin) if id_pattern.search(admin) else admin for admin in environ.get('ADMINS', '1991522624').split()]
-OWNER_USER_NAME = environ.get("OWNER_USER_NAME", "Master_Jiraya_bot") # widout 👉 @
-CHANNELS = [int(ch) if id_pattern.search(ch) else ch for ch in environ.get('CHANNELS', '-1002127624881').split()]
+ADMINS = [int(admin) if id_pattern.search(admin) else admin for admin in environ.get('ADMINS', '1991522624 1525203313').split()]
+OWNER_USER_NAME = environ.get("OWNER_USER_NAME", "Assaulter_shiv") # widout 👉 @
+CHANNELS = [int(ch) if id_pattern.search(ch) else ch for ch in environ.get('CHANNELS', '-1002071314696 -1001971879597 -1002038638292 -1001882174994').split()]
 auth_users = [int(user) if id_pattern.search(user) else user for user in environ.get('AUTH_USERS', '').split()]
 AUTH_USERS = (auth_users + ADMINS) if auth_users else []
-auth_channel = environ.get('AUTH_CHANNEL', '-1001821560097')
+auth_channel = environ.get('AUTH_CHANNEL', '-1002077157127')
 auth_grp = environ.get('AUTH_GROUP')
 AUTH_CHANNEL = int(auth_channel) if auth_channel and id_pattern.search(auth_channel) else None
 AUTH_GROUPS = [int(ch) for ch in auth_grp.split()] if auth_grp else None
@@ -49,8 +49,9 @@ SUPPORT_CHAT_ID = int(support_chat_id) if support_chat_id and id_pattern.search(
 NO_RESULTS_MSG = is_enabled((environ.get("NO_RESULTS_MSG", 'True')), False)
 
 # MongoDB information
-DATABASE_URI = environ.get('DATABASE_URI', "mongodb+srv://heroku02:heroku02@cluster0.1o1gniu.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0")
-DATABASE_NAME = environ.get('DATABASE_NAME', "MINATO")
+DATABASE_URI = environ.get('DATABASE_URI', "mongodb+srv://Kissu:Kissimunda.888@cluster0.f8ssexm.mongodb.net/?retryWrites=true&w=majority")
+DATABASE_NAME = environ.get('DATABASE_NAME', "Itachi
+")
 COLLECTION_NAME = environ.get('COLLECTION_NAME', 'Telegram_files')
 
 #refer time, or user count
@@ -59,35 +60,35 @@ USER_POINT = int(environ.get('USERS_COUNT', "100")) # Set Referel User Count
 INVITED_USER_TRAIL = int(environ.get('INVITED_USER_TRAIL', "3600")) #set in seconds, free trail invites users in 1 day, 
 
 #stream link shortner
-STREAM_SITE = (environ.get('STREAM_SITE', 'gooo.aslink.in'))
-STREAM_API = (environ.get('STREAM_API', 'd9864e64f4198e5a2e2b30d00d851bd9b405e3e5'))
-STREAMHTO = (environ.get('STREAMHTO', 'https://t.me/ThappyHour'))
-STREAM_LINK_MODE = is_enabled((environ.get('STREAM_LINK_MODE', "True")), False)
+STREAM_SITE = (environ.get('STREAM_SITE', ''))
+STREAM_API = (environ.get('STREAM_API', ''))
+STREAMHTO = (environ.get('STREAMHTO', 'https://t.me/BoB_Files1'))
+STREAM_LINK_MODE = is_enabled((environ.get('STREAM_LINK_MODE') "True")), False)
 
 #premium Users Satuts
-premium = environ.get('PREMIUM_LOGS', '-1002106576609')
+premium = environ.get('PREMIUM_LOGS', '-1001844691460')
 PREMIUM_LOGS = int(premium) if premium and id_pattern.search(premium) else None
 
 #files link shortnet
-SHORTLINK_URL = environ.get('SHORTLINK_URL', 'goo0.aslink.in')
-SHORTLINK_API = environ.get('SHORTLINK_API', 'd9864e64f4198e5a2e2b30d00d851bd9b405e3e5')
+SHORTLINK_URL = environ.get('SHORTLINK_URL', '')
+SHORTLINK_API = environ.get('SHORTLINK_API', '')
 IS_SHORTLINK = is_enabled((environ.get('IS_SHORTLINK', 'False')), False)
 
 # verify link shortner
-IS_VERIFY = is_enabled((environ.get('IS_VERIFY', 'False')), False)
-HOW_TO_VERIFY = environ.get('HOW_TO_VERIFY', "https://t.me/ThappyHour")
-VERIFY2_URL = environ.get('VERIFY2_URL', "gooo.aslink.in")
-VERIFY2_API = environ.get('VERIFY2_API', "d9864e64f4198e5a2e2b30d00d851bd9b405e3e5")
+IS_VERIFY = is_enabled((environ.get('IS_VERIFY', 'True')), False)
+HOW_TO_VERIFY = environ.get('HOW_TO_VERIFY', "https://t.me/kaisekhole/11")
+VERIFY2_URL = environ.get('VERIFY2_URL', "instantearn.in")
+VERIFY2_API = environ.get('VERIFY2_API', "fdae4ded7d9f404188ce1b10e8342759116cd66e")
 
-DELETE_CHANNELS = [int(dch) if id_pattern.search(dch) else dch for dch in environ.get('DELETE_CHANNELS', '-1002111303673').split()]
+DELETE_CHANNELS = [int(dch) if id_pattern.search(dch) else dch for dch in environ.get('DELETE_CHANNELS', '0').split()]
 MAX_B_TN = environ.get("MAX_B_TN", "8")
 MAX_BTN = is_enabled((environ.get('MAX_BTN', "True")), True)
 PORT = environ.get("PORT", "8080")
-GRP_LNK = environ.get('GRP_LNK', 'https://t.me/ThappyHour')
-CHNL_LNK = environ.get('CHNL_LNK', 'https://t.me/The_Happy_Hours')
-MSG_ALRT = environ.get('MSG_ALRT', 'Created By : The Happy Hour ❤️')
-LOG_CHANNEL = int(environ.get('LOG_CHANNEL', -1002106576609))
-SUPPORT_CHAT = environ.get('SUPPORT_CHAT', 'Thappyhour')
+GRP_LNK = environ.get('GRP_LNK', 'https://t.me/REQUESTING_MOVIES_SERIES_GROUPS')
+CHNL_LNK = environ.get('CHNL_LNK', 'https://t.me/BoB_Files1')
+MSG_ALRT = environ.get('MSG_ALRT', 'Created By : BoB Files ❤️')
+LOG_CHANNEL = int(environ.get('LOG_CHANNEL',  -1001844691460))
+SUPPORT_CHAT = environ.get('SUPPORT_CHAT', 'BoB_Files1')
 P_TTI_SHOW_OFF = is_enabled((environ.get('P_TTI_SHOW_OFF', "True")), False)
 IMDB = is_enabled((environ.get('IMDB', "False")), True)
 AUTO_FFILTER = is_enabled((environ.get('AUTO_FFILTER', "True")), True)
@@ -99,14 +100,14 @@ PM_FILTER = is_enabled((environ.get('PM_FILTER', "True")), True)
 
 #################
 
-TUTORIAL = environ.get('TUTORIAL', 'https://t.me/ThappyHour')
+TUTORIAL = environ.get('TUTORIAL', 'https://t.me/kaisekhole/11')
 IS_TUTORIAL = bool(environ.get('IS_TUTORIAL', True))
 SINGLE_BUTTON = is_enabled((environ.get('SINGLE_BUTTON', "True")), True)
 CUSTOM_FILE_CAPTION = environ.get("CUSTOM_FILE_CAPTION", f"{script.CAPTION}")
 BATCH_FILE_CAPTION = environ.get("BATCH_FILE_CAPTION", CUSTOM_FILE_CAPTION)
 IMDB_TEMPLATE = environ.get("IMDB_TEMPLATE", f"{script.IMDB_TEMPLATE_TXT}")
 LONG_IMDB_DESCRIPTION = is_enabled(environ.get("LONG_IMDB_DESCRIPTION", "False"), False)
-SPELL_CHECK_REPLY = is_enabled(environ.get("SPELL_CHECK_REPLY", "False"), True)
+SPELL_CHECK_REPLY = is_enabled(environ.get("SPELL_CHECK_REPLY", "True"), True)
 MAX_LIST_ELM = environ.get("MAX_LIST_ELM", None)
 INDEX_REQ_CHANNEL = int(environ.get('INDEX_REQ_CHANNEL', LOG_CHANNEL))
 FILE_STORE_CHANNEL = [int(ch) for ch in (environ.get('FILE_STORE_CHANNEL', '')).split()]
@@ -115,7 +116,7 @@ PROTECT_CONTENT = is_enabled((environ.get('PROTECT_CONTENT', "False")), False)
 PUBLIC_FILE_STORE = is_enabled((environ.get('PUBLIC_FILE_STORE', "True")), True)
 
 # Streaming
-BIN_CHANNEL = environ.get("BIN_CHANNEL", "-1001992201683")
+BIN_CHANNEL = environ.get("BIN_CHANNEL", "--1001844691460")
 if len(BIN_CHANNEL) == 0:
     logging.error('BIN_CHANNEL is missing, exiting now')
     exit()
