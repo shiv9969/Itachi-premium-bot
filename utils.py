@@ -694,8 +694,7 @@ async def send_all(bot, userid, files, ident):
         else:
             pre = 'checksub' 
         btn = [[
-                InlineKeyboardButton("Cʜᴀɴɴᴇʟ 1", url=f't.me/The_Happy_Hour_Hindi'),
-                InlineKeyboardButton("Cʜᴀɴɴᴇʟ 2", url=f't.me/The_Happy_Hours')
+                InlineKeyboardButton("Cʜᴀɴɴᴇʟ 1", url=f't.me/BoB_Files1')              
               ],[
                 InlineKeyboardButton("Tʀʏ Aɢᴀɪɴ", callback_data=f"{pre}#send_all")
             ]]
@@ -754,7 +753,7 @@ async def send_all(bot, userid, files, ident):
             InlineKeyboardButton("Vᴇʀɪғʏ", url=await get_token(bot, userid, f"https://telegram.me/{temp.U_NAME}?start=", 'send_all')),
             InlineKeyboardButton("Hᴏᴡ Tᴏ Vᴇʀɪғʏ", url=HOW_TO_VERIFY)
             ],[
-            InlineKeyboardButton("🏕️ ʀᴇᴍᴏᴠᴇ ᴠᴇʀɪꜰɪᴄᴀᴛɪᴏɴ 🏕️", url="https://t.me/Hidden_Technology_Bot?start=TheHappyHour")
+            InlineKeyboardButton("🏕️ ʀᴇᴍᴏᴠᴇ ᴠᴇʀɪꜰɪᴄᴀᴛɪᴏɴ 🏕️", url="https://t.me/Bullmovieess_autofilter_bot?start=TheHappyHour")
         ]]
         await bot.send_message(
             chat_id=userid,
@@ -789,7 +788,7 @@ async def send_all(bot, userid, files, ident):
                         [
                         InlineKeyboardButton("🖥️ ᴡᴀᴛᴄʜ & ᴅᴏᴡɴʟᴏᴀᴅ 📥", callback_data=f"streaming#{file.file_id}")
                     ],[
-                              InlineKeyboardButton("🌹 ʀᴇғғᴇʀ 🌹", url='https://t.me/Hidden_Technology_Bot?start=reffer'),
+                              InlineKeyboardButton("🌹 ʀᴇғғᴇʀ 🌹", url='https://t.me/Bullmovieess_autofilter_bot?start=reffer'),
                             InlineKeyboardButton('❌ ᴄʟᴏꜱᴇ ❌', callback_data='close_data')
                              ]
                     ]
