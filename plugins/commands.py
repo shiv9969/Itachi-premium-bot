@@ -72,14 +72,14 @@ async def start(client, message):
                         InlineKeyboardButton('🌈 ᴄʜᴀɴɴᴇʟ', url=f'http://t.me/BoB_Files1')
                     ],[
                         InlineKeyboardButton('🏕️ ᴀʙᴏᴜᴛ', callback_data='about'),
-                        InlineKeyboardButton('🍾 ᴄᴏᴍᴍᴀɴᴅꜱ', callback_data='seeplans'),
+                        InlineKeyboardButton('🍾 ᴄᴏᴍᴍᴀɴᴅꜱ', callback_data='https://t.me/Bullmovieess_autofilter_bot?start=TheHappyHour'),
                         InlineKeyboardButton('🍁 ꜱᴛᴀᴛꜱ', callback_data='stats')
                     ],[
                         InlineKeyboardButton('🌹 ʀᴇғғᴇʀ 🌹', callback_data='reffer')
                         ]]
             if IS_VERIFY or IS_SHORTLINK is True:
                 buttons.append([
-                    InlineKeyboardButton('🏡 ʙᴜʏ ᴘʀᴇᴍɪᴜᴍ 🏡', callback_data='seeplans')
+                    InlineKeyboardButton('🏡 ʙᴜʏ ᴘʀᴇᴍɪᴜᴍ 🏡', callback_data='https://t.me/Bullmovieess_autofilter_bot?start=TheHappyHour')
                 ])
             if TOP_SEARCH is True:
                 buttons.append([
