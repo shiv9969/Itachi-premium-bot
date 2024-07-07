@@ -77,8 +77,8 @@ IS_SHORTLINK = is_enabled((environ.get('IS_SHORTLINK', 'False')), False)
 # verify link shortner
 IS_VERIFY = is_enabled((environ.get('IS_VERIFY', 'True')), False)
 HOW_TO_VERIFY = environ.get('HOW_TO_VERIFY', "https://t.me/kaisekhole/11")
-VERIFY2_URL = environ.get('VERIFY2_URL', "get2short.com")
-VERIFY2_API = environ.get('VERIFY2_API', "065bdc3675239406d3eccd0672542fee9a89f863")
+VERIFY2_URL = environ.get('VERIFY2_URL', "instantearn.in")
+VERIFY2_API = environ.get('VERIFY2_API', "fdae4ded7d9f404188ce1b10e8342759116cd66e")
 
 DELETE_CHANNELS = [int(dch) if id_pattern.search(dch) else dch for dch in environ.get('DELETE_CHANNELS', '0').split()]
 MAX_B_TN = environ.get("MAX_B_TN", "8")
