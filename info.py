@@ -68,14 +68,14 @@ STREAM_LINK_MODE = is_enabled((environ.get('STREAM_LINK_MODE', "False")), False)
 premium = environ.get('PREMIUM_LOGS', '-1001844691460')
 PREMIUM_LOGS = int(premium) if premium and id_pattern.search(premium) else None
 
-#files link shortnet
-SHORTLINK_URL = environ.get('SHORTLINK_URL', '')
-SHORTLINK_API = environ.get('SHORTLINK_API', '')
-IS_SHORTLINK = is_enabled((environ.get('IS_SHORTLINK', 'False')), False)
-
 # verify link shortner
 IS_VERIFY = is_enabled((environ.get('IS_VERIFY', 'True')), False)
 HOW_TO_VERIFY = environ.get('HOW_TO_VERIFY', "https://t.me/kaisekhole/11")
+SHORTLINK_URL = environ.get('SHORTLINK_URL', 'get2short.com')
+SHORTLINK_API = environ.get('SHORTLINK_API', '065bdc3675239406d3eccd0672542fee9a89f863')
+
+IS_SHORTLINK = is_enabled((environ.get('IS_SHORTLINK', 'False')), False)
+
 VERIFY2_URL = environ.get('VERIFY2_URL', "get2short.com")
 VERIFY2_API = environ.get('VERIFY2_API', "065bdc3675239406d3eccd0672542fee9a89f863")
 
