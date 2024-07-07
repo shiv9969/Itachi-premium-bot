@@ -409,7 +409,7 @@ async def start(client, message):
             ]]
             reply_markup = InlineKeyboardMarkup(btn)
             await message.reply_photo(
-            photo="https://telegra.ph/file/71be8b45fd8da04a6531c.jpg",
+            photo="https://te.legra.ph/file/f21806ce37bec0a9ae408.jpg",
             caption="""<b>
         <a href='https://graph.org/The-Happy-Hour-12-22-2'>💥 ᴘʀᴇᴍɪᴜᴍ ᴘʀɪᴄᴇ 💥
         
