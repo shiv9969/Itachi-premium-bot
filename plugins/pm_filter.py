@@ -161,7 +161,7 @@ async def force_subs(client, message):
 #         user = message.from_user.first_name
 #         # invite_link = await client.create_chat_invite_link(int(AUTH_CHANNEL))
 #         btn = [[
-#                 InlineKeyboardButton("Cʜᴀɴɴᴇʟ 1", url=f't.me/BoB_Filesà'),
+#                 InlineKeyboardButton("Cʜᴀɴɴᴇʟ 1", url=f't.me/BoB_Files1'),
 #         msg=await message.reply_photo(photo='https://i2f9m2t2.rocketcdn.me/wp-content/uploads/2014/04/shutterstock_175386392.jpg',
 #             caption=f"ꜰɪʀꜱᴛ ᴊᴏɪɴ ᴏᴜʀ ᴄʜᴀɴɴᴇʟ ᴀꜰᴛᴇʀ ꜱᴇᴀʀᴄʜ ᴀɢᴀɪɴ....✅\n\n<i>पहले आप हमारे चैनल को ज्वाइन करे फिर वापस सर्च करें</i></b>",
 #             reply_markup=InlineKeyboardMarkup(btn),
