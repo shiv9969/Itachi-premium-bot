@@ -24,7 +24,7 @@ USE_CAPTION_FILTER = is_enabled((environ.get('USE_CAPTION_FILTER', 'True')), Tru
 PICS = (environ.get('PICS', 'https://te.legra.ph/file/b042650bbb92930e6d8ea.jpg')).split()
 NOR_IMG = environ.get("NOR_IMG", "https://te.legra.ph/file/b042650bbb92930e6d8ea.jpg")
 MELCOW_VID = environ.get("MELCOW_VID", "https://te.legra.ph/file/b042650bbb92930e6d8ea.jpg")
-SPELL_IMG = environ.get("SPELL_IMG", "https://i2f9m2t2.rocketcdn.me/wp-content/uploads/2014/04/shutterstock_175386392.jpg")
+SPELL_IMG = environ.get("SPELL_IMG", "https://te.legra.ph/file/b042650bbb92930e6d8ea.jpg")
 SUBSCRIPTION = (environ.get('SUBSCRIPTION', 'https://te.legra.ph/file/f21806ce37bec0a9ae408.jpg'))
 CODE = (environ.get('CODE', 'https://te.legra.ph/file/f21806ce37bec0a9ae408.jpg')) # Scanner Code image 
 
