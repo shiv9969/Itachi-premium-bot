@@ -206,7 +206,7 @@ async def start(client, message):
             db2.add_user(message.from_user.id)
             fromuse = db2.get_refer_points(user_id) + 10
             db2.add_refer_points(user_id, fromuse)
-            await message.reply_text(f"<b>My Name Is Minato⚡.\n\nI am provide Movie & Series 🥲, Just Send Movie Name & Get in Two Seconds 🌿.\n\ninvited by {uss.mention}</b>")
+            await message.reply_text(f"<b>My Name Is Itachi⚡.\n\nI am provide Movie & Series 🥲, Just Send Movie Name & Get in Two Seconds 🌿.\n\ninvited by {uss.mention}</b>")
             await client.send_message(user_id, f"<b>Congratulations 🥳 You won 10 Referral point because You Invited {message.from_user.mention}</b>") 
             if fromuse == USER_POINT:
                 await db.give_referal(user_id)
@@ -285,7 +285,7 @@ async def start(client, message):
                              [
                               InlineKeyboardButton("🖥️ ᴡᴀᴛᴄʜ & ᴅᴏᴡɴʟᴏᴀᴅ 📥", callback_data=f"streaming#{file_id}")
                            ],[
-                            InlineKeyboardButton("🌹 ʀᴇғғᴇʀ 🌹", url='https://t.me/Hidden_Technology_Bot?start=reffer'),
+                            InlineKeyboardButton("🌹 ʀᴇғғᴇʀ 🌹", url='https://t.me/Bullmovieess_autofilter_bot?start=reffer'),
                             InlineKeyboardButton('❌ ᴄʟᴏꜱᴇ ❌', callback_data='close_data')
                         ]
                              ]
@@ -413,9 +413,9 @@ async def start(client, message):
             caption="""<b>
         <a href='https://graph.org/The-Happy-Hour-12-22-2'>💥 ᴘʀᴇᴍɪᴜᴍ ᴘʀɪᴄᴇ 💥
         
-1 Wᴇᴇᴋ = [50 + 0] Rs
-1 Mᴏɴᴛʜ = [50 + 10] Rs
-2 Mᴏɴᴛʜ = [50 + 30] Rs
+1 Wᴇᴇᴋ = 30 Rs
+1 Mᴏɴᴛʜ = 60Rs
+2 Mᴏɴᴛʜ = 100Rs
 
 🎁 ᴘʀᴇᴍɪᴜᴍ ꜰᴜᴛᴜʀᴇ ᴄʟɪᴄᴋ\nʜᴇᴀʀᴇ ᴛᴏ ʀᴇᴀᴅ
 ㅤㅤㅤㅤㅤ</a></b>""",
@@ -528,7 +528,7 @@ async def start(client, message):
                             InlineKeyboardButton("🏕️ ʀᴇᴍᴏᴠᴇ ᴠᴇʀɪꜰɪᴄᴀᴛɪᴏɴ 🏕️", url="https://t.me/Bullmovieess_autofilter_bot?start=TheHappyHour")
                             ]]
                     await message.reply_text(
-                        text="You Are Not Verifid Today...",
+                        text="Just Verify One Time And Get Movies For next 12hr without any verification\n\nबस एक बार verify करें और बिना किसी verification के अगले 12 घंटों के लिए फिल्में प्राप्त करें\n\nClick The Button Below To Check How to Verify ✅",
                         protect_content=True if pre == 'filep' else False,
                         reply_markup=InlineKeyboardMarkup(btn)
                     )
@@ -569,7 +569,7 @@ async def start(client, message):
                         InlineKeyboardButton("🏕️ ʀᴇᴍᴏᴠᴇ ᴠᴇʀɪꜰɪᴄᴀᴛɪᴏɴ 🏕️", url="https://t.me/Bullmovieess_autofilter_bot?start=TheHappyHour")
                     ]]
                     await message.reply_text(
-                        text="You Are Not Verified Today...Plzz Verifiy And Get Movie...",
+                        text="Just Verify One Time And Get Movies For next 12hr without any verification\n\nबस एक बार verify करें और बिना किसी verification के अगले 12 घंटों के लिए फिल्में प्राप्त करें\n\nClick The Button Below To Check How to Verify ✅",
                         protect_content=True if PROTECT_CONTENT else False,
                         reply_markup=InlineKeyboardMarkup(btn)
                     )
