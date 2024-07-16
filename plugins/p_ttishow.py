@@ -157,17 +157,29 @@ async def re_enable_chat(bot, message):
     await message.reply("Chat Successfully re-enabled")
 
 
-@Client.on_message(filters.command('mogodb_info') & filters.user(ADMINS))
+@Client.on_message(filters.command('stats') & filters.incoming)
 async def get_ststs(bot, message):
-    rju = await message.reply('Fetching stats..')
-    total_users = await db.total_users_count()
-    totl_chats = await db.total_chat_count()
-    files = await Media.count_documents()
-    size = await db.get_db_size()
-    free = 536870912 - size
-    size = get_size(size)
-    free = get_size(free)
-    await rju.edit(script.STATUS_TXT.format(files, total_users, totl_chats, size, free))
+    if message.from_user and message.from_user.id in ADMINS:
+        total_users = await db.total_users_count()
+        totl_chats = await db.total_chat_count()
+        files = await Media.count_documents()
+        size = await db.get_db_size()
+        free = 536870912 - size
+        size = get_size(size)
+        free = get_size(free)
+        await message.reply(script.STATUS_TXT.format(files, total_users, totl_chats, size, free))
+    else:
+        h=await message.reply("**Featuring Stats....🎉**")
+        await asyncio.sleep(1)
+        await h.delete()
+        await message.reply_sticker("CAACAgUAAxkBAAJ6pWaHwWYnAbntY-QcXyecimJuMPZsAALtEgAC_na5V5yAL4BK5WkCHgQ")
+
+@Client.on_message(filters.command('repo') & filters.incoming)
+async def get_repo(bot, message):
+        s=await message.reply_sticker("CAACAgUAAxkBAAE1tCVmlPd0ySd2u7VKDwaSY6UgO5SsJgAC9hAAAg_1AVRPhspcV9ssRR4E")
+        await asyncio.sleep(1)
+        await s.delete()
+        await message.reply_sticker("CAACAgUAAxkBAAJ6pWaHwWYnAbntY-QcXyecimJuMPZsAALtEgAC_na5V5yAL4BK5WkCHgQ")
 
 
 @Client.on_message(filters.command('gen_grp_link') & filters.user(ADMINS))
