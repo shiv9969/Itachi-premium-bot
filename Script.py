@@ -18,7 +18,7 @@ sʜᴀʀᴇ ᴛʜɪs ʟɪɴᴋ ᴡɪᴛʜ ʏᴏᴜʀ ғʀɪᴇɴᴅs, ᴇᴀᴄ�
     
     ABOUT_TXT = """<b>
 ‣ ᴍʏ ɴᴀᴍᴇ : #Itachj
-‣ ᴄʀᴇᴀᴛᴏʀ : <a href=t.me/Assaulter_Shuc>Assaulter_shiv</a>
+‣ ᴄʀᴇᴀᴛᴏʀ : <a href=t.me/Assaulter_Shiv>Assaulter_shiv</a>
 ‣ ʟɪʙʀᴀʀʏ : ᴘʏʀᴏɢʀᴀᴍ
 ‣ ʟᴀɴɢᴜᴀɢᴇ : ᴘʏᴛʜᴏɴ
 ‣ ᴅᴀᴛᴀ ʙᴀsᴇ : ᴍᴏɴɢᴏ ᴅʙ
@@ -149,7 +149,7 @@ sᴇɴᴅ ʀᴇᴘᴏʀᴛ ᴏᴜʀ ᴀᴅᴍɪɴ's & ɢᴇᴛ ᴍᴏᴠɪᴇ...
 
 ★ Message <code>{}</code>"""
 
-    CAPTION = """<b><a href="https://t.me/ThappyHour">{file_name}</a></b>"""
+    CAPTION = """<b><a href="https://t.me/BoB_Files1">{file_name}</a></b>"""
 
     IMDB_TEMPLATE_TXT = """<b>
 🍿 Title: <a href={url}>{title}</a>
