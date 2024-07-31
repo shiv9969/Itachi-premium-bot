@@ -80,7 +80,7 @@ VERIFY2_URL = environ.get('VERIFY2_URL', "instantearn.in")
 VERIFY2_API = environ.get('VERIFY2_API', "fdae4ded7d9f404188ce1b10e8342759116cd66e")
 
 DELETE_CHANNELS = [int(dch) if id_pattern.search(dch) else dch for dch in environ.get('DELETE_CHANNELS', '0').split()]
-MAX_B_TN = environ.get("MAX_B_TN", "8")
+MAX_B_TN = environ.get("MAX_B_TN", "5")
 MAX_BTN = is_enabled((environ.get('MAX_BTN', "True")), True)
 PORT = environ.get("PORT", "8080")
 GRP_LNK = environ.get('GRP_LNK', 'https://t.me/REQUESTING_MOVIES_SERIES_GROUPS')
