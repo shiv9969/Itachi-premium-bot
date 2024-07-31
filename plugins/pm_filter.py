@@ -1347,26 +1347,13 @@ async def cb_handler(client: Client, query: CallbackQuery):
         buttons = [[
                         InlineKeyboardButton('☆ ᴀᴅᴅ ᴍᴇ ᴛᴏ ʏᴏᴜʀ ɢʀᴏᴜᴘ ☆', url=f'http://telegram.me/{temp.U_NAME}?startgroup=true')
                     ],[
-                        InlineKeyboardButton('📚 ʙᴀᴄᴋᴜᴘ', url=CHNL_LNK),
-                        InlineKeyboardButton('🌿 ɢʀᴏᴜᴘ', url=GRP_LNK),
-                        InlineKeyboardButton('🌈 ᴄʜᴀɴɴᴇʟ', url=f'http://t.me/BoB_Files1')
-                    ],[
-                        InlineKeyboardButton('🏕️ ᴀʙᴏᴜᴛ', callback_data='about'),
-                        InlineKeyboardButton('🍾 ᴄᴏᴍᴍᴀɴᴅꜱ', callback_data='seeplans'),
-                        InlineKeyboardButton('🍁 ꜱᴛᴀᴛꜱ', callback_data='stats')
-                    ],[
-                        InlineKeyboardButton('🌹 ʀᴇғғᴇʀ 🌹', callback_data='reffer'),
-                        InlineKeyboardButton('❌ ᴄʟᴏꜱᴇ ❌', callback_data='close_data')
-                        ]]
-        if IS_VERIFY or IS_SHORTLINK is True:
-            buttons.append([
-                    InlineKeyboardButton('🏡 ʙᴜʏ ᴘʀᴇᴍɪᴜᴍ 🏡', callback_data='seeplans')
-                ])
-        if TOP_SEARCH is true:
-            buttons.append([
-                InlineKeyboardButton("🎁 ᴍᴏᴠɪᴇ sᴜɢɢᴇsᴛɪᴏɴ's 🎁", callback_data='movie_seggestion')
-            ])
-        reply_markup = InlineKeyboardMarkup(buttons)
+                        InlineKeyboardButton('ʙᴀᴄᴋᴜᴘ', url=CHNL_LNK),
+                        InlineKeyboardButton(' ɢʀᴏᴜᴘ', url=GRP_LNK),
+                    ],[                     
+                        InlineKeyboardButton('ʀᴇғғᴇʀ', callback_data='reffer'),
+                        InlineKeyboardButton('ᴄʟᴏꜱᴇ', callback_data='close_data')
+                        ]]        
+             reply_markup = InlineKeyboardMarkup(buttons)
         current_time = datetime.now(pytz.timezone(TIMEZONE))
         curr_time = current_time.hour        
         if curr_time < 12:
@@ -1388,10 +1375,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
             parse_mode=enums.ParseMode.HTML
         )
         await query.answer(MSG_ALRT)
-
-    elif query.data == "movie_suggestion":
-        await query.answer(url=f"https://t.me/{temp.U_NAME}?start=movie_suggestion")
-        
+   
     elif query.data == "show_reff":
         user_id = query.from_user.id
         total_referrals = db2.get_refer_points(user_id)
@@ -1420,10 +1404,10 @@ async def cb_handler(client: Client, query: CallbackQuery):
         _, user_id, movie = data.split(":")
         try:
             safari = [[
-                    InlineKeyboardButton(text=f"❌ close ❌", callback_data = "close_data")
+                    InlineKeyboardButton(text=f"close", callback_data = "close_data")
                     ]]
             thh = [[
-                    InlineKeyboardButton(text=f"🔥 Support Here 🔥", url=GRP_LNK)
+                    InlineKeyboardButton(text=f"Support Here", url=GRP_LNK)
             ]]
             reply_markup = InlineKeyboardMarkup(safari)
             await client.send_message(int(user_id), f'<b>आपने " {movie} " का report भेजा है वो\nमूवी हमें नई मिला...🤒\n\n━━━━━━━━━━━━━━━━━━\n\nʏᴏᴜʀ ʀᴇǫᴜɪʀᴇᴅ " {movie} " ɪꜱ\nɴᴏᴛ ᴀᴠᴀɪʟᴀʙʟᴇ....</b>', reply_markup=InlineKeyboardMarkup(thh))
@@ -1438,7 +1422,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
         _, user_id, movie = data.split(":")
         try:
             safari = [[
-                    InlineKeyboardButton(text=f"❌ close ❌", callback_data = "close_data")
+                    InlineKeyboardButton(text=f"close", callback_data = "close_data")
                     ]]
             thh = [[
                     InlineKeyboardButton(text=f"🔥 𝐑𝐞𝐪𝐮𝐞𝐬𝐭 𝐇𝐞𝐫𝐞 🔥", url=GRP_LNK)
@@ -1456,7 +1440,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
         _, user_id, movie = data.split(":")
         try:
             safari = [[
-                    InlineKeyboardButton(text=f"❌ close ❌", callback_data = "close_data")
+                    InlineKeyboardButton(text=f"close", callback_data = "close_data")
                     ]]
             thh = [[
                     InlineKeyboardButton(text=f"🔥 𝐑𝐞𝐪𝐮𝐞𝐬𝐭 𝐇𝐞𝐫𝐞 🔥", url=GRP_LNK)
@@ -1474,7 +1458,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
         _, user_id, movie = data.split(":")
         try:
             safari = [[
-                    InlineKeyboardButton(text=f"❌ close ❌", callback_data = "close_data")
+                    InlineKeyboardButton(text=f"close", callback_data = "close_data")
                     ]]
             thh = [[
                     InlineKeyboardButton(text=f"🔥 𝐑𝐞𝐪𝐮𝐞𝐬𝐭 𝐇𝐞𝐫𝐞 🔥", url=GRP_LNK)
@@ -1492,7 +1476,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
         _, user_id, movie = data.split(":")
         try:
             safari = [[
-                    InlineKeyboardButton(text=f"❌ close ❌", callback_data = "close_data")
+                    InlineKeyboardButton(text=f"close", callback_data = "close_data")
                     ]]
             thh = [[
                     InlineKeyboardButton(text=f"🔥 𝐑𝐞𝐪𝐮𝐞𝐬𝐭 𝐇𝐞𝐫𝐞 🔥", url=GRP_LNK)
@@ -1510,7 +1494,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
         _, user_id, movie = data.split(":")
         try:
             safari = [[
-                    InlineKeyboardButton(text=f"❌ close ❌", callback_data = "close_data")
+                    InlineKeyboardButton(text=f"close", callback_data = "close_data")
                     ]]
             thh = [[
                     InlineKeyboardButton(text=f"🔥 𝐑𝐞𝐪𝐮𝐞𝐬𝐭 𝐇𝐞𝐫𝐞 🔥", url=GRP_LNK)
@@ -1531,7 +1515,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
             return 
         else:
             buttons = [[
-                InlineKeyboardButton('📸 sᴇɴᴅ sᴄʀᴇᴇɴsʜᴏᴛ 📸', url="https://t.me/Master_Jiraya_Bot")
+                InlineKeyboardButton('📸 sᴇɴᴅ sᴄʀᴇᴇɴsʜᴏᴛ 📸', url="https://t.me/Asaaulter_Shiv")
             ],[
                 InlineKeyboardButton('☘️ ꜰᴜᴛᴜʀᴇ ☘️', url="https://graph.org/The-Happy-Hour-12-22-2"),
                 InlineKeyboardButton('❌ ᴄʟᴏꜱᴇ ❌', callback_data='close_data')
@@ -1550,10 +1534,10 @@ async def cb_handler(client: Client, query: CallbackQuery):
             return 
         else:
             buttons = [[
-                InlineKeyboardButton('📸 sᴇɴᴅ sᴄʀᴇᴇɴsʜᴏᴛ 📸', url="https://t.me/Asaaulter_Shiv")
+                InlineKeyboardButton('sᴇɴᴅ sᴄʀᴇᴇɴsʜᴏᴛ', url="https://t.me/Asaaulter_Shiv")
             ],[
-                InlineKeyboardButton('☘️ ꜰᴜᴛᴜʀᴇ ☘️', url="https://graph.org/The-Happy-Hour-12-22-2"),
-                InlineKeyboardButton('❌ ᴄʟᴏꜱᴇ ❌', callback_data='close_data')
+                InlineKeyboardButton('ꜰᴜᴛᴜʀᴇ', url="https://graph.org/The-Happy-Hour-12-22-2"),
+                InlineKeyboardButton('ᴄʟᴏꜱᴇ', callback_data='close_data')
             ]]
             reply_markup = InlineKeyboardMarkup(buttons)
             await client.edit_message_media(
