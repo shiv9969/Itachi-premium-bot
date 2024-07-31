@@ -2042,8 +2042,12 @@ async def auto_filter(client, msg, spoll=False):
         ])
     
         btn.insert(0, [
-            InlineKeyboardButton("📥 Send All File 📥", callback_data=f"sendfiles#{key}"),
+            InlineKeyboardButton("📥 Send All File 📥", callback_data=f"sendfiles#{key}")
         ])
+
+        btn.insert(0, [
+            InlineKeyboardButton("For Paid Promotion Dm Now", url=f"T.me/Assaulter_Shiv")
+        ])                 
     else:
         btn = []
         btn.insert(0, [
@@ -2053,7 +2057,10 @@ async def auto_filter(client, msg, spoll=False):
         ])
     
         btn.insert(0, [
-            InlineKeyboardButton("📥 Send All File 📥", callback_data=f"sendfiles#{key}"),
+            InlineKeyboardButton("📥 Send All File 📥", callback_data=f"sendfiles#{key}")
+        ])
+        btn.insert(0, [
+            InlineKeyboardButton("For Paid Promotion Dm Now", url=f"T.me/Assaulter_Shiv")
         ])
     if offset != "":
         key = f"{message.chat.id}-{message.id}"
