@@ -1347,16 +1347,22 @@ async def cb_handler(client: Client, query: CallbackQuery):
         buttons = [[
                         InlineKeyboardButton('☆ ᴀᴅᴅ ᴍᴇ ᴛᴏ ʏᴏᴜʀ ɢʀᴏᴜᴘ ☆', url=f'http://telegram.me/{temp.U_NAME}?startgroup=true')
                     ],[
-                        InlineKeyboardButton('ʙᴀᴄᴋᴜᴘ', url=CHNL_LNK),
-                        InlineKeyboardButton('ɢʀᴏᴜᴘ', url=GRP_LNK)                 
-                    ],[                  
-                        InlineKeyboardButton(' ʀᴇғғᴇʀ', callback_data='reffer'),
-                        InlineKeyboardButton(' ᴄʟᴏꜱᴇ ', callback_data='close_data')
+                        InlineKeyboardButton('Bᴀᴄᴋᴜᴘ', url=CHNL_LNK),
+                        InlineKeyboardButton('Gʀᴏᴜᴘ', url=GRP_LNK),
+                        InlineKeyboardButton('ᴄʜᴀɴɴᴇʟ', url=f'http://t.me/The_Happy_Hour_Hindi')
+                    ],[
+                        InlineKeyboardButton('ʀᴇғғᴇʀ', callback_data='reffer'),
+                        InlineKeyboardButton('ᴄʟᴏꜱᴇ', callback_data='close_data')
                         ]]
         if IS_VERIFY or IS_SHORTLINK is True:
             buttons.append([
                     InlineKeyboardButton('ʙᴜʏ ᴘʀᴇᴍɪᴜᴍ', callback_data='seeplans')
                 ])
+        if TOP_SEARCH is true:
+            buttons.append([
+                InlineKeyboardButton("🎁 ᴍᴏᴠɪᴇ sᴜɢɢᴇsᴛɪᴏɴ's 🎁", callback_data='movie_seggestion')
+            ])
+        reply_markup = InlineKeyboardMarkup(buttons)
         current_time = datetime.now(pytz.timezone(TIMEZONE))
         curr_time = current_time.hour        
         if curr_time < 12:
