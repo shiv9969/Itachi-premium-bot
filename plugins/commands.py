@@ -70,7 +70,8 @@ async def start(client, message):
                         InlineKeyboardButton('ʙᴀᴄᴋᴜᴘ', url=CHNL_LNK),
                         InlineKeyboardButton('ɢʀᴏᴜᴘ', url=GRP_LNK)                       
                     ],[
-                        InlineKeyboardButton(' ʀᴇғғᴇʀ ', callback_data='reffer')
+                        InlineKeyboardButton(' ʀᴇғғᴇʀ ', callback_data='reffer'),
+                        InlineKeyboardButton(' ᴄʟᴏꜱᴇ ', callback_data='close_data')
                         ]]
             if IS_VERIFY or IS_SHORTLINK is True:
                 buttons.append([
@@ -133,6 +134,7 @@ async def start(client, message):
                         InlineKeyboardButton('ɢʀᴏᴜᴘ', url=GRP_LNK)                        
                     ],[
                        InlineKeyboardButton(' ʀᴇғғᴇʀ', callback_data='reffer'),
+                       InlineKeyboardButton(' ᴄʟᴏꜱᴇ ', callback_data='close_data')
                         ]]
             if IS_VERIFY or IS_SHORTLINK is True:
                 buttons.append([
