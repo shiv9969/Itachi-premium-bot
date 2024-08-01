@@ -75,7 +75,7 @@ async def start(client, message):
                         ]]
             if IS_VERIFY or IS_SHORTLINK is True:
                 buttons.append([
-                    InlineKeyboardButton('ʙᴜʏ ᴘʀᴇᴍɪᴜᴍ ', callback_data='seeplan')
+                    InlineKeyboardButton('ʙᴜʏ ᴘʀᴇᴍɪᴜᴍ ', callback_data='seeplans')
                 ])
             if TOP_SEARCH is True:
                 buttons.append([
