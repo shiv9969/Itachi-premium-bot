@@ -1347,20 +1347,20 @@ async def cb_handler(client: Client, query: CallbackQuery):
         buttons = [[
                         InlineKeyboardButton('☆ ᴀᴅᴅ ᴍᴇ ᴛᴏ ʏᴏᴜʀ ɢʀᴏᴜᴘ ☆', url=f'http://telegram.me/{temp.U_NAME}?startgroup=true')
                     ],[
-                        InlineKeyboardButton('📚 ʙᴀᴄᴋᴜᴘ', url=CHNL_LNK),
-                        InlineKeyboardButton('🌿 ɢʀᴏᴜᴘ', url=GRP_LNK),
-                        InlineKeyboardButton('🌈 ᴄʜᴀɴɴᴇʟ', url=f'http://t.me/BoB_Files1')
+                        InlineKeyboardButton('ʙᴀᴄᴋᴜᴘ', url=CHNL_LNK),
+                        InlineKeyboardButton('ɢʀᴏᴜᴘ', url=GRP_LNK),
+                        InlineKeyboardButton('ᴄʜᴀɴɴᴇʟ', url=f'http://t.me/BoB_Files1')
                     ],[
-                        InlineKeyboardButton('🏕️ ᴀʙᴏᴜᴛ', callback_data='about'),
-                        InlineKeyboardButton('🍾 ᴄᴏᴍᴍᴀɴᴅꜱ', callback_data='seeplans'),
-                        InlineKeyboardButton('🍁 ꜱᴛᴀᴛꜱ', callback_data='stats')
+                        InlineKeyboardButton('ᴀʙᴏᴜᴛ', callback_data='about'),
+                        InlineKeyboardButton('ᴄᴏᴍᴍᴀɴᴅꜱ', callback_data='seeplans'),
+                        InlineKeyboardButton('ꜱᴛᴀᴛꜱ', callback_data='stats')
                     ],[
-                        InlineKeyboardButton('🌹 ʀᴇғғᴇʀ 🌹', callback_data='reffer'),
-                        InlineKeyboardButton('❌ ᴄʟᴏꜱᴇ ❌', callback_data='close_data')
+                        InlineKeyboardButton(' ʀᴇғғᴇʀ ', callback_data='reffer'),
+                        InlineKeyboardButton(' ᴄʟᴏꜱᴇ ', callback_data='close_data')
                         ]]
         if IS_VERIFY or IS_SHORTLINK is True:
             buttons.append([
-                    InlineKeyboardButton('🏡 ʙᴜʏ ᴘʀᴇᴍɪᴜᴍ 🏡', callback_data='seeplans')
+                    InlineKeyboardButton('ʙᴜʏ ᴘʀᴇᴍɪᴜᴍ', callback_data='seeplans')
                 ])
         if TOP_SEARCH is true:
             buttons.append([
@@ -2044,6 +2044,9 @@ async def auto_filter(client, msg, spoll=False):
         btn.insert(0, [
             InlineKeyboardButton("📥 Send All File 📥", callback_data=f"sendfiles#{key}"),
         ])
+        btn.append(0, [
+            InlineKeyboardButton("Paid Promotion Available", url=f"t.me/Assaulter_Shiv")
+        ])
     else:
         btn = []
         btn.insert(0, [
@@ -2054,6 +2057,9 @@ async def auto_filter(client, msg, spoll=False):
     
         btn.insert(0, [
             InlineKeyboardButton("📥 Send All File 📥", callback_data=f"sendfiles#{key}"),
+        ])
+        btn.append(0, [
+            InlineKeyboardButton("Paid Promotion Available", url=f"t.me/Assaulter_Shiv")
         ])
     if offset != "":
         key = f"{message.chat.id}-{message.id}"
