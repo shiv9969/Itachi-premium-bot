@@ -1348,13 +1348,8 @@ async def cb_handler(client: Client, query: CallbackQuery):
                         InlineKeyboardButton('☆ ᴀᴅᴅ ᴍᴇ ᴛᴏ ʏᴏᴜʀ ɢʀᴏᴜᴘ ☆', url=f'http://telegram.me/{temp.U_NAME}?startgroup=true')
                     ],[
                         InlineKeyboardButton('ʙᴀᴄᴋᴜᴘ', url=CHNL_LNK),
-                        InlineKeyboardButton('ɢʀᴏᴜᴘ', url=GRP_LNK),
-                        InlineKeyboardButton('ᴄʜᴀɴɴᴇʟ', url=f'http://t.me/BoB_Files1')
-                    ],[
-                        InlineKeyboardButton('ᴀʙᴏᴜᴛ', callback_data='about'),
-                        InlineKeyboardButton('ᴄᴏᴍᴍᴀɴᴅꜱ', callback_data='seeplans'),
-                        InlineKeyboardButton('ꜱᴛᴀᴛꜱ', callback_data='stats')
-                    ],[
+                        InlineKeyboardButton('ɢʀᴏᴜᴘ', url=GRP_LNK)           
+                    ],[                        
                         InlineKeyboardButton(' ʀᴇғғᴇʀ ', callback_data='reffer'),
                         InlineKeyboardButton(' ᴄʟᴏꜱᴇ ', callback_data='close_data')
                         ]]
