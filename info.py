@@ -50,7 +50,7 @@ NO_RESULTS_MSG = is_enabled((environ.get("NO_RESULTS_MSG", 'True')), False)
 
 # MongoDB information
 DATABASE_URI = environ.get('DATABASE_URI', "mongodb+srv://BoB:bobfiles@cluster0.0lbbk.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0")
-DATABASE_NAME = environ.get('DATABASE_NAME', "mishraji")
+DATABASE_NAME = environ.get('DATABASE_NAME', "luli")
 COLLECTION_NAME = environ.get('COLLECTION_NAME', 'Telegram_files')
 
 #refer time, or user count
