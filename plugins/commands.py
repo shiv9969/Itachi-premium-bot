@@ -641,7 +641,7 @@ async def start(client, message):
                  InlineKeyboardButton(" ᴡᴀᴛᴄʜ & ᴅᴏᴡɴʟᴏᴀᴅ ", callback_data=f"streaming#{file_id}")  
                  ],[
                  InlineKeyboardButton(" ʀᴇғғᴇʀ ", url='https://t.me/BoB_Filter_Bot?start=reffer'),
-                 InlineKeyboardButton( ᴄʟᴏꜱᴇ ', callback_data='close_data')
+                 InlineKeyboardButton( ' ᴄʟᴏꜱᴇ ', callback_data='close_data')
                  ]
                 ]
             )
