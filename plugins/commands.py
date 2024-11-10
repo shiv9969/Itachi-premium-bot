@@ -67,19 +67,16 @@ async def start(client, message):
             buttons = [[
                         InlineKeyboardButton('☆ ᴀᴅᴅ ᴍᴇ ᴛᴏ ʏᴏᴜʀ ɢʀᴏᴜᴘ ☆', url=f'http://telegram.me/{temp.U_NAME}?startgroup=true')
                     ],[
-                        InlineKeyboardButton('📚 ʙᴀᴄᴋᴜᴘ', url=CHNL_LNK),
-                        InlineKeyboardButton('🌿 ɢʀᴏᴜᴘ', url=GRP_LNK),
-                        InlineKeyboardButton('🌈 ᴄʜᴀɴɴᴇʟ', url=f'http://t.me/The_Happy_Hour_Hindi')
+                        InlineKeyboardButton('ʙᴀᴄᴋᴜᴘ', url=CHNL_LNK),
+                        InlineKeyboardButton('ɢʀᴏᴜᴘ', url=GRP_LNK)
                     ],[
-                        InlineKeyboardButton('🏕️ ᴀʙᴏᴜᴛ', callback_data='about'),
-                        InlineKeyboardButton('🍾 ᴄᴏᴍᴍᴀɴᴅꜱ', callback_data='seeplans'),
-                        InlineKeyboardButton('🍁 ꜱᴛᴀᴛꜱ', callback_data='stats')
+                        InlineKeyboardButton('ᴀʙᴏᴜᴛ', callback_data='about')
                     ],[
-                        InlineKeyboardButton('🌹 ʀᴇғғᴇʀ 🌹', callback_data='reffer')
+                        InlineKeyboardButton(' ʀᴇғғᴇʀ ', callback_data='reffer')
                         ]]
             if IS_VERIFY or IS_SHORTLINK is True:
                 buttons.append([
-                    InlineKeyboardButton('🏡 ʙᴜʏ ᴘʀᴇᴍɪᴜᴍ 🏡', callback_data='seeplans')
+                    InlineKeyboardButton(' ʙᴜʏ ᴘʀᴇᴍɪᴜᴍ ', callback_data='seeplans')
                 ])
             if TOP_SEARCH is True:
                 buttons.append([
@@ -113,8 +110,7 @@ async def start(client, message):
             #     logger.error("Mᴀᴋᴇ sᴜʀᴇ Bᴏᴛ ɪs ᴀᴅᴍɪɴ ɪɴ Fᴏʀᴄᴇsᴜʙ ᴄʜᴀɴɴᴇʟ")
             #     return
             btn = [[
-                InlineKeyboardButton("Cʜᴀɴɴᴇʟ 1", url=f't.me/The_Happy_Hour_Hindi'),
-                InlineKeyboardButton("Cʜᴀɴɴᴇʟ 2", url=f't.me/The_Happy_Hours')
+                InlineKeyboardButton("BoB Files", url=f't.me/bob_files1')
               ]]
     
             if message.command[1] != "subscribe":
@@ -135,19 +131,16 @@ async def start(client, message):
             buttons = [[
                         InlineKeyboardButton('☆ ᴀᴅᴅ ᴍᴇ ᴛᴏ ʏᴏᴜʀ ɢʀᴏᴜᴘ ☆', url=f'http://telegram.me/{temp.U_NAME}?startgroup=true')
                     ],[
-                        InlineKeyboardButton('📚 ʙᴀᴄᴋᴜᴘ', url=CHNL_LNK),
-                        InlineKeyboardButton('🌿 ɢʀᴏᴜᴘ', url=GRP_LNK),
-                        InlineKeyboardButton('🌈 ᴄʜᴀɴɴᴇʟ', url=f'http://t.me/The_Happy_Hour_Hindi')
+                         InlineKeyboardButton('ʙᴀᴄᴋᴜᴘ', url=CHNL_LNK),
+                        InlineKeyboardButton('ɢʀᴏᴜᴘ', url=GRP_LNK)
                     ],[
-                        InlineKeyboardButton('🏕️ ᴀʙᴏᴜᴛ', callback_data='about'),
-                        InlineKeyboardButton('🍾 ᴄᴏᴍᴍᴀɴᴅꜱ', callback_data='seeplans'),
-                        InlineKeyboardButton('🍁 ꜱᴛᴀᴛꜱ', callback_data='stats')
+                        InlineKeyboardButton('ᴀʙᴏᴜᴛ', callback_data='about')
                     ],[
-                        InlineKeyboardButton('🌹 ʀᴇғғᴇʀ 🌹', callback_data='reffer'),
+                        InlineKeyboardButton(' ʀᴇғғᴇʀ ', callback_data='reffer')
                         ]]
             if IS_VERIFY or IS_SHORTLINK is True:
                 buttons.append([
-                    InlineKeyboardButton('🏡 ʙᴜʏ ᴘʀᴇᴍɪᴜᴍ 🏡', callback_data='seeplans')
+                    InlineKeyboardButton(' ʙᴜʏ ᴘʀᴇᴍɪᴜᴍ ', callback_data='seeplans')
                 ])
             if TOP_SEARCH is True:
                 buttons.append([
@@ -176,7 +169,7 @@ async def start(client, message):
             return
         if len(message.command) == 2 and message.command[1] in ["premium"]:
             buttons = [[
-                        InlineKeyboardButton('📲 ꜱᴇɴᴅ ᴘᴀʏᴍᴇɴᴛ ꜱᴄʀᴇᴇɴꜱʜᴏᴛ', url=f"https://t.me/Master_Jiraya_Bot")
+                        InlineKeyboardButton('📲 ꜱᴇɴᴅ ᴘᴀʏᴍᴇɴᴛ ꜱᴄʀᴇᴇɴꜱʜᴏᴛ', url=f"https://t.me/assaulter_shiv")
                       ],[
                         InlineKeyboardButton('❌ ᴄʟᴏꜱᴇ ❌', callback_data='close_data')
                       ]]
@@ -284,10 +277,10 @@ async def start(client, message):
                         reply_markup=InlineKeyboardMarkup(
                             [
                              [
-                              InlineKeyboardButton("🖥️ ᴡᴀᴛᴄʜ & ᴅᴏᴡɴʟᴏᴀᴅ 📥", callback_data=f"streaming#{file_id}")
+                              InlineKeyboardButton(" ᴡᴀᴛᴄʜ & ᴅᴏᴡɴʟᴏᴀᴅ ", callback_data=f"streaming#{file_id}")
                            ],[
-                            InlineKeyboardButton("🌹 ʀᴇғғᴇʀ 🌹", url='https://t.me/Hidden_Technology_Bot?start=reffer'),
-                            InlineKeyboardButton('❌ ᴄʟᴏꜱᴇ ❌', callback_data='close_data')
+                            InlineKeyboardButton(" ʀᴇғғᴇʀ ", url='https://t.me/BoB_Filter_Bot?start=reffer'),
+                            InlineKeyboardButton(' ᴄʟᴏꜱᴇ ', callback_data='close_data')
                         ]
                              ]
                         )
@@ -303,11 +296,11 @@ async def start(client, message):
                         reply_markup=InlineKeyboardMarkup(
                             [
                              [
-                              InlineKeyboardButton("🖥️ ᴡᴀᴛᴄʜ & ᴅᴏᴡɴʟᴏᴀᴅ 📥", callback_data=f"streaming#{file_id}")
+                              InlineKeyboardButton("🖥 ᴡᴀᴛᴄʜ & ᴅᴏᴡɴʟᴏᴀᴅ ", callback_data=f"streaming#{file_id}")
                               
                            ],[
-                              InlineKeyboardButton("🌹 ʀᴇғғᴇʀ 🌹", url='https://t.me/Hidden_Technology_Bot?start=reffer'),
-                            InlineKeyboardButton('❌ ᴄʟᴏꜱᴇ ❌', callback_data='close_data')
+                              InlineKeyboardButton(" ʀᴇғғᴇʀ ", url='https://t.me/BoB_Filter_Bot?start=reffer'),
+                            InlineKeyboardButton(' ᴄʟᴏꜱᴇ ', callback_data='close_data')
                              ]
                             ]
                         )
@@ -403,7 +396,7 @@ async def start(client, message):
 
         if data.startswith("TheHappyHour"):
             btn = [[
-                InlineKeyboardButton('📸 sᴇɴᴅ sᴄʀᴇᴇɴsʜᴏᴛ 📸', url="https://t.me/Master_Jiraya_Bot")
+                InlineKeyboardButton(' sᴇɴᴅ sᴄʀᴇᴇɴsʜᴏᴛ ', url="https://t.me/assaulter_shiv")
             ],[
                 InlineKeyboardButton('☘️ ꜰᴜᴛᴜʀᴇ ☘️', url="https://graph.org/The-Happy-Hour-12-22-2"),
                 InlineKeyboardButton('❌ ᴄʟᴏꜱᴇ ❌', callback_data='close_data')
@@ -414,10 +407,10 @@ async def start(client, message):
             caption="""<b>
         <a href='https://graph.org/The-Happy-Hour-12-22-2'>💥 ᴘʀᴇᴍɪᴜᴍ ᴘʀɪᴄᴇ 💥
         
-1 Wᴇᴇᴋ = [50 + 0] Rs
-1 Mᴏɴᴛʜ = [50 + 10] Rs
-2 Mᴏɴᴛʜ = [50 + 30] Rs
-
+1 Wᴇᴇᴋ = 30  Rs
+1 Mᴏɴᴛʜ = 60 Rs
+2 Mᴏɴᴛʜ = 100 Rs
+6 Month = 249 Rs
 🎁 ᴘʀᴇᴍɪᴜᴍ ꜰᴜᴛᴜʀᴇ ᴄʟɪᴄᴋ\nʜᴇᴀʀᴇ ᴛᴏ ʀᴇᴀᴅ
 ㅤㅤㅤㅤㅤ</a></b>""",
                 reply_markup=reply_markup
@@ -448,7 +441,7 @@ async def start(client, message):
             k = await client.send_message(chat_id=message.from_user.id,text=f"<b>Get All Files in a Single Click!!!\n\n📂 ʟɪɴᴋ ➠ : {g}</b>", reply_markup=InlineKeyboardMarkup(
                     [
                         [
-                            InlineKeyboardButton('📁 ᴍᴏᴠɪᴇ ᴅᴏᴡɴʟᴏᴀᴅ ʟɪɴᴋ 📁', url=g)
+                            InlineKeyboardButton(' ᴍᴏᴠɪᴇ ᴅᴏᴡɴʟᴏᴀᴅ ʟɪɴᴋ ', url=g)
                         ], [
                             InlineKeyboardButton('🤔 Hᴏᴡ Tᴏ Dᴏᴡɴʟᴏᴀᴅ 🤔', url=await get_tutorial(chat_id))
                         ]
@@ -498,8 +491,8 @@ async def start(client, message):
                     caption=f_caption,
                     protect_content=True if pre == 'filep' else False,
                     reply_markup=InlineKeyboardMarkup([[
-                          InlineKeyboardButton("🖥️ ᴡᴀᴛᴄʜ / ᴅᴏᴡɴʟᴏᴀᴅ 📥", callback_data=f"streaming#{file_id}")],
-                          [InlineKeyboardButton("🌹 ʀᴇғғᴇʀ 🌹", url='https://t.me/Hidden_Technology_Bot?start=reffer')]]))
+                          InlineKeyboardButton(" ᴡᴀᴛᴄʜ / ᴅᴏᴡɴʟᴏᴀᴅ ", callback_data=f"streaming#{file_id}")],
+                          [InlineKeyboardButton(" ʀᴇғғᴇʀ ", url='https://t.me/BoB_Filter_Bot?start=reffer')]]))
                 return 
         elif data.startswith("all"):
             files = temp.GETALL.get(file_id)
@@ -523,10 +516,10 @@ async def start(client, message):
                     f_caption = f"{' '.join(filter(lambda x: not x.startswith('[') and not x.startswith('@'), files1.file_name.split()))}"
                 if IS_VERIFY and not await check_verification(client, message.from_user.id) and not await db.has_premium_access(message.from_user.id):
                     btn = [[
-                            InlineKeyboardButton("♻️ Vᴇʀɪғʏ ♻️", url=await get_token(client, message.from_user.id, f"https://telegram.me/{temp.U_NAME}?start=", file_id)),
-                            InlineKeyboardButton("⚠️ Hᴏᴡ Tᴏ Vᴇʀɪғʏ ⚠️", url=HOW_TO_VERIFY)
+                            InlineKeyboardButton(" Vᴇʀɪғʏ ", url=await get_token(client, message.from_user.id, f"https://telegram.me/{temp.U_NAME}?start=", file_id)),
+                            InlineKeyboardButton(" Hᴏᴡ Tᴏ Vᴇʀɪғʏ ", url=HOW_TO_VERIFY)
                             ],[
-                            InlineKeyboardButton("🏕️ ʀᴇᴍᴏᴠᴇ ᴠᴇʀɪꜰɪᴄᴀᴛɪᴏɴ 🏕️", url="https://t.me/Hidden_Technology_Bot?start=TheHappyHour")
+                            InlineKeyboardButton(" ʀᴇᴍᴏᴠᴇ ᴠᴇʀɪꜰɪᴄᴀᴛɪᴏɴ ", url="https://t.me/BoB_Filter_Bot?start=TheHappyHour")
                             ]]
                     await message.reply_text(
                         text="You Are Not Verifid Today...",
@@ -542,9 +535,9 @@ async def start(client, message):
                     reply_markup=InlineKeyboardMarkup(
                         [
                          [
-                          InlineKeyboardButton("🖥️ ᴡᴀᴛᴄʜ / ᴅᴏᴡɴʟᴏᴀᴅ 📥", callback_data=f"streaming#{file_id}")
+                          InlineKeyboardButton(" ᴡᴀᴛᴄʜ / ᴅᴏᴡɴʟᴏᴀᴅ ", callback_data=f"streaming#{file_id}")
                        ],[
-                              InlineKeyboardButton("🌹 ʀᴇғғᴇʀ 🌹", url='https://t.me/Hidden_Technology_Bot?start=reffer')       
+                              InlineKeyboardButton(" ʀᴇғғᴇʀ ", url='https://t.me/BoB_Filter_Bot?start=reffer')       
                              ]
                         ]
                     )
@@ -564,10 +557,10 @@ async def start(client, message):
                 
                 if IS_VERIFY and not await check_verification(client, message.from_user.id) and not await db.has_premium_access(message.from_user.id):
                     btn = [[
-                        InlineKeyboardButton("♻️ Vᴇʀɪғʏ ♻️", url=await get_token(client, message.from_user.id, f"https://telegram.me/{temp.U_NAME}?start=", file_id)),
-                        InlineKeyboardButton("⚠️ Hᴏᴡ Tᴏ Vᴇʀɪғʏ ⚠️", url=HOW_TO_VERIFY)
+                        InlineKeyboardButton(" Vᴇʀɪғʏ ", url=await get_token(client, message.from_user.id, f"https://telegram.me/{temp.U_NAME}?start=", file_id)),
+                        InlineKeyboardButton(" Hᴏᴡ Tᴏ Vᴇʀɪғʏ ", url=HOW_TO_VERIFY)
                         ],[
-                        InlineKeyboardButton("🏕️ ʀᴇᴍᴏᴠᴇ ᴠᴇʀɪꜰɪᴄᴀᴛɪᴏɴ 🏕️", url="https://t.me/Hidden_Technology_Bot?start=TheHappyHour")
+                        InlineKeyboardButton(" ʀᴇᴍᴏᴠᴇ ᴠᴇʀɪꜰɪᴄᴀᴛɪᴏɴ ", url="https://t.me/BoB_Filter_Bot?start=TheHappyHour")
                     ]]
                     await message.reply_text(
                         text="You Are Not Verified Today...Plzz Verifiy And Get Movie...",
@@ -582,11 +575,11 @@ async def start(client, message):
                     reply_markup=InlineKeyboardMarkup(
                         [
                          [
-                          InlineKeyboardButton("🖥️ ᴡᴀᴛᴄʜ & ᴅᴏᴡɴʟᴏᴀᴅ 📥", callback_data=f"streaming#{file_id}")
+                          InlineKeyboardButton(" ᴡᴀᴛᴄʜ & ᴅᴏᴡɴʟᴏᴀᴅ ", callback_data=f"streaming#{file_id}")
                   
                        ],[
-                              InlineKeyboardButton("🌹 ʀᴇғғᴇʀ 🌹", url='https://t.me/Hidden_Technology_Bot?start=reffer'),
-                             InlineKeyboardButton('❌ ᴄʟᴏꜱᴇ ❌', callback_data='close_data')
+                              InlineKeyboardButton(" ʀᴇғғᴇʀ ", url='https://t.me/BoB_Filter_Bot?start=reffer'),
+                             InlineKeyboardButton(' ᴄʟᴏꜱᴇ ', callback_data='close_data')
                              ]
                         ]
                     )
@@ -626,10 +619,10 @@ async def start(client, message):
         
         if IS_VERIFY and not await check_verification(client, message.from_user.id) and not await db.has_premium_access(message.from_user.id):
             btn = [[
-                InlineKeyboardButton("♻️ Vᴇʀɪғʏ ♻️", url=await get_token(client, message.from_user.id, f"https://telegram.me/{temp.U_NAME}?start=", file_id)),
-                InlineKeyboardButton("⚠️ Hᴏᴡ Tᴏ Vᴇʀɪғʏ ⚠️", url=HOW_TO_VERIFY)
+                InlineKeyboardButton(" Vᴇʀɪғʏ ", url=await get_token(client, message.from_user.id, f"https://telegram.me/{temp.U_NAME}?start=", file_id)),
+                InlineKeyboardButton(" Hᴏᴡ Tᴏ Vᴇʀɪғʏ ", url=HOW_TO_VERIFY)
                 ],[
-                InlineKeyboardButton("🏕️ ʀᴇᴍᴏᴠᴇ ᴠᴇʀɪꜰɪᴄᴀᴛɪᴏɴ 🏕️", url="https://t.me/Hidden_Technology_Bot?start=TheHappyHour")
+                InlineKeyboardButton(" ʀᴇᴍᴏᴠᴇ ᴠᴇʀɪꜰɪᴄᴀᴛɪᴏɴ ", url="https://t.me/BoB_Filter_BotBoB_Filter_Bot?start=TheHappyHour")
             ]]
             await message.reply_text(
                 text="You Are Not Verifird Today...Plzz Veifiy And Get Movie...",
@@ -645,10 +638,10 @@ async def start(client, message):
             reply_markup=InlineKeyboardMarkup(
                 [
                  [
-                 InlineKeyboardButton("🖥️ ᴡᴀᴛᴄʜ & ᴅᴏᴡɴʟᴏᴀᴅ 📥", callback_data=f"streaming#{file_id}")  
+                 InlineKeyboardButton(" ᴡᴀᴛᴄʜ & ᴅᴏᴡɴʟᴏᴀᴅ ", callback_data=f"streaming#{file_id}")  
                  ],[
-                 InlineKeyboardButton("🌹 ʀᴇғғᴇʀ 🌹", url='https://t.me/Hidden_Technology_Bot?start=reffer'),
-                 InlineKeyboardButton('❌ ᴄʟᴏꜱᴇ ❌', callback_data='close_data')
+                 InlineKeyboardButton(" ʀᴇғғᴇʀ ", url='https://t.me/BoB_Filter_Bot?start=reffer'),
+                 InlineKeyboardButton( ᴄʟᴏꜱᴇ ', callback_data='close_data')
                  ]
                 ]
             )
