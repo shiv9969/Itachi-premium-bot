@@ -60,26 +60,26 @@ async def stream_download(bot, query):
     if not await db.has_premium_access(user_id) and STREAM_LINK_MODE == True:  
         await msg.reply_text(text=f"tg://openmessage?user_id={user_id}\n•• ᴜꜱᴇʀɴᴀᴍᴇ : {username} LINK MODE ON",
             reply_markup=InlineKeyboardMarkup([[
-                    InlineKeyboardButton("📥 ᴅᴏᴡɴʟᴏᴀᴅ 📥", url=non_download),
-                    InlineKeyboardButton("🖥️ ꜱᴛʀᴇᴇᴍ 🖥️", url=non_online)]]))
+                    InlineKeyboardButton(" ᴅᴏᴡɴʟᴏᴀᴅ ", url=non_download),
+                    InlineKeyboardButton(" ꜱᴛʀᴇᴇᴍ ", url=non_online)]]))
         await query.answer("Streem Link Genereted ✅", show_alert=True)
         await query.edit_message_reply_markup(
             reply_markup=InlineKeyboardMarkup([[
-                    InlineKeyboardButton("📥 ᴅᴏᴡɴʟᴏᴀᴅ 📥", url=non_download),
-                    InlineKeyboardButton("🖥️ ꜱᴛʀᴇᴇᴍ 🖥️", url=non_online)
+                    InlineKeyboardButton(" ᴅᴏᴡɴʟᴏᴀᴅ ", url=non_download),
+                    InlineKeyboardButton(" ꜱᴛʀᴇᴇᴍ ", url=non_online)
                 ],[
                     InlineKeyboardButton('⁉️ Hᴏᴡ Tᴏ Dᴏᴡɴʟᴏᴀᴅ ⁉️', url=STREAMHTO)]]))
     else:
         await msg.reply_text(text=f"tg://openmessage?user_id={user_id}\n•• ᴜꜱᴇʀɴᴀᴍᴇ : {username} SHORT MODE OFF",
             reply_markup=InlineKeyboardMarkup([[
-                    InlineKeyboardButton("📥 ᴅᴏᴡɴʟᴏᴀᴅ 📥", url=download),
-                    InlineKeyboardButton("🖥️ ꜱᴛʀᴇᴇᴍ 🖥️", url=online)]]))
+                    InlineKeyboardButton(" ᴅᴏᴡɴʟᴏᴀᴅ", url=download),
+                    InlineKeyboardButton(" ꜱᴛʀᴇᴇᴍ ", url=online)]]))
         await query.edit_message_reply_markup(
             reply_markup=InlineKeyboardMarkup([[
-                    InlineKeyboardButton("📥 ᴅᴏᴡɴʟᴏᴀᴅ 📥", url=download),
-                    InlineKeyboardButton("🖥️ ꜱᴛʀᴇᴇᴍ 🖥️", url=online)
+                    InlineKeyboardButton(" ᴅᴏᴡɴʟᴏᴀᴅ ", url=download),
+                    InlineKeyboardButton(" ꜱᴛʀᴇᴇᴍ ", url=online)
                 ],[
-                              InlineKeyboardButton("🌹 ʀᴇғғᴇʀ 🌹", url='https://t.me/Hidden_Technology_Bot?start=reffer'),
+                              InlineKeyboardButton("🌹 ʀᴇғғᴇʀ 🌹", url='https://t.me/BoB_Filter_Bot?start=reffer'),
                             InlineKeyboardButton('❌ ᴄʟᴏꜱᴇ ❌', callback_data='close_data')
                              ]]))
                         
@@ -112,12 +112,12 @@ async def reply_stream(client, message):
             text=f"<b>𝗬𝗼𝘂𝗿 𝗟𝗶𝗻𝗸 𝗚𝗲𝗻𝗲𝗿𝗮𝘁𝗲𝗱 !\n\n📂 Fɪʟᴇ ɴᴀᴍᴇ :</b> <a href={CHNL_LNK}>{file_name}</a>\n\n<b>📥 Dᴏᴡɴʟᴏᴀᴅ : {non_download}\n\n🖥WATCH  : {non_online}\n\n⚠️ Tʜᴇ ʟɪɴᴋ ᴡɪʟʟ ɴᴏᴛ ᴇxᴘɪʀᴇ ᴜɴᴛɪʟ ᴛʜᴇ ʙᴏᴛ'ꜱ ꜱᴇʀᴠᴇʀ ɪꜱ ᴄʜᴀɴɢᴇᴅ. 🔋\n\n𝐍𝐨𝐭𝐞:\n𝐓𝐡𝐞 𝐀𝐝𝐬-𝐅𝐫𝐞𝐞 𝐒𝐞𝐫𝐯𝐢𝐜𝐞𝐬 𝐎𝐧𝐥𝐲 𝐅𝐨𝐫 𝐏𝐫𝐞𝐦𝐢𝐮𝐦 𝐔𝐬𝐞𝐫𝐬\n\n‼️Tᴏ ᴋɴᴏᴡ ᴍᴏʀᴇ, ᴄʜᴇᴀᴋ ʙᴇʟᴏᴡ..!!!</b>",
             reply_markup=InlineKeyboardMarkup(
                 [[
-                  InlineKeyboardButton("📥 ᴅᴏᴡɴʟᴏᴀᴅ 📥", url=non_download),
-                  InlineKeyboardButton("🖥️ ꜱᴛʀᴇᴇᴍ 🖥️", url=non_online)
+                  InlineKeyboardButton(" ᴅᴏᴡɴʟᴏᴀᴅ ", url=non_download),
+                  InlineKeyboardButton(" ꜱᴛʀᴇᴇᴍ ", url=non_online)
                   ],[
                   InlineKeyboardButton('🔒 Hᴏᴡ Tᴏ Dᴏᴡɴʟᴏᴀᴅ 🔒', url=STREAMHTO)
                 ],[
-                              InlineKeyboardButton("🌹 ʀᴇғғᴇʀ 🌹", url='https://t.me/Hidden_Technology_Bot?start=reffer'),
+                              InlineKeyboardButton("🌹 ʀᴇғғᴇʀ 🌹", url='https://t.me/BoB_Filter_Bot?start=reffer'),
                             InlineKeyboardButton('❌ ᴄʟᴏꜱᴇ ❌', callback_data='close_data')
                              ]]),
                 disable_web_page_preview=True
@@ -127,8 +127,8 @@ async def reply_stream(client, message):
             text=f"<b>𝗬𝗼𝘂𝗿 𝗟𝗶𝗻𝗸 𝗚𝗲𝗻𝗲𝗿𝗮𝘁𝗲𝗱 !\n\n📂 Fɪʟᴇ ɴᴀᴍᴇ :</b> <a href={CHNL_LNK}>{file_name}</a>\n\n<b>📥 Dᴏᴡɴʟᴏᴀᴅ : {download}\n\n🖥WATCH  : {online}\n\n⚠️ Tʜᴇ ʟɪɴᴋ ᴡɪʟʟ ɴᴏᴛ ᴇxᴘɪʀᴇ ᴜɴᴛɪʟ ᴛʜᴇ ʙᴏᴛ'ꜱ ꜱᴇʀᴠᴇʀ ɪꜱ ᴄʜᴀɴɢᴇᴅ. 🔋</b>",
             reply_markup=InlineKeyboardMarkup(
                 [[
-                  InlineKeyboardButton("📥 ᴅᴏᴡɴʟᴏᴀᴅ 📥", url=download),
-                  InlineKeyboardButton("🖥️ ꜱᴛʀᴇᴇᴍ 🖥️", url=online)
+                  InlineKeyboardButton(" ᴅᴏᴡɴʟᴏᴀᴅ ", url=download),
+                  InlineKeyboardButton(" ꜱᴛʀᴇᴇᴍ ", url=online)
                 ]]),
                 disable_web_page_preview=True
         )
@@ -1030,7 +1030,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
                             InlineKeyboardButton("Vᴇʀɪғʏ", url=await get_token(client, query.from_user.id, f"https://telegram.me/{temp.U_NAME}?start=", file_id)),
                             InlineKeyboardButton("Hᴏᴡ Tᴏ Vᴇʀɪғʏ", url=HOW_TO_VERIFY)
                             ],[
-                            InlineKeyboardButton("🏕️ ʀᴇᴍᴏᴠᴇ ᴠᴇʀɪꜰɪᴄᴀᴛɪᴏɴ 🏕️", callback_data='seeplans')
+                            InlineKeyboardButton(" ʀᴇᴍᴏᴠᴇ ᴠᴇʀɪꜰɪᴄᴀᴛɪᴏɴ ", callback_data='seeplans')
                         ]]
                         await client.send_message(
                             chat_id=query.from_user.id,
@@ -1050,9 +1050,9 @@ async def cb_handler(client: Client, query: CallbackQuery):
                             reply_markup=InlineKeyboardMarkup(
                                 [
                                 [
-                                InlineKeyboardButton("🖥️ ᴡᴀᴛᴄʜ & ᴅᴏᴡɴʟᴏᴀᴅ 📥", callback_data=f"streaming#{file_id}")
+                                InlineKeyboardButton(" ᴡᴀᴛᴄʜ & ᴅᴏᴡɴʟᴏᴀᴅ ", callback_data=f"streaming#{file_id}")
                             ],[
-                              InlineKeyboardButton("🌹 ʀᴇғғᴇʀ 🌹", url='https://t.me/Hidden_Technology_Bot?start=reffer'),
+                              InlineKeyboardButton(" ʀᴇғғᴇʀ ", url='https://t.me/BoB_Filter_Bot?start=reffer'),
                             InlineKeyboardButton('❌ ᴄʟᴏꜱᴇ ❌', callback_data='close_data')
                              ]
                                 ]
@@ -1120,7 +1120,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
                 InlineKeyboardButton("Vᴇʀɪғʏ", url=await get_token(client, query.from_user.id, f"https://telegram.me/{temp.U_NAME}?start=", file_id)),
                 InlineKeyboardButton("Hᴏᴡ Tᴏ Vᴇʀɪғʏ", url=HOW_TO_VERIFY)
                 ],[
-                InlineKeyboardButton("💸 𝐑𝐞𝐦𝐨𝐯𝐞 𝐕𝐞𝐫𝐢𝐟𝐲 💸", callback_data='seeplans')
+                InlineKeyboardButton(" 𝐑𝐞𝐦𝐨𝐯𝐞 𝐕𝐞𝐫𝐢𝐟𝐲 ", callback_data='seeplans')
             ]]
             await client.send_message(
                 chat_id=query.from_user.id,
@@ -1140,9 +1140,9 @@ async def cb_handler(client: Client, query: CallbackQuery):
                 reply_markup=InlineKeyboardMarkup(
                 [
                  [
-                  InlineKeyboardButton("🖥️ Wᴀᴛᴄʜ & Dᴏᴡɴʟᴏᴀᴅ 📥", callback_data=f"streaming#{file_id}")
+                  InlineKeyboardButton(" Wᴀᴛᴄʜ & Dᴏᴡɴʟᴏᴀᴅ ", callback_data=f"streaming#{file_id}")
                ],[
-                    InlineKeyboardButton("🌹 ʀᴇғғᴇʀ 🌹", url='https://t.me/Hidden_Technology_Bot?start=reffer'),
+                    InlineKeyboardButton("🌹 ʀᴇғғᴇʀ 🌹", url='https://t.me/BoB_Filter_Bot?start=reffer'),
                     InlineKeyboardButton('❌ ᴄʟᴏꜱᴇ ❌', callback_data='close_data')
                              ]
                 ]
@@ -1349,16 +1349,13 @@ async def cb_handler(client: Client, query: CallbackQuery):
         buttons = [[
                         InlineKeyboardButton('☆ ᴀᴅᴅ ᴍᴇ ᴛᴏ ʏᴏᴜʀ ɢʀᴏᴜᴘ ☆', url=f'http://telegram.me/{temp.U_NAME}?startgroup=true')
                     ],[
-                        InlineKeyboardButton('📚 ʙᴀᴄᴋᴜᴘ', url=CHNL_LNK),
-                        InlineKeyboardButton('🌿 ɢʀᴏᴜᴘ', url=GRP_LNK),
-                        InlineKeyboardButton('🌈 ᴄʜᴀɴɴᴇʟ', url=f'http://t.me/The_Happy_Hour_Hindi')
+                        InlineKeyboardButton(' ʙᴀᴄᴋᴜᴘ', url=CHNL_LNK),
+                        InlineKeyboardButton( ɢʀᴏᴜᴘ', url=GRP_LNK)
                     ],[
-                        InlineKeyboardButton('🏕️ ᴀʙᴏᴜᴛ', callback_data='about'),
-                        InlineKeyboardButton('🍾 ᴄᴏᴍᴍᴀɴᴅꜱ', callback_data='seeplans'),
-                        InlineKeyboardButton('🍁 ꜱᴛᴀᴛꜱ', callback_data='stats')
+                        InlineKeyboardButton(' ᴀʙᴏᴜᴛ', callback_data='about')
                     ],[
-                        InlineKeyboardButton('🌹 ʀᴇғғᴇʀ 🌹', callback_data='reffer'),
-                        InlineKeyboardButton('❌ ᴄʟᴏꜱᴇ ❌', callback_data='close_data')
+                        InlineKeyboardButton(' ʀᴇғғᴇʀ ', callback_data='reffer'),
+                        InlineKeyboardButton('ᴄʟᴏꜱᴇ ', callback_data='close_data')
                         ]]
         if IS_VERIFY or IS_SHORTLINK is True:
             buttons.append([
@@ -1533,7 +1530,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
             return 
         else:
             buttons = [[
-                InlineKeyboardButton('📸 sᴇɴᴅ sᴄʀᴇᴇɴsʜᴏᴛ 📸', url="https://t.me/Master_Jiraya_Bot")
+                InlineKeyboardButton('📸 sᴇɴᴅ sᴄʀᴇᴇɴsʜᴏᴛ 📸', url="https://t.me/assaulter_shiv")
             ],[
                 InlineKeyboardButton('☘️ ꜰᴜᴛᴜʀᴇ ☘️', url="https://graph.org/The-Happy-Hour-12-22-2"),
                 InlineKeyboardButton('❌ ᴄʟᴏꜱᴇ ❌', callback_data='close_data')
@@ -1552,7 +1549,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
             return 
         else:
             buttons = [[
-                InlineKeyboardButton('📸 sᴇɴᴅ sᴄʀᴇᴇɴsʜᴏᴛ 📸', url="https://t.me/Master_Jiraya_Bot")
+                InlineKeyboardButton('📸 sᴇɴᴅ sᴄʀᴇᴇɴsʜᴏᴛ 📸', url="https://t.me/assaulter_shiv")
             ],[
                 InlineKeyboardButton('☘️ ꜰᴜᴛᴜʀᴇ ☘️', url="https://graph.org/The-Happy-Hour-12-22-2"),
                 InlineKeyboardButton('❌ ᴄʟᴏꜱᴇ ❌', callback_data='close_data')
