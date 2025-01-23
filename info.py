@@ -71,13 +71,13 @@ PREMIUM_LOGS = int(premium) if premium and id_pattern.search(premium) else None
 # verify link shortner
 IS_VERIFY = is_enabled((environ.get('IS_VERIFY', 'True')), True)
 HOW_TO_VERIFY = environ.get('HOW_TO_VERIFY', "https://t.me/kaisekhole/15")
-SHORTLINK_URL = environ.get('SHORTLINK_URL', 'instantearn.in')
-SHORTLINK_API = environ.get('SHORTLINK_API', 'fdae4ded7d9f404188ce1b10e8342759116cd66e')
+SHORTLINK_URL = environ.get('SHORTLINK_URL', 'adlinkfly.in')
+SHORTLINK_API = environ.get('SHORTLINK_API', '728ac8e235b7da546190c8a97c73ddedcd8e27cf')
 
 IS_SHORTLINK = is_enabled((environ.get('IS_SHORTLINK', 'False')), False)
 
-VERIFY2_URL = environ.get('VERIFY2_URL', "instantearn.in")
-VERIFY2_API = environ.get('VERIFY2_API', "fdae4ded7d9f404188ce1b10e8342759116cd66e")
+VERIFY2_URL = environ.get('VERIFY2_URL', "adlinkfly.in")
+VERIFY2_API = environ.get('VERIFY2_API', "728ac8e235b7da546190c8a97c73ddedcd8e27cf")
 
 DELETE_CHANNELS = [int(dch) if id_pattern.search(dch) else dch for dch in environ.get('DELETE_CHANNELS', '0').split()]
 MAX_B_TN = environ.get("MAX_B_TN", "5")
