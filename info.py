@@ -15,7 +15,7 @@ def is_enabled(value, default):
 SESSION = environ.get('SESSION', 'Media_search')
 API_ID = int(environ.get('API_ID', '9301087'))
 API_HASH = environ.get('API_HASH', 'cbabdb3f23de6326352ef3ac26338d9c')
-BOT_TOKEN = environ.get('BOT_TOKEN', "7496068554:AAG65JE4qQBRyHQ86BPxvFpCrvQx39VnQyI")
+BOT_TOKEN = environ.get('BOT_TOKEN', "8108482995:AAGqVnodYd--Y3qXIlCP9fD2V_nAuGg_tKM")
 TIMEZONE = environ.get("TIMEZONE", "Asia/Kolkata")
 # Bot settings
 CACHE_TIME = int(environ.get('CACHE_TIME', 300))
@@ -49,9 +49,9 @@ SUPPORT_CHAT_ID = int(support_chat_id) if support_chat_id and id_pattern.search(
 NO_RESULTS_MSG = is_enabled((environ.get("NO_RESULTS_MSG", 'True')), False)
 
 # MongoDB information
-DATABASE_URI = environ.get('DATABASE_URI', "mongodb+srv://bob:bobfiles1@bob.sp1vv.mongodb.net/?retryWrites=true&w=majority&appName=bob")
-DATABASE_NAME = environ.get('DATABASE_NAME', "mishraji")
-COLLECTION_NAME = environ.get('COLLECTION_NAME', 'Telegram_files')
+DATABASE_URI = environ.get('DATABASE_URI', "mongodb+srv://bob2025:bob2025@cluster0.vuo6h.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0")
+DATABASE_NAME = environ.get('DATABASE_NAME', "ITACHI")
+COLLECTION_NAME = environ.get('COLLECTION_NAME', 'shiv')
 
 #refer time, or user count
 REFERAL_USER_TIME = int(environ.get('REFERAL_USER_TIME', "2592000")) # set in seconds | already seted 1 month premium
