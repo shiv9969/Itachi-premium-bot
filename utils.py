@@ -553,16 +553,20 @@ async def stream_site(link):
         return f'{STREAM_SITE}/api?api={STREAM_API}&link={link}'
         
 async def get_shortlink(chat_id, link):
-    settings = await get_settings(chat_id) #fetching settings for group
+    settings = await get_settings(chat_id)  # fetching settings for group
     if 'shortlink' in settings.keys():
         URL = settings['shortlink']
         API = settings['shortlink_api']
     else:
         URL = SHORTLINK_URL
         API = SHORTLINK_API
+
     if URL.startswith("shorturllink") or URL.startswith("terabox.in") or URL.startswith("urlshorten.in"):
         URL = SHORTLINK_URL
         API = SHORTLINK_API
+
+    token = uuid.uuid4().hex  # generate a unique token
+
     if URL == "api.shareus.io":
         url = f'https://{URL}/easy_api'
         params = {
@@ -573,15 +577,15 @@ async def get_shortlink(chat_id, link):
             async with aiohttp.ClientSession() as session:
                 async with session.get(url, params=params, raise_for_status=True, ssl=False) as response:
                     data = await response.text()
-                    return data
+                    return f"{data}&token={token}"  # add the token to the shortened link
         except Exception as e:
             logger.error(e)
             return link
     else:
         shortzy = Shortzy(api_key=API, base_site=URL)
         link = await shortzy.convert(link)
-        return link
-        
+        return f"{link}&token={token}"  # add the token to the shortened link
+
 async def get_verify_shorted_link(num, link):
     if int(num) == 1:
         API = SHORTLINK_API
@@ -589,53 +593,57 @@ async def get_verify_shorted_link(num, link):
     else:
         API = VERIFY2_API
         URL = VERIFY2_URL
+
     https = link.split(":")[0]
     if "http" == https:
         https = "https"
-        link = link.replace("http", https)
+    link = link.replace("http", https)
+
+    token = uuid.uuid4().hex  # generate a unique token
 
     if URL == "api.shareus.in":
         url = f"https://{URL}/shortLink"
-        params = {"token": API,
-                  "format": "json",
-                  "link": link,
-                  }
+        params = {
+            "token": API,
+            "format": "json",
+            "link": link,
+        }
         try:
             async with aiohttp.ClientSession() as session:
                 async with session.get(url, params=params, raise_for_status=True, ssl=False) as response:
                     data = await response.json(content_type="text/html")
                     if data["status"] == "success":
-                        return data["shortenedUrl"]
+                        return f"{data['shortenedUrl']}&token={token}"  # add the token to the shortened link
                     else:
                         logger.error(f"Error: {data['message']}")
-                        return f'https://{URL}/shortLink?token={API}&format=json&link={link}'
-
+                        return f'https://{URL}/shortLink?token={API}&format=json&link={link}&token={token}'  # add the token to the shortened link
         except Exception as e:
             logger.error(e)
-            return f'https://{URL}/shortLink?token={API}&format=json&link={link}'
+            return f'https://{URL}/shortLink?token={API}&format=json&link={link}&token={token}'  # add the token to the shortened link
     else:
         url = f'https://{URL}/api'
-        params = {'api': API,
-                  'url': link,
-                  }
+        params = {
+            'api': API,
+            'url': link,
+        }
         try:
             async with aiohttp.ClientSession() as session:
                 async with session.get(url, params=params, raise_for_status=True, ssl=False) as response:
                     data = await response.json()
                     if data["status"] == "success":
-                        return data["shortenedUrl"]
+                        return f"{data['shortenedUrl']}&token={token}"  # add the token to the shortened link
                     else:
                         logger.error(f"Error: {data['message']}")
                         if URL == 'clicksfly.com':
-                            return f'https://{URL}/api?api={API}&url={link}'
+                            return f'https://{URL}/api?api={API}&url={link}&token={token}'  # add the token to the shortened link
                         else:
-                            return f'https://{URL}/api?api={API}&link={link}'
+                            return f'https://{URL}/api?api={API}&link={link}&token={token}'  # add the token to the shortened link
         except Exception as e:
             logger.error(e)
             if URL == 'clicksfly.com':
-                return f'https://{URL}/api?api={API}&url={link}'
+                return f'https://{URL}/api?api={API}&url={link}&token={token}'  # add the token to the shortened link
             else:
-                return f'https://{URL}/api?api={API}&link={link}'
+                return f'https://{URL}/api?api={API}&link={link}&token={token}'  # add the token to the shortened link
 
 async def get_users():
     count  = await user_col.count_documents({})
