@@ -34,8 +34,8 @@ imdb = Cinemagoer()
 TOKENS = {}
 VERIFIED = {}
 BANNED = {}
-SMART_OPEN = '“'
-SMART_CLOSE = '”'
+SMART_OPEN = 'â€œ'
+SMART_CLOSE = 'â€'
 START_CHAR = ('\'', '"', SMART_OPEN)
 
 # temp db for banned 
@@ -71,10 +71,10 @@ async def check_expired_premium(client):
                 try:
                     await client.send_message(
                     chat_id=user_id,
-                    text=f"<b><i>Hᴇʏ Tʜᴇʀᴇ {user.mention} 👋</i>\n\n<u>ʏᴏᴜʀ ᴘʀᴇᴍɪᴜᴍ ᴀᴄᴄᴇss ʜᴀs ᴇxᴘɪʀᴇᴅ ❗\nᴛʜᴀɴᴋ ʏᴏᴜ ꜰᴏʀ ᴜsɪɴɢ ᴏᴜʀ sᴇʀᴠɪᴄᴇ.</u>\n\nɪꜰ ʏᴏᴜ ᴡᴀɴᴛ ᴛᴏ ᴛᴀᴋᴇ ᴛʜᴇ ᴘʀᴇᴍɪᴜᴍ ᴀɢᴀɪɴ, ᴛʜᴇɴ ᴄʟɪᴄᴋ ᴏɴ ᴛʜᴇ /plans ꜰᴏʀ ᴛʜᴇ ᴅᴇᴛᴀɪʟs ᴏꜰ ᴛʜᴇ ᴘʟᴀɴs.</b>")
+                    text=f"<b><i>Há´‡Ê TÊœá´‡Ê€á´‡ {user.mention} ðŸ‘‹</i>\n\n<u>Êá´á´œÊ€ á´˜Ê€á´‡á´Éªá´œá´ á´€á´„á´„á´‡ss Êœá´€s á´‡xá´˜ÉªÊ€á´‡á´… â—\ná´›Êœá´€É´á´‹ Êá´á´œ êœ°á´Ê€ á´œsÉªÉ´É¢ á´á´œÊ€ sá´‡Ê€á´ Éªá´„á´‡.</u>\n\nÉªêœ° Êá´á´œ á´¡á´€É´á´› á´›á´ á´›á´€á´‹á´‡ á´›Êœá´‡ á´˜Ê€á´‡á´Éªá´œá´ á´€É¢á´€ÉªÉ´, á´›Êœá´‡É´ á´„ÊŸÉªá´„á´‹ á´É´ á´›Êœá´‡ /plans êœ°á´Ê€ á´›Êœá´‡ á´…á´‡á´›á´€ÉªÊŸs á´êœ° á´›Êœá´‡ á´˜ÊŸá´€É´s.</b>")
                 except:
                     pass   
-                await client.send_message(PREMIUM_LOGS, text=f"<b>#PREMIUM_EXPIRED\n\nUsᴇʀ : {user.mention}\nUsᴇʀ Iᴅ : <code>{user_id}</code></b>")
+                await client.send_message(PREMIUM_LOGS, text=f"<b>#PREMIUM_EXPIRED\n\nUsá´‡Ê€ : {user.mention}\nUsá´‡Ê€ Iá´… : <code>{user_id}</code></b>")
             except Exception as e:
                 print(e)
             await sleep(0.5)
@@ -219,14 +219,14 @@ async def broadcast_messages(user_id, message):
         return await broadcast_messages(user_id, message)
     except InputUserDeactivated:
         await db.delete_user(int(user_id))
-        logging.info(f"{user_id}-Rᴇᴍᴏᴠᴇᴅ ғʀᴏᴍ Dᴀᴛᴀʙᴀsᴇ, sɪɴᴄᴇ ᴅᴇʟᴇᴛᴇᴅ ᴀᴄᴄᴏᴜɴᴛ.")
+        logging.info(f"{user_id}-Rá´‡á´á´á´ á´‡á´… Ò“Ê€á´á´ Dá´€á´›á´€Ê™á´€sá´‡, sÉªÉ´á´„á´‡ á´…á´‡ÊŸá´‡á´›á´‡á´… á´€á´„á´„á´á´œÉ´á´›.")
         return False, "Deleted"
     except UserIsBlocked:
-        logging.info(f"{user_id} -Bʟᴏᴄᴋᴇᴅ ᴛʜᴇ ʙᴏᴛ.")
+        logging.info(f"{user_id} -BÊŸá´á´„á´‹á´‡á´… á´›Êœá´‡ Ê™á´á´›.")
         return False, "Blocked"
     except PeerIdInvalid:
         await db.delete_user(int(user_id))
-        logging.info(f"{user_id} - PᴇᴇʀIᴅIɴᴠᴀʟɪᴅ")
+        logging.info(f"{user_id} - Pá´‡á´‡Ê€Iá´…IÉ´á´ á´€ÊŸÉªá´…")
         return False, "Error"
     except Exception as e:
         return False, "Error"
@@ -344,7 +344,7 @@ def list_to_str(k):
 def last_online(from_user):
     time = ""
     if from_user.is_bot:
-        time += "🤖 Bot :("
+        time += "ðŸ¤– Bot :("
     elif from_user.status == enums.UserStatus.RECENTLY:
         time += "Recently"
     elif from_user.status == enums.UserStatus.LAST_WEEK:
@@ -617,31 +617,34 @@ async def get_verify_shorted_link(num, link):
                         return f"{data['shortenedUrl']}&token={token}"  # add the token to the shortened link
                     else:
                         logger.error(f"Error: {data['message']}")
-ogger.error(e)
-            return f'https://{URL}/shortLink?token={API}&format=json&link={link}'
+                        return f'https://{URL}/shortLink?token={API}&format=json&link={link}&token={token}'  # add the token to the shortened link
+        except Exception as e:
+            logger.error(e)
+            return f'https://{URL}/shortLink?token={API}&format=json&link={link}&token={token}'  # add the token to the shortened link
     else:
         url = f'https://{URL}/api'
-        params = {'api': API,
-                  'url': link,
-                  }
+        params = {
+            'api': API,
+            'url': link,
+        }
         try:
             async with aiohttp.ClientSession() as session:
                 async with session.get(url, params=params, raise_for_status=True, ssl=False) as response:
                     data = await response.json()
                     if data["status"] == "success":
-                        return data["shortenedUrl"]
+                        return f"{data['shortenedUrl']}&token={token}"  # add the token to the shortened link
                     else:
                         logger.error(f"Error: {data['message']}")
                         if URL == 'clicksfly.com':
-                            return f'https://{URL}/api?api={API}&url={link}'
+                            return f'https://{URL}/api?api={API}&url={link}&token={token}'  # add the token to the shortened link
                         else:
-                            return f'https://{URL}/api?api={API}&link={link}'
+                            return f'https://{URL}/api?api={API}&link={link}&token={token}'  # add the token to the shortened link
         except Exception as e:
             logger.error(e)
             if URL == 'clicksfly.com':
-                return f'https://{URL}/api?api={API}&url={link}'
+                return f'https://{URL}/api?api={API}&url={link}&token={token}'  # add the token to the shortened link
             else:
-                return f'https://{URL}/api?api={API}&link={link}'
+                return f'https://{URL}/api?api={API}&link={link}&token={token}'  # add the token to the shortened link
 
 async def get_users():
     count  = await user_col.count_documents({})
@@ -693,20 +696,20 @@ async def send_all(bot, userid, files, ident):
         # try:
         #     invite_link = await bot.create_chat_invite_link(int(AUTH_CHANNEL))
         # except ChatAdminRequired:
-        #     logger.error("Mᴀᴋᴇ sᴜʀᴇ Bᴏᴛ ɪs ᴀᴅᴍɪɴ ɪɴ Fᴏʀᴄᴇsᴜʙ ᴄʜᴀɴɴᴇʟ")
+        #     logger.error("Má´€á´‹á´‡ sá´œÊ€á´‡ Bá´á´› Éªs á´€á´…á´ÉªÉ´ ÉªÉ´ Fá´Ê€á´„á´‡sá´œÊ™ á´„Êœá´€É´É´á´‡ÊŸ")
         #     return
         if ident == 'filep' or 'checksubp':
             pre = 'checksubp'
         else:
             pre = 'checksub' 
         btn = [[
-                InlineKeyboardButton("Cʜᴀɴɴᴇʟ 1", url=f't.me/BoB_Files1')              
+                InlineKeyboardButton("CÊœá´€É´É´á´‡ÊŸ 1", url=f't.me/BoB_Files1')              
               ],[
-                InlineKeyboardButton("Tʀʏ Aɢᴀɪɴ", callback_data=f"{pre}#send_all")
+                InlineKeyboardButton("TÊ€Ê AÉ¢á´€ÉªÉ´", callback_data=f"{pre}#send_all")
             ]]
         await bot.send_message(
             chat_id=userid,
-            text="**Yᴏᴜ ᴀʀᴇ ɴᴏᴛ ɪɴ ᴏᴜʀ Bᴀᴄᴋ-ᴜᴘ ᴄʜᴀɴɴᴇʟ ɢɪᴠᴇɴ ʙᴇʟᴏᴡ sᴏ ʏᴏᴜ ᴅᴏɴ'ᴛ ɢᴇᴛ ᴛʜᴇ ᴍᴏᴠɪᴇ ғɪʟᴇ, ᴘʟᴇᴀꜱᴇ ᴊᴏɪɴ ᴀɴᴅ ᴍᴏᴠɪᴇ ғɪʟᴇ...✅**",
+            text="**Yá´á´œ á´€Ê€á´‡ É´á´á´› ÉªÉ´ á´á´œÊ€ Bá´€á´„á´‹-á´œá´˜ á´„Êœá´€É´É´á´‡ÊŸ É¢Éªá´ á´‡É´ Ê™á´‡ÊŸá´á´¡ sá´ Êá´á´œ á´…á´É´'á´› É¢á´‡á´› á´›Êœá´‡ á´á´á´ Éªá´‡ Ò“ÉªÊŸá´‡, á´˜ÊŸá´‡á´€êœ±á´‡ á´Šá´ÉªÉ´ á´€É´á´… á´á´á´ Éªá´‡ Ò“ÉªÊŸá´‡...âœ…**",
             reply_markup=InlineKeyboardMarkup(btn),
             parse_mode=enums.ParseMode.MARKDOWN
             )
@@ -736,30 +739,30 @@ async def send_all(bot, userid, files, ident):
                     reply_markup=InlineKeyboardMarkup(
                         [
                             [
-                            InlineKeyboardButton("🖥️ ᴡᴀᴛᴄʜ / ᴅᴏᴡɴʟᴏᴀᴅ 📥", callback_data=f"streaming#{file.file_id}")
+                            InlineKeyboardButton("ðŸ–¥ï¸ á´¡á´€á´›á´„Êœ / á´…á´á´¡É´ÊŸá´á´€á´… ðŸ“¥", callback_data=f"streaming#{file.file_id}")
                         ],[
-                              InlineKeyboardButton("🌹 ʀᴇғғᴇʀ 🌹", url='https://t.me/Bullmovieess_autofilter_bot?start=reffer'),
-                                InlineKeyboardButton('❌ ᴄʟᴏꜱᴇ ❌', callback_data='close_data')
+                              InlineKeyboardButton("ðŸŒ¹ Ê€á´‡Ò“Ò“á´‡Ê€ ðŸŒ¹", url='https://t.me/Bullmovieess_autofilter_bot?start=reffer'),
+                                InlineKeyboardButton('âŒ á´„ÊŸá´êœ±á´‡ âŒ', callback_data='close_data')
                              ]
                         ]
                     )
                 )
             except UserIsBlocked:
-                logger.error(f"Usᴇʀ: {userid} ʙʟᴏᴄᴋᴇᴅ ᴛʜᴇ ʙᴏᴛ. Uɴʙʟᴏᴄᴋ ᴛʜᴇ ʙᴏᴛ!")
-                return "Usᴇʀ ɪs ʙʟᴏᴄᴋᴇᴅ ᴛʜᴇ ʙᴏᴛ ! Uɴʙʟᴏᴄᴋ ᴛᴏ sᴇɴᴅ ғɪʟᴇs!"
+                logger.error(f"Usá´‡Ê€: {userid} Ê™ÊŸá´á´„á´‹á´‡á´… á´›Êœá´‡ Ê™á´á´›. UÉ´Ê™ÊŸá´á´„á´‹ á´›Êœá´‡ Ê™á´á´›!")
+                return "Usá´‡Ê€ Éªs Ê™ÊŸá´á´„á´‹á´‡á´… á´›Êœá´‡ Ê™á´á´› ! UÉ´Ê™ÊŸá´á´„á´‹ á´›á´ sá´‡É´á´… Ò“ÉªÊŸá´‡s!"
             except PeerIdInvalid:
-                logger.error("Eʀʀᴏʀ: Pᴇᴇʀ ID ɪɴᴠᴀʟɪᴅ !")
-                return "Pᴇᴇʀ ID ɪɴᴠᴀʟɪᴅ !"
+                logger.error("EÊ€Ê€á´Ê€: Pá´‡á´‡Ê€ ID ÉªÉ´á´ á´€ÊŸÉªá´… !")
+                return "Pá´‡á´‡Ê€ ID ÉªÉ´á´ á´€ÊŸÉªá´… !"
             except Exception as e:
-                logger.error(f"Eʀʀᴏʀ: {e}")
-                return f"Eʀʀᴏʀ: {e}"
+                logger.error(f"EÊ€Ê€á´Ê€: {e}")
+                return f"EÊ€Ê€á´Ê€: {e}"
         return 'jk_dev'
     if IS_VERIFY and not await check_verification(bot, userid):
         btn = [[
-            InlineKeyboardButton("Vᴇʀɪғʏ", url=await get_token(bot, userid, f"https://telegram.me/{temp.U_NAME}?start=", 'send_all')),
-            InlineKeyboardButton("Hᴏᴡ Tᴏ Vᴇʀɪғʏ", url=HOW_TO_VERIFY)
+            InlineKeyboardButton("Vá´‡Ê€ÉªÒ“Ê", url=await get_token(bot, userid, f"https://telegram.me/{temp.U_NAME}?start=", 'send_all')),
+            InlineKeyboardButton("Há´á´¡ Tá´ Vá´‡Ê€ÉªÒ“Ê", url=HOW_TO_VERIFY)
             ],[
-            InlineKeyboardButton("🏕️ ʀᴇᴍᴏᴠᴇ ᴠᴇʀɪꜰɪᴄᴀᴛɪᴏɴ 🏕️", url="https://t.me/Bullmovieess_autofilter_bot?start=TheHappyHour")
+            InlineKeyboardButton("ðŸ•ï¸ Ê€á´‡á´á´á´ á´‡ á´ á´‡Ê€Éªêœ°Éªá´„á´€á´›Éªá´É´ ðŸ•ï¸", url="https://t.me/Bullmovieess_autofilter_bot?start=TheHappyHour")
         ]]
         await bot.send_message(
             chat_id=userid,
@@ -792,23 +795,23 @@ async def send_all(bot, userid, files, ident):
                 reply_markup=InlineKeyboardMarkup(
                     [
                         [
-                        InlineKeyboardButton("🖥️ ᴡᴀᴛᴄʜ & ᴅᴏᴡɴʟᴏᴀᴅ 📥", callback_data=f"streaming#{file.file_id}")
+                        InlineKeyboardButton("ðŸ–¥ï¸ á´¡á´€á´›á´„Êœ & á´…á´á´¡É´ÊŸá´á´€á´… ðŸ“¥", callback_data=f"streaming#{file.file_id}")
                     ],[
-                              InlineKeyboardButton("🌹 ʀᴇғғᴇʀ 🌹", url='https://t.me/Bullmovieess_autofilter_bot?start=reffer'),
-                            InlineKeyboardButton('❌ ᴄʟᴏꜱᴇ ❌', callback_data='close_data')
+                              InlineKeyboardButton("ðŸŒ¹ Ê€á´‡Ò“Ò“á´‡Ê€ ðŸŒ¹", url='https://t.me/Bullmovieess_autofilter_bot?start=reffer'),
+                            InlineKeyboardButton('âŒ á´„ÊŸá´êœ±á´‡ âŒ', callback_data='close_data')
                              ]
                     ]
                 )
             )
         except UserIsBlocked:
-            logger.error(f"Usᴇʀ: {userid} ʙʟᴏᴄᴋᴇᴅ ᴛʜᴇ ʙᴏᴛ. Uɴʙʟᴏᴄᴋ ᴛʜᴇ ʙᴏᴛ!")
-            return "Usᴇʀ ɪs ʙʟᴏᴄᴋᴇᴅ ᴛʜᴇ ʙᴏᴛ ! Uɴʙʟᴏᴄᴋ ᴛᴏ sᴇɴᴅ ғɪʟᴇs!"
+            logger.error(f"Usá´‡Ê€: {userid} Ê™ÊŸá´á´„á´‹á´‡á´… á´›Êœá´‡ Ê™á´á´›. UÉ´Ê™ÊŸá´á´„á´‹ á´›Êœá´‡ Ê™á´á´›!")
+            return "Usá´‡Ê€ Éªs Ê™ÊŸá´á´„á´‹á´‡á´… á´›Êœá´‡ Ê™á´á´› ! UÉ´Ê™ÊŸá´á´„á´‹ á´›á´ sá´‡É´á´… Ò“ÉªÊŸá´‡s!"
         except PeerIdInvalid:
-            logger.error("Eʀʀᴏʀ: Pᴇᴇʀ ID ɪɴᴠᴀʟɪᴅ !")
-            return "Pᴇᴇʀ ID ɪɴᴠᴀʟɪᴅ !"
+            logger.error("EÊ€Ê€á´Ê€: Pá´‡á´‡Ê€ ID ÉªÉ´á´ á´€ÊŸÉªá´… !")
+            return "Pá´‡á´‡Ê€ ID ÉªÉ´á´ á´€ÊŸÉªá´… !"
         except Exception as e:
-            logger.error(f"Eʀʀᴏʀ: {e}")
-            return f"Eʀʀᴏʀ: {e}"
+            logger.error(f"EÊ€Ê€á´Ê€: {e}")
+            return f"EÊ€Ê€á´Ê€: {e}"
     return 'done'
 
 async def get_verify_status(userid):
@@ -870,15 +873,15 @@ async def get_text(settings, remaining_seconds, files, query, total_results, sea
     try:
         if settings["imdb"]:
             IMDB_CAP = temp.IMDB_CAP.get(query.from_user.id)
-            CAPTION = f"☠️ ᴛɪᴛʟᴇ : <code>{search}</code>\n📚 ᴛᴏᴛᴀʟ ꜰɪʟᴇꜱ : <code>{total_results}</code>\n📝 ʀᴇǫᴜᴇsᴛᴇᴅ ʙʏ : {query.from_user.mention}\n⏰ ʀᴇsᴜʟᴛ ɪɴ : <code>{remaining_seconds} Sᴇᴄᴏɴᴅs</code>\n\n</b>"
+            CAPTION = f"â˜ ï¸ á´›Éªá´›ÊŸá´‡ : <code>{search}</code>\nðŸ“š á´›á´á´›á´€ÊŸ êœ°ÉªÊŸá´‡êœ± : <code>{total_results}</code>\nðŸ“ Ê€á´‡Ç«á´œá´‡sá´›á´‡á´… Ê™Ê : {query.from_user.mention}\nâ° Ê€á´‡sá´œÊŸá´› ÉªÉ´ : <code>{remaining_seconds} Sá´‡á´„á´É´á´…s</code>\n\n</b>"
             if IMDB_CAP:
                 cap = IMDB_CAP
                 if settings['is_shortlink']:
                     for file in files: #shortlink = true, imdb = true
-                        cap += f"\n\n<b><a href='https://telegram.me/{temp.U_NAME}?start=short_{file.file_id}'>📚 {get_size(file.file_size)} ▷ {' '.join(filter(lambda x: not x.startswith('[') and not x.startswith('Original') and not x.startswith('Villa') and not x.startswith('Linkz') and not x.startswith('{') and not x.startswith('boxoffice') and not x.startswith('Links') and not x.startswith('@') and not x.startswith('www'), file.file_name.split()))}</a></b>"
+                        cap += f"\n\n<b><a href='https://telegram.me/{temp.U_NAME}?start=short_{file.file_id}'>ðŸ“š {get_size(file.file_size)} â–· {' '.join(filter(lambda x: not x.startswith('[') and not x.startswith('Original') and not x.startswith('Villa') and not x.startswith('Linkz') and not x.startswith('{') and not x.startswith('boxoffice') and not x.startswith('Links') and not x.startswith('@') and not x.startswith('www'), file.file_name.split()))}</a></b>"
                 else:
                     for file in files: #shortlink = false, imdb = true
-                        cap += f"\n\n<b><a href='https://telegram.me/{temp.U_NAME}?start=files_{file.file_id}'>📚 {get_size(file.file_size)} ▷ {' '.join(filter(lambda x: not x.startswith('[') and not x.startswith('Original') and not x.startswith('Villa') and not x.startswith('Linkz') and not x.startswith('{') and not x.startswith('boxoffice') and not x.startswith('Links') and not x.startswith('@') and not x.startswith('www'), file.file_name.split()))}</a></b>"
+                        cap += f"\n\n<b><a href='https://telegram.me/{temp.U_NAME}?start=files_{file.file_id}'>ðŸ“š {get_size(file.file_size)} â–· {' '.join(filter(lambda x: not x.startswith('[') and not x.startswith('Original') and not x.startswith('Villa') and not x.startswith('Linkz') and not x.startswith('{') and not x.startswith('boxoffice') and not x.startswith('Links') and not x.startswith('@') and not x.startswith('www'), file.file_name.split()))}</a></b>"
             else:
                 imdb = await get_poster(search, file=(files[0]).file_name) if settings["imdb"] else None
                 if imdb:
@@ -915,31 +918,31 @@ async def get_text(settings, remaining_seconds, files, query, total_results, sea
                         **locals()
                     )
                     for file in files:
-                        cap += f"\n\n<b><a href='https://telegram.me/{temp.U_NAME}?start=short_{file.file_id}'>📚 {get_size(file.file_size)} ▷ {' '.join(filter(lambda x: not x.startswith('[') and not x.startswith('Original') and not x.startswith('Villa') and not x.startswith('Linkz') and not x.startswith('{') and not x.startswith('boxoffice') and not x.startswith('Links') and not x.startswith('@') and not x.startswith('www'), file.file_name.split()))}</a></b>"
+                        cap += f"\n\n<b><a href='https://telegram.me/{temp.U_NAME}?start=short_{file.file_id}'>ðŸ“š {get_size(file.file_size)} â–· {' '.join(filter(lambda x: not x.startswith('[') and not x.startswith('Original') and not x.startswith('Villa') and not x.startswith('Linkz') and not x.startswith('{') and not x.startswith('boxoffice') and not x.startswith('Links') and not x.startswith('@') and not x.startswith('www'), file.file_name.split()))}</a></b>"
                 else:
                     if settings['is_shortlink']:
                         cap = f"{CAPTION}" #shortlink = true, imdb = true
-                        cap+="<b>📚 <u>Your Requested Files</u> 👇\n\n</b>"
+                        cap+="<b>ðŸ“š <u>Your Requested Files</u> ðŸ‘‡\n\n</b>"
                         for file in files:
-                            cap += f"<b><a href='https://telegram.me/{temp.U_NAME}?start=short_{file.file_id}'>📚 {get_size(file.file_size)} ▷ {' '.join(filter(lambda x: not x.startswith('[') and not x.startswith('Original') and not x.startswith('Villa') and not x.startswith('Linkz') and not x.startswith('{') and not x.startswith('boxoffice') and not x.startswith('Links') and not x.startswith('@') and not x.startswith('www'), file.file_name.split()))}\n\n</a></b>"
+                            cap += f"<b><a href='https://telegram.me/{temp.U_NAME}?start=short_{file.file_id}'>ðŸ“š {get_size(file.file_size)} â–· {' '.join(filter(lambda x: not x.startswith('[') and not x.startswith('Original') and not x.startswith('Villa') and not x.startswith('Linkz') and not x.startswith('{') and not x.startswith('boxoffice') and not x.startswith('Links') and not x.startswith('@') and not x.startswith('www'), file.file_name.split()))}\n\n</a></b>"
                     else:
                         cap = f"{CAPTION}" #shortlink = false, imdb = false
-                        cap+="<b>📚 <u>Your Requested Files</u> 👇\n\n</b>"
+                        cap+="<b>ðŸ“š <u>Your Requested Files</u> ðŸ‘‡\n\n</b>"
                         for file in files:
-                            cap += f"<b><a href='https://telegram.me/{temp.U_NAME}?start=files_{file.file_id}'>📚 {get_size(file.file_size)} ▷ {' '.join(filter(lambda x: not x.startswith('[') and not x.startswith('Original') and not x.startswith('Villa') and not x.startswith('Linkz') and not x.startswith('{') and not x.startswith('boxoffice') and not x.startswith('Links') and not x.startswith('@') and not x.startswith('www'), file.file_name.split()))}\n\n</a></b>"
+                            cap += f"<b><a href='https://telegram.me/{temp.U_NAME}?start=files_{file.file_id}'>ðŸ“š {get_size(file.file_size)} â–· {' '.join(filter(lambda x: not x.startswith('[') and not x.startswith('Original') and not x.startswith('Villa') and not x.startswith('Linkz') and not x.startswith('{') and not x.startswith('boxoffice') and not x.startswith('Links') and not x.startswith('@') and not x.startswith('www'), file.file_name.split()))}\n\n</a></b>"
 
         else:
-            CAPTION = f"☠️ ᴛɪᴛʟᴇ : <code>{search}</code>\n📚 ᴛᴏᴛᴀʟ ꜰɪʟᴇꜱ : <code>{total_results}</code>\n📝 ʀᴇǫᴜᴇsᴛᴇᴅ ʙʏ : {query.from_user.mention}\n⏰ ʀᴇsᴜʟᴛ ɪɴ : <code>{remaining_seconds} Sᴇᴄᴏɴᴅs</code>\n\n</b>"
+            CAPTION = f"â˜ ï¸ á´›Éªá´›ÊŸá´‡ : <code>{search}</code>\nðŸ“š á´›á´á´›á´€ÊŸ êœ°ÉªÊŸá´‡êœ± : <code>{total_results}</code>\nðŸ“ Ê€á´‡Ç«á´œá´‡sá´›á´‡á´… Ê™Ê : {query.from_user.mention}\nâ° Ê€á´‡sá´œÊŸá´› ÉªÉ´ : <code>{remaining_seconds} Sá´‡á´„á´É´á´…s</code>\n\n</b>"
             if settings['is_shortlink']:
                 cap = f"{CAPTION}" #shortlink = true, imdb = false
-                cap+="<b>📚 <u>Your Requested Files</u> 👇\n\n</b>"
+                cap+="<b>ðŸ“š <u>Your Requested Files</u> ðŸ‘‡\n\n</b>"
                 for file in files:
-                    cap += f"<b><a href='https://telegram.me/{temp.U_NAME}?start=short_{file.file_id}'>📚 {get_size(file.file_size)} ▷ {' '.join(filter(lambda x: not x.startswith('[') and not x.startswith('Original') and not x.startswith('Villa') and not x.startswith('Linkz') and not x.startswith('{') and not x.startswith('boxoffice') and not x.startswith('Links') and not x.startswith('@') and not x.startswith('www'), file.file_name.split()))}\n\n</a></b>"
+                    cap += f"<b><a href='https://telegram.me/{temp.U_NAME}?start=short_{file.file_id}'>ðŸ“š {get_size(file.file_size)} â–· {' '.join(filter(lambda x: not x.startswith('[') and not x.startswith('Original') and not x.startswith('Villa') and not x.startswith('Linkz') and not x.startswith('{') and not x.startswith('boxoffice') and not x.startswith('Links') and not x.startswith('@') and not x.startswith('www'), file.file_name.split()))}\n\n</a></b>"
             else:
                 cap = f"{CAPTION}" #shortlink = false, imdb = false
-                cap+="<b>📚 <u>Your Requested Files</u> 👇\n\n</b>"
+                cap+="<b>ðŸ“š <u>Your Requested Files</u> ðŸ‘‡\n\n</b>"
                 for file in files:
-                    cap += f"<b><a href='https://telegram.me/{temp.U_NAME}?start=files_{file.file_id}'>📚 {get_size(file.file_size)} ▷ {' '.join(filter(lambda x: not x.startswith('[') and not x.startswith('Original') and not x.startswith('Villa') and not x.startswith('Linkz') and not x.startswith('{') and not x.startswith('boxoffice') and not x.startswith('Links') and not x.startswith('@') and not x.startswith('www'), file.file_name.split()))}\n\n</a></b>"
+                    cap += f"<b><a href='https://telegram.me/{temp.U_NAME}?start=files_{file.file_id}'>ðŸ“š {get_size(file.file_size)} â–· {' '.join(filter(lambda x: not x.startswith('[') and not x.startswith('Original') and not x.startswith('Villa') and not x.startswith('Linkz') and not x.startswith('{') and not x.startswith('boxoffice') and not x.startswith('Links') and not x.startswith('@') and not x.startswith('www'), file.file_name.split()))}\n\n</a></b>"
         return cap
     except Exception as e:
         await query.answer(f"Error Found out\n\n{e}", show_alert=True)
