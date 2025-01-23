@@ -617,34 +617,31 @@ async def get_verify_shorted_link(num, link):
                         return f"{data['shortenedUrl']}&token={token}"  # add the token to the shortened link
                     else:
                         logger.error(f"Error: {data['message']}")
-                        return f'https://{URL}/shortLink?token={API}&format=json&link={link}&token={token}'  # add the token to the shortened link
-        except Exception as e:
-            logger.error(e)
-            return f'https://{URL}/shortLink?token={API}&format=json&link={link}&token={token}'  # add the token to the shortened link
+ogger.error(e)
+            return f'https://{URL}/shortLink?token={API}&format=json&link={link}'
     else:
         url = f'https://{URL}/api'
-        params = {
-            'api': API,
-            'url': link,
-        }
+        params = {'api': API,
+                  'url': link,
+                  }
         try:
             async with aiohttp.ClientSession() as session:
                 async with session.get(url, params=params, raise_for_status=True, ssl=False) as response:
                     data = await response.json()
                     if data["status"] == "success":
-                        return f"{data['shortenedUrl']}&token={token}"  # add the token to the shortened link
+                        return data["shortenedUrl"]
                     else:
                         logger.error(f"Error: {data['message']}")
                         if URL == 'clicksfly.com':
-                            return f'https://{URL}/api?api={API}&url={link}&token={token}'  # add the token to the shortened link
+                            return f'https://{URL}/api?api={API}&url={link}'
                         else:
-                            return f'https://{URL}/api?api={API}&link={link}&token={token}'  # add the token to the shortened link
+                            return f'https://{URL}/api?api={API}&link={link}'
         except Exception as e:
             logger.error(e)
             if URL == 'clicksfly.com':
-                return f'https://{URL}/api?api={API}&url={link}&token={token}'  # add the token to the shortened link
+                return f'https://{URL}/api?api={API}&url={link}'
             else:
-                return f'https://{URL}/api?api={API}&link={link}&token={token}'  # add the token to the shortened link
+                return f'https://{URL}/api?api={API}&link={link}'
 
 async def get_users():
     count  = await user_col.count_documents({})
