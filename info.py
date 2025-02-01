@@ -15,7 +15,7 @@ def is_enabled(value, default):
 SESSION = environ.get('SESSION', 'Media_search')
 API_ID = int(environ.get('API_ID', '9301087'))
 API_HASH = environ.get('API_HASH', 'cbabdb3f23de6326352ef3ac26338d9c')
-BOT_TOKEN = environ.get('BOT_TOKEN', "7496068554:AAG65JE4qQBRyHQ86BPxvFpCrvQx39VnQyI")
+BOT_TOKEN = environ.get('BOT_TOKEN', "8108482995:AAGqVnodYd--Y3qXIlCP9fD2V_nAuGg_tKM")
 TIMEZONE = environ.get("TIMEZONE", "Asia/Kolkata")
 # Bot settings
 CACHE_TIME = int(environ.get('CACHE_TIME', 300))
@@ -35,7 +35,7 @@ CHANNELS = [int(ch) if id_pattern.search(ch) else ch for ch in environ.get('CHAN
 auth_users = [int(user) if id_pattern.search(user) else user for user in environ.get('AUTH_USERS', '').split()]
 AUTH_USERS = (auth_users + ADMINS) if auth_users else []
 auth_channel = environ.get('AUTH_CHANNEL', '-1002077157127')
-auth_grp = environ.get('AUTH_GROUP')
+auth_grp = environ.get('AUTH_GROUP', '-1002280359378')
 AUTH_CHANNEL = int(auth_channel) if auth_channel and id_pattern.search(auth_channel) else None
 AUTH_GROUPS = [int(ch) for ch in auth_grp.split()] if auth_grp else None
 support_chat_id = environ.get('SUPPORT_CHAT_ID')
@@ -49,9 +49,9 @@ SUPPORT_CHAT_ID = int(support_chat_id) if support_chat_id and id_pattern.search(
 NO_RESULTS_MSG = is_enabled((environ.get("NO_RESULTS_MSG", 'True')), False)
 
 # MongoDB information
-DATABASE_URI = environ.get('DATABASE_URI', "mongodb+srv://bob:bobfiles1@bob.sp1vv.mongodb.net/?retryWrites=true&w=majority&appName=bob")
-DATABASE_NAME = environ.get('DATABASE_NAME', "mishraji")
-COLLECTION_NAME = environ.get('COLLECTION_NAME', 'Telegram_files')
+DATABASE_URI = environ.get('DATABASE_URI', "mongodb+srv://bob2025:bob2025@cluster0.vuo6h.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0")
+DATABASE_NAME = environ.get('DATABASE_NAME', "ITACHI")
+COLLECTION_NAME = environ.get('COLLECTION_NAME', 'shiv')
 
 #refer time, or user count
 REFERAL_USER_TIME = int(environ.get('REFERAL_USER_TIME', "2592000")) # set in seconds | already seted 1 month premium
@@ -69,15 +69,15 @@ premium = environ.get('PREMIUM_LOGS', '-1001844691460')
 PREMIUM_LOGS = int(premium) if premium and id_pattern.search(premium) else None
 
 # verify link shortner
-IS_VERIFY = is_enabled((environ.get('IS_VERIFY', 'True')), True)
+IS_VERIFY = is_enabled((environ.get('IS_VERIFY', 'False')), False)
 HOW_TO_VERIFY = environ.get('HOW_TO_VERIFY', "https://t.me/kaisekhole/15")
-SHORTLINK_URL = environ.get('SHORTLINK_URL', 'instantearn.in')
-SHORTLINK_API = environ.get('SHORTLINK_API', 'fdae4ded7d9f404188ce1b10e8342759116cd66e')
+SHORTLINK_URL = environ.get('SHORTLINK_URL', 'adlinkfly.in')
+SHORTLINK_API = environ.get('SHORTLINK_API', '728ac8e235b7da546190c8a97c73ddedcd8e27cf')
 
 IS_SHORTLINK = is_enabled((environ.get('IS_SHORTLINK', 'False')), False)
 
-VERIFY2_URL = environ.get('VERIFY2_URL', "instantearn.in")
-VERIFY2_API = environ.get('VERIFY2_API', "fdae4ded7d9f404188ce1b10e8342759116cd66e")
+VERIFY2_URL = environ.get('VERIFY2_URL', "adlinkfly.in")
+VERIFY2_API = environ.get('VERIFY2_API', "728ac8e235b7da546190c8a97c73ddedcd8e27cf")
 
 DELETE_CHANNELS = [int(dch) if id_pattern.search(dch) else dch for dch in environ.get('DELETE_CHANNELS', '0').split()]
 MAX_B_TN = environ.get("MAX_B_TN", "5")
