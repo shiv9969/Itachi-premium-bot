@@ -26,3 +26,7 @@ jinja2
 apscheduler
 pyshorteners
 colorama
+
+python-dotenv,=0.20.0
+psutile
+
