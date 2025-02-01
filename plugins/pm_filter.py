@@ -210,8 +210,8 @@ async def pm_text(bot, message):
     if content.startswith("/") or content.startswith("#"): return  # ignore commands and hashtags
     if user_id in ADMINS: return # ignore admins
     await message.reply_text(
-         text=f"<b><a href='https://t.me/REQUESTING_MOVIES_SERIES_GROUPS'>Request Hare - https://t.me/REQUESTING_MOVIES_SERIES_GROUPS\nRequest Hare - https://t.me/REQUESTING_MOVIES_SERIES_GROUPS\nRequest Hare - https://t.me/REQUESTING_MOVIES_SERIES_GROUPS</a></b>",   
-         reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("📚 ʀᴇǫᴜᴇsᴛ ʜᴇʀᴇ 📚", url=f"https://t.me/REQUESTING_MOVIES_SERIES_GROUPS")]])
+         text=f"<b><a href='https://t.me/Movies_Request_Group_10'>Pleasen Request your fav movies & series in our movies request group </a></b>",   
+         reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("📚 ʀᴇǫᴜᴇsᴛ ʜᴇʀᴇ 📚", url=f"https://t.me/Movies_Request_Group_10")]])
     )
     await bot.send_message(
         chat_id=LOG_CHANNEL,
