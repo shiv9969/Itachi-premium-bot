@@ -27,6 +27,6 @@ apscheduler
 pyshorteners
 colorama
 
-python-dotenv,=0.20.0
+python-dotenv<=0.20.0
 psutile
 
