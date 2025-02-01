@@ -61,8 +61,8 @@ INVITED_USER_TRAIL = int(environ.get('INVITED_USER_TRAIL', "3600")) #set in seco
 #stream link shortner
 STREAM_SITE = (environ.get('STREAM_SITE', ''))
 STREAM_API = (environ.get('STREAM_API', ''))
-STREAMHTO = (environ.get('STREAMHTO', 'https://t.me/BoB_Files1'))
-STREAM_LINK_MODE = is_enabled((environ.get('STREAM_LINK_MODE', "False")), False)
+STREAMHTO = (environ.get('STREAMHTO', ''))
+STREAM_LINK_MODE = is_enabled((environ.get('STREAM_LINK_MODE', "True")), True)
 
 #premium Users Satuts
 premium = environ.get('PREMIUM_LOGS', '-1001844691460')
