@@ -20,6 +20,8 @@ from database.connections_mdb import active_connection
 import re
 import json
 import base64
+from plugins.verification import validate_token, is_user_verified, send_verification
+
 logger = logging.getLogger(__name__)
 
 TIMEZONE = "Asia/Kolkata"
@@ -28,6 +30,15 @@ BATCH_FILES = {}
 @Client.on_message(filters.command("start") & filters.incoming)
 async def start(client, message):
     try:
+        if hasattr(message, 'command') and len(message.command) == 2: 
+            data = message.command[1]
+            if data.split("-")[0] == 'verify':
+                await validate_token(client, message, data)
+                return
+        if not await is_user_verified(message.from_user.id):
+            await send_verification(client, message)
+            return
+        
         if message.chat.type in [enums.ChatType.GROUP, enums.ChatType.SUPERGROUP]:
             buttons = [[
                         InlineKeyboardButton('☆ ᴀᴅᴅ ᴍᴇ ᴛᴏ ʏᴏᴜʀ ɢʀᴏᴜᴘ ☆', url=f'http://t.me/{temp.U_NAME}?startgroup=true')
