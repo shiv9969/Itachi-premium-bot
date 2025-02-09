@@ -8,14 +8,12 @@ from pyrogram.types import Message, InlineKeyboardButton, InlineKeyboardMarkup
 from pyrogram import enums
 from typing import Union
 from Script import script
-import pytz
-import random 
+import pytz, random, string  
 from asyncio import sleep
 import time
 import re
 import os
 from datetime import datetime, timedelta, date, time
-import string
 from typing import List
 from database.users_chats_db import db
 from bs4 import BeautifulSoup
@@ -553,110 +551,13 @@ async def stream_site(link):
         logger.error(e)
         return f'{STREAM_SITE}/api?api={STREAM_API}&link={link}'
         
-async def get_shortlink(chat_id, link):
-    settings = await get_settings(chat_id)  # fetching settings for group
-    if 'shortlink' in settings.keys():
-        URL = settings['shortlink']
-        API = settings['shortlink_api']
-    else:
-        URL = SHORTLINK_URL
-        API = SHORTLINK_API
-
-    if URL.startswith("shorturllink") or URL.startswith("terabox.in") or URL.startswith("urlshorten.in"):
-        URL = SHORTLINK_URL
-        API = SHORTLINK_API
-
-    token = uuid.uuid4().hex  # generate a unique token
-
-    if URL == "api.shareus.io":
-        url = f'https://{URL}/easy_api'
-        params = {
-            "key": API,
-            "link": link,
-        }
-        try:
-            async with aiohttp.ClientSession() as session:
-                async with session.get(url, params=params, raise_for_status=True, ssl=False) as response:
-                    data = await response.text()
-                    return f"{data}&token={token}"  # add the token to the shortened link
-        except Exception as e:
-            logger.error(e)
-            return link
-    else:
-        shortzy = Shortzy(api_key=API, base_site=URL)
-        link = await shortzy.convert(link)
-        return f"{link}&token={token}"  # add the token to the shortened link
-
-async def get_verify_shorted_link(num, link):
-    if int(num) == 1:
-        API = SHORTLINK_API
-        URL = SHORTLINK_URL
-    else:
-        API = VERIFY2_API
-        URL = VERIFY2_URL
-
-    https = link.split(":")[0]
-    if "http" == https:
-        https = "https"
-    link = link.replace("http", https)
-
-    token = uuid.uuid4().hex  # generate a unique token
-
-    if URL == "api.shareus.in":
-        url = f"https://{URL}/shortLink"
-        params = {
-            "token": API,
-            "format": "json",
-            "link": link,
-        }
-        try:
-            async with aiohttp.ClientSession() as session:
-                async with session.get(url, params=params, raise_for_status=True, ssl=False) as response:
-                    data = await response.json(content_type="text/html")
-                    if data["status"] == "success":
-                        return f"{data['shortenedUrl']}&token={token}"  # add the token to the shortened link
-                    else:
-                        logger.error(f"Error: {data['message']}")
-                        return f'https://{URL}/shortLink?token={API}&format=json&link={link}&token={token}'  # add the token to the shortened link
-        except Exception as e:
-            logger.error(e)
-            return f'https://{URL}/shortLink?token={API}&format=json&link={link}&token={token}'  # add the token to the shortened link
-    else:
-        url = f'https://{URL}/api'
-        params = {
-            'api': API,
-            'url': link,
-        }
-        try:
-            async with aiohttp.ClientSession() as session:
-                async with session.get(url, params=params, raise_for_status=True, ssl=False) as response:
-                    data = await response.json()
-                    if data["status"] == "success":
-                        return f"{data['shortenedUrl']}&token={token}"  # add the token to the shortened link
-                    else:
-                        logger.error(f"Error: {data['message']}")
-                        if URL == 'clicksfly.com':
-                            return f'https://{URL}/api?api={API}&url={link}&token={token}'  # add the token to the shortened link
-                        else:
-                            return f'https://{URL}/api?api={API}&link={link}&token={token}'  # add the token to the shortened link
-        except Exception as e:
-            logger.error(e)
-            if URL == 'clicksfly.com':
-                return f'https://{URL}/api?api={API}&url={link}&token={token}'  # add the token to the shortened link
-            else:
-                return f'https://{URL}/api?api={API}&link={link}&token={token}'  # add the token to the shortened link
-
-async def get_users():
-    count  = await user_col.count_documents({})
-    cursor = user_col.find({})
-    list   = await cursor.to_list(length=int(count))
-    return count, list
+async def get_verify_shorted_link(link):
+    shortzy = Shortzy(api_key=API, base_site=URL)
+    link = await shortzy.convert(link)
+    return link
 
 async def check_token(bot, userid, token):
     user = await bot.get_users(userid)
-    if not await db.is_user_exist(user.id):
-        await db.add_user(user.id, user.first_name)
-        await bot.send_message(LOG_CHANNEL, script.LOG_TEXT_P.format(user.id, user.mention))
     if user.id in TOKENS.keys():
         TKN = TOKENS[user.id]
         if token in TKN.keys():
@@ -665,6 +566,36 @@ async def check_token(bot, userid, token):
                 return False
             else:
                 return True
+    else:
+        return False
+
+async def get_token(bot, userid, link):
+    user = await bot.get_users(userid)
+    token = ''.join(random.choices(string.ascii_letters + string.digits, k=7))
+    TOKENS[user.id] = {token: False}
+    link = f"{link}verify-{user.id}-{token}"
+    shortened_verify_url = await get_verify_shorted_link(link)
+    return str(shortened_verify_url)
+
+async def verify_user(bot, userid, token):
+    user = await bot.get_users(userid)
+    TOKENS[user.id] = {token: True}
+    tz = pytz.timezone('Asia/Kolkata')
+    today = date.today()
+    VERIFIED[user.id] = str(today)
+
+async def check_verification(bot, userid):
+    user = await bot.get_users(userid)
+    tz = pytz.timezone('Asia/Kolkata')
+    today = date.today()
+    if user.id in VERIFIED.keys():
+        EXP = VERIFIED[user.id]
+        years, month, day = EXP.split('-')
+        comp = date(int(years), int(month), int(day))
+        if comp<today:
+            return False
+        else:
+            return True
     else:
         return False
 
