@@ -26,5 +26,5 @@ apscheduler
 pyshorteners
 colorama
 
-motor 
-cloudscraper
+shortzy
+pytz
