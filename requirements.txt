@@ -26,5 +26,3 @@ apscheduler
 pyshorteners
 colorama
 motor
-shortzy
-pytz
