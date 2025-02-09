@@ -62,8 +62,10 @@ INVITED_USER_TRAIL = int(environ.get('INVITED_USER_TRAIL', "3600")) #set in seco
 STREAM_SITE = (environ.get('STREAM_SITE', ''))
 STREAM_API = (environ.get('STREAM_API', ''))
 STREAMHTO = (environ.get('STREAMHTO', ''))
-STREAM_LINK_MODE = is_enabled((environ.get('STREAM_LINK_MODE', "True")), True)
-
+STREAM_LINK_MODE = environ.get('STREAM_LINK_MODE', True)
+if not all((STREAM_SITE, STREAM_API, STREAMHTO)):
+    STREAM_LINK_MODE = False
+    
 #premium Users Satuts
 premium = environ.get('PREMIUM_LOGS', '-1001844691460')
 PREMIUM_LOGS = int(premium) if premium and id_pattern.search(premium) else None
