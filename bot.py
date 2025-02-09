@@ -1,4 +1,3 @@
-from plugins import verification
 import logging
 import logging.config
 
