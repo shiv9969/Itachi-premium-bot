@@ -15,14 +15,11 @@ from database.users_chats_db import db
 from database.top_search import db3
 from database.safaridev import db2
 from info import *
-from utils import get_settings, get_size, is_subscribed, save_group_settings, temp, verify_user, check_token, send_all, get_tutorial, get_shortlink, get_seconds
+from utils import get_settings, get_size, is_subscribed, save_group_settings, temp, verify_user, check_token, check_verification, get_token, send_all, get_tutorial, get_shortlink, get_seconds
 from database.connections_mdb import active_connection
 import re
 import json
 import base64
-from utils import check_verification, get_token
-from info import VERIFY, VERIFY_TUTORIAL, BOT_USERNAME
-
 logger = logging.getLogger(__name__)
 
 TIMEZONE = "Asia/Kolkata"
@@ -357,47 +354,28 @@ async def start(client, message):
                 await asyncio.sleep(1) 
             return await sts.delete()
                     
-       data = message.command[1]
-    if data.split("-", 1)[0] == "verify": # set if or elif it depend on your code
-        userid = data.split("-", 2)[1]
-        token = data.split("-", 3)[2]
-        if str(message.from_user.id) != str(userid):
-            return await message.reply_text(
-                text="<b>Invalid link or Expired link !</b>",
-                protect_content=True
-            )
-        is_valid = await check_token(client, userid, token)
-        if is_valid == True:
-            await message.reply_text(
-                text=f"<b>Hey {message.from_user.mention}, You are successfully verified !\nNow you have unlimited access for all files till today midnight.</b>",
-                protect_content=True
-            )
-            await verify_user(client, userid, token)
-        else:
-            return await message.reply_text(
-                text="<b>Invalid link or Expired link !</b>",
-                protect_content=True
-            )
-
-# new code from here :- 
-# where you want to add your verification 
-# this is the code where user get shortlink and verification message 
-
-#@Client.on_message..........
-#async def...........
-
-    if not await check_verification(client, message.from_user.id) and VERIFY == True:
-        btn = [[
-            InlineKeyboardButton("Verify", url=await get_token(client, message.from_user.id, f"https://telegram.me/{BOT_USERNAME}?start="))
-        ],[
-            InlineKeyboardButton("How To Open Link & Verify", url=VERIFY_TUTORIAL)
-        ]]
-        await message.reply_text(
-            text="<b>You are not verified !\nKindly verify to continue !</b>",
-            protect_content=True,
-            reply_markup=InlineKeyboardMarkup(btn)
-        )
-        return
+        elif data.split("-", 1)[0] == "verify":
+            userid = data.split("-", 2)[1]
+            token = data.split("-", 3)[2]
+            fileid = data.split("-", 3)[3]
+            if str(message.from_user.id) != str(userid):
+                return await message.reply_text(
+                    text="<b>Iɴᴠᴀʟɪᴅ ʟɪɴᴋ ᴏʀ Exᴘɪʀᴇᴅ ʟɪɴᴋ !</b>",
+                    protect_content=True if PROTECT_CONTENT else False
+                )
+            is_valid = await check_token(client, userid, token)
+            if is_valid == True:
+                if fileid == "all":
+                    btn = [[
+                        InlineKeyboardButton("Gᴇᴛ Fɪʟᴇ", callback_data=f"checksub#send_all")
+                    ]]
+                    await verify_user(client, userid, token)
+                    await message.reply_text(
+                        text=f"<b>Hᴇʏ {message.from_user.mention}, Yᴏᴜ ᴀʀᴇ sᴜᴄᴄᴇssғᴜʟʟʏ ᴠᴇʀɪғɪᴇᴅ !\nNᴏᴡ ʏᴏᴜ ʜᴀᴠᴇ ᴜɴʟɪᴍɪᴛᴇᴅ ᴀᴄᴄᴇss ғᴏʀ ᴀʟʟ ᴍᴏᴠɪᴇs ᴛɪʟʟ ᴛʜᴇ ɴᴇxᴛ ᴠᴇʀɪғɪᴄᴀᴛɪᴏɴ ᴡʜɪᴄʜ ɪs ᴀғᴛᴇʀ 12 ʜᴏᴜʀs ғʀᴏᴍ ɴᴏᴡ.</b>",
+                        protect_content=True if PROTECT_CONTENT else False,
+                        reply_markup=InlineKeyboardMarkup(btn)
+                    )
+                    return
                 btn = [[
                     InlineKeyboardButton("Get File", url=f"https://telegram.me/{temp.U_NAME}?start=files_{fileid}")
                 ]]
@@ -408,7 +386,12 @@ async def start(client, message):
                 )
                 await verify_user(client, userid, token)
                 return
-        
+            else:
+                return await message.reply_text(
+                    text="<b>Iɴᴠᴀʟɪᴅ ʟɪɴᴋ ᴏʀ Exᴘɪʀᴇᴅ ʟɪɴᴋ !</b>",
+                    protect_content=True if PROTECT_CONTENT else False
+                )
+
         if data.startswith("TheHappyHour"):
             btn = [[
                 InlineKeyboardButton('📸 sᴇɴᴅ sᴄʀᴇᴇɴsʜᴏᴛ 📸', url="https://t.me/Assaulter_Shiv")
