@@ -40,6 +40,13 @@ AUTH_CHANNEL = int(auth_channel) if auth_channel and id_pattern.search(auth_chan
 AUTH_GROUPS = [int(ch) for ch in auth_grp.split()] if auth_grp else None
 support_chat_id = environ.get('SUPPORT_CHAT_ID')
 
+#verify
+API = environ.get("API", "728ac8e235b7da546190c8a97c73ddedcd8e27cf") # shortlink api
+URL = environ.get("URL", "adlinkfly.in") # shortlink domain without https://
+VERIFY_TUTORIAL = environ.get("VERIFY_TUTORIAL", "https://t.me/kaisekhole/11") # how to open link 
+BOT_USERNAME = environ.get("BOT_USERNAME", "narutossssbot") # bot username without @
+VERIFY = environ.get("VERIFY", "True") # set True Or False and make sure spelling is correct and first letter capital.
+
 #reporting...
 TOP_SEARCH = is_enabled((environ.get('TOP_SEARCH', "False")), False)
 reqst_channel = environ.get('REQST_CHANNEL_ID', "-1002104914260")
