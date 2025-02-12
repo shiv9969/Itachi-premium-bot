@@ -95,7 +95,7 @@ async def send_verification(client, message, text=None, buttons=None):
 \nआपका विज्ञापन टोकन समाप्त हो गया है, बॉट को फिर से उपयोग करने के लिए नया टोकन लें!
          ㅤㅤㅤㅤㅤㅤㅤ- धन्यवाद
 \nValidity: {get_readable_time(VERIFY_EXPIRE)}
-\n#Verification...⌛</blockquote></b>"""
+\n#Verification...⌛</b>"""
     message = message if isinstance(message, Message) else message.message
     await client.send_photo(
         chat_id=message.chat.id,
