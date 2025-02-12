@@ -8,17 +8,18 @@ from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton, Message
 from cloudscraper import create_scraper
 from motor.motor_asyncio import AsyncIOMotorClient
 
+from info import DATABASE_URI as DATABASE_URL
 
 
 # Config Variables 😄
-VERIFY_PHOTO = os.environ.get('VERIFY_PHOTO', '')  # YOUR VERIFY PHOTO LINK
-SHORTLINK_SITE = os.environ.get('SHORTLINK_SITE', '') # YOUR SHORTLINK URL LIKE:- site.com
-SHORTLINK_API = os.environ.get('SHORTLINK_API', '') # YOUR SHORTLINK API LIKE:- ma82owowjd9hw6_js7
+VERIFY_PHOTO = os.environ.get('VERIFY_PHOTO', 'https://envs.sh/V_n.jpg')  # YOUR VERIFY PHOTO LINK
+SHORTLINK_SITE = os.environ.get('SHORTLINK_SITE', 'adlinkfly.in') # YOUR SHORTLINK URL LIKE:- site.com
+SHORTLINK_API = os.environ.get('SHORTLINK_API', '728ac8e235b7da546190c8a97c73ddedcd8e27cf') # YOUR SHORTLINK API LIKE:- ma82owowjd9hw6_js7
 VERIFY_EXPIRE = os.environ.get('VERIFY_EXPIRE', 0) # VERIFY EXPIRE TIME IN SECONDS. LIKE:- 0 (ZERO) TO OFF VERIFICATION 
-VERIFY_TUTORIAL = os.environ.get('VERIFY_TUTORIAL', '') # LINK OF TUTORIAL TO VERIFY 
-DATABASE_URL = os.environ.get('DATABASE_URL', '') # MONGODB DATABASE URL To Store Verifications 
-COLLECTION_NAME = os.environ.get('COLLECTION_NAME', '')   # Collection Name For MongoDB 
-PREMIUM_USERS = list(map(int, os.environ.get('PREMIUM_USERS', '6805001741 7282828 292929').split()))
+VERIFY_TUTORIAL = os.environ.get('VERIFY_TUTORIAL', 'https://t.me/kaisekhole/15') # LINK OF TUTORIAL TO VERIFY 
+#DATABASE_URL = os.environ.get('DATABASE_URL', '') # MONGODB DATABASE URL To Store Verifications 
+COLLECTION_NAME = os.environ.get('COLLECTION_NAME', 'shiv')   # Collection Name For MongoDB 
+PREMIUM_USERS = list(map(int, os.environ.get('PREMIUM_USERS', '').split()))
 verify_dict = {}
 missing=[v for v in ["COLLECTION_NAME", "VERIFY_PHOTO", "SHORTLINK_SITE", "SHORTLINK_API", "VERIFY_TUTORIAL"] if not v]; sys.exit(f"Missing: {', '.join(missing)}") if missing else None
 
