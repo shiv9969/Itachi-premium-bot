@@ -87,7 +87,7 @@ async def send_verification(client, message, text=None, buttons=None):
         buttons = InlineKeyboardMarkup([
             [InlineKeyboardButton('Get Token', url=verify_token)],
             [InlineKeyboardButton('🎬 Tutorial 🎬', url=VERIFY_TUTORIAL)],
-            [InlineKeyboardButton("🎉 Remove Verification 🎉", url="https://t.me/narutossssbot?start=TheHappyHour")]
+            [InlineKeyboardButton("🎉 Remove Verification 🎉", callback_data='seeplans')]
 
         ])
     if not text:
