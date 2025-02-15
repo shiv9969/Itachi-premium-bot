@@ -86,7 +86,9 @@ async def send_verification(client, message, text=None, buttons=None):
         verify_token = await get_verify_token(client, message.from_user.id, f"https://telegram.me/{username}?start=")
         buttons = InlineKeyboardMarkup([
             [InlineKeyboardButton('Get Token', url=verify_token)],
-            [InlineKeyboardButton('🎬 Tutorial 🎬', url=VERIFY_TUTORIAL)]
+            [InlineKeyboardButton('🎬 Tutorial 🎬', url=VERIFY_TUTORIAL)],
+            [InlineKeyboardButton("🎉 Remove Verification 🎉", url="https://t.me/narutossssbot?start=TheHappyHour")]
+
         ])
     if not text:
         text = f"""<b>Hi 👋 {message.from_user.mention}, 
