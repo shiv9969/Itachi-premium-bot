@@ -45,8 +45,8 @@ class VerifyDB():
 # GLOBAL VERIFY FUNCTION 
 async def token_system_filter(_, __, message):
     uid = message.from_user.id
-    print(uid)
-    print(PREMIUM_USERS)
+      print(uid)
+       print(PREMIUM_USERS)
     if not VERIFY_EXPIRE or uid in PREMIUM_USERS:
         return False
     if message.text:
