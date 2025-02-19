@@ -71,12 +71,17 @@ async def global_verify_function(client, message):
         
 # FUNCTIONS
 async def is_user_verified(user_id):
-    if not VERIFY_EXPIRE:
+    if not VERIFY_EXPIRE or (user_id in PREMIUM_USERS):
         return True
     isveri = await verifydb.get_verify_status(user_id)
     if not isveri or (time() - isveri) >= float(VERIFY_EXPIRE):
         return False
-    return True    
+    return True
+
+async def token_system_filter(_, __, message):
+    if is_verified := await is_user_verified(message.from_user.id):
+        return False
+    return True
     
 async def send_verification(client, message, text=None, buttons=None):
     username = (await client.get_me()).username
