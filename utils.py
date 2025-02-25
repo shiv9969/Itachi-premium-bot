@@ -624,8 +624,8 @@ async def get_verify_shorted_link(num, link):
     else:
         url = f'https://{URL}/api'
         params = {
-            'api': API,
-            'url': link,
+            'api': is_verify,  # Use is_verify instead of API
+            'url': urllib.parse.quote(link, safe=''),  # Ensure proper encoding
         }
         try:
             async with aiohttp.ClientSession() as session:
@@ -688,7 +688,7 @@ async def get_token(bot, userid, link, fileid):
         vr_num = 2
     else:
         vr_num = 1
-    shortened_verify_url = await get_verify_shorted_link(vr_num, url)
+    shortened_verify_url = await get_verify_shorted_link(vr_num, urllib.parse.quote(url, safe=''))
     return str(shortened_verify_url)
 
 async def send_all(bot, userid, files, ident):
