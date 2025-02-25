@@ -78,7 +78,7 @@ premium = environ.get('PREMIUM_LOGS', '-1001844691460')
 PREMIUM_LOGS = int(premium) if premium and id_pattern.search(premium) else None
 
 # verify link shortner
-IS_VERIFY = is_enabled((environ.get('IS_VERIFY', 'False')), False)
+IS_VERIFY = is_enabled((environ.get('IS_VERIFY', 'True')), True)
 HOW_TO_VERIFY = environ.get('HOW_TO_VERIFY', "https://t.me/kaisekhole/15")
 SHORTLINK_URL = environ.get('SHORTLINK_URL', 'adlinkfly.in')
 SHORTLINK_API = environ.get('SHORTLINK_API', '728ac8e235b7da546190c8a97c73ddedcd8e27cf')
