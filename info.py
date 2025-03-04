@@ -41,8 +41,8 @@ AUTH_GROUPS = [int(ch) for ch in auth_grp.split()] if auth_grp else None
 support_chat_id = environ.get('SUPPORT_CHAT_ID')
 
 #verify
-API = environ.get("API", "728ac8e235b7da546190c8a97c73ddedcd8e27cf") # shortlink api
-URL = environ.get("URL", "adlinkfly.in") # shortlink domain without https://
+API = environ.get("API", "f3b862c89a2802acfc931876f2f24096afe71e45") # shortlink api
+URL = environ.get("URL", "linkshortify.com") # shortlink domain without https://
 VERIFY_TUTORIAL = environ.get("VERIFY_TUTORIAL", "https://t.me/kaisekhole/11") # how to open link 
 BOT_USERNAME = environ.get("BOT_USERNAME", "narutossssbot") # bot username without @
 VERIFY = environ.get("VERIFY", "False") # set True Or False and make sure spelling is correct and first letter capital.
@@ -78,7 +78,7 @@ premium = environ.get('PREMIUM_LOGS', '-1001844691460')
 PREMIUM_LOGS = int(premium) if premium and id_pattern.search(premium) else None
 
 # verify link shortner
-IS_VERIFY = is_enabled((environ.get('IS_VERIFY', 'False')), False)
+IS_VERIFY = is_enabled((environ.get('IS_VERIFY', 'True')), True)
 HOW_TO_VERIFY = environ.get('HOW_TO_VERIFY', "https://t.me/kaisekhole/15")
 SHORTLINK_URL = environ.get('SHORTLINK_URL', 'adlinkfly.in')
 SHORTLINK_API = environ.get('SHORTLINK_API', '728ac8e235b7da546190c8a97c73ddedcd8e27cf')
