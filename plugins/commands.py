@@ -7,6 +7,7 @@ import pytz
 import requests
 from Script import script
 from datetime import datetime
+from telegraph import Telegraph
 from pyrogram import Client, filters, enums
 from pyrogram.errors import ChatAdminRequired, FloodWait
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, ReplyKeyboardMarkup
@@ -1326,3 +1327,31 @@ async def refer(bot, message):
     except Exception as e:
         print (e) 
         await message.reply(f"error found \n\n{e}")
+
+# Initialize Telegraph API
+telegraph = Telegraph()
+telegraph.create_account(short_name="autofilter_bot")
+
+# Function to upload image to Telegraph
+def upload_to_telegraph(image_path):
+    with open(image_path, "rb") as f:
+        response = telegraph.upload_file(f)
+    return "https://telegra.ph" + response[0]["src"]
+
+# Handler for /telegraph command (photo upload)
+@Client.on_message(filters.command("telegraph") & filters.photo)
+async def telegraph_handler(client, message):
+    file = message.photo[-1]
+    file_path = f"{file.file_id}.jpg"
+    
+    # Download the image
+    await client.download_media(file, file_path)
+
+    # Upload to Telegraph
+    telegraph_url = upload_to_telegraph(file_path)
+
+    # Delete local file
+    os.remove(file_path)
+
+    # Send the Telegraph link
+    await message.reply_text(f"Your image has been uploaded: {telegraph_url}")
