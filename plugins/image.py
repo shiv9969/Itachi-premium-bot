@@ -1,7 +1,6 @@
 from telegraph import Telegraph
 import os
 from pyrogram import Client, filters
-from plugins.image import telegraph_handler
 
 # Initialize Telegraph API
 telegraph = Telegraph()
