@@ -24,4 +24,11 @@ async def upload_to_telegraph(client, message):
     except Exception as e:
         await message.reply_text(f"❌ Error: {str(e)}")
 
-bot.run()
+import asyncio
+from pyrogram import idle
+
+async def main():
+    await bot.start()
+    await idle()  # Keeps the bot running
+
+asyncio.run(main())
