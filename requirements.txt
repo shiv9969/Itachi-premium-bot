@@ -18,7 +18,6 @@ shortzy
 aiofiles
 pyromod==1.5
 
-telegraph
 openai
 
 jinja2
