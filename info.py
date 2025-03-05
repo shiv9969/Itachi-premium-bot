@@ -89,10 +89,10 @@ VERIFY2_URL = environ.get('VERIFY2_URL', "adlinkfly.in")
 VERIFY2_API = environ.get('VERIFY2_API', "728ac8e235b7da546190c8a97c73ddedcd8e27cf")
 
 DELETE_CHANNELS = [int(dch) if id_pattern.search(dch) else dch for dch in environ.get('DELETE_CHANNELS', '0').split()]
-MAX_B_TN = environ.get("MAX_B_TN", "5")
-MAX_BTN = is_enabled((environ.get('MAX_BTN', "False")), False)
+MAX_B_TN = environ.get("MAX_B_TN", "10")
+MAX_BTN = is_enabled((environ.get('MAX_BTN', "True")), True)
 PORT = environ.get("PORT", "8080")
-GRP_LNK = environ.get('GRP_LNK', 'https://t.me/REQUESTING_MOVIES_SERIES_GROUPS')
+GRP_LNK = environ.get('GRP_LNK', 'https://t.me/BoB_AreA')
 CHNL_LNK = environ.get('CHNL_LNK', 'https://t.me/BoB_Files1')
 MSG_ALRT = environ.get('MSG_ALRT', 'Created By : BoB Files ❤️')
 LOG_CHANNEL = int(environ.get('LOG_CHANNEL',  -1001844691460))
@@ -104,13 +104,13 @@ AUTO_DELETE = is_enabled((environ.get('AUTO_DELETE', "True")), True)
 
 #############
 
-PM_FILTER = is_enabled((environ.get('PM_FILTER', "True")), True)
+PM_FILTER = is_enabled((environ.get('PM_FILTER', "False")), False)
 
 #################
 
 TUTORIAL = environ.get('TUTORIAL', 'https://t.me/kaisekhole/11')
 IS_TUTORIAL = bool(environ.get('IS_TUTORIAL', True))
-SINGLE_BUTTON = is_enabled((environ.get('SINGLE_BUTTON', "True")), True)
+SINGLE_BUTTON = is_enabled((environ.get('SINGLE_BUTTON', "False")), False)
 CUSTOM_FILE_CAPTION = environ.get("CUSTOM_FILE_CAPTION", f"{script.CAPTION}")
 BATCH_FILE_CAPTION = environ.get("BATCH_FILE_CAPTION", CUSTOM_FILE_CAPTION)
 IMDB_TEMPLATE = environ.get("IMDB_TEMPLATE", f"{script.IMDB_TEMPLATE_TXT}")
