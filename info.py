@@ -110,7 +110,7 @@ PM_FILTER = is_enabled((environ.get('PM_FILTER', "False")), False)
 
 TUTORIAL = environ.get('TUTORIAL', 'https://t.me/kaisekhole/11')
 IS_TUTORIAL = bool(environ.get('IS_TUTORIAL', True))
-SINGLE_BUTTON = is_enabled((environ.get('SINGLE_BUTTON', "False")), False)
+SINGLE_BUTTON = is_enabled((environ.get('SINGLE_BUTTON', "True")), True)
 CUSTOM_FILE_CAPTION = environ.get("CUSTOM_FILE_CAPTION", f"{script.CAPTION}")
 BATCH_FILE_CAPTION = environ.get("BATCH_FILE_CAPTION", CUSTOM_FILE_CAPTION)
 IMDB_TEMPLATE = environ.get("IMDB_TEMPLATE", f"{script.IMDB_TEMPLATE_TXT}")
