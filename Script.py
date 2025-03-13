@@ -338,7 +338,7 @@ Aᴠᴀɪʟᴀʙʟᴇ ᴄᴏᴍᴍᴀɴᴅs:
     PREPLANS_TXT = """<b>
         <a href='https://graph.org/The-Happy-Hour-12-22-2'>💥 ᴘʀᴇᴍɪᴜᴍ ᴘʀɪᴄᴇ 💥
         
-1 Wᴇᴇᴋ = 50 Rs
+1 Wᴇᴇᴋ = 30 Rs
 1 Mᴏɴᴛʜ = 60 Rs
 2 Mᴏɴᴛʜ = 100 Rs
 
