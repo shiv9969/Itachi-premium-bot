@@ -104,7 +104,7 @@ AUTO_DELETE = is_enabled((environ.get('AUTO_DELETE', "True")), True)
 
 #############
 
-PM_FILTER = is_enabled((environ.get('PM_FILTER', "False")), False)
+PM_FILTER = is_enabled((environ.get('PM_FILTER', "True")), True)
 
 #################
 
