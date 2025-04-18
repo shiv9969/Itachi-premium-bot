@@ -12,6 +12,7 @@ class Database:
         self.col = self.db.users
         self.grp = self.db.groups
         self.users = self.db.uersz
+        self.silentxbotz = self.db.joinreq
 
         
     def new_user(self, id, name):
@@ -33,7 +34,16 @@ class Database:
                 reason="",
             ),
         )
-    
+
+    async def find_join_req(self, id, channel_id):
+        return bool(await self.silentxbotz.find_one({'id': id, 'channel_id': channel_id}))
+        
+    async def add_join_req(self, id, channel_id):
+        await self.silentxbotz.insert_one({'id': id, , 'channel_id': channel_id})
+        
+    async def del_join_req(self):
+        await self.silentxbotz.drop()
+        
     async def update_verification(self, id, date, time):
         status = {
             'date': str(date),
