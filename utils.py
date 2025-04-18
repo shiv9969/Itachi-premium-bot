@@ -117,9 +117,9 @@ async def get_seconds(time_string):
 async def is_subscribed(bot, query=None, userid=None):
     try:
         if userid == None and query != None:
-            user = await bot.get_chat_member(AUTH_CHANNEL, query.from_user.id)
+            user = await bot.get_chat_member(AUTH_CHANNEL1 and AUTH_CHANNEL2, query.from_user.id)
         else:
-            user = await bot.get_chat_member(AUTH_CHANNEL, int(userid))
+            user = await bot.get_chat_member(AUTH_CHANNEL1 and AUTH_CHANNEL2, int(userid))
     except UserNotParticipant:
         pass
     except Exception as e:
