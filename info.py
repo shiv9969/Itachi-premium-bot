@@ -34,9 +34,11 @@ OWNER_USER_NAME = environ.get("OWNER_USER_NAME", "Assaulter_shiv") # widout 👉
 CHANNELS = [int(ch) if id_pattern.search(ch) else ch for ch in environ.get('CHANNELS', '-1001971879597 -1001882174994').split()]
 auth_users = [int(user) if id_pattern.search(user) else user for user in environ.get('AUTH_USERS', '').split()]
 AUTH_USERS = (auth_users + ADMINS) if auth_users else []
-auth_channel = environ.get('AUTH_CHANNEL', '-1002077157127')
+auth_channel1 = environ.get('AUTH_CHANNEL1', '-1002077157127')
+auth_channel2 = environ.get('AUTH_CHANNEL2', '-100')
 auth_grp = environ.get('AUTH_GROUP', '-1002280359378')
-AUTH_CHANNEL = int(auth_channel) if auth_channel and id_pattern.search(auth_channel) else None
+AUTH_CHANNEL1 = int(auth_channel1) if auth_channel1 and id_pattern.search(auth_channel1) else None
+AUTH_CHANNEL2 = int(auth_channel2) if auth_channel2 and id_pattern.search(auth_channel2) else None
 AUTH_GROUPS = [int(ch) for ch in auth_grp.split()] if auth_grp else None
 support_chat_id = environ.get('SUPPORT_CHAT_ID')
 
