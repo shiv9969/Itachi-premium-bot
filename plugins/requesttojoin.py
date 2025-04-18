@@ -5,8 +5,9 @@ from info import *
 
 @Client.on_chat_join_request(filters.chat(AUTH_CHANNEL1) | filters.chat(AUTH_CHANNEL2))
 async def join_reqs(client, message: ChatJoinRequest):
-  if not await db.find_join_req(message.from_user.id):
-    await db.add_join_req(message.from_user.id, int(message.chat.id))
+  channel_id = message.chat.id
+  if not await db.find_join_req(message.from_user.id, int(channel_id)):
+    await db.add_join_req(message.from_user.id, int(channel_id))
 
 @Client.on_message(filters.command("delreq") & filters.private & filters.user(ADMINS))
 async def del_requests(client, message):
