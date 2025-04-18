@@ -116,13 +116,12 @@ async def start(client, message):
             return
         if AUTH_CHANNEL1 and AUTH_CHANNEL2 and not await is_subscribed(client, message):
              try:
-                 invite_link1 = await client.create_chat_invite_link(int(AUTH_CHANNEL1))
-                 invite_link2 = await client.create_chat_invite_link(int(AUTH_CHANNEL2))
+                 invite_link1 = await client.create_chat_invite_link(int(AUTH_CHANNEL1), creates_join_request=True)
+                 invite_link2 = await client.create_chat_invite_link(int(AUTH_CHANNEL2), creates_join_request=True)
              except ChatAdminRequired:
                  logger.error("Mᴀᴋᴇ sᴜʀᴇ Bᴏᴛ ɪs ᴀᴅᴍɪɴ ɪɴ Fᴏʀᴄᴇsᴜʙ ᴄʜᴀɴɴᴇʟ")
                  return
-            btn = [[
-            
+            btn = [[            
                 InlineKeyboardButton("Backup Channel", url=invite_link1.invite_link),
                 InlineKeyboardButton("Update Channel", url=invite_link2.invite_link')
               ]]
