@@ -114,12 +114,11 @@ async def get_seconds(time_string):
     else:
         return 0
         
-async def is_subscribed(bot, query=None, userid=None):
+async def is_subscribed(bot, query):
+    if await db.find_join_req(query.from_user.id):
+        return True
     try:
-        if userid == None and query != None:
-            user = await bot.get_chat_member(AUTH_CHANNEL1 and AUTH_CHANNEL2, query.from_user.id)
-        else:
-            user = await bot.get_chat_member(AUTH_CHANNEL1 and AUTH_CHANNEL2, int(userid))
+        user = await bot.get_chat_member(AUTH_CHANNEL1 and AUTH_CHANNEL2, query.from_user.id)
     except UserNotParticipant:
         pass
     except Exception as e:
@@ -127,9 +126,8 @@ async def is_subscribed(bot, query=None, userid=None):
     else:
         if user.status != enums.ChatMemberStatus.BANNED:
             return True
-
     return False
-
+    
 async def get_poster(query, bulk=False, id=False, file=None):
     if not id:
         # https://t.me/GetTGLink/4183
