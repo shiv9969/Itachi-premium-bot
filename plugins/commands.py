@@ -114,14 +114,17 @@ async def start(client, message):
                 parse_mode=enums.ParseMode.HTML
             )
             return
-        if AUTH_CHANNEL and not await is_subscribed(client, message):
-            # try:
-            #     invite_link = await client.create_chat_invite_link(int(AUTH_CHANNEL))
-            # except ChatAdminRequired:
-            #     logger.error("Mᴀᴋᴇ sᴜʀᴇ Bᴏᴛ ɪs ᴀᴅᴍɪɴ ɪɴ Fᴏʀᴄᴇsᴜʙ ᴄʜᴀɴɴᴇʟ")
-            #     return
+        if AUTH_CHANNEL1 and AUTH_CHANNEL2 and not await is_subscribed(client, message):
+             try:
+                 invite_link1 = await client.create_chat_invite_link(int(AUTH_CHANNEL1))
+                 invite_link2 = await client.create_chat_invite_link(int(AUTH_CHANNEL2))
+             except ChatAdminRequired:
+                 logger.error("Mᴀᴋᴇ sᴜʀᴇ Bᴏᴛ ɪs ᴀᴅᴍɪɴ ɪɴ Fᴏʀᴄᴇsᴜʙ ᴄʜᴀɴɴᴇʟ")
+                 return
             btn = [[
-                InlineKeyboardButton("Cʜᴀɴɴᴇʟ 1", url=f't.me/BoB_Files1')
+            
+                InlineKeyboardButton("Backup Channel", url=invite_link1.invite_link),
+                InlineKeyboardButton("Update Channel", url=invite_link2.invite_link')
               ]]
     
             if message.command[1] != "subscribe":
