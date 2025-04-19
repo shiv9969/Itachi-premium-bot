@@ -39,7 +39,7 @@ class Database:
         return bool(await self.silentxbotz.find_one({'id': id, 'channel_id': channel_id}))
         
     async def add_join_req(self, id, channel_id):
-        await self.silentxbotz.insert_one({'id': id, , 'channel_id': channel_id})
+        await self.silentxbotz.insert_one({'id': id, 'channel_id': channel_id})
         
     async def del_join_req(self):
         await self.silentxbotz.drop()
