@@ -995,7 +995,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
             f_caption = f"{' '.join(filter(lambda x: not x.startswith('[') and not x.startswith('Linkz') and not x.startswith('{') and not x.startswith('Links') and not x.startswith('@') and not x.startswith('www'), files.file_name.split()))},"
 
         try:
-            if AUTH_CHANNEL and not await is_subscribed(client, query):
+            if AUTH_CHANNEL1 and AUTH_CHANNEL2 and not await is_subscribed(client, query):
                 if clicked == typed:
                     await query.answer(url=f"https://t.me/{temp.U_NAME}?start={ident}_{file_id}")
                     return
@@ -1091,7 +1091,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
             
             
     elif query.data.startswith("checksub"):
-        if AUTH_CHANNEL and not await is_subscribed(client, query):
+        if AUTH_CHANNEL1 and AUTH_CHANNEL2 and not await is_subscribed(client, query):
             await query.answer("Jᴏɪɴ ᴏᴜʀ Bᴀᴄᴋ-ᴜᴘ ᴄʜᴀɴɴᴇʟ ᴍᴀʜɴ! 😒", show_alert=True)
             return
         ident, file_id = query.data.split("#")
