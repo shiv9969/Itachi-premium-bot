@@ -1,4 +1,4 @@
-import os
+moimport os
 import sys
 import logging
 import random
@@ -115,30 +115,32 @@ async def start(client, message):
             )
             return
         if AUTH_CHANNEL1 and AUTH_CHANNEL2 and not await is_subscribed(client, message):
-             try:
-                 invite_link1 = await client.create_chat_invite_link(int(AUTH_CHANNEL1), creates_join_request=True)
-                 invite_link2 = await client.create_chat_invite_link(int(AUTH_CHANNEL2), creates_join_request=True)
-             except ChatAdminRequired:
-                 logger.error("Mᴀᴋᴇ sᴜʀᴇ Bᴏᴛ ɪs ᴀᴅᴍɪɴ ɪɴ Fᴏʀᴄᴇsᴜʙ ᴄʜᴀɴɴᴇʟ")
-                 return
-            btn = [[            
-                InlineKeyboardButton("Backup Channel", url=invite_link1.invite_link),
-                InlineKeyboardButton("Update Channel", url=invite_link2.invite_link')
-              ]]
-    
-            if message.command[1] != "subscribe":
+            try:
+                invite_link1 = await client.create_chat_invite_link(int(AUTH_CHANNEL1), creates_join_request=True)
+                invite_link2 = await client.create_chat_invite_link(int(AUTH_CHANNEL2), creates_join_request=True)
+            except ChatAdminRequired:
+                logger.error("Make sure the bot is admin in the ForceSub channels.")
+                return
+            btn = [
+                [                
+                    InlineKeyboardButton("Backup Channel", url=invite_link1.invite_link),
+                    InlineKeyboardButton("Update Channel", url=invite_link2.invite_link)
+                ]
+            ]          
+            if len(message.command) > 1 and message.command[1] != "subscribe":
                 try:
                     kk, file_id = message.command[1].split("_", 1)
-                    pre = 'checksubp' if kk == 'filep' else 'checksub' 
-                    btn.append([InlineKeyboardButton("↻ Tʀʏ Aɢᴀɪɴ", url=f"https://t.me/{temp.U_NAME}?start={message.command[1]}")])
+                    pre = 'checksubp' if kk == 'filep' else 'checksub'
+                    btn.append([InlineKeyboardButton("↻ Try Again", url=f"https://t.me/{temp.U_NAME}?start={message.command[1]}")])
                 except (IndexError, ValueError):
-                    btn.append([InlineKeyboardButton("↻ Tʀʏ Aɢᴀɪɴ", url=f"https://t.me/{temp.U_NAME}?start={message.command[1]}")])
+                    btn.append([InlineKeyboardButton("↻ Try Again", url=f"https://t.me/{temp.U_NAME}?start={message.command[1]}")])
+                    
             await client.send_message(
                 chat_id=message.from_user.id,
                 text="**Yᴏᴜ ᴀʀᴇ ɴᴏᴛ ɪɴ ᴏᴜʀ Bᴀᴄᴋ-ᴜᴘ ᴄʜᴀɴɴᴇʟ ɢɪᴠᴇɴ ʙᴇʟᴏᴡ sᴏ ʏᴏᴜ ᴅᴏɴ'ᴛ ɢᴇᴛ ᴛʜᴇ ᴍᴏᴠɪᴇ ғɪʟᴇ, ᴘʟᴇᴀꜱᴇ ᴊᴏɪɴ ᴀɴᴅ ᴍᴏᴠɪᴇ ғɪʟᴇ...✅**",
                 reply_markup=InlineKeyboardMarkup(btn),
                 parse_mode=enums.ParseMode.MARKDOWN
-                )
+            )
             return
         if len(message.command) == 2 and message.command[1] in ["subscribe", "error", "okay", "help"]:
             buttons = [[
