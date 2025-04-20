@@ -1,4 +1,4 @@
-moimport os
+import os
 import sys
 import logging
 import random
