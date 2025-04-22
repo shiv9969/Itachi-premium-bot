@@ -115,14 +115,13 @@ async def get_seconds(time_string):
         return 0
 
 
-async def is_subscribed(bot, query):
-    user_id = query.from_user.id
+async def is_subscribed(bot, query):     
     channels = [int(AUTH_CHANNEL1), int(AUTH_CHANNEL2)]
     for channel in channels:
-        if await db.find_join_req(user_id, channel):
+        if await db.find_join_req(query.from_user.id, channel):
             continue
         try:
-            member = await bot.get_chat_member(channel, user_id)
+            member = await bot.get_chat_member(channel, query.from_user.id)
         except UserNotParticipant:
             return False
         except Exception as e:
