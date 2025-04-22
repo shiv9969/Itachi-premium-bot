@@ -118,6 +118,9 @@ async def get_seconds(time_string):
 async def is_subscribed(bot, query):     
     channels = [int(AUTH_CHANNEL1), int(AUTH_CHANNEL2)]
     for channel in channels:
+        # If it's a join-request channel and the user already requested to join, skip check
+        if await db.find_join_req(query.from_user.id, channel):
+            continue
         try:
             member = await bot.get_chat_member(channel, query.from_user.id)
         except UserNotParticipant:
@@ -126,9 +129,10 @@ async def is_subscribed(bot, query):
             logger.exception(e)
             return False
         else:
-            if member.status == enums.ChatMemberStatus.BANNED or member.status == enums.ChatMemberStatus.LEFT:
+            if member.status in [enums.ChatMemberStatus.BANNED, enums.ChatMemberStatus.LEFT]:
                 return False 
     return True
+
 
     
 async def get_poster(query, bulk=False, id=False, file=None):
