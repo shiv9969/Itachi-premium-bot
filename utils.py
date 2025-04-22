@@ -115,22 +115,25 @@ async def get_seconds(time_string):
         return 0
 
 
-async def is_subscribed(bot, query):     
+async def is_subscribed(bot, query):
     channels = [int(AUTH_CHANNEL1), int(AUTH_CHANNEL2)]
     for channel in channels:
-        # If it's a join-request channel and the user already requested to join, skip check
-        if await db.find_join_req(query.from_user.id, channel):
-            continue
         try:
+            # Check join request in DB (optional logic — customize if needed)
+            if await db.find_join_req(query.from_user.id, channel):
+                continue
             member = await bot.get_chat_member(channel, query.from_user.id)
+            if member.status in [enums.ChatMemberStatus.MEMBER, enums.ChatMemberStatus.RESTRICTED, enums.ChatMemberStatus.OWNER, enums.ChatMemberStatus.ADMINISTRATOR]:
+                continue
+            if member.status == enums.ChatMemberStatus.BANNED:
+                return False
+            # If left or status unknown
+            return False
         except UserNotParticipant:
             return False
         except Exception as e:
-            logger.exception(e)
+            logger.warning(f"Check failed for channel {channel}: {e}")
             return False
-        else:
-            if member.status in [enums.ChatMemberStatus.BANNED, enums.ChatMemberStatus.LEFT]:
-                return False 
     return True
 
 
