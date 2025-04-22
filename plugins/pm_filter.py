@@ -84,7 +84,7 @@ async def stream_download(bot, query):
                              ]]))
                         
 @Client.on_message(filters.private & filters.command("streem"))
-async def stream(bot, message):
+async def streem(bot, message):
     reply_message = message.reply_to_message
     user_id = message.from_user.id
     user_name =  message.from_user.mention 
