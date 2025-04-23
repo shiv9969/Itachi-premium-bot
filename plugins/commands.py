@@ -114,34 +114,43 @@ async def start(client, message):
                 parse_mode=enums.ParseMode.HTML
             )
             return
-        if AUTH_CHANNEL1 and AUTH_CHANNEL2 and not await is_subscribed(client, message):
+      if AUTH_CHANNEL1 and AUTH_CHANNEL2 and not await is_subscribed(client, message):
+    try:
+        # Check subscriptions separately
+        is_sub1 = await is_user_subscribed(client, message.from_user.id, int(AUTH_CHANNEL1))
+        is_sub2 = await is_user_subscribed(client, message.from_user.id, int(AUTH_CHANNEL2))
+
+        # Generate invite links only for unsubscribed channels
+        btn = []
+        if not is_sub1:
+            invite_link1 = await client.create_chat_invite_link(int(AUTH_CHANNEL1), creates_join_request=True)
+            btn.append([InlineKeyboardButton("Backup Channel", url=invite_link1.invite_link)])
+        if not is_sub2:
+            invite_link2 = await client.create_chat_invite_link(int(AUTH_CHANNEL2), creates_join_request=True)
+            btn.append([InlineKeyboardButton("Update Channel", url=invite_link2.invite_link)])
+
+        # Retry button logic
+        if len(message.command) > 1 and message.command[1] != "subscribe":
             try:
-                invite_link1 = await client.create_chat_invite_link(int(AUTH_CHANNEL1), creates_join_request=True)
-                invite_link2 = await client.create_chat_invite_link(int(AUTH_CHANNEL2), creates_join_request=True)
-            except ChatAdminRequired:
-                logger.error("Make sure the bot is admin in the ForceSub channels.")
-                return
-            btn = [
-                [                
-                    InlineKeyboardButton("Backup Channel", url=invite_link1.invite_link),
-                    InlineKeyboardButton("Update Channel", url=invite_link2.invite_link)
-                ]
-            ]          
-            if len(message.command) > 1 and message.command[1] != "subscribe":
-                try:
-                    kk, file_id = message.command[1].split("_", 1)
-                    pre = 'checksubp' if kk == 'filep' else 'checksub'
-                    btn.append([InlineKeyboardButton("↻ Try Again", url=f"https://t.me/{temp.U_NAME}?start={message.command[1]}")])
-                except (IndexError, ValueError):
-                    btn.append([InlineKeyboardButton("↻ Try Again", url=f"https://t.me/{temp.U_NAME}?start={message.command[1]}")])
-                    
-            await client.send_message(
-                chat_id=message.from_user.id,
-                text="**Yᴏᴜ ᴀʀᴇ ɴᴏᴛ ɪɴ ᴏᴜʀ Bᴀᴄᴋ-ᴜᴘ ᴄʜᴀɴɴᴇʟ ɢɪᴠᴇɴ ʙᴇʟᴏᴡ sᴏ ʏᴏᴜ ᴅᴏɴ'ᴛ ɢᴇᴛ ᴛʜᴇ ᴍᴏᴠɪᴇ ғɪʟᴇ, ᴘʟᴇᴀꜱᴇ ᴊᴏɪɴ ᴀɴᴅ ᴍᴏᴠɪᴇ ғɪʟᴇ...✅**",
-                reply_markup=InlineKeyboardMarkup(btn),
-                parse_mode=enums.ParseMode.MARKDOWN
-            )
-            return
+                kk, file_id = message.command[1].split("_", 1)
+                retry_url = f"https://t.me/{temp.U_NAME}?start={message.command[1]}"
+                btn.append([InlineKeyboardButton("↻ Try Again", url=retry_url)])
+            except (IndexError, ValueError):
+                retry_url = f"https://t.me/{temp.U_NAME}?start={message.command[1]}"
+                btn.append([InlineKeyboardButton("↻ Try Again", url=retry_url)])
+
+        await client.send_message(
+            chat_id=message.from_user.id,
+            text="**To get the movie file, please join the required channel(s) below and click 'Try Again'. ✅**",
+            reply_markup=InlineKeyboardMarkup(btn),
+            parse_mode=enums.ParseMode.MARKDOWN
+        )
+        return
+
+    except ChatAdminRequired:
+        logger.error("Make sure the bot is admin in the ForceSub channels.")
+        return
+
         if len(message.command) == 2 and message.command[1] in ["subscribe", "error", "okay", "help"]:
             buttons = [[
                         InlineKeyboardButton('☆ ᴀᴅᴅ ᴍᴇ ᴛᴏ ʏᴏᴜʀ ɢʀᴏᴜᴘ ☆', url=f'http://telegram.me/{temp.U_NAME}?startgroup=true')
