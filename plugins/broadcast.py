@@ -1,57 +1,70 @@
 from pyrogram import Client, filters
-from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
+import datetime
+import time
+from database.users_chats_db import db
+from info import ADMINS
+from utils import broadcast_messages
 import asyncio
-import re
-from database.broadcast_db import get_all_users  # <- Add this
 
-OWNER_ID = 1525203313  # 🔁 Replace this with your actual Telegram user ID
+BATCH_SIZE = 50  # You can tune this for better speed vs stability
 
-# Temporary storage for message flow
-broadcast_session = {}
+@Client.on_message(filters.command("broadcast") & filters.user(ADMINS) & filters.reply)
+async def verupikkals(bot, message):
+    users_cursor = await db.get_all_users()
+    b_msg = message.reply_to_message
+    sts = await message.reply_text("Broadcasting your messages...")
 
-@Client.on_message(filters.command("broadcast") & filters.user(OWNER_ID))
-async def broadcast_entry(client, message):
-    broadcast_session[message.from_user.id] = {"step": 1}
-    await message.reply(
-        """📝 Send the message you want to broadcast.\n\n"
-        "You can add buttons like this:\n\n"
-        "**Example:**\n"
-        "🔥 Update is live!\n\n"
-        "〽️Button〽️https://example.com〽️Another〽️https://another.com"""
-    )
+    start_time = time.time()
+    total_users = await db.total_users_count()
+    done = success = blocked = deleted = failed = 0
+    batch = []
 
-@Client.on_message(filters.text & filters.user(OWNER_ID))
-async def handle_broadcast_flow(client, message):
-    session = broadcast_session.get(message.from_user.id)
-    if not session or session.get("step") != 1:
-        return
+    async for user in users_cursor:
+        batch.append(user)
+        if len(batch) >= BATCH_SIZE:
+            results = await asyncio.gather(*[
+                broadcast_messages(int(u['id']), b_msg) for u in batch
+            ])
+            for pti, reason in results:
+                done += 1
+                if pti:
+                    success += 1
+                else:
+                    if reason == "Blocked":
+                        blocked += 1
+                    elif reason == "Deleted":
+                        deleted += 1
+                    else:
+                        failed += 1
+            batch.clear()
 
-    broadcast_session.pop(message.from_user.id)
-
-    text = message.text
-    # Parse custom buttons using pattern: 〽️Text〽️URL
-    button_matches = re.findall(r"〽️(.*?)〽️(https?://[^\s]+)", text)
-    buttons = []
-
-    if button_matches:
-        for btn_text, url in button_matches:
-            buttons.append(InlineKeyboardButton(btn_text.strip(), url=url.strip()))
-        # Clean buttons markup from message text
-        text = re.sub(r"〽️(.*?)〽️(https?://[^\s]+)", "", text).strip()
-
-    markup = InlineKeyboardMarkup([buttons]) if buttons else None
-
-    await message.reply("📡 Broadcasting...")
-
-    # Get all users from MongoDB
-    async for user in get_all_users():
-        try:
-            await client.send_message(
-                chat_id=user["_id"],
-                text=text,
-                reply_markup=markup
+            await sts.edit(
+                f"📢 Broadcasting...\n\n"
+                f"👥 Total Users: {total_users}\n"
+                f"✅ Sent: {success}\n⛔ Blocked: {blocked}\n❌ Deleted: {deleted}\n⚠️ Failed: {failed}\n"
+                f"📦 Progress: {done}/{total_users}"
             )
-        except Exception as e:
-            print(f"❌ Failed to send to {user['_id']}: {e}")
 
-    await message.reply("✅ Broadcast sent!") 
+    # Final batch
+    if batch:
+        results = await asyncio.gather(*[
+            broadcast_messages(int(u['id']), b_msg) for u in batch
+        ])
+        for pti, reason in results:
+            done += 1
+            if pti:
+                success += 1
+            else:
+                if reason == "Blocked":
+                    blocked += 1
+                elif reason == "Deleted":
+                    deleted += 1
+                else:
+                    failed += 1
+
+    time_taken = datetime.timedelta(seconds=int(time.time() - start_time))
+    await sts.edit(
+        f"✅ Broadcast Completed in {time_taken}.\n\n"
+        f"Total: {total_users}\n"
+        f"✅ Success: {success}\n⛔ Blocked: {blocked}\n❌ Deleted: {deleted}\n⚠️ Failed: {failed}"
+    )
