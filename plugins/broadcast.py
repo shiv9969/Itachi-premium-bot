@@ -11,13 +11,13 @@ broadcast_session = {}
 @Client.on_message(filters.command("broadcast") & filters.user(OWNER_ID))
 async def broadcast_entry(client, message):
     broadcast_session[message.from_user.id] = {"step": 1}
-    await message.reply("📝 Send the message you want to broadcast.")
+    await message.reply("""📝 Send the message you want to broadcast.
 
 You can add buttons like this:
 
 Hello!
 
-[Button1](https://example.com) [Button2](https://example2.com)")
+[Button1](https://example.com) [Button2](https://example2.com)""")
 
 @Client.on_message(filters.text & filters.user(OWNER_ID))
 async def handle_broadcast_flow(client, message):
