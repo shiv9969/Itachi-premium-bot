@@ -1,4 +1,4 @@
-from pyrogram import Client, InlineKeyboardButton, InlineKeyboardMarkup
+from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 import asyncio
 import time
 from database.users_chats_db import db
