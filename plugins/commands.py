@@ -114,30 +114,38 @@ async def start(client, message):
                 parse_mode=enums.ParseMode.HTML
             )
             return
-     if AUTH_CHANNEL1 and AUTH_CHANNEL2 and not await is_subscribed(client, message):
-    try:
-        is_sub1 = await is_user_subscribed(client, message.from_user.id, int(AUTH_CHANNEL1))
-        is_sub2 = await is_user_subscribed(client, message.from_user.id, int(AUTH_CHANNEL2))
+        if AUTH_CHANNEL1 and AUTH_CHANNEL2:
+        try:
+            is_sub1 = await is_user_subscribed(client, message.from_user.id, int(AUTH_CHANNEL1))
+            is_sub2 = await is_user_subscribed(client, message.from_user.id, int(AUTH_CHANNEL2))
 
-        btn = []
-        if not is_sub1:
-            invite_link1 = await client.create_chat_invite_link(int(AUTH_CHANNEL1), creates_join_request=True)
-            btn.append([InlineKeyboardButton("Backup Channel", url=invite_link1.invite_link)])
-        if not is_sub2:
-            invite_link2 = await client.create_chat_invite_link(int(AUTH_CHANNEL2), creates_join_request=True)
-            btn.append([InlineKeyboardButton("Update Channel", url=invite_link2.invite_link)])
+            if is_sub1 and is_sub2:
+                pass  # User already subscribed to both, nothing to do
+            else:
+                btn = []
+                if not is_sub1:
+                    invite_link1 = await client.create_chat_invite_link(int(AUTH_CHANNEL1), creates_join_request=True)
+                    btn.append([InlineKeyboardButton("📡 Backup Channel", url=invite_link1.invite_link)])
 
-        if len(message.command) > 1 and message.command[1] != "subscribe":
-            retry_url = f"https://t.me/{temp.U_NAME}?start={message.command[1]}"
-            btn.append([InlineKeyboardButton("↻ Try Again", url=retry_url)])
+                if not is_sub2:
+                    invite_link2 = await client.create_chat_invite_link(int(AUTH_CHANNEL2), creates_join_request=True)
+                    btn.append([InlineKeyboardButton("🛠 Update Channel", url=invite_link2.invite_link)])
 
-        await client.send_message(
-            chat_id=message.from_user.id,
-            text="**To get the movie file, please join the required channel(s) below and click 'Try Again'. ✅**",
-            reply_markup=InlineKeyboardMarkup(btn),
-            parse_mode=enums.ParseMode.MARKDOWN
-        )
-        return
+                if len(message.command) > 1 and message.command[1] != "subscribe":
+                    retry_url = f"https://t.me/{temp.U_NAME}?start={message.command[1]}"
+                    btn.append([InlineKeyboardButton("↻ Try Again", url=retry_url)])
+
+                await client.send_message(
+                    chat_id=message.from_user.id,
+                    text="**🚫 To access the file, please join the required channel(s) below and try again. ✅**",
+                    reply_markup=InlineKeyboardMarkup(btn),
+                    parse_mode=enums.ParseMode.MARKDOWN
+                )
+                return
+
+        except ChatAdminRequired:
+            logger.error("❗ Make sure the bot is admin in the ForceSub channels.")
+            return
 
     except ChatAdminRequired:
         logger.error("Make sure the bot is admin in the ForceSub channels.")
