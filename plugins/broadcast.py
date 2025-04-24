@@ -1,6 +1,6 @@
 from pyrogram import filters
 from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton, Message
-from config import ADMINS
+from info import ADMINS
 from SafariBot import SafariBot
 from SafariBot.database.broadcast import get_all_users
 from SafariBot.database.users import add_user
