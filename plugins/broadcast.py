@@ -6,9 +6,22 @@ import time
 
 from database.users_chats_db import db
 from info import ADMINS
-from utils import broadcast_messages
 
 user_broadcast_sessions = {}
+
+# ✅ This function handles broadcasting to each user and preserves buttons/markdown
+async def broadcast_messages(user_id, message):
+    try:
+        await message.copy(chat_id=user_id)  # 🔥 Buttons, media, markdown sab preserve hota hai
+        return True, None
+    except Exception as e:
+        err_text = str(e).lower()
+        if "bot was blocked" in err_text:
+            return False, "Blocked"
+        elif "chat not found" in err_text:
+            return False, "Deleted"
+        else:
+            return False, "Error"
 
 @Client.on_message(filters.command("broadcast") & filters.user(ADMINS))
 async def ask_for_broadcast_message(bot, message: Message):
@@ -16,7 +29,7 @@ async def ask_for_broadcast_message(bot, message: Message):
     user_broadcast_sessions[user_id] = {"step": "waiting_for_message"}
     await message.reply_text("📝 Send the message you want to broadcast (markdown/buttons supported).\nSend /cancel to stop.")
 
-@Client.on_message(filters.text & filters.user(ADMINS))
+@Client.on_message(filters.user(ADMINS) & ~filters.command(["cancel"]))
 async def handle_broadcast_message(bot, message: Message):
     user_id = message.from_user.id
     if user_id not in user_broadcast_sessions:
@@ -35,7 +48,7 @@ async def handle_broadcast_message(bot, message: Message):
 
     done = success = blocked = deleted = failed = 0
 
-    semaphore = asyncio.Semaphore(30)  # Control concurrency: 30 at a time
+    semaphore = asyncio.Semaphore(30)  # 30 users at once
 
     async def send_to_user(user):
         nonlocal done, success, blocked, deleted, failed
@@ -57,7 +70,7 @@ async def handle_broadcast_message(bot, message: Message):
     tasks = []
     async for user in users:
         tasks.append(asyncio.create_task(send_to_user(user)))
-        if len(tasks) % 50 == 0:  # Update every 50
+        if len(tasks) % 50 == 0:
             await asyncio.sleep(1)
             await sts.edit(
                 f"📣 Broadcast in progress...\n\n"
