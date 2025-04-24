@@ -1,106 +1,105 @@
-from pyrogram import Client, filters
-from pyrogram.types import Message
+from pyrogram import filters
+from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton, Message
+from config import ADMINS
+from SafariBot import SafariBot
+from SafariBot.database.broadcast import get_all_users
+from SafariBot.database.users import add_user
 import asyncio
-import datetime
-import time
 
-from database.users_chats_db import db
-from info import ADMINS
+broadcast_cancelled = False
 
-user_broadcast_sessions = {}
+@SafariBot.on_message(filters.command("broadcast") & filters.user(ADMINS))
+async def ask_broadcast_type(_, message: Message):
+    keyboard = InlineKeyboardMarkup([
+        [InlineKeyboardButton("Plain Message", callback_data="broadcast_plain")],
+        [InlineKeyboardButton("Message With Button", callback_data="broadcast_button")]
+    ])
+    await message.reply("Select broadcast type:", reply_markup=keyboard)
 
-# ✅ This function handles broadcasting to each user and preserves buttons/markdown
-async def broadcast_messages(user_id, message):
-    try:
-        await message.copy(chat_id=user_id)  # 🔥 Buttons, media, markdown sab preserve hota hai
-        return True, None
-    except Exception as e:
-        err_text = str(e).lower()
-        if "bot was blocked" in err_text:
-            return False, "Blocked"
-        elif "chat not found" in err_text:
-            return False, "Deleted"
-        else:
-            return False, "Error"
+@SafariBot.on_callback_query(filters.user(ADMINS) & filters.regex("broadcast_(plain|button)"))
+async def broadcast_message_input(_, query):
+    broadcast_type = query.data.split("_")[1]
+    await query.message.delete()
+    await query.message.reply(f"Send me the message to broadcast ({'with button' if broadcast_type == 'button' else 'plain'}):")
+    
+    user_id = query.from_user.id
 
-@Client.on_message(filters.command("broadcast") & filters.user(ADMINS))
-async def ask_for_broadcast_message(bot, message: Message):
-    user_id = message.from_user.id
-    user_broadcast_sessions[user_id] = {"step": "waiting_for_message"}
-    await message.reply_text("📝 Send the message you want to broadcast (markdown/buttons supported).\nSend /cancel to stop.")
+    def check(_, m: Message):
+        return m.from_user.id == user_id
 
-@Client.on_message(filters.user(ADMINS) & ~filters.command(["cancel"]))
-async def handle_broadcast_message(bot, message: Message):
-    user_id = message.from_user.id
-    if user_id not in user_broadcast_sessions:
-        return
+    message = await SafariBot.listen(user_id, filters=filters.text, timeout=300)
 
-    session = user_broadcast_sessions[user_id]
-    if session.get("step") != "waiting_for_message":
-        return
+    btn_text, btn_url = None, None
+    if broadcast_type == "button":
+        await message.reply("Now send me the button text and URL in this format:\n\n`Button Text | https://example.com`")
+        button_data = await SafariBot.listen(user_id, filters=filters.text, timeout=300)
+        try:
+            btn_text, btn_url = map(str.strip, button_data.text.split("|", 1))
+        except Exception:
+            return await message.reply("Invalid format. Use `Button Text | https://example.com`")
 
-    broadcast_message = message
-    users = await db.get_all_users()
-    total_users = await db.total_users_count()
-    start_time = time.time()
+    await start_broadcast(message, btn_text, btn_url)
 
-    sts = await message.reply_text("🚀 Broadcasting started (Max Speed Mode)...")
+async def start_broadcast(msg: Message, btn_text=None, btn_url=None):
+    global broadcast_cancelled
+    broadcast_cancelled = False
 
-    done = success = blocked = deleted = failed = 0
+    sts = await msg.reply("📢 Broadcasting...\n\nPlease wait...")
+    users = await get_all_users()
+    total_users = len(users)
 
-    semaphore = asyncio.Semaphore(30)  # 30 users at once
+    done = success = failed = blocked = deleted = 0
 
-    async def send_to_user(user):
-        nonlocal done, success, blocked, deleted, failed
-        async with semaphore:
-            try:
-                pti, sh = await broadcast_messages(int(user["id"]), broadcast_message)
-                if pti:
-                    success += 1
-                elif sh == "Blocked":
-                    blocked += 1
-                elif sh == "Deleted":
-                    deleted += 1
-                elif sh == "Error":
-                    failed += 1
-            except:
+    cancel_keyboard = InlineKeyboardMarkup([[InlineKeyboardButton("Cancel Broadcast", callback_data="cancel_broadcast")]])
+    await sts.edit(
+        f"📢 Broadcasting...\n\n"
+        f"👥 Total Users: {total_users}\n"
+        f"✅ Sent: {success}\n⛔ Blocked: {blocked}\n❌ Deleted: {deleted}\n⚠️ Failed: {failed}\n"
+        f"📦 Progress: {done}/{total_users}",
+        reply_markup=cancel_keyboard
+    )
+
+    for user in users:
+        if broadcast_cancelled:
+            break
+        try:
+            if btn_text and btn_url:
+                reply_markup = InlineKeyboardMarkup([[InlineKeyboardButton(btn_text, url=btn_url)]])
+                await msg.forward(user['user_id'], reply_markup=reply_markup)
+            else:
+                await msg.forward(user['user_id'])
+            success += 1
+        except Exception as e:
+            if "blocked" in str(e):
+                blocked += 1
+            elif "chat not found" in str(e):
+                deleted += 1
+            else:
                 failed += 1
-            done += 1
+        done += 1
 
-    tasks = []
-    async for user in users:
-        tasks.append(asyncio.create_task(send_to_user(user)))
-        if len(tasks) % 50 == 0:
-            await asyncio.sleep(1)
+        if done % 5 == 0:
             await sts.edit(
-                f"📣 Broadcast in progress...\n\n"
+                f"📢 Broadcasting...\n\n"
                 f"👥 Total Users: {total_users}\n"
-                f"✅ Success: {success}\n"
-                f"⛔ Blocked: {blocked}\n"
-                f"🗑️ Deleted: {deleted}\n"
-                f"⚠️ Failed: {failed}\n"
-                f"🧾 Completed: {done} / {total_users}"
+                f"✅ Sent: {success}\n⛔ Blocked: {blocked}\n❌ Deleted: {deleted}\n⚠️ Failed: {failed}\n"
+                f"📦 Progress: {done}/{total_users}",
+                reply_markup=cancel_keyboard
             )
 
-    await asyncio.gather(*tasks)
+        await asyncio.sleep(0.1)
 
-    time_taken = datetime.timedelta(seconds=int(time.time() - start_time))
-    await sts.edit(
-        f"✅ Broadcast Completed!\n\n"
-        f"⏱ Time: {time_taken}\n"
-        f"👥 Total Users: {total_users}\n"
-        f"✅ Success: {success}\n"
-        f"⛔ Blocked: {blocked}\n"
-        f"🗑️ Deleted: {deleted}\n"
-        f"⚠️ Failed: {failed}"
-    )
-    user_broadcast_sessions.pop(user_id, None)
-
-@Client.on_message(filters.command("cancel") & filters.user(ADMINS))
-async def cancel_broadcast(bot, message):
-    user_id = message.from_user.id
-    if user_id in user_broadcast_sessions:
-        user_broadcast_sessions.pop(user_id)
-        await message.reply_text("❌ Broadcast cancelled.")
+    if broadcast_cancelled:
+        await sts.edit("❌ Broadcast cancelled!")
     else:
-        await message.reply_text("❌ You have no active broadcast.")
+        await sts.edit(
+            f"✅ Broadcast complete!\n\n"
+            f"👥 Total Users: {total_users}\n"
+            f"✅ Sent: {success}\n⛔ Blocked: {blocked}\n❌ Deleted: {deleted}\n⚠️ Failed: {failed}"
+        )
+
+@SafariBot.on_callback_query(filters.user(ADMINS) & filters.regex("cancel_broadcast"))
+async def cancel_broadcast_handler(_, query):
+    global broadcast_cancelled
+    broadcast_cancelled = True
+    await query.answer("Broadcast cancelled!", show_alert=True)
