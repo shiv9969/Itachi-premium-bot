@@ -1,132 +1,93 @@
 from pyrogram import Client, filters
-from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
+from pyrogram.types import Message
+import asyncio
 import datetime
 import time
+
 from database.users_chats_db import db
 from info import ADMINS
 from utils import broadcast_messages
-import asyncio
-import re
 
-BATCH_SIZE = 50
-ongoing_broadcast = {"cancel": False}
-
-# Function to parse inline button and clean message text
-def parse_buttons_and_clean_text(text):
-    pattern = r"\[([^\[]+)\]\((https?://[^\)]+)\)"
-    matches = re.findall(pattern, text)
-
-    # Clean the text by removing markdown
-    cleaned_text = re.sub(pattern, '', text).strip()
-    if not matches:
-        return None, cleaned_text
-
-    buttons = InlineKeyboardMarkup([[InlineKeyboardButton(txt, url=url)] for txt, url in matches])
-    return buttons, cleaned_text
-
+user_broadcast_sessions = {}
 
 @Client.on_message(filters.command("broadcast") & filters.user(ADMINS))
-async def ask_for_broadcast(bot, message):
-    await message.reply("Please send the message you want to broadcast (with optional [Text](URL) for button):")
-    # Set a flag or store message.user_id if needed for multi-admin
+async def ask_for_broadcast_message(bot, message: Message):
+    user_id = message.from_user.id
+    user_broadcast_sessions[user_id] = {"step": "waiting_for_message"}
+    await message.reply_text("📝 Send the message you want to broadcast (markdown/buttons supported).\nSend /cancel to stop.")
 
+@Client.on_message(filters.text & filters.user(ADMINS))
+async def handle_broadcast_message(bot, message: Message):
+    user_id = message.from_user.id
+    if user_id not in user_broadcast_sessions:
+        return
 
-@Client.on_message(filters.user(ADMINS) & filters.reply)
-async def broadcast(bot, message):
-    if message.reply_to_message:
-        return  # Avoid recursion with replied messages
+    session = user_broadcast_sessions[user_id]
+    if session.get("step") != "waiting_for_message":
+        return
 
-    users_cursor = await db.get_all_users()
-    text = message.text or message.caption or ""
-    buttons, clean_text = parse_buttons_and_clean_text(text)
-
-    media = None
-    if message.photo:
-        media = message.photo
-    elif message.video:
-        media = message.video
-    elif message.document:
-        media = message.document
-
-    # Notify start
-    status = await message.reply("📢 Broadcasting...")
-
-    start_time = time.time()
+    broadcast_message = message
+    users = await db.get_all_users()
     total_users = await db.total_users_count()
+    start_time = time.time()
+
+    sts = await message.reply_text("🚀 Broadcasting started (Max Speed Mode)...")
+
     done = success = blocked = deleted = failed = 0
-    batch = []
 
-    # Reset cancel flag
-    ongoing_broadcast["cancel"] = False
+    semaphore = asyncio.Semaphore(30)  # Control concurrency: 30 at a time
 
-    async for user in users_cursor:
-        if ongoing_broadcast["cancel"]:
-            await status.edit("❌ Broadcast canceled by admin.")
-            return
-
-        batch.append(user)
-        if len(batch) >= BATCH_SIZE:
-            results = await asyncio.gather(*[
-                broadcast_messages(
-                    int(u["id"]),
-                    message=None,
-                    text=clean_text,
-                    media=media,
-                    buttons=buttons
-                ) for u in batch
-            ])
-            for pti, reason in results:
-                done += 1
+    async def send_to_user(user):
+        nonlocal done, success, blocked, deleted, failed
+        async with semaphore:
+            try:
+                pti, sh = await broadcast_messages(int(user["id"]), broadcast_message)
                 if pti:
                     success += 1
-                else:
-                    if reason == "Blocked":
-                        blocked += 1
-                    elif reason == "Deleted":
-                        deleted += 1
-                    else:
-                        failed += 1
-            batch.clear()
-            await status.edit(
-                f"📢 Broadcasting...\n"
-                f"✅ Sent: {success} / {total_users}\n"
-                f"⛔ Blocked: {blocked} ❌ Deleted: {deleted} ⚠️ Failed: {failed}\n"
-                f"Progress: {done}/{total_users}"
+                elif sh == "Blocked":
+                    blocked += 1
+                elif sh == "Deleted":
+                    deleted += 1
+                elif sh == "Error":
+                    failed += 1
+            except:
+                failed += 1
+            done += 1
+
+    tasks = []
+    async for user in users:
+        tasks.append(asyncio.create_task(send_to_user(user)))
+        if len(tasks) % 50 == 0:  # Update every 50
+            await asyncio.sleep(1)
+            await sts.edit(
+                f"📣 Broadcast in progress...\n\n"
+                f"👥 Total Users: {total_users}\n"
+                f"✅ Success: {success}\n"
+                f"⛔ Blocked: {blocked}\n"
+                f"🗑️ Deleted: {deleted}\n"
+                f"⚠️ Failed: {failed}\n"
+                f"🧾 Completed: {done} / {total_users}"
             )
 
-    # Final batch
-    if batch:
-        results = await asyncio.gather(*[
-            broadcast_messages(
-                int(u["id"]),
-                message=None,
-                text=clean_text,
-                media=media,
-                buttons=buttons
-            ) for u in batch
-        ])
-        for pti, reason in results:
-            done += 1
-            if pti:
-                success += 1
-            else:
-                if reason == "Blocked":
-                    blocked += 1
-                elif reason == "Deleted":
-                    deleted += 1
-                else:
-                    failed += 1
+    await asyncio.gather(*tasks)
 
     time_taken = datetime.timedelta(seconds=int(time.time() - start_time))
-    await status.edit(
-        f"✅ Broadcast Completed in {time_taken}.\n\n"
-        f"Total Users: {total_users}\n"
-        f"✅ Success: {success}\n⛔ Blocked: {blocked}\n❌ Deleted: {deleted}\n⚠️ Failed: {failed}"
+    await sts.edit(
+        f"✅ Broadcast Completed!\n\n"
+        f"⏱ Time: {time_taken}\n"
+        f"👥 Total Users: {total_users}\n"
+        f"✅ Success: {success}\n"
+        f"⛔ Blocked: {blocked}\n"
+        f"🗑️ Deleted: {deleted}\n"
+        f"⚠️ Failed: {failed}"
     )
+    user_broadcast_sessions.pop(user_id, None)
 
-
-# Optional: cancel command
-@Client.on_message(filters.command("cancel_broadcast") & filters.user(ADMINS))
+@Client.on_message(filters.command("cancel") & filters.user(ADMINS))
 async def cancel_broadcast(bot, message):
-    ongoing_broadcast["cancel"] = True
-    await message.reply("🛑 Broadcast will be canceled shortly.")
+    user_id = message.from_user.id
+    if user_id in user_broadcast_sessions:
+        user_broadcast_sessions.pop(user_id)
+        await message.reply_text("❌ Broadcast cancelled.")
+    else:
+        await message.reply_text("❌ You have no active broadcast.")
