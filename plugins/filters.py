@@ -1,34 +1,57 @@
 import io
+import time
+from collections import defaultdict
 from pyrogram import filters, Client, enums
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
-from database.filters_mdb import(
+from database.filters_mdb import (
    add_filter,
    get_filters,
    delete_filter,
    count_filters
 )
-
 from database.connections_mdb import active_connection
-import time
-from rapidfuzz import process
-
-user_last_used = {}
-
-def is_spam(user_id, cooldown=5):
-    now = time.time()
-    if user_id in user_last_used and now - user_last_used[user_id] < cooldown:
-        return True
-    user_last_used[user_id] = now
-    return False
-
+from utils import get_file_id, parser, split_quotes
 from info import ADMINS
+
+# Anti-spam config
+MAX_REQUESTS = 10
+INTERVAL = 60  # seconds
+COOLDOWN_TIME = 300  # seconds (5 minutes)
+user_requests = defaultdict(list)
+user_cooldown = {}
+
+def is_spam(user_id):
+    now = time.time()
+    if user_id in user_cooldown:
+        remaining = user_cooldown[user_id] - now
+        if remaining > 0:
+            return True, remaining
+        else:
+            del user_cooldown[user_id]
+
+    user_requests[user_id].append(now)
+    recent = [t for t in user_requests[user_id] if now - t <= INTERVAL]
+    user_requests[user_id] = recent
+
+    if len(recent) > MAX_REQUESTS:
+        user_cooldown[user_id] = now + COOLDOWN_TIME
+        return True, COOLDOWN_TIME
+
+    return False, 0
 
 
 @Client.on_message(filters.command(['filter', 'add']) & filters.incoming)
 async def addfilter(client, message):
     userid = message.from_user.id if message.from_user else None
     if not userid:
-        return await message.reply(f"You are anonymous admin. Use /connect {message.chat.id} in PM")
+        return await message.reply("You are anonymous admin. Use /connect {message.chat.id} in PM")
+
+    is_blocked, remaining = is_spam(userid)
+    if is_blocked:
+        mins = int(remaining) // 60
+        secs = int(remaining) % 60
+        return await message.reply(f"\u274c You're spamming! Try again in {mins}m {secs}s.")
+
     chat_type = message.chat.type
     args = message.text.html.split(None, 1)
 
@@ -45,11 +68,9 @@ async def addfilter(client, message):
         else:
             await message.reply_text("I'm not connected to any groups!", quote=True)
             return
-
     elif chat_type in [enums.ChatType.GROUP, enums.ChatType.SUPERGROUP]:
         grp_id = message.chat.id
         title = message.chat.title
-
     else:
         return
 
@@ -60,7 +81,6 @@ async def addfilter(client, message):
         and str(userid) not in ADMINS
     ):
         return
-
 
     if len(args) < 2:
         await message.reply_text("Command Incomplete :(", quote=True)
@@ -119,7 +139,6 @@ async def addfilter(client, message):
         return
 
     await add_filter(grp_id, text, reply_text, btn, fileid, alert)
-
     await message.reply_text(
         f"Filter for  `{text}`  added in  **{title}**",
         quote=True,
@@ -129,11 +148,17 @@ async def addfilter(client, message):
 
 @Client.on_message(filters.command(['viewfilters', 'filters']) & filters.incoming)
 async def get_all(client, message):
-    
-    chat_type = message.chat.type
     userid = message.from_user.id if message.from_user else None
     if not userid:
-        return await message.reply(f"You are anonymous admin. Use /connect {message.chat.id} in PM")
+        return await message.reply("You are anonymous admin. Use /connect {message.chat.id} in PM")
+
+    is_blocked, remaining = is_spam(userid)
+    if is_blocked:
+        mins = int(remaining) // 60
+        secs = int(remaining) % 60
+        return await message.reply(f"\u274c You're spamming! Try again in {mins}m {secs}s.")
+
+    chat_type = message.chat.type
     if chat_type == enums.ChatType.PRIVATE:
         userid = message.from_user.id
         grpid = await active_connection(str(userid))
@@ -148,11 +173,9 @@ async def get_all(client, message):
         else:
             await message.reply_text("I'm not connected to any groups!", quote=True)
             return
-
     elif chat_type in [enums.ChatType.GROUP, enums.ChatType.SUPERGROUP]:
         grp_id = message.chat.id
         title = message.chat.title
-
     else:
         return
 
@@ -168,38 +191,36 @@ async def get_all(client, message):
     count = await count_filters(grp_id)
     if count:
         filterlist = f"Total number of filters in **{title}** : {count}\n\n"
-
         for text in texts:
-            keywords = " ×  `{}`\n".format(text)
-
+            keywords = " \u00d7  `{}`\n".format(text)
             filterlist += keywords
 
         if len(filterlist) > 4096:
             with io.BytesIO(str.encode(filterlist.replace("`", ""))) as keyword_file:
                 keyword_file.name = "keywords.txt"
-                await message.reply_document(
-                    document=keyword_file,
-                    quote=True
-                )
+                await message.reply_document(document=keyword_file, quote=True)
             return
     else:
         filterlist = f"There are no active filters in **{title}**"
 
-    await message.reply_text(
-        text=filterlist,
-        quote=True,
-        parse_mode=enums.ParseMode.MARKDOWN
-    )
-        
+    await message.reply_text(text=filterlist, quote=True, parse_mode=enums.ParseMode.MARKDOWN)
+
+
 @Client.on_message(filters.command('del') & filters.incoming)
 async def deletefilter(client, message):
     userid = message.from_user.id if message.from_user else None
     if not userid:
-        return await message.reply(f"You are anonymous admin. Use /connect {message.chat.id} in PM")
-    chat_type = message.chat.type
+        return await message.reply("You are anonymous admin. Use /connect {message.chat.id} in PM")
 
+    is_blocked, remaining = is_spam(userid)
+    if is_blocked:
+        mins = int(remaining) // 60
+        secs = int(remaining) % 60
+        return await message.reply(f"\u274c You're spamming! Try again in {mins}m {secs}s.")
+
+    chat_type = message.chat.type
     if chat_type == enums.ChatType.PRIVATE:
-        grpid  = await active_connection(str(userid))
+        grpid = await active_connection(str(userid))
         if grpid is not None:
             grp_id = grpid
             try:
@@ -210,11 +231,9 @@ async def deletefilter(client, message):
                 return
         else:
             await message.reply_text("I'm not connected to any groups!", quote=True)
-
     elif chat_type in [enums.ChatType.GROUP, enums.ChatType.SUPERGROUP]:
         grp_id = message.chat.id
         title = message.chat.title
-
     else:
         return
 
@@ -238,19 +257,24 @@ async def deletefilter(client, message):
         return
 
     query = text.lower()
-
     await delete_filter(message, query, grp_id)
-        
+
 
 @Client.on_message(filters.command('delall') & filters.incoming)
 async def delallconfirm(client, message):
     userid = message.from_user.id if message.from_user else None
     if not userid:
-        return await message.reply(f"You are anonymous admin. Use /connect {message.chat.id} in PM")
-    chat_type = message.chat.type
+        return await message.reply("You are anonymous admin. Use /connect {message.chat.id} in PM")
 
+    is_blocked, remaining = is_spam(userid)
+    if is_blocked:
+        mins = int(remaining) // 60
+        secs = int(remaining) % 60
+        return await message.reply(f"\u274c You're spamming! Try again in {mins}m {secs}s.")
+
+    chat_type = message.chat.type
     if chat_type == enums.ChatType.PRIVATE:
-        grpid  = await active_connection(str(userid))
+        grpid = await active_connection(str(userid))
         if grpid is not None:
             grp_id = grpid
             try:
@@ -262,11 +286,9 @@ async def delallconfirm(client, message):
         else:
             await message.reply_text("I'm not connected to any groups!", quote=True)
             return
-
     elif chat_type in [enums.ChatType.GROUP, enums.ChatType.SUPERGROUP]:
         grp_id = message.chat.id
         title = message.chat.title
-
     else:
         return
 
@@ -280,4 +302,3 @@ async def delallconfirm(client, message):
             ]),
             quote=True
         )
-
