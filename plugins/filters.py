@@ -9,7 +9,19 @@ from database.filters_mdb import(
 )
 
 from database.connections_mdb import active_connection
-from utils import get_file_id, parser, split_quotes
+\1
+import time
+from rapidfuzz import process
+
+user_last_used = {}
+
+def is_spam(user_id, cooldown=5):
+    now = time.time()
+    if user_id in user_last_used and now - user_last_used[user_id] < cooldown:
+        return True
+    user_last_used[user_id] = now
+    return False
+
 from info import ADMINS
 
 
