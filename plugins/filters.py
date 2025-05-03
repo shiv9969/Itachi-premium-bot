@@ -9,7 +9,6 @@ from database.filters_mdb import(
 )
 
 from database.connections_mdb import active_connection
-\1
 import time
 from rapidfuzz import process
 
