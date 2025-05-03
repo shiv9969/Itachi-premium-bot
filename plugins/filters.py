@@ -1,24 +1,17 @@
 import io
 from pyrogram import filters, Client, enums
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
-from database.filters_mdb import (
-    add_filter,
-    get_filters,
-    delete_filter,
-    count_filters
+from database.filters_mdb import(
+   add_filter,
+   get_filters,
+   delete_filter,
+   count_filters
 )
+
 from database.connections_mdb import active_connection
 from utils import get_file_id, parser, split_quotes
 from info import ADMINS
-from rapidfuzz import process  # Added for fuzzy matching
-import time
-from collections import deque
 
-# Anti-spam store
-user_message_times = {}  # To track user message timestamps
-MAX_MESSAGES = 10  # Max messages per minute
-TIME_FRAME = 60  # 1 minute (60 seconds)
-USER_COOLDOWN = 300  # 5 minutes (300 seconds) cooldown after exceeding limit
 
 @Client.on_message(filters.command(['filter', 'add']) & filters.incoming)
 async def addfilter(client, message):
@@ -57,6 +50,7 @@ async def addfilter(client, message):
     ):
         return
 
+
     if len(args) < 2:
         await message.reply_text("Command Incomplete :(", quote=True)
         return
@@ -89,7 +83,7 @@ async def addfilter(client, message):
             alert = None
         except:
             reply_text = ""
-            btn = "[]"
+            btn = "[]" 
             fileid = None
             alert = None
 
@@ -121,49 +115,158 @@ async def addfilter(client, message):
         parse_mode=enums.ParseMode.MARKDOWN
     )
 
-@Client.on_message(filters.text & filters.incoming)
-async def filter_response(client, message):
-    chat_id = message.chat.id
-    user_id = message.from_user.id if message.from_user else None
 
-    if not user_id:
-        return  # Ignore anonymous users
+@Client.on_message(filters.command(['viewfilters', 'filters']) & filters.incoming)
+async def get_all(client, message):
+    
+    chat_type = message.chat.type
+    userid = message.from_user.id if message.from_user else None
+    if not userid:
+        return await message.reply(f"You are anonymous admin. Use /connect {message.chat.id} in PM")
+    if chat_type == enums.ChatType.PRIVATE:
+        userid = message.from_user.id
+        grpid = await active_connection(str(userid))
+        if grpid is not None:
+            grp_id = grpid
+            try:
+                chat = await client.get_chat(grpid)
+                title = chat.title
+            except:
+                await message.reply_text("Make sure I'm present in your group!!", quote=True)
+                return
+        else:
+            await message.reply_text("I'm not connected to any groups!", quote=True)
+            return
 
-    now = time.time()
+    elif chat_type in [enums.ChatType.GROUP, enums.ChatType.SUPERGROUP]:
+        grp_id = message.chat.id
+        title = message.chat.title
 
-    # Initialize the user's message history if not already
-    if user_id not in user_message_times:
-        user_message_times[user_id] = {'timestamps': deque(), 'cooldown_until': 0}
-
-    # Check if the user is under cooldown
-    if user_message_times[user_id]['cooldown_until'] > now:
-        remaining_cooldown = int(user_message_times[user_id]['cooldown_until'] - now)
-        return await message.reply_text(f"You're on cooldown. Try again in {remaining_cooldown} seconds.")
-
-    # Remove messages that are older than the allowed time frame (1 minute)
-    while user_message_times[user_id]['timestamps'] and user_message_times[user_id]['timestamps'][0] < now - TIME_FRAME:
-        user_message_times[user_id]['timestamps'].popleft()
-
-    # Check if the user has sent more than the allowed number of messages in the last minute
-    if len(user_message_times[user_id]['timestamps']) >= MAX_MESSAGES:
-        # User has exceeded the limit, set a cooldown
-        user_message_times[user_id]['cooldown_until'] = now + USER_COOLDOWN
-        remaining_cooldown = int(user_message_times[user_id]['cooldown_until'] - now)
-        return await message.reply_text(f"You've exceeded the limit of {MAX_MESSAGES} messages in 1 minute. You are on cooldown for {remaining_cooldown} seconds.")
-
-    # Add the current message timestamp to the user's history
-    user_message_times[user_id]['timestamps'].append(now)
-
-    # Get filters
-    texts = await get_filters(chat_id)
-    if not texts:
+    else:
         return
 
-    query = message.text.lower()
+    st = await client.get_chat_member(grp_id, userid)
+    if (
+        st.status != enums.ChatMemberStatus.ADMINISTRATOR
+        and st.status != enums.ChatMemberStatus.OWNER
+        and str(userid) not in ADMINS
+    ):
+        return
 
-    # Fuzzy match
-    match = process.extractOne(query, texts, score_cutoff=60)
-    if match:
-        matched_text = match[0]
-        # Fake call to function that replies based on matched filter
-        await message.reply_text(f"Matched filter: `{matched_text}`", parse_mode=enums.ParseMode.MARKDOWN)
+    texts = await get_filters(grp_id)
+    count = await count_filters(grp_id)
+    if count:
+        filterlist = f"Total number of filters in **{title}** : {count}\n\n"
+
+        for text in texts:
+            keywords = " ×  `{}`\n".format(text)
+
+            filterlist += keywords
+
+        if len(filterlist) > 4096:
+            with io.BytesIO(str.encode(filterlist.replace("`", ""))) as keyword_file:
+                keyword_file.name = "keywords.txt"
+                await message.reply_document(
+                    document=keyword_file,
+                    quote=True
+                )
+            return
+    else:
+        filterlist = f"There are no active filters in **{title}**"
+
+    await message.reply_text(
+        text=filterlist,
+        quote=True,
+        parse_mode=enums.ParseMode.MARKDOWN
+    )
+        
+@Client.on_message(filters.command('del') & filters.incoming)
+async def deletefilter(client, message):
+    userid = message.from_user.id if message.from_user else None
+    if not userid:
+        return await message.reply(f"You are anonymous admin. Use /connect {message.chat.id} in PM")
+    chat_type = message.chat.type
+
+    if chat_type == enums.ChatType.PRIVATE:
+        grpid  = await active_connection(str(userid))
+        if grpid is not None:
+            grp_id = grpid
+            try:
+                chat = await client.get_chat(grpid)
+                title = chat.title
+            except:
+                await message.reply_text("Make sure I'm present in your group!!", quote=True)
+                return
+        else:
+            await message.reply_text("I'm not connected to any groups!", quote=True)
+
+    elif chat_type in [enums.ChatType.GROUP, enums.ChatType.SUPERGROUP]:
+        grp_id = message.chat.id
+        title = message.chat.title
+
+    else:
+        return
+
+    st = await client.get_chat_member(grp_id, userid)
+    if (
+        st.status != enums.ChatMemberStatus.ADMINISTRATOR
+        and st.status != enums.ChatMemberStatus.OWNER
+        and str(userid) not in ADMINS
+    ):
+        return
+
+    try:
+        cmd, text = message.text.split(" ", 1)
+    except:
+        await message.reply_text(
+            "<i>Mention the filtername which you wanna delete!</i>\n\n"
+            "<code>/del filtername</code>\n\n"
+            "Use /viewfilters to view all available filters",
+            quote=True
+        )
+        return
+
+    query = text.lower()
+
+    await delete_filter(message, query, grp_id)
+        
+
+@Client.on_message(filters.command('delall') & filters.incoming)
+async def delallconfirm(client, message):
+    userid = message.from_user.id if message.from_user else None
+    if not userid:
+        return await message.reply(f"You are anonymous admin. Use /connect {message.chat.id} in PM")
+    chat_type = message.chat.type
+
+    if chat_type == enums.ChatType.PRIVATE:
+        grpid  = await active_connection(str(userid))
+        if grpid is not None:
+            grp_id = grpid
+            try:
+                chat = await client.get_chat(grpid)
+                title = chat.title
+            except:
+                await message.reply_text("Make sure I'm present in your group!!", quote=True)
+                return
+        else:
+            await message.reply_text("I'm not connected to any groups!", quote=True)
+            return
+
+    elif chat_type in [enums.ChatType.GROUP, enums.ChatType.SUPERGROUP]:
+        grp_id = message.chat.id
+        title = message.chat.title
+
+    else:
+        return
+
+    st = await client.get_chat_member(grp_id, userid)
+    if (st.status == enums.ChatMemberStatus.OWNER) or (str(userid) in ADMINS):
+        await message.reply_text(
+            f"This will delete all filters from '{title}'.\nDo you want to continue??",
+            reply_markup=InlineKeyboardMarkup([
+                [InlineKeyboardButton(text="YES",callback_data="delallconfirm")],
+                [InlineKeyboardButton(text="CANCEL",callback_data="delallcancel")]
+            ]),
+            quote=True
+        )
+
