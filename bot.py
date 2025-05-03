@@ -37,6 +37,7 @@ from SAFARI.template import web_server
 from SAFARI.utils import SafariBot
 from SAFARI.utils.keepalive import ping_server
 from SAFARI.utils.clients import initialize_clients
+from fuzzy_filter_handler import fuzzy_filter_reply
 
 
 ppath = "plugins/*.py"
