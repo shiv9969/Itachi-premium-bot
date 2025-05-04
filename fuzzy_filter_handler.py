@@ -1,10 +1,10 @@
 from pyrogram import Client, filters
 from rapidfuzz import process, fuzz
-from database.filters_mdb import get_filters as fetch_filters, get_filter
 from pyrogram.types import Message
+from database.filters_mdb import get_filters as fetch_filters, get_filter
 
-async def get_best_match_filter(group_id, query, threshold=60):
-    filters_list = await fetch_filters(group_id)
+async def get_best_match_filter(chat_id, query, threshold=60):
+    filters_list = await fetch_filters(chat_id)
     if not filters_list:
         return None, 0
 
@@ -19,29 +19,26 @@ async def get_best_match_filter(group_id, query, threshold=60):
 
 @Client.on_message(filters.text & filters.incoming)
 async def fuzzy_filter_reply(client: Client, message: Message):
-    if message.chat.type not in ["group", "supergroup"]:
-        return
-
     chat_id = message.chat.id
-    text = message.text.lower()
+    user_text = message.text.strip().lower()
 
-    matched, score = await get_best_match_filter(chat_id, text)
+    matched, score = await get_best_match_filter(chat_id, user_text)
+
     if not matched:
-        await message.reply_text("No matching filter found.")
-        return
+        return  # No matching filter, silently skip
 
     filter_data = await get_filter(chat_id, matched)
     if not filter_data:
-        await message.reply_text("Filter found but something went wrong fetching content.")
+        await message.reply_text("Filter found, but failed to fetch content.")
         return
 
     try:
-        if filter_data['file_id']:
+        if filter_data.get("file_id"):
             await message.reply_cached_media(
-                media=filter_data['file_id'],
-                caption=filter_data['reply_text']
+                media=filter_data["file_id"],
+                caption=filter_data.get("reply_text", "")
             )
         else:
-            await message.reply_text(filter_data['reply_text'])
+            await message.reply_text(filter_data.get("reply_text", ""))
     except Exception as e:
         await message.reply_text(f"Failed to send filter: {e}")
