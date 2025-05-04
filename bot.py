@@ -14,7 +14,7 @@ from pyrogram.raw.all import layer
 from pyrogram.types import Message
 from database.ia_filterdb import Media
 from database.users_chats_db import db
-from database.filters_mdb import get_filters as fetch_filters, get_filter
+from database.filters_mdb import get_filters as fetch_filters, find_filter as get_filter
 from info import SESSION, API_ID, API_HASH, BOT_TOKEN, LOG_STR, LOG_CHANNEL, PORT, BIN_CHANNEL, ON_HEROKU
 from typing import Union, Optional, AsyncGenerator
 from Script import script 
