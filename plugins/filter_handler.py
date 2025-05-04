@@ -16,7 +16,7 @@ async def get_best_match_filter(group_id, query, threshold=60):
 
     return (match, score) if score >= threshold else (None, score)
 
-@Client.on_message(filters.text & ~filters.edited)
+@Client.on_message(filters.text)
 async def fuzzy_filter_reply(client: Client, message: Message):
     if message.chat.type not in ("group", "supergroup", "private"):
         return
