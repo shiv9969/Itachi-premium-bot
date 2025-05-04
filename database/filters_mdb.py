@@ -12,7 +12,6 @@ mydb = myclient[DATABASE_NAME]
 
 async def add_filter(grp_id, text, reply_text, btn, file, alert):
     mycol = mydb[str(grp_id)]
-
     data = {
         'text': str(text),
         'reply': str(reply_text),
@@ -20,61 +19,43 @@ async def add_filter(grp_id, text, reply_text, btn, file, alert):
         'file': str(file),
         'alert': str(alert)
     }
-
     try:
         mycol.update_one({'text': str(text)}, {"$set": data}, upsert=True)
-    except:
-        logger.exception('Some error occurred!', exc_info=True)
+    except Exception:
+        logger.exception('Error in add_filter')
+
+
+async def get_filter(group_id, name):
+    mycol = mydb[str(group_id)]
+    result = mycol.find_one({"text": name})
+    if not result:
+        return None
+    return {
+        "reply_text": result.get("reply"),
+        "btn": result.get("btn"),
+        "file_id": result.get("file"),
+        "alert": result.get("alert")
+    }
 
 
 async def find_filter(group_id, name):
     mycol = mydb[str(group_id)]
     query = mycol.find({"text": name})
-
-    try:
-        for file in query:
-            reply_text = file['reply']
-            btn = file['btn']
-            fileid = file['file']
-            alert = file.get('alert', None)
-            return reply_text, btn, alert, fileid
-    except:
-        return None, None, None, None
-
-
-# ✅ Clean function to return full filter dict for fuzzy matching
-async def get_filter(group_id, filter_name):
-    mycol = mydb[str(group_id)]
-    result = mycol.find_one({"text": filter_name})
-    return result  # returns full filter document (dict)
+    for file in query:
+        return file['reply'], file['btn'], file.get('alert'), file['file']
+    return None, None, None, None
 
 
 async def get_filters(group_id):
     mycol = mydb[str(group_id)]
-
-    texts = []
-    query = mycol.find()
-    try:
-        for file in query:
-            text = file['text']
-            texts.append(text)
-    except:
-        pass
-    return texts
+    return [file['text'] for file in mycol.find()]
 
 
 async def delete_filter(message, text, group_id):
     mycol = mydb[str(group_id)]
-    myquery = {'text': text}
-    query = mycol.count_documents(myquery)
-
-    if query == 1:
-        mycol.delete_one(myquery)
-        await message.reply_text(
-            f"'`{text}`' deleted. I'll not respond to that filter anymore.",
-            quote=True,
-            parse_mode=enums.ParseMode.MARKDOWN
-        )
+    result = mycol.delete_one({'text': text})
+    if result.deleted_count == 1:
+        await message.reply_text(f"'`{text}`' deleted.", quote=True, parse_mode=enums.ParseMode.MARKDOWN)
     else:
         await message.reply_text("Couldn't find that filter!", quote=True)
 
@@ -83,34 +64,19 @@ async def del_all(message, group_id, title):
     if str(group_id) not in mydb.list_collection_names():
         await message.edit_text(f"Nothing to remove in {title}!")
         return
-
-    mycol = mydb[str(group_id)]
     try:
-        mycol.drop()
+        mydb[str(group_id)].drop()
         await message.edit_text(f"All filters from {title} have been removed")
     except:
-        await message.edit_text("Couldn't remove all filters from group!")
-        return
+        await message.edit_text("Couldn't remove filters!")
 
 
 async def count_filters(group_id):
     mycol = mydb[str(group_id)]
-    count = mycol.count_documents({})
-    return False if count == 0 else count
-
+    return mycol.count_documents({})
+    
 
 async def filter_stats():
-    collections = mydb.list_collection_names()
-
-    if "CONNECTION" in collections:
-        collections.remove("CONNECTION")
-
-    totalcount = 0
-    for collection in collections:
-        mycol = mydb[collection]
-        count = mycol.count_documents({})
-        totalcount += count
-
-    totalcollections = len(collections)
-
-    return totalcollections, totalcount
+    collections = [col for col in mydb.list_collection_names() if col != "CONNECTION"]
+    totalcount = sum(mydb[col].count_documents({}) for col in collections)
+    return len(collections), totalcount
