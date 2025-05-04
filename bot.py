@@ -9,23 +9,19 @@ logging.getLogger("pyrogram").setLevel(logging.ERROR)
 logging.getLogger("imdbpy").setLevel(logging.ERROR)
 logging.getLogger("cinemagoer").setLevel(logging.ERROR)
 
-from pyrogram import Client, __version__
+from pyrogram import Client, __version__, filters
 from pyrogram.raw.all import layer
+from pyrogram.types import Message
 from database.ia_filterdb import Media
 from database.users_chats_db import db
+from database.filters_mdb import get_filters as fetch_filters, get_filter
 from info import SESSION, API_ID, API_HASH, BOT_TOKEN, LOG_STR, LOG_CHANNEL, PORT, BIN_CHANNEL, ON_HEROKU
 from typing import Union, Optional, AsyncGenerator
-from pyrogram import types
 from Script import script 
 from datetime import date, datetime 
 import pytz
 from utils import temp, check_expired_premium
-logging.basicConfig(
-    level=logging.INFO,
-    format="%(asctime)s - %(name)s - %(levelname)s - %(message)s"
-)
-logging.getLogger("aiohttp").setLevel(logging.ERROR)
-logging.getLogger("aiohttp.web").setLevel(logging.ERROR)
+from rapidfuzz import process, fuzz
 import asyncio
 import sys
 import importlib
@@ -38,6 +34,12 @@ from SAFARI.utils import SafariBot
 from SAFARI.utils.keepalive import ping_server
 from SAFARI.utils.clients import initialize_clients
 
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+)
+logging.getLogger("aiohttp").setLevel(logging.ERROR)
+logging.getLogger("aiohttp.web").setLevel(logging.ERROR)
 
 ppath = "plugins/*.py"
 files = glob.glob(ppath)
@@ -94,6 +96,37 @@ async def start():
         logging.error("Make sure bot admin in BIN_CHANNEL, exiting now")
         exit()
 
+
+# 🔍 Fuzzy Filter Handler (Works in Group + Private)
+@SafariBot.on_message(filters.text & filters.incoming)
+async def fuzzy_filter_reply(client: Client, message: Message):
+    chat_id = message.chat.id
+    user_text = message.text.strip().lower()
+
+    filters_list = await fetch_filters(chat_id)
+    if not filters_list:
+        return
+
+    match, score, _ = process.extractOne(user_text, filters_list, scorer=fuzz.ratio)
+
+    if score < 60:
+        return
+
+    filter_data = await get_filter(chat_id, match)
+    if not filter_data:
+        await message.reply_text("Filter found, but failed to fetch content.")
+        return
+
+    try:
+        if filter_data.get("file_id"):
+            await message.reply_cached_media(
+                media=filter_data["file_id"],
+                caption=filter_data.get("reply_text", "")
+            )
+        else:
+            await message.reply_text(filter_data.get("reply_text", ""))
+    except Exception as e:
+        await message.reply_text(f"Failed to send filter: {e}")
 
 
 if __name__ == '__main__':
