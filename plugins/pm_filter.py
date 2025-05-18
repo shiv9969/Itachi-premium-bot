@@ -1,4 +1,3 @@
-# Kanged From @TroJanZheX
 import asyncio
 import re
 import ast
@@ -2004,7 +2003,7 @@ async def auto_filter(client, msg, spoll=False):
                 #await m.delete()
                 if settings["spell_check"]:
                       ai_sts = await m.edit('🤖 ᴘʟᴇᴀꜱᴇ ᴡᴀɪᴛ, ᴀɪ ɪꜱ ᴄʜᴇᴄᴋɪɴɢ ʏᴏᴜʀ ꜱᴘᴇʟʟɪɴɢ...')
-                    is_misspelled = await ai_spell_check(chat_id = message.chat.id,wrong_name=search)
+                      is_misspelled = await ai_spell_check(chat_id = message.chat.id, wrong_name=search)
                     if is_misspelled:
                         await ai_sts.edit(f'<b>✅Aɪ Sᴜɢɢᴇsᴛᴇᴅ ᴍᴇ<code> {is_misspelled}</code> \nSᴏ Iᴍ Sᴇᴀʀᴄʜɪɴɢ ғᴏʀ <code>{is_misspelled}</code></b>')
                         await asyncio.sleep(2)
