@@ -2002,8 +2002,8 @@ async def auto_filter(client, msg, spoll=False):
             if not files:
                 #await m.delete()
                 if settings["spell_check"]:
-                      ai_sts = await m.edit('🤖 ᴘʟᴇᴀꜱᴇ ᴡᴀɪᴛ, ᴀɪ ɪꜱ ᴄʜᴇᴄᴋɪɴɢ ʏᴏᴜʀ ꜱᴘᴇʟʟɪɴɢ...')
-                      is_misspelled = await ai_spell_check(chat_id = message.chat.id, wrong_name=search)
+                    ai_sts = await m.edit('🤖 ᴘʟᴇᴀꜱᴇ ᴡᴀɪᴛ, ᴀɪ ɪꜱ ᴄʜᴇᴄᴋɪɴɢ ʏᴏᴜʀ ꜱᴘᴇʟʟɪɴɢ...')
+                    is_misspelled = await ai_spell_check(chat_id = message.chat.id, wrong_name=search)
                     if is_misspelled:
                         await ai_sts.edit(f'<b>✅Aɪ Sᴜɢɢᴇsᴛᴇᴅ ᴍᴇ<code> {is_misspelled}</code> \nSᴏ Iᴍ Sᴇᴀʀᴄʜɪɴɢ ғᴏʀ <code>{is_misspelled}</code></b>')
                         await asyncio.sleep(2)
@@ -2195,6 +2195,7 @@ async def auto_filter(client, msg, spoll=False):
             #await message.delete()
     if spoll:
         await msg.message.delete()
+
 
 async def ai_spell_check(chat_id, wrong_name):
     async def search_movie(wrong_name):
