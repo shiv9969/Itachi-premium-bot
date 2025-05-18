@@ -25,6 +25,8 @@ apscheduler
 pyshorteners
 colorama
 
+fuzzywuzzy
+
 motor 
 cloudscraper
 
