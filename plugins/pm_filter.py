@@ -2003,12 +2003,16 @@ async def auto_filter(client, msg, spoll=False):
             if not files:
                 #await m.delete()
                 if settings["spell_check"]:
-                    return await advantage_spell_chok(client, msg)
-                else:
-                    #if not PM_FILTER and NO_RESULTS_MSG:
-                        #total=await client.get_chat_members_count(message.chat.id)
-                        #await client.send_message(chat_id=LOG_CHANNEL, text=(script.NORSLTS.format(message.chat.title, message.chat.id, total, temp.B_NAME, reqstr.mention, search)))
-                    return
+                      ai_sts = await m.edit('🤖 ᴘʟᴇᴀꜱᴇ ᴡᴀɪᴛ, ᴀɪ ɪꜱ ᴄʜᴇᴄᴋɪɴɢ ʏᴏᴜʀ ꜱᴘᴇʟʟɪɴɢ...')
+                    is_misspelled = await ai_spell_check(chat_id = message.chat.id,wrong_name=search)
+                    if is_misspelled:
+                        await ai_sts.edit(f'<b>✅Aɪ Sᴜɢɢᴇsᴛᴇᴅ ᴍᴇ<code> {is_misspelled}</code> \nSᴏ Iᴍ Sᴇᴀʀᴄʜɪɴɢ ғᴏʀ <code>{is_misspelled}</code></b>')
+                        await asyncio.sleep(2)
+                        message.text = is_misspelled
+                        await ai_sts.delete()
+                        return await auto_filter(client, message)
+                    await ai_sts.delete()
+                    return await advantage_spell_chok(client, message)
         else:
             return
     else:
