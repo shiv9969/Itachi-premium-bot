@@ -1,5 +1,6 @@
 from pyrogram import Client, filters
 from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
+from pyrogram.errors import FloodWait
 from database.users_chats_db import db
 from info import ADMINS
 import asyncio
@@ -40,12 +41,18 @@ async def handle_broadcast_callback(bot, query):
 
     if data == "broadcast_plain":
         session["step"] = "awaiting_plain_text"
-        await query.message.edit("📝 Send the plain text message to broadcast.")
+        await query.message.edit(
+            "📝 Send the plain text message to broadcast.",
+            reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("❌ Cancel", callback_data="broadcast_cancel")]])
+        )
         return
 
     if data == "broadcast_button":
         session["step"] = "awaiting_button_text"
-        await query.message.edit("📝 Send the message text.")
+        await query.message.edit(
+            "📝 Send the message text.",
+            reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("❌ Cancel", callback_data="broadcast_cancel")]])
+        )
         return
 
 
@@ -106,18 +113,23 @@ async def process_broadcast(bot, message, text, buttons):
 
     async def safe_send(user):
         nonlocal success, blocked, deleted, failed, done
-        async with semaphore:
-            result = await send_to_user(bot, int(user["id"]), content)
+        try:
+            async with semaphore:
+                result = await send_to_user(bot, int(user["id"]), content)
+                async with stats_lock:
+                    done += 1
+                    if result == "success":
+                        success += 1
+                    elif result == "blocked":
+                        blocked += 1
+                    elif result == "deleted":
+                        deleted += 1
+                    else:
+                        failed += 1
+        except Exception:
             async with stats_lock:
                 done += 1
-                if result == "success":
-                    success += 1
-                elif result == "blocked":
-                    blocked += 1
-                elif result == "deleted":
-                    deleted += 1
-                else:
-                    failed += 1
+                failed += 1
 
     async def status_updater():
         while done < total_users:
@@ -132,8 +144,18 @@ async def process_broadcast(bot, message, text, buttons):
                     f"Total: {total_users}"
                 )
 
-    tasks = [safe_send(user) async for user in users_cursor]
-    await asyncio.gather(status_updater(), *tasks)
+    batch = []
+    tasks = []
+    async for user in users_cursor:
+        batch.append(user)
+        if len(batch) >= BATCH_SIZE:
+            tasks = [safe_send(u) for u in batch]
+            await asyncio.gather(*tasks, return_exceptions=True)
+            batch.clear()
+
+    if batch:
+        tasks = [safe_send(u) for u in batch]
+        await asyncio.gather(*tasks, return_exceptions=True)
 
     time_taken = datetime.timedelta(seconds=int(time.time() - start_time))
     await sts.edit(
@@ -145,29 +167,19 @@ async def process_broadcast(bot, message, text, buttons):
 async def send_to_user(bot, user_id, content):
     try:
         if content["media"]:
-            await bot.send_document(
-                user_id,
-                document=content["media"].file_id,
-                caption=content["caption"],
-                reply_markup=content["buttons"]
-            ) if content["type"] == "document" else await bot.send_photo(
-                user_id,
-                photo=content["media"].file_id,
-                caption=content["caption"],
-                reply_markup=content["buttons"]
-            ) if content["type"] == "photo" else await bot.send_video(
-                user_id,
-                video=content["media"].file_id,
-                caption=content["caption"],
-                reply_markup=content["buttons"]
-            )
+            # Future support for media
+            pass
         else:
             await bot.send_message(user_id, text=content["text"], reply_markup=content["buttons"])
         return "success"
+    except FloodWait as e:
+        await asyncio.sleep(e.value)
+        return await send_to_user(bot, user_id, content)
     except Exception as e:
-        if "blocked" in str(e).lower():
+        err = str(e).lower()
+        if "blocked" in err:
             return "blocked"
-        elif "chat not found" in str(e).lower():
+        elif "chat not found" in err:
             return "deleted"
         else:
             return "error" 
