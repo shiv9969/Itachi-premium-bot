@@ -93,7 +93,7 @@ async def handle_broadcast_input(bot, message):
 
 
 async def process_broadcast(bot, message, text, buttons):
-    users_cursor = await db.get_all_users()
+    users_cursor = db.get_all_users()
     total_users = await db.total_users_count()
     sts = await message.reply("🚀 Broadcasting started...")
     start_time = time.time()
