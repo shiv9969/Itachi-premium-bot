@@ -5,18 +5,48 @@ from info import ADMINS
 import asyncio
 import datetime
 import time
-import re
 
 BATCH_SIZE = 300
 active_broadcasts = {}
 
 @Client.on_message(filters.command("broadcast") & filters.user(ADMINS))
 async def start_broadcast(bot, message):
+    keyboard = InlineKeyboardMarkup([
+        [InlineKeyboardButton("📝 Plain Text", callback_data="broadcast_plain")],
+        [InlineKeyboardButton("🔘 Text with Button", callback_data="broadcast_button")],
+        [InlineKeyboardButton("❌ Cancel", callback_data="broadcast_cancel")]
+    ])
     ask = await message.reply(
-        "📢 What type of message do you want to broadcast?\n"
-        "Send `plain` for plain text or `button` for text with a button."
+        "📢 What type of message do you want to broadcast?",
+        reply_markup=keyboard
     )
     active_broadcasts[message.from_user.id] = {"step": "choose_type", "ask_msg": ask}
+
+
+@Client.on_callback_query(filters.user(ADMINS))
+async def handle_broadcast_callback(bot, query):
+    user_id = query.from_user.id
+    session = active_broadcasts.get(user_id)
+
+    if not session:
+        return await query.answer("No active broadcast session.")
+
+    data = query.data
+
+    if data == "broadcast_cancel":
+        await query.message.edit("❌ Broadcast cancelled.")
+        del active_broadcasts[user_id]
+        return
+
+    if data == "broadcast_plain":
+        session["step"] = "awaiting_plain_text"
+        await query.message.edit("📝 Send the plain text message to broadcast.")
+        return
+
+    if data == "broadcast_button":
+        session["step"] = "awaiting_button_text"
+        await query.message.edit("📝 Send the message text.")
+        return
 
 
 @Client.on_message(filters.private & filters.user(ADMINS))
@@ -29,17 +59,7 @@ async def handle_broadcast_input(bot, message):
 
     step = session.get("step")
 
-    if step == "choose_type":
-        if message.text == "plain":
-            session["step"] = "awaiting_plain_text"
-            await message.reply("📝 Send the plain text message to broadcast.")
-        elif message.text == "button":
-            session["step"] = "awaiting_button_text"
-            await message.reply("📝 Send the message text.")
-        else:
-            await message.reply("❌ Invalid option. Please reply with `plain` or `button`.")
-
-    elif step == "awaiting_plain_text":
+    if step == "awaiting_plain_text":
         del active_broadcasts[user_id]
         await process_broadcast(bot, message, message.text, None)
 
@@ -101,7 +121,7 @@ async def process_broadcast(bot, message, text, buttons):
 
     async def status_updater():
         while done < total_users:
-            await asyncio.sleep(3)  # update every 3 seconds
+            await asyncio.sleep(3)
             async with stats_lock:
                 await sts.edit(
                     f"📢 Broadcasting...\n\n"
@@ -150,4 +170,4 @@ async def send_to_user(bot, user_id, content):
         elif "chat not found" in str(e).lower():
             return "deleted"
         else:
-            return "error"
+            return "error" 
