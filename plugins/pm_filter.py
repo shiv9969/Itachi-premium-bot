@@ -43,6 +43,7 @@ REACTIONS = ["❤️"]
 BUTTONS = {}
 SPELL_CHECK = {}
 CAP = {}
+CHECKED_MSGS = set()
 
 @Client.on_callback_query(filters.regex(r"^streaming"))
 async def stream_download(bot, query):
@@ -710,18 +711,29 @@ async def select_seasons(bot, query):
 @Client.on_callback_query(filters.regex(r"^spol"))
 async def advantage_spoll_choker(bot, query):
     try:
+        # ✅ Loop prevention logic
+        if query.message.message_id in CHECKED_MSGS:
+            return await query.answer("This message already passed spell check.", show_alert=True)
+        CHECKED_MSGS.add(query.message.message_id)
+        asyncio.create_task(clear_check(query.message.message_id))
+
         _, user, movie_ = query.data.split('#')
         movies = SPELL_CHECK.get(query.message.reply_to_message.id)
         if not movies:
-            return #await query.answer(script.OLD_ALRT_TXT.format(query.from_user.first_name), show_alert=True)
+            return
+
         if int(user) != 0 and query.from_user.id != int(user):
             return await query.answer(script.ALRT_TXT.format(query.from_user.first_name), show_alert=True)
+
         if movie_ == "close_spellcheck":
             return await query.message.delete()
-        movie = movies[(int(movie_))]
+
+        movie = movies[int(movie_)]
         movie = re.sub(r"[:\-]", " ", movie)
         movie = re.sub(r"\s+", " ", movie).strip()
+
         await query.answer(script.TOP_ALRT_MSG)
+
         gl = await global_filters(bot, query.message, text=movie)
         if gl == False:
             k = await manual_filters(bot, query.message, text=movie)
@@ -735,27 +747,37 @@ async def advantage_spoll_choker(bot, query):
                     reqstr = await bot.get_users(reqstr1)
                     if NO_RESULTS_MSG:
                         safari = [[
-                            InlineKeyboardButton('Not Release 📅', callback_data=f"not_release:{reqstr1}:{movie}"),
+                            InlineKeyboardButton('Not Release \ud83d\uddd5\ufe0f', callback_data=f"not_release:{reqstr1}:{movie}"),
                         ],[
-                            InlineKeyboardButton('Already Available🕵️', callback_data=f"already_available:{reqstr1}:{movie}"),
-                            InlineKeyboardButton('Not Available🙅', callback_data=f"not_available:{reqstr1}:{movie}")
+                            InlineKeyboardButton('Already Available\ud83d\udd75\ufe0f', callback_data=f"already_available:{reqstr1}:{movie}"),
+                            InlineKeyboardButton('Not Available\ud83d\ude45', callback_data=f"not_available:{reqstr1}:{movie}")
                         ],[
                             InlineKeyboardButton('Uploaded Done✅', callback_data=f"uploaded:{reqstr1}:{movie}")
                         ],[
-                            InlineKeyboardButton('Series Error🙅', callback_data=f"series:{reqstr1}:{movie}"),
+                            InlineKeyboardButton('Series Error\ud83d\ude45', callback_data=f"series:{reqstr1}:{movie}"),
                             InlineKeyboardButton('Spell Error✍️', callback_data=f"spelling_error:{reqstr1}:{movie}")
                         ],[
                             InlineKeyboardButton('❌ ᴄʟᴏꜱᴇ ❌', callback_data='close_data')
                         ]]
                         reply_markup = InlineKeyboardMarkup(safari)
-                        total=await bot.get_chat_members_count(query.message.chat.id)
-                        await bot.send_message(chat_id=GRP_REPORT_CHANNEL, text=(script.NORSLTS.format(query.message.chat.title, query.message.chat.id, total, temp.B_NAME, reqstr.mention, movie)), reply_markup=InlineKeyboardMarkup(safari))
+                        total = await bot.get_chat_members_count(query.message.chat.id)
+                        await bot.send_message(
+                            chat_id=GRP_REPORT_CHANNEL,
+                            text=(script.NORSLTS.format(query.message.chat.title, query.message.chat.id, total, temp.B_NAME, reqstr.mention, movie)),
+                            reply_markup=reply_markup
+                        )
                     k = await query.message.edit(script.MVE_NT_FND)
                     await asyncio.sleep(60)
                     await k.delete()
+
     except Exception as e:
-            print(e) 
-            await query.answer(f"error found\n\n{e}", show_alert=True)
+        print(e)
+        await query.answer(f"Error occurred:\n\n{e}", show_alert=True)
+
+# ✅ Cleanup task to remove tracked message ID after 5 minutes
+async def clear_check(msg_id):
+    await asyncio.sleep(300)
+    CHECKED_MSGS.discard(msg_id)
             
 @Client.on_callback_query()
 async def cb_handler(client: Client, query: CallbackQuery):
